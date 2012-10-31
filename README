@@ -7,3 +7,6 @@ There are a couple of places where you need to change paths:
  * The polaris_io project properties -> debugging -> Environment
  
 I've tested the debug compilation only.
+
+There is a custom compilation step whcih calls the odb.exe on the correspondding header file. 
+Make sure that the file path is your PATH variable
