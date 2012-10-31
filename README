@@ -1,6 +1,6 @@
 This is a first prototype of the IO library for the POLARIS project.
 
-All of the dependencies are available at 
+All of the dependencies are available at http://sourceforge.net/projects/polaris-t/files/io_sdk.zip/download
 
 There are a couple of places where you need to change paths: 
  * The io.props
