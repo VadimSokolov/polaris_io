@@ -1,0 +1,1 @@
+There are a couple of places where you need to change paths: in the io.props and in the polaris_io project properties -> debugging -> Environment
