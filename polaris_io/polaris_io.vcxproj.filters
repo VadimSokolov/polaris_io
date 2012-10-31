@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="polaris_io.cpp">
+    <ClCompile Include="OutNetwork-odb.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OutNetwork-odb.cxx">
+    <ClCompile Include="driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

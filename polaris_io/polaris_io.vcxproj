@@ -77,7 +77,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="OutNetwork-odb.cxx" />
-    <ClCompile Include="polaris_io.cpp" />
+    <ClCompile Include="driver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="database.h" />

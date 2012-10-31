@@ -1,1 +1,9 @@
-There are a couple of places where you need to change paths: in the io.props and in the polaris_io project properties -> debugging -> Environment
+This is a first prototype of the IO library for the POLARIS project.
+
+All of the dependencies are available at 
+
+There are a couple of places where you need to change paths: 
+ * The io.props
+ * The polaris_io project properties -> debugging -> Environment
+ 
+I've tested the debug compilation only.
