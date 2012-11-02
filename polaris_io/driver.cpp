@@ -5,11 +5,15 @@
 #include "OutNetwork.h"
 #include "OutNetwork-odb.hxx"
 #include <spatialite.h>
+#include <sqlite3.h>
 using namespace std;
 using namespace odb::core;
 
-typedef odb::query<Node> query;
-typedef odb::result<Node> result;
+//using odb::database;
+//using odb::transaction;
+//
+typedef odb::query<Node> node_query;
+typedef odb::result<Node> node_result;
 
 int AddGeoColumn(string table_name, string geo_type, string epsg, auto_ptr<database> db)
 {
@@ -31,7 +35,13 @@ int AddGeoColumn(string table_name, string geo_type, string epsg, auto_ptr<datab
 
 int main (int argc, char *argv [])
 {
+	sqlite3 *db_handle;
+	int ret;
+	string sql;
+	char *err_msg = NULL;
+	char buff[500];
 	auto_ptr<database> db (create_database (argc, argv));
+
 	shared_ptr<Node> n1 (new Node(1,1,2,3,4,5));
 	shared_ptr<Node> n2 (new Node(2,1,2,3,4,5));
 	Node *n3 = new Node(3,4,4,5,6,7);
@@ -40,20 +50,17 @@ int main (int argc, char *argv [])
 	db->persist(n1);
 	db->persist(n2);
 	t.commit();
-	//transaction t1 (db->begin());
-	//connection_ptr c (db->connection ());
-	//db->execute("SELECT * from relation_Link;");
-	//db->execute("SELECT load_extension('spatialite/dll/libspatialite-2.dll');");
-	//t1.commit();
-	//c->execute("SELECT * from Link");
-	//c->execute("PRAGMA foreign_keys=OFF");
-	//AddGeoColumn("LINK", "LINESTRING", "4326", db);
-	//transaction t1 (db->begin());
-	//result r(db->query<Node> (query::id == 1));
- //   for (result::iterator i (r.begin ()); i != r.end (); ++i)
- //   {
-	//	cout << i->first () << " " << i->last () << " " << i->age () << endl;
- //   }
+	//ret = sqlite3_open(argv[1], &(db_handle));
+	//sqlite3_enable_load_extension (db_handle, 1);
+	//sql = "SELECT load_extension('C:/Users/vsokolov/usr/io_sdk/x86/bin/libspatialite-2.dll');";
+	//ret = sqlite3_exec (db_handle, sql.c_str(), NULL, NULL, &err_msg);
+	//ret = sqlite3_close_v2(db_handle);
+	transaction t1 (db->begin());
+	node_result r(db->query<Node> (node_query::id == 1));
+    for (node_result::iterator i (r.begin ()); i != r.end (); ++i)
+    {
+		cout << i->first () << " " << i->last () << " " << i->age () << endl;
+    }
 
 	////shared_ptr<Link> l1 (new Link(1, "lalal", n1, n2, 1.0, 2.0, 3.0, 10, 20, 2, 0, 8, 12, 0.3, 2,22,22,122,1,33,333,2,3,2,1,2));
 	////shared_ptr<Link> l2 (new Link(2, "lalal", n2, n1, 1.0, 2.0, 3.0, 10, 20, 2, 0, 8, 12, 0.3, 2,22,22,122,1,33,333,2,3,2,1, 3));
