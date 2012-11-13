@@ -8,7 +8,7 @@ import os
 
 	
 
-def generate(cpp_path, class_name, out_file_handler=None):
+def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 	fields = []
 	types = []
 	accessors = []
@@ -20,17 +20,20 @@ def generate(cpp_path, class_name, out_file_handler=None):
 				types.append(m.group(1))
 				fields.append(m.group(3))
 				accessors.append(m.group(2))
-				
+	nscn = "%s::%s"%(odb_namespace,class_name)		
 	# create constructor
 	#First part of the constructor
 	constructor1 = "%s ( "%class_name
 	#Second part of the constructor
 	constructor2 = " \n\t: "
-	#Constructor - Adpater
-	constructor3 = "\n\t %s( %s_File *file) \n\t{"%(class_name,class_name)
+	#Adapter from transims type to polaris
+	adpater_method = "%s %sAdopter( %s_File *file) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn,class_name, class_name, nscn, nscn)
 	members = ""
 	odb_accessors = ""
-	for i in range(len(types)):
+	#Whether the table has a unique key is a class member
+	# if not then a dummy id field will need to be added
+	primary_key_member = "\n\t#pragma db id auto\n\tunsigned long auto_id;"
+	for i in range(len(fields)):
 		field =  fields[i]
 		type = types[i]
 		accessor = accessors[i]
@@ -55,40 +58,47 @@ def generate(cpp_path, class_name, out_file_handler=None):
 			constructor1 += type
 		constructor1 += " %s_, "%field
 		constructor2 += "%s (%s_), "%(field, field)
+		if class_name.lower() in field.lower(): #this field is an primary key field
+			primary_key_member = ""
+			members += "\t#pragma db id\n"
 		members += "\t%s %s;\n"%(type, field)
-		constructor3 += "\n\t\tset%s(file -> %s ()); "%(field.title(), accessor)
+		adpater_method += "\n\tresult->set%s(file -> %s ()); "%(field.title(), accessor)
 		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
 		odb_accessors += "\tvoid set%s (const %s& %s_){%s = %s_;}\n"%(field.title(),type, field,field, field)
 		if original_type != "":
 			odb_accessors += "\tvoid set%s (const %s& %s_){/*TODO: imlement this setter*/;}\n"%(field.title(),original_type, field)
+		
 
-	s = """
+	odb_code = """
 #pragma db object
 class %s
 {
 public:
+	// Default Constructor
+	%s () {}	
 	//Contructor
 	%s ) %s
 	{
-	}
-	//ConverterConstructor
-	%s
 	}
 	//Accessors
 %s
 //Data Fields
 private:
-	friend class odb::access;
-	%s () {}
-	#pragma db id
+	friend class odb::access;%s
 %s
 };
-
-	"""%(class_name, constructor1[:-2], constructor2[:-2], constructor3[:-1], odb_accessors, class_name, members)
-	if out_file_handler == None:
-		print s
-	else:
-		out_file_handler.write(s);
+"""%(class_name, class_name, constructor1[:-2], constructor2[:-2],  odb_accessors, primary_key_member, members)
+	
+	adopter_code = """//Converter for %s
+%s
+	return result;
+}
+"""%(class_name, adpater_method[:-1])
+	if odb_fh is not None:
+		odb_fh.write(odb_code);
+	if adapter_fh is not None:
+		adapter_fh.write(adopter_code);
+					
 
 
 #parse the command line arguments
@@ -113,7 +123,7 @@ ref_types = []
 p = re.compile("(int|string|double)\s*(\w+).*Get_\w+\s*\((\w+)\)")
 #this temlate is applied to File_Service.hpp file to exract the names of *_File objects
 p_tables = re.compile("#include\s*\"(\w+)_File\.hpp\"")	
-
+odb_namespace = "pio"
 if sys.argv[1] == "generate_all" and len(sys.argv)==3:
 	syslib_include_path = sys.argv[2]
 	temp =  os.path.join(syslib_include_path, "File_Service.hpp")
@@ -126,12 +136,24 @@ if sys.argv[1] == "generate_all" and len(sys.argv)==3:
 			m = p_tables.match(line)
 			if m is not None:
 				relations.append(m.group(1))
+	forward_declarations = ""
+	input_container = "class InputContainer \n{\npublic:\n"
 	for item in relations:
 		if item.lower() in ["type", "use"]:
 			continue
 		ref_types.append(item)
-	with open("tables\\all.cpp", 'w') as fh:
-		for item in relations:
-			print "Processing %s"%item
-			generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item, fh)
+		forward_declarations  += "class %s;\n"%item 
+		input_container += "\tstd::vector<shared_ptr<%s>> %ss;\n"%(item, item)
+		
+	odb_fh =  open("out\\odb_data_model.h", 'w')
+	adapter_fh =  open("out\\adopter_methods.cpp", 'w') 
+	odb_fh.write("namespace %s\n{\n"%odb_namespace)
+	odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)
+	odb_fh.write("//Input Container.\n//\n"+input_container+"}\n")
+	for item in relations:
+		print "Processing %s"%item
+		generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item, odb_fh, adapter_fh)
+	odb_fh.write("\n}//end of namespace") #close namespace bracket
+	
+	
 		
