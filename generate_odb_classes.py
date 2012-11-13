@@ -68,9 +68,8 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 		adpater_method += "\n\tresult->set%s(file -> %s ()); "%(field.title(), accessor)
 		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
 		odb_accessors += "\tvoid set%s (const %s& %s_){%s = %s_;}\n"%(field.title(),type, field,field, field)
-		if original_type != "":
-			
-			odb_accessors += "\tvoid set%s (const %s& %s_, %s& container){%s = %s.%ss[%s_];}\n"%(field.title(),original_type, field, container_type,field,container_type,ref_type,field)
+		if original_type != "":			
+			odb_accessors += "\tvoid set%s (const %s& %s_, %s& container){%s = container.%ss[%s_];}\n"%(field.title(),original_type, field, container_type,field,ref_type,field)
 	relation_primary_key_types.append(key_type)
 		
 
@@ -147,10 +146,17 @@ if sys.argv[1] == "generate_all" and len(sys.argv)==3:
 	forward_declarations = ""
 	input_container = "class %s \n{\npublic:\n"%container_type
 
-		
+
 	odb_fh =  open("out\\odb_data_model.h", 'w')
-	adapter_fh =  open("out\\adopter_methods.cpp", 'w') 
+	adapter_fh =  open("out\\adopter_methods.h", 'w') 
 	odb_fh.write("namespace %s\n{\n"%odb_namespace)
+	for i in range(len(relations)):
+		item = relations[i]
+		if item.lower() in ["type", "use"]:
+			continue
+		ref_types.append(item)	
+		forward_declarations  += "class %s;\n"%item 	
+	forward_declarations += "class %s;\n"%container_type
 	odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)
 	
 	for item in relations:
@@ -161,8 +167,7 @@ if sys.argv[1] == "generate_all" and len(sys.argv)==3:
 		item = relations[i]
 		if item.lower() in ["type", "use"]:
 			continue
-		ref_types.append(item)
-		forward_declarations  += "class %s;\n"%item 
+		
 		input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[i],item, item)
 	odb_fh.write("//Input Container.\n//\n"+input_container+"};\n")
 	odb_fh.write("\n}//end of namespace") #close namespace bracket

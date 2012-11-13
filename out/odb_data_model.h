@@ -1,20 +1,54 @@
+namespace pio
+{
+//Forward declarations.
+//
+class Node;
+class Zone;
+class Shape;
+class Link;
+class Pocket;
+class Lane_Use;
+class Connect;
+class Turn_Pen;
+class Parking;
+class Location;
+class Access;
+class Sign;
+class Signal;
+class Timing;
+class Phasing;
+class Detector;
+class Stop;
+class Fare;
+class Line;
+class Schedule;
+class Driver;
+class Route_Nodes;
+class Selection;
+class Household;
+class Link_Delay;
+class Performance;
+class Ridership;
+class Veh_Type;
+class Vehicle;
+class Trip;
+class Problem;
+class Plan;
+class Skim;
+class Event;
+class Traveler;
+class InputContainer;
 
 #pragma db object
 class Node
 {
 public:
+	// Default Constructor
+	Node () {}	
 	//Contructor
 	Node ( int node_, int subarea_, int part_ )  
 	: node (node_), subarea (subarea_), part (part_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Node( Node_File *file) 
-	{
-		setNode(file -> Node ()); 
-		setSubarea(file -> Subarea ()); 
-		setPart(file -> Partition ());
 	}
 	//Accessors
 	const int& getNode () const {return node;}
@@ -27,7 +61,6 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Node () {}
 	#pragma db id
 	int node;
 	int subarea;
@@ -35,26 +68,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Zone
 {
 public:
+	// Default Constructor
+	Zone () {}	
 	//Contructor
 	Zone ( int zone_, int area_, double min_x_, double min_y_, double max_x_, double max_y_ )  
 	: zone (zone_), area (area_), min_x (min_x_), min_y (min_y_), max_x (max_x_), max_y (max_y_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Zone( Zone_File *file) 
-	{
-		setZone(file -> Zone ()); 
-		setArea(file -> Area_Type ()); 
-		setMin_X(file -> Min_X ()); 
-		setMin_Y(file -> Min_Y ()); 
-		setMax_X(file -> Max_X ()); 
-		setMax_Y(file -> Max_Y ());
 	}
 	//Accessors
 	const int& getZone () const {return zone;}
@@ -73,7 +96,6 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Zone () {}
 	#pragma db id
 	int zone;
 	int area;
@@ -84,80 +106,44 @@ private:
 
 };
 
-	
 #pragma db object
 class Shape
 {
 public:
+	// Default Constructor
+	Shape () {}	
 	//Contructor
 	Shape ( shared_ptr<Link> link_, int points_ )  
 	: link (link_), points (points_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Shape( Shape_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setPoints(file -> Points ());
-	}
 	//Accessors
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getPoints () const {return points;}
 	void setPoints (const int& points_){points = points_;}
 
 //Data Fields
 private:
 	friend class odb::access;
-	Shape () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int points;
 
 };
 
-	
 #pragma db object
 class Link
 {
 public:
+	// Default Constructor
+	Link () {}	
 	//Contructor
 	Link ( int link_, std::string name_, shared_ptr<Node> node_a_, shared_ptr<Node> node_b_, double length_, double setback_a_, double setback_b_, int bearing_a_, int bearing_b_, int type_, int divided_, int area_type_, int use_, double grade_, int lanes_ab_, double speed_ab_, double fspd_ab_, int cap_ab_, int lanes_ba_, double speed_ba_, double fspd_ba_, int cap_ba_, int left_ab_, int right_ab_, int left_ba_, int right_ba_ )  
 	: link (link_), name (name_), node_a (node_a_), node_b (node_b_), length (length_), setback_a (setback_a_), setback_b (setback_b_), bearing_a (bearing_a_), bearing_b (bearing_b_), type (type_), divided (divided_), area_type (area_type_), use (use_), grade (grade_), lanes_ab (lanes_ab_), speed_ab (speed_ab_), fspd_ab (fspd_ab_), cap_ab (cap_ab_), lanes_ba (lanes_ba_), speed_ba (speed_ba_), fspd_ba (fspd_ba_), cap_ba (cap_ba_), left_ab (left_ab_), right_ab (right_ab_), left_ba (left_ba_), right_ba (right_ba_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Link( Link_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setName(file -> Name ()); 
-		setNode_A(file -> Node_A ()); 
-		setNode_B(file -> Node_B ()); 
-		setLength(file -> Length ()); 
-		setSetback_A(file -> Setback_A ()); 
-		setSetback_B(file -> Setback_B ()); 
-		setBearing_A(file -> Bearing_A ()); 
-		setBearing_B(file -> Bearing_B ()); 
-		setType(file -> Type ()); 
-		setDivided(file -> Divided ()); 
-		setArea_Type(file -> Area_Type ()); 
-		setUse(file -> Use ()); 
-		setGrade(file -> Grade ()); 
-		setLanes_Ab(file -> Lanes_AB ()); 
-		setSpeed_Ab(file -> Speed_AB ()); 
-		setFspd_Ab(file -> Fspd_AB ()); 
-		setCap_Ab(file -> Cap_AB ()); 
-		setLanes_Ba(file -> Lanes_BA ()); 
-		setSpeed_Ba(file -> Speed_BA ()); 
-		setFspd_Ba(file -> Fspd_BA ()); 
-		setCap_Ba(file -> Cap_BA ()); 
-		setLeft_Ab(file -> Left_AB ()); 
-		setRight_Ab(file -> Right_AB ()); 
-		setLeft_Ba(file -> Left_BA ()); 
-		setRight_Ba(file -> Right_BA ());
 	}
 	//Accessors
 	const int& getLink () const {return link;}
@@ -166,10 +152,10 @@ public:
 	void setName (const std::string& name_){name = name_;}
 	const shared_ptr<Node>& getNode_A () const {return node_a;}
 	void setNode_A (const shared_ptr<Node>& node_a_){node_a = node_a_;}
-	void setNode_A (const int& node_a_){/*TODO: imlement this setter*/;}
+	void setNode_A (const int& node_a_, InputContainer& container){node_a = container.Nodes[node_a_];}
 	const shared_ptr<Node>& getNode_B () const {return node_b;}
 	void setNode_B (const shared_ptr<Node>& node_b_){node_b = node_b_;}
-	void setNode_B (const int& node_b_){/*TODO: imlement this setter*/;}
+	void setNode_B (const int& node_b_, InputContainer& container){node_b = container.Nodes[node_b_];}
 	const double& getLength () const {return length;}
 	void setLength (const double& length_){length = length_;}
 	const double& getSetback_A () const {return setback_a;}
@@ -218,7 +204,6 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Link () {}
 	#pragma db id
 	int link;
 	std::string name;
@@ -249,31 +234,21 @@ private:
 
 };
 
-	
 #pragma db object
 class Pocket
 {
 public:
+	// Default Constructor
+	Pocket () {}	
 	//Contructor
 	Pocket ( shared_ptr<Link> link_, int dir_, int type_, int lanes_, double length_, double offset_ )  
 	: link (link_), dir (dir_), type (type_), lanes (lanes_), length (length_), offset (offset_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Pocket( Pocket_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setType(file -> Type ()); 
-		setLanes(file -> Lanes ()); 
-		setLength(file -> Length ()); 
-		setOffset(file -> Offset ());
-	}
 	//Accessors
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getType () const {return type;}
@@ -288,8 +263,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Pocket () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int dir;
 	int type;
@@ -299,40 +274,21 @@ private:
 
 };
 
-	
 #pragma db object
 class Lane_Use
 {
 public:
+	// Default Constructor
+	Lane_Use () {}	
 	//Contructor
 	Lane_Use ( shared_ptr<Link> link_, int dir_, int lanes_, int use_, int type_, int min_type_, int max_type_, int min_trav_, int max_trav_, double offset_, double length_, int toll_, double rate_, double min_delay_, double max_delay_ )  
 	: link (link_), dir (dir_), lanes (lanes_), use (use_), type (type_), min_type (min_type_), max_type (max_type_), min_trav (min_trav_), max_trav (max_trav_), offset (offset_), length (length_), toll (toll_), rate (rate_), min_delay (min_delay_), max_delay (max_delay_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Lane_Use( Lane_Use_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setLanes(file -> Lanes ()); 
-		setUse(file -> Use ()); 
-		setType(file -> Type ()); 
-		setMin_Type(file -> Min_Veh_Type ()); 
-		setMax_Type(file -> Max_Veh_Type ()); 
-		setMin_Trav(file -> Min_Traveler ()); 
-		setMax_Trav(file -> Max_Traveler ()); 
-		setOffset(file -> Offset ()); 
-		setLength(file -> Length ()); 
-		setToll(file -> Toll ()); 
-		setRate(file -> Toll_Rate ()); 
-		setMin_Delay(file -> Min_Delay ()); 
-		setMax_Delay(file -> Max_Delay ());
-	}
 	//Accessors
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getLanes () const {return lanes;}
@@ -365,8 +321,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Lane_Use () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int dir;
 	int lanes;
@@ -385,41 +341,26 @@ private:
 
 };
 
-	
 #pragma db object
 class Connect
 {
 public:
+	// Default Constructor
+	Connect () {}	
 	//Contructor
 	Connect ( shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int lanes_, int to_lanes_, int type_, int penalty_, double speed_, int capacity_, int in_high_, int out_high_ )  
 	: link (link_), dir (dir_), to_link (to_link_), lanes (lanes_), to_lanes (to_lanes_), type (type_), penalty (penalty_), speed (speed_), capacity (capacity_), in_high (in_high_), out_high (out_high_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Connect( Connect_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setTo_Link(file -> To_Link ()); 
-		setLanes(file -> Lanes ()); 
-		setTo_Lanes(file -> To_Lanes ()); 
-		setType(file -> Type ()); 
-		setPenalty(file -> Penalty ()); 
-		setSpeed(file -> Speed ()); 
-		setCapacity(file -> Capacity ()); 
-		setIn_High(file -> In_High ()); 
-		setOut_High(file -> Out_High ());
-	}
 	//Accessors
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const shared_ptr<Link>& getTo_Link () const {return to_link;}
 	void setTo_Link (const shared_ptr<Link>& to_link_){to_link = to_link_;}
-	void setTo_Link (const int& to_link_){/*TODO: imlement this setter*/;}
+	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
 	const int& getLanes () const {return lanes;}
 	void setLanes (const int& lanes_){lanes = lanes_;}
 	const int& getTo_Lanes () const {return to_lanes;}
@@ -440,8 +381,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Connect () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int dir;
 	shared_ptr<Link> to_link;
@@ -456,39 +397,26 @@ private:
 
 };
 
-	
 #pragma db object
 class Turn_Pen
 {
 public:
+	// Default Constructor
+	Turn_Pen () {}	
 	//Contructor
 	Turn_Pen ( shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int use_, int min_type_, int max_type_, int penalty_, shared_ptr<Node> in_node_, shared_ptr<Node> out_node_ )  
 	: link (link_), dir (dir_), to_link (to_link_), use (use_), min_type (min_type_), max_type (max_type_), penalty (penalty_), in_node (in_node_), out_node (out_node_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Turn_Pen( Turn_Pen_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setTo_Link(file -> To_Link ()); 
-		setUse(file -> Use ()); 
-		setMin_Type(file -> Min_Veh_Type ()); 
-		setMax_Type(file -> Max_Veh_Type ()); 
-		setPenalty(file -> Penalty ()); 
-		setIn_Node(file -> In_Node ()); 
-		setOut_Node(file -> Out_Node ());
-	}
 	//Accessors
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const shared_ptr<Link>& getTo_Link () const {return to_link;}
 	void setTo_Link (const shared_ptr<Link>& to_link_){to_link = to_link_;}
-	void setTo_Link (const int& to_link_){/*TODO: imlement this setter*/;}
+	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
 	const int& getUse () const {return use;}
 	void setUse (const int& use_){use = use_;}
 	const int& getMin_Type () const {return min_type;}
@@ -499,16 +427,16 @@ public:
 	void setPenalty (const int& penalty_){penalty = penalty_;}
 	const shared_ptr<Node>& getIn_Node () const {return in_node;}
 	void setIn_Node (const shared_ptr<Node>& in_node_){in_node = in_node_;}
-	void setIn_Node (const int& in_node_){/*TODO: imlement this setter*/;}
+	void setIn_Node (const int& in_node_, InputContainer& container){in_node = container.Nodes[in_node_];}
 	const shared_ptr<Node>& getOut_Node () const {return out_node;}
 	void setOut_Node (const shared_ptr<Node>& out_node_){out_node = out_node_;}
-	void setOut_Node (const int& out_node_){/*TODO: imlement this setter*/;}
+	void setOut_Node (const int& out_node_, InputContainer& container){out_node = container.Nodes[out_node_];}
 
 //Data Fields
 private:
 	friend class odb::access;
-	Turn_Pen () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int dir;
 	shared_ptr<Link> to_link;
@@ -521,36 +449,23 @@ private:
 
 };
 
-	
 #pragma db object
 class Parking
 {
 public:
+	// Default Constructor
+	Parking () {}	
 	//Contructor
 	Parking ( int parking_, shared_ptr<Link> link_, int dir_, double offset_, int type_, int use_, int space_, int hourly_, int daily_ )  
 	: parking (parking_), link (link_), dir (dir_), offset (offset_), type (type_), use (use_), space (space_), hourly (hourly_), daily (daily_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Parking( Parking_File *file) 
-	{
-		setParking(file -> Parking ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setOffset(file -> Offset ()); 
-		setType(file -> Type ()); 
-		setUse(file -> Use ()); 
-		setSpace(file -> Space ()); 
-		setHourly(file -> Hourly ()); 
-		setDaily(file -> Daily ());
 	}
 	//Accessors
 	const int& getParking () const {return parking;}
 	void setParking (const int& parking_){parking = parking_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const double& getOffset () const {return offset;}
@@ -569,7 +484,6 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Parking () {}
 	#pragma db id
 	int parking;
 	shared_ptr<Link> link;
@@ -583,33 +497,23 @@ private:
 
 };
 
-	
 #pragma db object
 class Location
 {
 public:
+	// Default Constructor
+	Location () {}	
 	//Contructor
 	Location ( int location_, shared_ptr<Link> link_, int dir_, double offset_, double setback_, shared_ptr<Zone> zone_ )  
 	: location (location_), link (link_), dir (dir_), offset (offset_), setback (setback_), zone (zone_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Location( Location_File *file) 
-	{
-		setLocation(file -> Location ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setOffset(file -> Offset ()); 
-		setSetback(file -> Setback ()); 
-		setZone(file -> Zone ());
 	}
 	//Accessors
 	const int& getLocation () const {return location;}
 	void setLocation (const int& location_){location = location_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const double& getOffset () const {return offset;}
@@ -618,12 +522,11 @@ public:
 	void setSetback (const double& setback_){setback = setback_;}
 	const shared_ptr<Zone>& getZone () const {return zone;}
 	void setZone (const shared_ptr<Zone>& zone_){zone = zone_;}
-	void setZone (const int& zone_){/*TODO: imlement this setter*/;}
+	void setZone (const int& zone_, InputContainer& container){zone = container.Zones[zone_];}
 
 //Data Fields
 private:
 	friend class odb::access;
-	Location () {}
 	#pragma db id
 	int location;
 	shared_ptr<Link> link;
@@ -634,32 +537,21 @@ private:
 
 };
 
-	
 #pragma db object
 class Access
 {
 public:
+	// Default Constructor
+	Access () {}	
 	//Contructor
 	Access ( shared_ptr<Link> link_, int from_id_, int from_type_, int to_id_, int to_type_, int dir_, int cost_ )  
 	: link (link_), from_id (from_id_), from_type (from_type_), to_id (to_id_), to_type (to_type_), dir (dir_), cost (cost_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Access( Access_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setFrom_Id(file -> From_ID ()); 
-		setFrom_Type(file -> From_Type ()); 
-		setTo_Id(file -> To_ID ()); 
-		setTo_Type(file -> To_Type ()); 
-		setDir(file -> Dir ()); 
-		setCost(file -> Cost ());
-	}
 	//Accessors
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getFrom_Id () const {return from_id;}
 	void setFrom_Id (const int& from_id_){from_id = from_id_;}
 	const int& getFrom_Type () const {return from_type;}
@@ -676,8 +568,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Access () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int from_id;
 	int from_type;
@@ -688,28 +580,21 @@ private:
 
 };
 
-	
 #pragma db object
 class Sign
 {
 public:
+	// Default Constructor
+	Sign () {}	
 	//Contructor
 	Sign ( shared_ptr<Link> link_, int dir_, int sign_ )  
 	: link (link_), dir (dir_), sign (sign_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Sign( Sign_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setSign(file -> Sign ());
-	}
 	//Accessors
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getSign () const {return sign;}
@@ -718,35 +603,23 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Sign () {}
-	#pragma db id
 	shared_ptr<Link> link;
 	int dir;
+	#pragma db id
 	int sign;
 
 };
 
-	
 #pragma db object
 class Signal
 {
 public:
+	// Default Constructor
+	Signal () {}	
 	//Contructor
 	Signal ( int signal_, int group_, int times_, shared_ptr<Timing> timing_, shared_ptr<Phasing> phasing_, int type_, int offset_ )  
 	: signal (signal_), group (group_), times (times_), timing (timing_), phasing (phasing_), type (type_), offset (offset_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Signal( Signal_File *file) 
-	{
-		setSignal(file -> Signal ()); 
-		setGroup(file -> Group ()); 
-		setTimes(file -> Times ()); 
-		setTiming(file -> Timing ()); 
-		setPhasing(file -> Phasing ()); 
-		setType(file -> Type ()); 
-		setOffset(file -> Offset ());
 	}
 	//Accessors
 	const int& getSignal () const {return signal;}
@@ -757,10 +630,10 @@ public:
 	void setTimes (const int& times_){times = times_;}
 	const shared_ptr<Timing>& getTiming () const {return timing;}
 	void setTiming (const shared_ptr<Timing>& timing_){timing = timing_;}
-	void setTiming (const int& timing_){/*TODO: imlement this setter*/;}
+	void setTiming (const int& timing_, InputContainer& container){timing = container.Timings[timing_];}
 	const shared_ptr<Phasing>& getPhasing () const {return phasing;}
 	void setPhasing (const shared_ptr<Phasing>& phasing_){phasing = phasing_;}
-	void setPhasing (const int& phasing_){/*TODO: imlement this setter*/;}
+	void setPhasing (const int& phasing_, InputContainer& container){phasing = container.Phasings[phasing_];}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const int& getOffset () const {return offset;}
@@ -769,7 +642,6 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Signal () {}
 	#pragma db id
 	int signal;
 	int group;
@@ -781,40 +653,21 @@ private:
 
 };
 
-	
 #pragma db object
 class Timing
 {
 public:
+	// Default Constructor
+	Timing () {}	
 	//Contructor
 	Timing ( shared_ptr<Signal> signal_, int timing_, int type_, int cycle_, int offset_, int phases_, int phase_, int barrier_, int ring_, int position_, int minimum_, int maximum_, int extend_, int yellow_, int red_ )  
 	: signal (signal_), timing (timing_), type (type_), cycle (cycle_), offset (offset_), phases (phases_), phase (phase_), barrier (barrier_), ring (ring_), position (position_), minimum (minimum_), maximum (maximum_), extend (extend_), yellow (yellow_), red (red_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Timing( Timing_File *file) 
-	{
-		setSignal(file -> Signal ()); 
-		setTiming(file -> Timing ()); 
-		setType(file -> Type ()); 
-		setCycle(file -> Cycle ()); 
-		setOffset(file -> Offset ()); 
-		setPhases(file -> Phases ()); 
-		setPhase(file -> Phase ()); 
-		setBarrier(file -> Barrier ()); 
-		setRing(file -> Ring ()); 
-		setPosition(file -> Position ()); 
-		setMinimum(file -> Min_Green ()); 
-		setMaximum(file -> Max_Green ()); 
-		setExtend(file -> Extension ()); 
-		setYellow(file -> Yellow ()); 
-		setRed(file -> All_Red ());
-	}
 	//Accessors
 	const shared_ptr<Signal>& getSignal () const {return signal;}
 	void setSignal (const shared_ptr<Signal>& signal_){signal = signal_;}
-	void setSignal (const int& signal_){/*TODO: imlement this setter*/;}
+	void setSignal (const int& signal_, InputContainer& container){signal = container.Signals[signal_];}
 	const int& getTiming () const {return timing;}
 	void setTiming (const int& timing_){timing = timing_;}
 	const int& getType () const {return type;}
@@ -847,9 +700,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Timing () {}
-	#pragma db id
 	shared_ptr<Signal> signal;
+	#pragma db id
 	int timing;
 	int type;
 	int cycle;
@@ -867,63 +719,48 @@ private:
 
 };
 
-	
 #pragma db object
 class Phasing
 {
 public:
+	// Default Constructor
+	Phasing () {}	
 	//Contructor
 	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, shared_ptr<Detector> detectors_, int movements_, int movement_, shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int protect_ )  
 	: signal (signal_), phasing (phasing_), phase (phase_), detectors (detectors_), movements (movements_), movement (movement_), link (link_), dir (dir_), to_link (to_link_), protect (protect_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Phasing( Phasing_File *file) 
-	{
-		setSignal(file -> Signal ()); 
-		setPhasing(file -> Phasing ()); 
-		setPhase(file -> Phase ()); 
-		setDetectors(file -> Detectors ()); 
-		setMovements(file -> Movements ()); 
-		setMovement(file -> Movement ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setTo_Link(file -> To_Link ()); 
-		setProtect(file -> Protection ());
-	}
 	//Accessors
 	const shared_ptr<Signal>& getSignal () const {return signal;}
 	void setSignal (const shared_ptr<Signal>& signal_){signal = signal_;}
-	void setSignal (const int& signal_){/*TODO: imlement this setter*/;}
+	void setSignal (const int& signal_, InputContainer& container){signal = container.Signals[signal_];}
 	const int& getPhasing () const {return phasing;}
 	void setPhasing (const int& phasing_){phasing = phasing_;}
 	const int& getPhase () const {return phase;}
 	void setPhase (const int& phase_){phase = phase_;}
 	const shared_ptr<Detector>& getDetectors () const {return detectors;}
 	void setDetectors (const shared_ptr<Detector>& detectors_){detectors = detectors_;}
-	void setDetectors (const string& detectors_){/*TODO: imlement this setter*/;}
+	void setDetectors (const string& detectors_, InputContainer& container){detectors = container.Detectors[detectors_];}
 	const int& getMovements () const {return movements;}
 	void setMovements (const int& movements_){movements = movements_;}
 	const int& getMovement () const {return movement;}
 	void setMovement (const int& movement_){movement = movement_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const shared_ptr<Link>& getTo_Link () const {return to_link;}
 	void setTo_Link (const shared_ptr<Link>& to_link_){to_link = to_link_;}
-	void setTo_Link (const int& to_link_){/*TODO: imlement this setter*/;}
+	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
 	const int& getProtect () const {return protect;}
 	void setProtect (const int& protect_){protect = protect_;}
 
 //Data Fields
 private:
 	friend class odb::access;
-	Phasing () {}
-	#pragma db id
 	shared_ptr<Signal> signal;
+	#pragma db id
 	int phasing;
 	int phase;
 	shared_ptr<Detector> detectors;
@@ -936,37 +773,23 @@ private:
 
 };
 
-	
 #pragma db object
 class Detector
 {
 public:
+	// Default Constructor
+	Detector () {}	
 	//Contructor
 	Detector ( int detector_, shared_ptr<Link> link_, int dir_, double offset_, double length_, int lanes_, int type_, int use_, int low_, int high_ )  
 	: detector (detector_), link (link_), dir (dir_), offset (offset_), length (length_), lanes (lanes_), type (type_), use (use_), low (low_), high (high_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Detector( Detector_File *file) 
-	{
-		setDetector(file -> Detector ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setOffset(file -> Offset ()); 
-		setLength(file -> Length ()); 
-		setLanes(file -> Lanes ()); 
-		setType(file -> Type ()); 
-		setUse(file -> Use ()); 
-		setLow(file -> Low_Lane ()); 
-		setHigh(file -> High_Lane ());
 	}
 	//Accessors
 	const int& getDetector () const {return detector;}
 	void setDetector (const int& detector_){detector = detector_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const double& getOffset () const {return offset;}
@@ -987,7 +810,6 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Detector () {}
 	#pragma db id
 	int detector;
 	shared_ptr<Link> link;
@@ -1002,28 +824,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Stop
 {
 public:
+	// Default Constructor
+	Stop () {}	
 	//Contructor
 	Stop ( int stop_, std::string name_, shared_ptr<Link> link_, int dir_, double offset_, int use_, int type_, int space_ )  
 	: stop (stop_), name (name_), link (link_), dir (dir_), offset (offset_), use (use_), type (type_), space (space_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Stop( Stop_File *file) 
-	{
-		setStop(file -> Stop ()); 
-		setName(file -> Name ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setOffset(file -> Offset ()); 
-		setUse(file -> Use ()); 
-		setType(file -> Type ()); 
-		setSpace(file -> Space ());
 	}
 	//Accessors
 	const int& getStop () const {return stop;}
@@ -1032,7 +842,7 @@ public:
 	void setName (const std::string& name_){name = name_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const double& getOffset () const {return offset;}
@@ -1047,7 +857,6 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Stop () {}
 	#pragma db id
 	int stop;
 	std::string name;
@@ -1060,35 +869,24 @@ private:
 
 };
 
-	
 #pragma db object
 class Fare
 {
 public:
+	// Default Constructor
+	Fare () {}	
 	//Contructor
 	Fare ( shared_ptr<Zone> from_zone_, shared_ptr<Zone> to_zone_, int from_mode_, int to_mode_, int period_, int type_, int fare_ )  
 	: from_zone (from_zone_), to_zone (to_zone_), from_mode (from_mode_), to_mode (to_mode_), period (period_), type (type_), fare (fare_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Fare( Fare_File *file) 
-	{
-		setFrom_Zone(file -> iFrom_Zone ()); 
-		setTo_Zone(file -> iTo_Zone ()); 
-		setFrom_Mode(file -> iFrom_Mode ()); 
-		setTo_Mode(file -> iTo_Mode ()); 
-		setPeriod(file -> iPeriod ()); 
-		setType(file -> iClass ()); 
-		setFare(file -> Fare ());
-	}
 	//Accessors
 	const shared_ptr<Zone>& getFrom_Zone () const {return from_zone;}
 	void setFrom_Zone (const shared_ptr<Zone>& from_zone_){from_zone = from_zone_;}
-	void setFrom_Zone (const int& from_zone_){/*TODO: imlement this setter*/;}
+	void setFrom_Zone (const int& from_zone_, InputContainer& container){from_zone = container.Zones[from_zone_];}
 	const shared_ptr<Zone>& getTo_Zone () const {return to_zone;}
 	void setTo_Zone (const shared_ptr<Zone>& to_zone_){to_zone = to_zone_;}
-	void setTo_Zone (const int& to_zone_){/*TODO: imlement this setter*/;}
+	void setTo_Zone (const int& to_zone_, InputContainer& container){to_zone = container.Zones[to_zone_];}
 	const int& getFrom_Mode () const {return from_mode;}
 	void setFrom_Mode (const int& from_mode_){from_mode = from_mode_;}
 	const int& getTo_Mode () const {return to_mode;}
@@ -1103,47 +901,34 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Fare () {}
-	#pragma db id
 	shared_ptr<Zone> from_zone;
 	shared_ptr<Zone> to_zone;
 	int from_mode;
 	int to_mode;
 	int period;
 	int type;
+	#pragma db id
 	int fare;
 
 };
 
-	
 #pragma db object
 class Line
 {
 public:
+	// Default Constructor
+	Line () {}	
 	//Contructor
 	Line ( int route_, shared_ptr<Stop> stops_, int mode_, int type_, std::string name_, shared_ptr<Stop> stop_, shared_ptr<Zone> zone_, int flag_ )  
 	: route (route_), stops (stops_), mode (mode_), type (type_), name (name_), stop (stop_), zone (zone_), flag (flag_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Line( Line_File *file) 
-	{
-		setRoute(file -> Route ()); 
-		setStops(file -> Stops ()); 
-		setMode(file -> Mode ()); 
-		setType(file -> Type ()); 
-		setName(file -> Name ()); 
-		setStop(file -> Stop ()); 
-		setZone(file -> Zone ()); 
-		setFlag(file -> Time_Flag ());
 	}
 	//Accessors
 	const int& getRoute () const {return route;}
 	void setRoute (const int& route_){route = route_;}
 	const shared_ptr<Stop>& getStops () const {return stops;}
 	void setStops (const shared_ptr<Stop>& stops_){stops = stops_;}
-	void setStops (const int& stops_){/*TODO: imlement this setter*/;}
+	void setStops (const int& stops_, InputContainer& container){stops = container.Stops[stops_];}
 	const int& getMode () const {return mode;}
 	void setMode (const int& mode_){mode = mode_;}
 	const int& getType () const {return type;}
@@ -1152,18 +937,18 @@ public:
 	void setName (const std::string& name_){name = name_;}
 	const shared_ptr<Stop>& getStop () const {return stop;}
 	void setStop (const shared_ptr<Stop>& stop_){stop = stop_;}
-	void setStop (const int& stop_){/*TODO: imlement this setter*/;}
+	void setStop (const int& stop_, InputContainer& container){stop = container.Stops[stop_];}
 	const shared_ptr<Zone>& getZone () const {return zone;}
 	void setZone (const shared_ptr<Zone>& zone_){zone = zone_;}
-	void setZone (const int& zone_){/*TODO: imlement this setter*/;}
+	void setZone (const int& zone_, InputContainer& container){zone = container.Zones[zone_];}
 	const int& getFlag () const {return flag;}
 	void setFlag (const int& flag_){flag = flag_;}
 
 //Data Fields
 private:
 	friend class odb::access;
-	Line () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int route;
 	shared_ptr<Stop> stops;
 	int mode;
@@ -1175,87 +960,70 @@ private:
 
 };
 
-	
 #pragma db object
 class Schedule
 {
 public:
+	// Default Constructor
+	Schedule () {}	
 	//Contructor
 	Schedule ( int route_, shared_ptr<Stop> stops_, shared_ptr<Stop> stop_ )  
 	: route (route_), stops (stops_), stop (stop_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Schedule( Schedule_File *file) 
-	{
-		setRoute(file -> Route ()); 
-		setStops(file -> Stops ()); 
-		setStop(file -> Stop ());
 	}
 	//Accessors
 	const int& getRoute () const {return route;}
 	void setRoute (const int& route_){route = route_;}
 	const shared_ptr<Stop>& getStops () const {return stops;}
 	void setStops (const shared_ptr<Stop>& stops_){stops = stops_;}
-	void setStops (const int& stops_){/*TODO: imlement this setter*/;}
+	void setStops (const int& stops_, InputContainer& container){stops = container.Stops[stops_];}
 	const shared_ptr<Stop>& getStop () const {return stop;}
 	void setStop (const shared_ptr<Stop>& stop_){stop = stop_;}
-	void setStop (const int& stop_){/*TODO: imlement this setter*/;}
+	void setStop (const int& stop_, InputContainer& container){stop = container.Stops[stop_];}
 
 //Data Fields
 private:
 	friend class odb::access;
-	Schedule () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int route;
 	shared_ptr<Stop> stops;
 	shared_ptr<Stop> stop;
 
 };
 
-	
 #pragma db object
 class Driver
 {
 public:
+	// Default Constructor
+	Driver () {}	
 	//Contructor
 	Driver ( int route_, shared_ptr<Link> links_, int type_, int subtype_, shared_ptr<Link> link_, int dir_ )  
 	: route (route_), links (links_), type (type_), subtype (subtype_), link (link_), dir (dir_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Driver( Driver_File *file) 
-	{
-		setRoute(file -> Route ()); 
-		setLinks(file -> Links ()); 
-		setType(file -> Type ()); 
-		setSubtype(file -> SubType ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ());
 	}
 	//Accessors
 	const int& getRoute () const {return route;}
 	void setRoute (const int& route_){route = route_;}
 	const shared_ptr<Link>& getLinks () const {return links;}
 	void setLinks (const shared_ptr<Link>& links_){links = links_;}
-	void setLinks (const int& links_){/*TODO: imlement this setter*/;}
+	void setLinks (const int& links_, InputContainer& container){links = container.Links[links_];}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const int& getSubtype () const {return subtype;}
 	void setSubtype (const int& subtype_){subtype = subtype_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 
 //Data Fields
 private:
 	friend class odb::access;
-	Driver () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int route;
 	shared_ptr<Link> links;
 	int type;
@@ -1265,28 +1033,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Route_Nodes
 {
 public:
+	// Default Constructor
+	Route_Nodes () {}	
 	//Contructor
 	Route_Nodes ( int route_, int mode_, shared_ptr<Veh_Type> veh_type_, shared_ptr<Node> nodes_, std::string name_, shared_ptr<Node> node_, int type_, double speed_ )  
 	: route (route_), mode (mode_), veh_type (veh_type_), nodes (nodes_), name (name_), node (node_), type (type_), speed (speed_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Route_Nodes( Route_Nodes_File *file) 
-	{
-		setRoute(file -> Route ()); 
-		setMode(file -> Mode ()); 
-		setVeh_Type(file -> Veh_Type ()); 
-		setNodes(file -> Nodes ()); 
-		setName(file -> Name ()); 
-		setNode(file -> Node ()); 
-		setType(file -> Type ()); 
-		setSpeed(file -> Speed ());
 	}
 	//Accessors
 	const int& getRoute () const {return route;}
@@ -1295,15 +1051,15 @@ public:
 	void setMode (const int& mode_){mode = mode_;}
 	const shared_ptr<Veh_Type>& getVeh_Type () const {return veh_type;}
 	void setVeh_Type (const shared_ptr<Veh_Type>& veh_type_){veh_type = veh_type_;}
-	void setVeh_Type (const int& veh_type_){/*TODO: imlement this setter*/;}
+	void setVeh_Type (const int& veh_type_, InputContainer& container){veh_type = container.Veh_Types[veh_type_];}
 	const shared_ptr<Node>& getNodes () const {return nodes;}
 	void setNodes (const shared_ptr<Node>& nodes_){nodes = nodes_;}
-	void setNodes (const int& nodes_){/*TODO: imlement this setter*/;}
+	void setNodes (const int& nodes_, InputContainer& container){nodes = container.Nodes[nodes_];}
 	const std::string& getName () const {return name;}
 	void setName (const std::string& name_){name = name_;}
 	const shared_ptr<Node>& getNode () const {return node;}
 	void setNode (const shared_ptr<Node>& node_){node = node_;}
-	void setNode (const int& node_){/*TODO: imlement this setter*/;}
+	void setNode (const int& node_, InputContainer& container){node = container.Nodes[node_];}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const double& getSpeed () const {return speed;}
@@ -1312,8 +1068,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Route_Nodes () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int route;
 	int mode;
 	shared_ptr<Veh_Type> veh_type;
@@ -1325,26 +1081,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Selection
 {
 public:
+	// Default Constructor
+	Selection () {}	
 	//Contructor
 	Selection ( int hhold_, int person_, int tour_, shared_ptr<Trip> trip_, int type_, int partition_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), type (type_), partition (partition_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Selection( Selection_File *file) 
-	{
-		setHhold(file -> Household ()); 
-		setPerson(file -> Person ()); 
-		setTour(file -> Tour ()); 
-		setTrip(file -> Trip ()); 
-		setType(file -> Type ()); 
-		setPartition(file -> Partition ());
 	}
 	//Accessors
 	const int& getHhold () const {return hhold;}
@@ -1355,7 +1101,7 @@ public:
 	void setTour (const int& tour_){tour = tour_;}
 	const shared_ptr<Trip>& getTrip () const {return trip;}
 	void setTrip (const shared_ptr<Trip>& trip_){trip = trip_;}
-	void setTrip (const int& trip_){/*TODO: imlement this setter*/;}
+	void setTrip (const int& trip_, InputContainer& container){trip = container.Trips[trip_];}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const int& getPartition () const {return partition;}
@@ -1364,8 +1110,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Selection () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int hhold;
 	int person;
 	int tour;
@@ -1375,47 +1121,30 @@ private:
 
 };
 
-	
 #pragma db object
 class Household
 {
 public:
+	// Default Constructor
+	Household () {}	
 	//Contructor
 	Household ( int hhold_, shared_ptr<Location> location_, int persons_, int workers_, shared_ptr<Vehicle> vehicles_, int type_, int partition_, int person_, int age_, int relate_, int gender_, int work_, int drive_ )  
 	: hhold (hhold_), location (location_), persons (persons_), workers (workers_), vehicles (vehicles_), type (type_), partition (partition_), person (person_), age (age_), relate (relate_), gender (gender_), work (work_), drive (drive_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Household( Household_File *file) 
-	{
-		setHhold(file -> Household ()); 
-		setLocation(file -> Location ()); 
-		setPersons(file -> Persons ()); 
-		setWorkers(file -> Workers ()); 
-		setVehicles(file -> Vehicles ()); 
-		setType(file -> Type ()); 
-		setPartition(file -> Partition ()); 
-		setPerson(file -> Person ()); 
-		setAge(file -> Age ()); 
-		setRelate(file -> Relate ()); 
-		setGender(file -> Gender ()); 
-		setWork(file -> Work ()); 
-		setDrive(file -> Drive ());
 	}
 	//Accessors
 	const int& getHhold () const {return hhold;}
 	void setHhold (const int& hhold_){hhold = hhold_;}
 	const shared_ptr<Location>& getLocation () const {return location;}
 	void setLocation (const shared_ptr<Location>& location_){location = location_;}
-	void setLocation (const int& location_){/*TODO: imlement this setter*/;}
+	void setLocation (const int& location_, InputContainer& container){location = container.Locations[location_];}
 	const int& getPersons () const {return persons;}
 	void setPersons (const int& persons_){persons = persons_;}
 	const int& getWorkers () const {return workers;}
 	void setWorkers (const int& workers_){workers = workers_;}
 	const shared_ptr<Vehicle>& getVehicles () const {return vehicles;}
 	void setVehicles (const shared_ptr<Vehicle>& vehicles_){vehicles = vehicles_;}
-	void setVehicles (const int& vehicles_){/*TODO: imlement this setter*/;}
+	void setVehicles (const int& vehicles_, InputContainer& container){vehicles = container.Vehicles[vehicles_];}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const int& getPartition () const {return partition;}
@@ -1436,8 +1165,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Household () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int hhold;
 	shared_ptr<Location> location;
 	int persons;
@@ -1454,31 +1183,21 @@ private:
 
 };
 
-	
 #pragma db object
 class Link_Delay
 {
 public:
+	// Default Constructor
+	Link_Delay () {}	
 	//Contructor
 	Link_Delay ( shared_ptr<Link> link_, int dir_, int type_, double flow_, shared_ptr<Link> out_link_, double out_flow_ )  
 	: link (link_), dir (dir_), type (type_), flow (flow_), out_link (out_link_), out_flow (out_flow_)
 	{
 	}
-	//ConverterConstructor
-	
-	 Link_Delay( Link_Delay_File *file) 
-	{
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setType(file -> Type ()); 
-		setFlow(file -> Flow ()); 
-		setOut_Link(file -> Out_Link ()); 
-		setOut_Flow(file -> Out_Flow ());
-	}
 	//Accessors
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getType () const {return type;}
@@ -1487,15 +1206,15 @@ public:
 	void setFlow (const double& flow_){flow = flow_;}
 	const shared_ptr<Link>& getOut_Link () const {return out_link;}
 	void setOut_Link (const shared_ptr<Link>& out_link_){out_link = out_link_;}
-	void setOut_Link (const int& out_link_){/*TODO: imlement this setter*/;}
+	void setOut_Link (const int& out_link_, InputContainer& container){out_link = container.Links[out_link_];}
 	const double& getOut_Flow () const {return out_flow;}
 	void setOut_Flow (const double& out_flow_){out_flow = out_flow_;}
 
 //Data Fields
 private:
 	friend class odb::access;
-	Link_Delay () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int dir;
 	int type;
@@ -1505,27 +1224,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Performance
 {
 public:
+	// Default Constructor
+	Performance () {}	
 	//Contructor
 	Performance ( double speed_, double density_, double max_den_, double ratio_, double queue_, int max_que_, int fail_ )  
 	: speed (speed_), density (density_), max_den (max_den_), ratio (ratio_), queue (queue_), max_que (max_que_), fail (fail_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Performance( Performance_File *file) 
-	{
-		setSpeed(file -> Speed ()); 
-		setDensity(file -> Density ()); 
-		setMax_Den(file -> Max_Density ()); 
-		setRatio(file -> Time_Ratio ()); 
-		setQueue(file -> Queue ()); 
-		setMax_Que(file -> Max_Queue ()); 
-		setFail(file -> Cycle_Failure ());
 	}
 	//Accessors
 	const double& getSpeed () const {return speed;}
@@ -1546,8 +1254,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Performance () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	double speed;
 	double density;
 	double max_den;
@@ -1558,28 +1266,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Ridership
 {
 public:
+	// Default Constructor
+	Ridership () {}	
 	//Contructor
 	Ridership ( int mode_, int route_, int run_, shared_ptr<Stop> stop_, int board_, int alight_, int load_, double factor_ )  
 	: mode (mode_), route (route_), run (run_), stop (stop_), board (board_), alight (alight_), load (load_), factor (factor_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Ridership( Ridership_File *file) 
-	{
-		setMode(file -> Mode ()); 
-		setRoute(file -> Route ()); 
-		setRun(file -> Run ()); 
-		setStop(file -> Stop ()); 
-		setBoard(file -> Board ()); 
-		setAlight(file -> Alight ()); 
-		setLoad(file -> Load ()); 
-		setFactor(file -> Factor ());
 	}
 	//Accessors
 	const int& getMode () const {return mode;}
@@ -1590,7 +1286,7 @@ public:
 	void setRun (const int& run_){run = run_;}
 	const shared_ptr<Stop>& getStop () const {return stop;}
 	void setStop (const shared_ptr<Stop>& stop_){stop = stop_;}
-	void setStop (const int& stop_){/*TODO: imlement this setter*/;}
+	void setStop (const int& stop_, InputContainer& container){stop = container.Stops[stop_];}
 	const int& getBoard () const {return board;}
 	void setBoard (const int& board_){board = board_;}
 	const int& getAlight () const {return alight;}
@@ -1603,8 +1299,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Ridership () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int mode;
 	int route;
 	int run;
@@ -1616,32 +1312,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Veh_Type
 {
 public:
+	// Default Constructor
+	Veh_Type () {}	
 	//Contructor
 	Veh_Type ( int type_, double length_, double max_speed_, double max_accel_, double max_decel_, double op_cost_, int use_, int capacity_, double load_, double unload_, int method_, int subtype_ )  
 	: type (type_), length (length_), max_speed (max_speed_), max_accel (max_accel_), max_decel (max_decel_), op_cost (op_cost_), use (use_), capacity (capacity_), load (load_), unload (unload_), method (method_), subtype (subtype_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Veh_Type( Veh_Type_File *file) 
-	{
-		setType(file -> Type ()); 
-		setLength(file -> Length ()); 
-		setMax_Speed(file -> Max_Speed ()); 
-		setMax_Accel(file -> Max_Accel ()); 
-		setMax_Decel(file -> Max_Decel ()); 
-		setOp_Cost(file -> Op_Cost ()); 
-		setUse(file -> Use ()); 
-		setCapacity(file -> Capacity ()); 
-		setLoad(file -> Loading ()); 
-		setUnload(file -> Unloading ()); 
-		setMethod(file -> Method ()); 
-		setSubtype(file -> SubType ());
 	}
 	//Accessors
 	const int& getType () const {return type;}
@@ -1672,8 +1352,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Veh_Type () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int type;
 	double length;
 	double max_speed;
@@ -1689,26 +1369,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Vehicle
 {
 public:
+	// Default Constructor
+	Vehicle () {}	
 	//Contructor
 	Vehicle ( int hhold_, int vehicle_, shared_ptr<Parking> parking_, int type_, int subtype_, int partition_ )  
 	: hhold (hhold_), vehicle (vehicle_), parking (parking_), type (type_), subtype (subtype_), partition (partition_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Vehicle( Vehicle_File *file) 
-	{
-		setHhold(file -> Household ()); 
-		setVehicle(file -> Vehicle ()); 
-		setParking(file -> Parking ()); 
-		setType(file -> Type ()); 
-		setSubtype(file -> SubType ()); 
-		setPartition(file -> Partition ());
 	}
 	//Accessors
 	const int& getHhold () const {return hhold;}
@@ -1717,7 +1387,7 @@ public:
 	void setVehicle (const int& vehicle_){vehicle = vehicle_;}
 	const shared_ptr<Parking>& getParking () const {return parking;}
 	void setParking (const shared_ptr<Parking>& parking_){parking = parking_;}
-	void setParking (const int& parking_){/*TODO: imlement this setter*/;}
+	void setParking (const int& parking_, InputContainer& container){parking = container.Parkings[parking_];}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const int& getSubtype () const {return subtype;}
@@ -1728,9 +1398,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Vehicle () {}
-	#pragma db id
 	int hhold;
+	#pragma db id
 	int vehicle;
 	shared_ptr<Parking> parking;
 	int type;
@@ -1739,34 +1408,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Trip
 {
 public:
+	// Default Constructor
+	Trip () {}	
 	//Contructor
 	Trip ( int hhold_, int person_, int tour_, int trip_, int origin_, int destination_, int purpose_, int mode_, int constraint_, int priority_, shared_ptr<Vehicle> vehicle_, int passengers_, int type_, int partition_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), origin (origin_), destination (destination_), purpose (purpose_), mode (mode_), constraint (constraint_), priority (priority_), vehicle (vehicle_), passengers (passengers_), type (type_), partition (partition_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Trip( Trip_File *file) 
-	{
-		setHhold(file -> Household ()); 
-		setPerson(file -> Person ()); 
-		setTour(file -> Tour ()); 
-		setTrip(file -> Trip ()); 
-		setOrigin(file -> Origin ()); 
-		setDestination(file -> Destination ()); 
-		setPurpose(file -> Purpose ()); 
-		setMode(file -> Mode ()); 
-		setConstraint(file -> Constraint ()); 
-		setPriority(file -> Priority ()); 
-		setVehicle(file -> Vehicle ()); 
-		setPassengers(file -> Passengers ()); 
-		setType(file -> Type ()); 
-		setPartition(file -> Partition ());
 	}
 	//Accessors
 	const int& getHhold () const {return hhold;}
@@ -1791,7 +1442,7 @@ public:
 	void setPriority (const int& priority_){priority = priority_;}
 	const shared_ptr<Vehicle>& getVehicle () const {return vehicle;}
 	void setVehicle (const shared_ptr<Vehicle>& vehicle_){vehicle = vehicle_;}
-	void setVehicle (const int& vehicle_){/*TODO: imlement this setter*/;}
+	void setVehicle (const int& vehicle_, InputContainer& container){vehicle = container.Vehicles[vehicle_];}
 	const int& getPassengers () const {return passengers;}
 	void setPassengers (const int& passengers_){passengers = passengers_;}
 	const int& getType () const {return type;}
@@ -1802,11 +1453,10 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Trip () {}
-	#pragma db id
 	int hhold;
 	int person;
 	int tour;
+	#pragma db id
 	int trip;
 	int origin;
 	int destination;
@@ -1821,34 +1471,23 @@ private:
 
 };
 
-	
 #pragma db object
 class Problem
 {
 public:
+	// Default Constructor
+	Problem () {}	
 	//Contructor
 	Problem ( int problem_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_, int survey_ )  
 	: problem (problem_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_), survey (survey_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Problem( Problem_File *file) 
-	{
-		setProblem(file -> Problem ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setLane(file -> Lane ()); 
-		setOffset(file -> Offset ()); 
-		setRoute(file -> Route ()); 
-		setSurvey(file -> Survey ());
 	}
 	//Accessors
 	const int& getProblem () const {return problem;}
 	void setProblem (const int& problem_){problem = problem_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getLane () const {return lane;}
@@ -1863,7 +1502,6 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Problem () {}
 	#pragma db id
 	int problem;
 	shared_ptr<Link> link;
@@ -1875,29 +1513,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Plan
 {
 public:
+	// Default Constructor
+	Plan () {}	
 	//Contructor
 	Plan ( double length_, double cost_, int impedance_, int leg_mode_, int leg_type_, int leg_id_, double leg_length_, double leg_cost_, int leg_imp_ )  
 	: length (length_), cost (cost_), impedance (impedance_), leg_mode (leg_mode_), leg_type (leg_type_), leg_id (leg_id_), leg_length (leg_length_), leg_cost (leg_cost_), leg_imp (leg_imp_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Plan( Plan_File *file) 
-	{
-		setLength(file -> Length ()); 
-		setCost(file -> Cost ()); 
-		setImpedance(file -> Impedance ()); 
-		setLeg_Mode(file -> Leg_Mode ()); 
-		setLeg_Type(file -> Leg_Type ()); 
-		setLeg_Id(file -> Leg_ID ()); 
-		setLeg_Length(file -> Leg_Length ()); 
-		setLeg_Cost(file -> Leg_Cost ()); 
-		setLeg_Imp(file -> Leg_Impedance ());
 	}
 	//Accessors
 	const double& getLength () const {return length;}
@@ -1922,8 +1547,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Plan () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	double length;
 	double cost;
 	int impedance;
@@ -1936,23 +1561,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Skim
 {
 public:
+	// Default Constructor
+	Skim () {}	
 	//Contructor
 	Skim ( double length_, double cost_, int impedance_ )  
 	: length (length_), cost (cost_), impedance (impedance_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Skim( Skim_File *file) 
-	{
-		setLength(file -> Length ()); 
-		setCost(file -> Cost ()); 
-		setImpedance(file -> Impedance ());
 	}
 	//Accessors
 	const double& getLength () const {return length;}
@@ -1965,39 +1583,24 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Skim () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	double length;
 	double cost;
 	int impedance;
 
 };
 
-	
 #pragma db object
 class Event
 {
 public:
+	// Default Constructor
+	Event () {}	
 	//Contructor
 	Event ( int hhold_, int person_, int tour_, shared_ptr<Trip> trip_, int mode_, int type_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), mode (mode_), type (type_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Event( Event_File *file) 
-	{
-		setHhold(file -> Household ()); 
-		setPerson(file -> Person ()); 
-		setTour(file -> Tour ()); 
-		setTrip(file -> Trip ()); 
-		setMode(file -> Mode ()); 
-		setType(file -> Event ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setLane(file -> Lane ()); 
-		setOffset(file -> Offset ()); 
-		setRoute(file -> Route ());
 	}
 	//Accessors
 	const int& getHhold () const {return hhold;}
@@ -2008,14 +1611,14 @@ public:
 	void setTour (const int& tour_){tour = tour_;}
 	const shared_ptr<Trip>& getTrip () const {return trip;}
 	void setTrip (const shared_ptr<Trip>& trip_){trip = trip_;}
-	void setTrip (const int& trip_){/*TODO: imlement this setter*/;}
+	void setTrip (const int& trip_, InputContainer& container){trip = container.Trips[trip_];}
 	const int& getMode () const {return mode;}
 	void setMode (const int& mode_){mode = mode_;}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getLane () const {return lane;}
@@ -2028,8 +1631,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Event () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int hhold;
 	int person;
 	int tour;
@@ -2044,32 +1647,16 @@ private:
 
 };
 
-	
 #pragma db object
 class Traveler
 {
 public:
+	// Default Constructor
+	Traveler () {}	
 	//Contructor
 	Traveler ( int hhold_, int person_, int tour_, shared_ptr<Trip> trip_, int mode_, double distance_, double speed_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), mode (mode_), distance (distance_), speed (speed_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_)
 	{
-	}
-	//ConverterConstructor
-	
-	 Traveler( Traveler_File *file) 
-	{
-		setHhold(file -> Household ()); 
-		setPerson(file -> Person ()); 
-		setTour(file -> Tour ()); 
-		setTrip(file -> Trip ()); 
-		setMode(file -> Mode ()); 
-		setDistance(file -> Distance ()); 
-		setSpeed(file -> Speed ()); 
-		setLink(file -> Link ()); 
-		setDir(file -> Dir ()); 
-		setLane(file -> Lane ()); 
-		setOffset(file -> Offset ()); 
-		setRoute(file -> Route ());
 	}
 	//Accessors
 	const int& getHhold () const {return hhold;}
@@ -2080,7 +1667,7 @@ public:
 	void setTour (const int& tour_){tour = tour_;}
 	const shared_ptr<Trip>& getTrip () const {return trip;}
 	void setTrip (const shared_ptr<Trip>& trip_){trip = trip_;}
-	void setTrip (const int& trip_){/*TODO: imlement this setter*/;}
+	void setTrip (const int& trip_, InputContainer& container){trip = container.Trips[trip_];}
 	const int& getMode () const {return mode;}
 	void setMode (const int& mode_){mode = mode_;}
 	const double& getDistance () const {return distance;}
@@ -2089,7 +1676,7 @@ public:
 	void setSpeed (const double& speed_){speed = speed_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_){/*TODO: imlement this setter*/;}
+	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getLane () const {return lane;}
@@ -2102,8 +1689,8 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
-	Traveler () {}
-	#pragma db id
+	#pragma db id auto
+	unsigned long auto_id;
 	int hhold;
 	int person;
 	int tour;
@@ -2118,5 +1705,46 @@ private:
 	int route;
 
 };
+//Input Container.
+//
+class InputContainer 
+{
+public:
+	std::map<int,shared_ptr<Node>> Nodes;
+	std::map<int,shared_ptr<Zone>> Zones;
+	std::map<unsigned long,shared_ptr<Shape>> Shapes;
+	std::map<int,shared_ptr<Link>> Links;
+	std::map<unsigned long,shared_ptr<Pocket>> Pockets;
+	std::map<unsigned long,shared_ptr<Lane_Use>> Lane_Uses;
+	std::map<unsigned long,shared_ptr<Connect>> Connects;
+	std::map<unsigned long,shared_ptr<Turn_Pen>> Turn_Pens;
+	std::map<int,shared_ptr<Parking>> Parkings;
+	std::map<int,shared_ptr<Location>> Locations;
+	std::map<unsigned long,shared_ptr<Access>> Accesss;
+	std::map<int,shared_ptr<Sign>> Signs;
+	std::map<int,shared_ptr<Signal>> Signals;
+	std::map<int,shared_ptr<Timing>> Timings;
+	std::map<int,shared_ptr<Phasing>> Phasings;
+	std::map<int,shared_ptr<Detector>> Detectors;
+	std::map<int,shared_ptr<Stop>> Stops;
+	std::map<int,shared_ptr<Fare>> Fares;
+	std::map<unsigned long,shared_ptr<Line>> Lines;
+	std::map<unsigned long,shared_ptr<Schedule>> Schedules;
+	std::map<unsigned long,shared_ptr<Driver>> Drivers;
+	std::map<unsigned long,shared_ptr<Route_Nodes>> Route_Nodess;
+	std::map<unsigned long,shared_ptr<Selection>> Selections;
+	std::map<unsigned long,shared_ptr<Household>> Households;
+	std::map<unsigned long,shared_ptr<Link_Delay>> Link_Delays;
+	std::map<unsigned long,shared_ptr<Performance>> Performances;
+	std::map<unsigned long,shared_ptr<Ridership>> Riderships;
+	std::map<unsigned long,shared_ptr<Veh_Type>> Veh_Types;
+	std::map<int,shared_ptr<Vehicle>> Vehicles;
+	std::map<int,shared_ptr<Trip>> Trips;
+	std::map<int,shared_ptr<Problem>> Problems;
+	std::map<unsigned long,shared_ptr<Plan>> Plans;
+	std::map<unsigned long,shared_ptr<Skim>> Skims;
+	std::map<unsigned long,shared_ptr<Event>> Events;
+	std::map<unsigned long,shared_ptr<Traveler>> Travelers;
+};
 
-	
+}//end of namespace
