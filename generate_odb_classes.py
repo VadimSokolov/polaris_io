@@ -33,6 +33,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 	#Whether the table has a unique key is a class member
 	# if not then a dummy id field will need to be added
 	primary_key_member = "\n\t#pragma db id auto\n\tunsigned long auto_id;"
+	key_type = "unsigned long"
 	for i in range(len(fields)):
 		field =  fields[i]
 		type = types[i]
@@ -43,13 +44,14 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 			print "A geo field %s was skipped for relation %s"%(field, class_name)
 			continue
 		found_flag = False
+		ref_type = ""
 		for item in ref_types:
 			if item.lower() in field.lower():
 				found_flag = True
-				rt = item
+				ref_type = item
 		if found_flag and field != class_name.lower():
 			original_type = type
-			type = "shared_ptr<%s>"%rt
+			type = "shared_ptr<%s>"%ref_type
 		if type == "string":
 			type = "std::string"
 		if type == "string":
@@ -59,6 +61,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 		constructor1 += " %s_, "%field
 		constructor2 += "%s (%s_), "%(field, field)
 		if class_name.lower() in field.lower(): #this field is an primary key field
+			key_type = type
 			primary_key_member = ""
 			members += "\t#pragma db id\n"
 		members += "\t%s %s;\n"%(type, field)
@@ -66,7 +69,9 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
 		odb_accessors += "\tvoid set%s (const %s& %s_){%s = %s_;}\n"%(field.title(),type, field,field, field)
 		if original_type != "":
-			odb_accessors += "\tvoid set%s (const %s& %s_){/*TODO: imlement this setter*/;}\n"%(field.title(),original_type, field)
+			
+			odb_accessors += "\tvoid set%s (const %s& %s_, %s& container){%s = %s.%ss[%s_];}\n"%(field.title(),original_type, field, container_type,field,container_type,ref_type,field)
+	relation_primary_key_types.append(key_type)
 		
 
 	odb_code = """
@@ -124,35 +129,42 @@ p = re.compile("(int|string|double)\s*(\w+).*Get_\w+\s*\((\w+)\)")
 #this temlate is applied to File_Service.hpp file to exract the names of *_File objects
 p_tables = re.compile("#include\s*\"(\w+)_File\.hpp\"")	
 odb_namespace = "pio"
+container_type = "InputContainer"
+relations = []
+relation_primary_key_types = []
 if sys.argv[1] == "generate_all" and len(sys.argv)==3:
 	syslib_include_path = sys.argv[2]
 	temp =  os.path.join(syslib_include_path, "File_Service.hpp")
 	if not os.path.exists(temp):
 		print "The %s path does not exist, exiting..."%temp
 		sys.exit()
-	relations = []
+
 	with open(temp, 'r') as fh:
 		for line in fh:
 			m = p_tables.match(line)
 			if m is not None:
 				relations.append(m.group(1))
 	forward_declarations = ""
-	input_container = "class InputContainer \n{\npublic:\n"
-	for item in relations:
-		if item.lower() in ["type", "use"]:
-			continue
-		ref_types.append(item)
-		forward_declarations  += "class %s;\n"%item 
-		input_container += "\tstd::vector<shared_ptr<%s>> %ss;\n"%(item, item)
+	input_container = "class %s \n{\npublic:\n"%container_type
+
 		
 	odb_fh =  open("out\\odb_data_model.h", 'w')
 	adapter_fh =  open("out\\adopter_methods.cpp", 'w') 
 	odb_fh.write("namespace %s\n{\n"%odb_namespace)
 	odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)
-	odb_fh.write("//Input Container.\n//\n"+input_container+"}\n")
+	
 	for item in relations:
 		print "Processing %s"%item
 		generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item, odb_fh, adapter_fh)
+	
+	for i in range(len(relations)):
+		item = relations[i]
+		if item.lower() in ["type", "use"]:
+			continue
+		ref_types.append(item)
+		forward_declarations  += "class %s;\n"%item 
+		input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[i],item, item)
+	odb_fh.write("//Input Container.\n//\n"+input_container+"};\n")
 	odb_fh.write("\n}//end of namespace") #close namespace bracket
 	
 	
