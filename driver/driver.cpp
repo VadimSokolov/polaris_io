@@ -4,7 +4,6 @@
 #include "database.h" // create_database
 #include "OutNetwork.h"
 #include "OutNetwork-odb.hxx"
-#include <spatialite.h>
 //#include <sqlite3.h>
 using namespace std;
 using namespace odb::core;
