@@ -77,7 +77,8 @@ int main (int argc, char *argv [])
 	db->persist(l1);
 	db->persist(l2);
 	t.commit();
-
+	cout << "Press any key...\n";
+	getchar();
 	return 0;
 }
 

@@ -26,6 +26,7 @@
 #  include <odb/transaction.hxx>
 #  include <odb/schema-catalog.hxx>
 #  include <odb/sqlite/database.hxx>
+#include <odb/sqlite//exceptions.hxx>
 #elif defined(DATABASE_PGSQL)
 #  include <odb/pgsql/database.hxx>
 #elif defined(DATABASE_ORACLE)
@@ -36,12 +37,40 @@
 #  error unknown database; did you forget to define the DATABASE_* macros?
 #endif
 
-inline std::auto_ptr<odb::database>
-create_database (int& argc, char* argv[])
-{
-  using namespace std;
-  using namespace odb::core;
+using namespace std;
+using namespace odb::core;
 
+inline std::auto_ptr<odb::database> open_sqlite_database(const std::string& name)
+{
+	auto_ptr<database> db (new odb::sqlite::database (name, SQLITE_OPEN_READWRITE));
+	return db;
+}
+
+inline auto_ptr<database> create_sqlite_database(const string& name)
+{
+	try
+	{
+		auto_ptr<database> db (new odb::sqlite::database (name, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE));
+		// Create the database schema. Due to bugs in SQLite foreign key
+		// support for DDL statements, we need to temporarily disable
+		// foreign keys.
+		connection_ptr c (db->connection ());
+		c->execute ("PRAGMA foreign_keys=OFF");
+		transaction t (c->begin ());
+		schema_catalog::create_schema (*db);
+		t.commit ();
+		c->execute ("PRAGMA foreign_keys=ON");
+		return db;
+	}
+	catch (odb::sqlite::database_exception e)
+	{
+		cout << e.message() << "\n";
+		exit(0);
+	}
+
+}
+inline auto_ptr<database> create_database (int& argc, char* argv[])
+{
   if (argc > 1 && argv[1] == string ("--help"))
   {
     cout << "Usage: " << argv[0] << " [options]" << endl
@@ -68,22 +97,17 @@ create_database (int& argc, char* argv[])
   auto_ptr<database> db (
     new odb::sqlite::database (
       argc, argv, false, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE));
-
-  // Create the database schema. Due to bugs in SQLite foreign key
-  // support for DDL statements, we need to temporarily disable
-  // foreign keys.
-  //
-  {
-    connection_ptr c (db->connection ());
-
-    c->execute ("PRAGMA foreign_keys=OFF");
-
-    transaction t (c->begin ());
-    schema_catalog::create_schema (*db);
-    t.commit ();
-
-    c->execute ("PRAGMA foreign_keys=ON");
-  }
+	// Create the database schema. Due to bugs in SQLite foreign key
+	// support for DDL statements, we need to temporarily disable
+	// foreign keys.
+	{
+		connection_ptr c (db->connection ());
+		c->execute ("PRAGMA foreign_keys=OFF");
+		transaction t (c->begin ());
+		schema_catalog::create_schema (*db);
+		t.commit ();
+		c->execute ("PRAGMA foreign_keys=ON");
+	}
 #elif defined(DATABASE_PGSQL)
   auto_ptr<database> db (new odb::pgsql::database (argc, argv));
 #elif defined(DATABASE_ORACLE)

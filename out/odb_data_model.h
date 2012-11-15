@@ -123,6 +123,7 @@ public:
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getPoints () const {return points;}
 	void setPoints (const int& points_){points = points_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -259,6 +260,7 @@ public:
 	void setLength (const double& length_){length = length_;}
 	const double& getOffset () const {return offset;}
 	void setOffset (const double& offset_){offset = offset_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -317,6 +319,7 @@ public:
 	void setMin_Delay (const double& min_delay_){min_delay = min_delay_;}
 	const double& getMax_Delay () const {return max_delay;}
 	void setMax_Delay (const double& max_delay_){max_delay = max_delay_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -377,6 +380,7 @@ public:
 	void setIn_High (const int& in_high_){in_high = in_high_;}
 	const int& getOut_High () const {return out_high;}
 	void setOut_High (const int& out_high_){out_high = out_high_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -431,6 +435,7 @@ public:
 	const shared_ptr<Node>& getOut_Node () const {return out_node;}
 	void setOut_Node (const shared_ptr<Node>& out_node_){out_node = out_node_;}
 	void setOut_Node (const int& out_node_, InputContainer& container){out_node = container.Nodes[out_node_];}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -564,6 +569,7 @@ public:
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getCost () const {return cost;}
 	void setCost (const int& cost_){cost = cost_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -943,6 +949,7 @@ public:
 	void setZone (const int& zone_, InputContainer& container){zone = container.Zones[zone_];}
 	const int& getFlag () const {return flag;}
 	void setFlag (const int& flag_){flag = flag_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -980,6 +987,7 @@ public:
 	const shared_ptr<Stop>& getStop () const {return stop;}
 	void setStop (const shared_ptr<Stop>& stop_){stop = stop_;}
 	void setStop (const int& stop_, InputContainer& container){stop = container.Stops[stop_];}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1018,6 +1026,7 @@ public:
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1064,6 +1073,7 @@ public:
 	void setType (const int& type_){type = type_;}
 	const double& getSpeed () const {return speed;}
 	void setSpeed (const double& speed_){speed = speed_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1106,6 +1116,7 @@ public:
 	void setType (const int& type_){type = type_;}
 	const int& getPartition () const {return partition;}
 	void setPartition (const int& partition_){partition = partition_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1161,6 +1172,7 @@ public:
 	void setWork (const int& work_){work = work_;}
 	const int& getDrive () const {return drive;}
 	void setDrive (const int& drive_){drive = drive_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1209,6 +1221,7 @@ public:
 	void setOut_Link (const int& out_link_, InputContainer& container){out_link = container.Links[out_link_];}
 	const double& getOut_Flow () const {return out_flow;}
 	void setOut_Flow (const double& out_flow_){out_flow = out_flow_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1250,6 +1263,7 @@ public:
 	void setMax_Que (const int& max_que_){max_que = max_que_;}
 	const int& getFail () const {return fail;}
 	void setFail (const int& fail_){fail = fail_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1295,6 +1309,7 @@ public:
 	void setLoad (const int& load_){load = load_;}
 	const double& getFactor () const {return factor;}
 	void setFactor (const double& factor_){factor = factor_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1348,6 +1363,7 @@ public:
 	void setMethod (const int& method_){method = method_;}
 	const int& getSubtype () const {return subtype;}
 	void setSubtype (const int& subtype_){subtype = subtype_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1543,6 +1559,7 @@ public:
 	void setLeg_Cost (const double& leg_cost_){leg_cost = leg_cost_;}
 	const int& getLeg_Imp () const {return leg_imp;}
 	void setLeg_Imp (const int& leg_imp_){leg_imp = leg_imp_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1579,6 +1596,7 @@ public:
 	void setCost (const double& cost_){cost = cost_;}
 	const int& getImpedance () const {return impedance;}
 	void setImpedance (const int& impedance_){impedance = impedance_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1627,6 +1645,7 @@ public:
 	void setOffset (const double& offset_){offset = offset_;}
 	const int& getRoute () const {return route;}
 	void setRoute (const int& route_){route = route_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
@@ -1685,6 +1704,7 @@ public:
 	void setOffset (const double& offset_){offset = offset_;}
 	const int& getRoute () const {return route;}
 	void setRoute (const int& route_){route = route_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:

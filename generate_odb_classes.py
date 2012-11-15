@@ -27,12 +27,12 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 	#Second part of the constructor
 	constructor2 = " \n\t: "
 	#Adapter from transims type to polaris
-	adpater_method = "%s %sAdopter( %s_File *file) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn,class_name, class_name, nscn, nscn)
+	adpater_method = "shared_ptr<%s> %sAdapter( %s_File &file, %s::%s& container) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn,class_name, class_name, odb_namespace,container_type, nscn, nscn)
 	members = ""
 	odb_accessors = ""
 	#Whether the table has a unique key is a class member
 	# if not then a dummy id field will need to be added
-	primary_key_member = "\n\t#pragma db id auto\n\tunsigned long auto_id;"
+	auto_primary_key_member = "\n\t#pragma db id auto\n\tunsigned long auto_id;"
 	key_type = "unsigned long"
 	for i in range(len(fields)):
 		field =  fields[i]
@@ -62,15 +62,22 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 		constructor2 += "%s (%s_), "%(field, field)
 		if class_name.lower() in field.lower(): #this field is an primary key field
 			key_type = type
-			primary_key_member = ""
+			auto_primary_key_member = ""
 			members += "\t#pragma db id\n"
 		members += "\t%s %s;\n"%(type, field)
-		adpater_method += "\n\tresult->set%s(file -> %s ()); "%(field.title(), accessor)
+		
 		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
 		odb_accessors += "\tvoid set%s (const %s& %s_){%s = %s_;}\n"%(field.title(),type, field,field, field)
+
 		if original_type != "":			
 			odb_accessors += "\tvoid set%s (const %s& %s_, %s& container){%s = container.%ss[%s_];}\n"%(field.title(),original_type, field, container_type,field,ref_type,field)
+			odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
+			adpater_method += "\n\tresult->set%s(file.%s (), container); "%(field.title(), accessor)
+		else:
+			adpater_method += "\n\tresult->set%s(file.%s ()); "%(field.title(), accessor)
 	relation_primary_key_types.append(key_type)
+	if auto_primary_key_member!="":
+		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%("unsigned long", "Auto_id", "auto_id")	
 		
 
 	odb_code = """
@@ -91,9 +98,9 @@ private:
 	friend class odb::access;%s
 %s
 };
-"""%(class_name, class_name, constructor1[:-2], constructor2[:-2],  odb_accessors, primary_key_member, members)
+"""%(class_name, class_name, constructor1[:-2], constructor2[:-2],  odb_accessors, auto_primary_key_member, members)
 	
-	adopter_code = """//Converter for %s
+	adapter_code = """//Converter for %s
 %s
 	return result;
 }
@@ -101,7 +108,7 @@ private:
 	if odb_fh is not None:
 		odb_fh.write(odb_code);
 	if adapter_fh is not None:
-		adapter_fh.write(adopter_code);
+		adapter_fh.write(adapter_code);
 					
 
 
@@ -148,7 +155,7 @@ if sys.argv[1] == "generate_all" and len(sys.argv)==3:
 
 
 	odb_fh =  open("out\\odb_data_model.h", 'w')
-	adapter_fh =  open("out\\adopter_methods.h", 'w') 
+	adapter_fh =  open("out\\adapter_methods.h", 'w') 
 	odb_fh.write("namespace %s\n{\n"%odb_namespace)
 	for i in range(len(relations)):
 		item = relations[i]
