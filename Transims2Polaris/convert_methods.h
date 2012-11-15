@@ -253,20 +253,23 @@ void ConvertParkings(string db_file_path, TransimsNetwork *net, InputContainer& 
 	{
 		auto_ptr<database> db (open_sqlite_database (db_file_path));
 		transaction t (db->begin());	
-		while (file->Read())
+		while (file->Read(false))
 		{			
-			net->Show_Progress();
-			n = ParkingAdapter(*file, container);
-			container.Parkings[n->getParking()] = n;
-			try 
+			if (!file->Nested())
 			{
-				db->persist(n);
+				net->Show_Progress();
+				n = ParkingAdapter(*file, container);
+				container.Parkings[n->getParking()] = n;
+				try 
+				{
+					db->persist(n);
+				}
+				catch (odb::object_already_persistent e)
+				{
+					cout << "Persist for Parking failed.\n";
+					cout << "Primary key value: " << n->getParking() << ". This object will not be converted\n";
+				}			
 			}
-			catch (odb::object_already_persistent e)
-			{
-				cout << "Persist for Parking failed.\n";
-				cout << "Primary key value: " << n->getParking() << ". This object will not be converted\n";
-			}			
 		}
 		t.commit();
 		

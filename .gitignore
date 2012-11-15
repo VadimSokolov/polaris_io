@@ -6,6 +6,9 @@
 *.user
 *.sln.docstates
 *.sqlite
+*.sqlite-journal
+*.prn
+.prn
 # Build results
 
 [Dd]ebug*/

@@ -65,15 +65,15 @@ int main(int argc, char* argv[])
 
 	pio::InputContainer container;
 	string name = "C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite";
-	//ConvertNodes(name, net, container);
-	//ConvertZones(name, net, container);
-	//ConvertLinks(name, net, container);
-	//ConvertConnects(name, net, container);
-	//ConvertLocations(name, net, container);
+	ConvertNodes(name, net, container);
+	ConvertZones(name, net, container);
+	ConvertLinks(name, net, container);
+	ConvertConnects(name, net, container);
+	ConvertLocations(name, net, container);
 	ConvertParkings(name, net, container);
-	//ConvertVeh_Types(name, net, container);
-	//ConvertVehicles(name, net, container);
-	//ConvertTrips(name, net, container);
+	ConvertVeh_Types(name, net, container);
+	ConvertVehicles(name, net, container);
+	ConvertTrips(name, net, container);
 	cout << "Press any key...\n";
 	getchar();
 
