@@ -15,7 +15,7 @@ public:
 			NODE, LINK, LOCATION, CONNECTION, PARKING, ZONE,END_FILE
 		};
 		System_File_Type optional_files [] = {
-			 SHAPE, POCKET, SIGN, SIGNAL, TIMING_PLAN, PHASING_PLAN, DETECTOR, TRIP, END_FILE
+			 SHAPE, POCKET, SIGN, SIGNAL, TIMING_PLAN, PHASING_PLAN, DETECTOR, TRIP, VEHICLE, VEHICLE_TYPE, END_FILE
 		};
 		Required_System_Files (required_files);
 		Optional_System_Files (optional_files);
@@ -50,6 +50,8 @@ public:
 		control_keys.push_back("PHASING_PLAN_FILE C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/phasing_plan.txt");
 		control_keys.push_back("DETECTOR_FILE C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/detector.txt");
 		control_keys.push_back("TRIP_FILE C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/trip.txt");
+		control_keys.push_back("VEHICLE_TYPE_FILE C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/Vehicle_Type.txt");
+		control_keys.push_back("VEHICLE_FILE C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/vehicle.txt");
 		Start_Execution(control_keys);
 	}
 	void Execute (void)

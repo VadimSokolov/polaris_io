@@ -1200,7 +1200,7 @@ namespace odb
   access::object_traits< ::pio::Veh_Type >::
   id (const object_type& o)
   {
-    return o.auto_id;
+    return o.type;
   }
 
   inline
@@ -1244,7 +1244,7 @@ namespace odb
   access::object_traits< ::pio::Vehicle >::
   id (const object_type& o)
   {
-    return o.vehicle;
+    return o.auto_id;
   }
 
   inline

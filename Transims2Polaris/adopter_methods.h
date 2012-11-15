@@ -415,7 +415,7 @@ shared_ptr<pio::Vehicle> VehicleAdapter( Vehicle_File &file, pio::InputContainer
 	result->setHhold(file.Household ()); 
 	result->setVehicle(file.Vehicle ()); 
 	result->setParking(file.Parking (), container); 
-	result->setType(file.Type ()); 
+	result->setType(file.Type (), container); 
 	result->setSubtype(file.SubType ()); 
 	result->setPartition(file.Partition ());
 	return result;
@@ -513,4 +513,5 @@ shared_ptr<pio::Traveler> TravelerAdapter( Traveler_File &file, pio::InputContai
 	return result;
 }
 
-#endif // AdapterMethods
+
+#endif AdapterMethods

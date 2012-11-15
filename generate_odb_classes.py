@@ -54,7 +54,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 			constructor1 += type
 		constructor1 += " %s_, "%field
 		constructor2 += "%s (%s_), "%(field, field)
-		if class_name.lower() in field.lower() and (class_name, field) not in false_primary_keys: #this field is a primary key field
+		if (class_name.lower() in field.lower() and (class_name, field) not in false_primary_keys) or (class_name, field) in true_primary_keys: #this field is a primary key field
 			key_type = type
 			auto_primary_key_member = ""
 			members += "\t#pragma db id\n"
@@ -138,7 +138,7 @@ if len(sys.argv) < 2:
 	
 ref_types = []
 #this pattern is applied to *_File.hpp file to extract the fileds
-file_class_member_p = re.compile("(char|bool|int|string|double|char|float|short)\s*(\w+).*Get_\w+\s*\((\w+)\)")
+file_class_member_p = re.compile("(char|bool|int|string|double|float|short)\s*(\w+).*Get_\w+\s*\((\w+)\)")
 #this template is applied to File_Service.hpp file to exract the names of *_File objects
 p_tables = re.compile("#include\s*\"(\w+)_File\.hpp\"")	
 odb_namespace = "pio"
@@ -146,9 +146,11 @@ container_type = "InputContainer"
 relations = []
 relation_primary_key_types = []
 #(relation name, field name)
-false_primary_keys = [("Trip", "trip")]
+false_primary_keys = [("Trip", "trip"), ("Vehicle", "vehicle")]
+#(relation name, field name)
+true_primary_keys = [("Veh_Type", "type")]
 # (field name, in relation name):referes to relation
-true_ref_fields_types = {("origin", "Trip"):"Location", ("destination", "Trip"):"Location"}
+true_ref_fields_types = {("origin", "Trip"):"Location", ("destination", "Trip"):"Location",("type","Vehicle"):"Veh_Type"}
 if len(sys.argv)==2:
 	syslib_include_path = sys.argv[1]
 	temp =  os.path.join(syslib_include_path, "File_Service.hpp")

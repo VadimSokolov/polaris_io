@@ -174,3 +174,106 @@ void ConvertTrips(string db_file_path, TransimsNetwork *net, InputContainer& con
 		exit(0);
 	}
 }
+void ConvertVeh_Types(string db_file_path, TransimsNetwork *net, InputContainer& container)
+{
+	cout << "ConvertVeh_Types\n";
+	bool flag = net->System_File_Flag (VEHICLE_TYPE);
+	if (!flag)
+	{
+		cout << "Veh_Type File was not found\n";
+		return;
+	}
+	shared_ptr<pio::Veh_Type> n;
+	Veh_Type_File *file = (Veh_Type_File *) net->System_File_Handle (VEHICLE_TYPE);
+	try
+	{
+		auto_ptr<database> db (open_sqlite_database (db_file_path));
+		transaction t (db->begin());
+		while (file->Read())
+		{
+			
+			net->Show_Progress();
+			n = Veh_TypeAdapter(*file, container);
+			container.Veh_Types[n->getType()] = n;		
+			db->persist(n);
+			
+		}
+		t.commit();
+	}
+	catch (odb::sqlite::database_exception e)
+	{
+		cout << "ConvertVeh_Types failed. " <<e.message() << "\n";
+		exit(0);
+	}
+}
+void ConvertVehicles(string db_file_path, TransimsNetwork *net, InputContainer& container)
+{
+	cout << "ConvertVehicles\n";
+	bool flag = net->System_File_Flag (VEHICLE);
+	if (!flag)
+	{
+		cout << "Vehicle File was not found\n";
+		return;
+	}
+	shared_ptr<pio::Vehicle> n;
+	Vehicle_File *file = (Vehicle_File *) net->System_File_Handle (VEHICLE);
+	try
+	{
+		auto_ptr<database> db (open_sqlite_database (db_file_path));
+		transaction t (db->begin());
+		while (file->Read())
+		{
+			
+			net->Show_Progress();
+			n = VehicleAdapter(*file, container);
+			container.Vehicles[n->getAuto_id()] = n;		
+			db->persist(n);
+			
+		}
+		t.commit();
+	}
+	catch (odb::sqlite::database_exception e)
+	{
+		cout << "ConvertVehicles failed. " <<e.message() << "\n";
+		exit(0);
+	}
+}
+void ConvertParkings(string db_file_path, TransimsNetwork *net, InputContainer& container)
+{
+	cout << "ConvertParkings\n";
+	bool flag = net->System_File_Flag (PARKING);
+	if (!flag)
+	{
+		cout << "Parking File was not found\n";
+		return;
+	}
+	shared_ptr<pio::Parking> n;
+	Parking_File *file = (Parking_File *) net->System_File_Handle (PARKING);
+	try
+	{
+		auto_ptr<database> db (open_sqlite_database (db_file_path));
+		transaction t (db->begin());	
+		while (file->Read())
+		{			
+			net->Show_Progress();
+			n = ParkingAdapter(*file, container);
+			container.Parkings[n->getParking()] = n;
+			try 
+			{
+				db->persist(n);
+			}
+			catch (odb::object_already_persistent e)
+			{
+				cout << "Persist for Parking failed.\n";
+				cout << "Primary key value: " << n->getParking() << ". This object will not be converted\n";
+			}			
+		}
+		t.commit();
+		
+	}
+	catch (odb::sqlite::database_exception e)
+	{
+		cout << "ConvertParkings failed. " <<e.message() << "\n";
+		exit(0);
+	}
+}

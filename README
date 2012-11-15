@@ -1,12 +1,17 @@
 This is a first prototype of the IO library for the POLARIS project.
 
-All of the dependencies are available at http://sourceforge.net/projects/polaris-t/files/io_sdk.zip/download
+All of the dependencies for polaris_io are available at http://sourceforge.net/projects/polaris-t/files/io_sdk.zip/download
 
 There are a couple of places where you need to change paths: 
- * The io.props
- * The polaris_io project properties -> debugging -> Environment
+ * io.props
+ * io_lib.props if you are planning to use the Transims2Polaris converter
+ 
  
 I've tested the debug compilation only.
 
 There is a custom compilation step whcih calls the odb.exe on the correspondding header file. 
-Make sure that the file path is your PATH variable
+Make sure that the file path is your PATH variable. The odb.exe is a part of the io_sdk
+
+TODO:
+	* SUpport for Date-Time in the database
+	* Mapping of Transims Dtime class. Currently only the following types are mapped char|bool|int|string|double|float|short.

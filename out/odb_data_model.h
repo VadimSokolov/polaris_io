@@ -86,8 +86,8 @@ public:
 	std::map<unsigned long,shared_ptr<Link_Delay>> Link_Delays;
 	std::map<unsigned long,shared_ptr<Performance>> Performances;
 	std::map<unsigned long,shared_ptr<Ridership>> Riderships;
-	std::map<unsigned long,shared_ptr<Veh_Type>> Veh_Types;
-	std::map<int,shared_ptr<Vehicle>> Vehicles;
+	std::map<int,shared_ptr<Veh_Type>> Veh_Types;
+	std::map<unsigned long,shared_ptr<Vehicle>> Vehicles;
 	std::map<unsigned long,shared_ptr<Trip>> Trips;
 	std::map<int,shared_ptr<Problem>> Problems;
 	std::map<unsigned long,shared_ptr<Plan>> Plans;
@@ -1420,13 +1420,11 @@ public:
 	void setMethod (const int& method_){method = method_;}
 	const int& getSubtype () const {return subtype;}
 	void setSubtype (const int& subtype_){subtype = subtype_;}
-	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
 	friend class odb::access;
-	#pragma db id auto
-	unsigned long auto_id;
+	#pragma db id
 	int type;
 	double length;
 	double max_speed;
@@ -1449,7 +1447,7 @@ public:
 	// Default Constructor
 	Vehicle () {}	
 	//Contructor
-	Vehicle ( int hhold_, int vehicle_, shared_ptr<Parking> parking_, int type_, int subtype_, int partition_ )  
+	Vehicle ( int hhold_, int vehicle_, shared_ptr<Parking> parking_, shared_ptr<Veh_Type> type_, int subtype_, int partition_ )  
 	: hhold (hhold_), vehicle (vehicle_), parking (parking_), type (type_), subtype (subtype_), partition (partition_)
 	{
 	}
@@ -1461,21 +1459,24 @@ public:
 	const shared_ptr<Parking>& getParking () const {return parking;}
 	void setParking (const shared_ptr<Parking>& parking_){parking = parking_;}
 	void setParking (const int& parking_, InputContainer& container){parking = container.Parkings[parking_];}
-	const int& getType () const {return type;}
-	void setType (const int& type_){type = type_;}
+	const shared_ptr<Veh_Type>& getType () const {return type;}
+	void setType (const shared_ptr<Veh_Type>& type_){type = type_;}
+	void setType (const int& type_, InputContainer& container){type = container.Veh_Types[type_];}
 	const int& getSubtype () const {return subtype;}
 	void setSubtype (const int& subtype_){subtype = subtype_;}
 	const int& getPartition () const {return partition;}
 	void setPartition (const int& partition_){partition = partition_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
 	friend class odb::access;
+	#pragma db id auto
+	unsigned long auto_id;
 	int hhold;
-	#pragma db id
 	int vehicle;
 	shared_ptr<Parking> parking;
-	int type;
+	shared_ptr<Veh_Type> type;
 	int subtype;
 	int partition;
 

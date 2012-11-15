@@ -3,7 +3,7 @@
 	|                                          |
 	|     Transims2Polaris - Version 5.0.1     |
 	|  Copyright 2012 by TRANSIMS Open-Source  |
-	|         Thu Nov 15 12:41:36 2012         |
+	|         Thu Nov 15 14:13:32 2012         |
 	|                                          |
 	********************************************
 
@@ -12,7 +12,7 @@
 
 	
 
-	Random Number Seed = 1353004896
+	Random Number Seed = 1353010412
 
 	Input System Network Files:
 	Node File = C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/Node.txt
@@ -28,6 +28,8 @@
 	Detector File = .../vsokolov/usr/polaris/TransimsData/TestNet50/network/detector.txt
 
 	Input System Demand Files:
+	Vehicle Type File = ...ov/usr/polaris/TransimsData/TestNet50/demand/Vehicle_Type.txt
+	Vehicle File = ...ers/vsokolov/usr/polaris/TransimsData/TestNet50/demand/vehicle.txt
 	Trip File = C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/trip.txt
 
 	Data Service Controls:

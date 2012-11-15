@@ -20924,7 +20924,7 @@ namespace odb
   "\"Route_Nodes\".\"type\","
   "\"Route_Nodes\".\"speed\""
   " FROM \"Route_Nodes\""
-  " LEFT JOIN \"Veh_Type\" AS \"veh_type\" ON \"veh_type\".\"auto_id\"=\"Route_Nodes\".\"veh_type\""
+  " LEFT JOIN \"Veh_Type\" AS \"veh_type\" ON \"veh_type\".\"type\"=\"Route_Nodes\".\"veh_type\""
   " LEFT JOIN \"Node\" AS \"nodes\" ON \"nodes\".\"node\"=\"Route_Nodes\".\"nodes\""
   " LEFT JOIN \"Node\" AS \"node\" ON \"node\".\"node\"=\"Route_Nodes\".\"node\""
   " ";
@@ -21322,7 +21322,7 @@ namespace odb
                       "  \"speed\" REAL,\n"
                       "  CONSTRAINT \"veh_type_fk\"\n"
                       "    FOREIGN KEY (\"veh_type\")\n"
-                      "    REFERENCES \"Veh_Type\" (\"auto_id\")\n"
+                      "    REFERENCES \"Veh_Type\" (\"type\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
                       "  CONSTRAINT \"nodes_fk\"\n"
                       "    FOREIGN KEY (\"nodes\")\n"
@@ -23011,7 +23011,7 @@ namespace odb
   "\"Household\".\"drive\""
   " FROM \"Household\""
   " LEFT JOIN \"Location\" AS \"location\" ON \"location\".\"location\"=\"Household\".\"location\""
-  " LEFT JOIN \"Vehicle\" AS \"vehicles\" ON \"vehicles\".\"vehicle\"=\"Household\".\"vehicles\""
+  " LEFT JOIN \"Vehicle\" AS \"vehicles\" ON \"vehicles\".\"auto_id\"=\"Household\".\"vehicles\""
   " ";
 
   const char access::object_traits< ::pio::Household >::erase_query_statement[] =
@@ -23402,7 +23402,7 @@ namespace odb
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
                       "  CONSTRAINT \"vehicles_fk\"\n"
                       "    FOREIGN KEY (\"vehicles\")\n"
-                      "    REFERENCES \"Vehicle\" (\"vehicle\")\n"
+                      "    REFERENCES \"Vehicle\" (\"auto_id\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -26145,11 +26145,11 @@ namespace odb
     id_type id;
     {
       sqlite::value_traits<
-          long unsigned int,
+          int,
           sqlite::id_integer >::set_value (
         id,
-        i.auto_id_value,
-        i.auto_id_null);
+        i.type_value,
+        i.type_null);
     }
 
     return id;
@@ -26163,57 +26163,53 @@ namespace odb
 
     bool grew (false);
 
-    // auto_id
+    // type
     //
     t[0UL] = false;
 
-    // type
+    // length
     //
     t[1UL] = false;
 
-    // length
+    // max_speed
     //
     t[2UL] = false;
 
-    // max_speed
+    // max_accel
     //
     t[3UL] = false;
 
-    // max_accel
+    // max_decel
     //
     t[4UL] = false;
 
-    // max_decel
+    // op_cost
     //
     t[5UL] = false;
 
-    // op_cost
+    // use
     //
     t[6UL] = false;
 
-    // use
+    // capacity
     //
     t[7UL] = false;
 
-    // capacity
+    // load
     //
     t[8UL] = false;
 
-    // load
+    // unload
     //
     t[9UL] = false;
 
-    // unload
+    // method
     //
     t[10UL] = false;
 
-    // method
-    //
-    t[11UL] = false;
-
     // subtype
     //
-    t[12UL] = false;
+    t[11UL] = false;
 
     return grew;
   }
@@ -26229,22 +26225,15 @@ namespace odb
 
     std::size_t n (0);
 
-    // auto_id
+    // type
     //
     if (sk != statement_update)
     {
       b[n].type = sqlite::bind::integer;
-      b[n].buffer = &i.auto_id_value;
-      b[n].is_null = &i.auto_id_null;
+      b[n].buffer = &i.type_value;
+      b[n].is_null = &i.type_null;
       n++;
     }
-
-    // type
-    //
-    b[n].type = sqlite::bind::integer;
-    b[n].buffer = &i.type_value;
-    b[n].is_null = &i.type_null;
-    n++;
 
     // length
     //
@@ -26344,25 +26333,9 @@ namespace odb
 
     bool grew (false);
 
-    // auto_id
-    //
-    if (sk == statement_insert)
-    {
-      long unsigned int const& v =
-        o.auto_id;
-
-      bool is_null (false);
-      sqlite::value_traits<
-          long unsigned int,
-          sqlite::id_integer >::set_image (
-        i.auto_id_value,
-        is_null,
-        v);
-      i.auto_id_null = is_null;
-    }
-
     // type
     //
+    if (sk == statement_insert)
     {
       int const& v =
         o.type;
@@ -26563,20 +26536,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (i);
     ODB_POTENTIALLY_UNUSED (db);
 
-    // auto_id
-    //
-    {
-      long unsigned int& v =
-        o.auto_id;
-
-      sqlite::value_traits<
-          long unsigned int,
-          sqlite::id_integer >::set_value (
-        v,
-        i.auto_id_value,
-        i.auto_id_null);
-    }
-
     // type
     //
     {
@@ -26752,7 +26711,7 @@ namespace odb
     {
       bool is_null (false);
       sqlite::value_traits<
-          long unsigned int,
+          int,
           sqlite::id_integer >::set_image (
         i.id_value,
         is_null,
@@ -26770,7 +26729,6 @@ namespace odb
 
   const char access::object_traits< ::pio::Veh_Type >::persist_statement[] =
   "INSERT INTO \"Veh_Type\" ("
-  "\"auto_id\","
   "\"type\","
   "\"length\","
   "\"max_speed\","
@@ -26783,11 +26741,10 @@ namespace odb
   "\"unload\","
   "\"method\","
   "\"subtype\")"
-  " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Veh_Type >::find_statement[] =
   "SELECT "
-  "\"Veh_Type\".\"auto_id\","
   "\"Veh_Type\".\"type\","
   "\"Veh_Type\".\"length\","
   "\"Veh_Type\".\"max_speed\","
@@ -26801,11 +26758,10 @@ namespace odb
   "\"Veh_Type\".\"method\","
   "\"Veh_Type\".\"subtype\""
   " FROM \"Veh_Type\""
-  " WHERE \"Veh_Type\".\"auto_id\"=?";
+  " WHERE \"Veh_Type\".\"type\"=?";
 
   const char access::object_traits< ::pio::Veh_Type >::update_statement[] =
   "UPDATE \"Veh_Type\" SET "
-  "\"type\"=?,"
   "\"length\"=?,"
   "\"max_speed\"=?,"
   "\"max_accel\"=?,"
@@ -26817,15 +26773,14 @@ namespace odb
   "\"unload\"=?,"
   "\"method\"=?,"
   "\"subtype\"=?"
-  " WHERE \"auto_id\"=?";
+  " WHERE \"type\"=?";
 
   const char access::object_traits< ::pio::Veh_Type >::erase_statement[] =
   "DELETE FROM \"Veh_Type\""
-  " WHERE \"auto_id\"=?";
+  " WHERE \"type\"=?";
 
   const char access::object_traits< ::pio::Veh_Type >::query_statement[] =
   "SELECT "
-  "\"Veh_Type\".\"auto_id\","
   "\"Veh_Type\".\"type\","
   "\"Veh_Type\".\"length\","
   "\"Veh_Type\".\"max_speed\","
@@ -26849,7 +26804,7 @@ namespace odb
   "\"Veh_Type\"";
 
   void access::object_traits< ::pio::Veh_Type >::
-  persist (database& db, object_type& obj)
+  persist (database& db, const object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
 
@@ -26861,7 +26816,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     callback (db,
-              static_cast<const object_type&> (obj),
+              obj,
               callback_event::pre_persist);
 
     image_type& im (sts.image ());
@@ -26869,8 +26824,6 @@ namespace odb
 
     if (init (im, obj, statement_insert))
       im.version++;
-
-    im.auto_id_null = true;
 
     if (im.version != sts.insert_image_version () ||
         imb.version == 0)
@@ -26884,10 +26837,8 @@ namespace odb
     if (!st.execute ())
       throw object_already_persistent ();
 
-    obj.auto_id = static_cast< id_type > (st.id ());
-
     callback (db,
-              static_cast<const object_type&> (obj),
+              obj,
               callback_event::post_persist);
   }
 
@@ -26906,7 +26857,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     id_image_type& i (sts.id_image ());
-    init (i, obj.auto_id);
+    init (i, obj.type);
 
     image_type& im (sts.image ());
     if (init (im, obj, statement_update))
@@ -27075,7 +27026,7 @@ namespace odb
     statements_type::auto_lock l (sts);
 
     const id_type& id  (
-      obj.auto_id);
+      obj.type);
 
     if (!find_ (sts, &id))
       return false;
@@ -27209,8 +27160,7 @@ namespace odb
         case 1:
         {
           db.execute ("CREATE TABLE \"Veh_Type\" (\n"
-                      "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
+                      "  \"type\" INTEGER NOT NULL PRIMARY KEY,\n"
                       "  \"length\" REAL,\n"
                       "  \"max_speed\" REAL,\n"
                       "  \"max_accel\" REAL,\n"
@@ -27248,11 +27198,11 @@ namespace odb
     id_type id;
     {
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_value (
         id,
-        i.vehicle_value,
-        i.vehicle_null);
+        i.auto_id_value,
+        i.auto_id_null);
     }
 
     return id;
@@ -27266,29 +27216,33 @@ namespace odb
 
     bool grew (false);
 
-    // hhold
+    // auto_id
     //
     t[0UL] = false;
 
-    // vehicle
+    // hhold
     //
     t[1UL] = false;
 
-    // parking
+    // vehicle
     //
     t[2UL] = false;
 
-    // type
+    // parking
     //
     t[3UL] = false;
 
-    // subtype
+    // type
     //
     t[4UL] = false;
 
-    // partition
+    // subtype
     //
     t[5UL] = false;
+
+    // partition
+    //
+    t[6UL] = false;
 
     return grew;
   }
@@ -27304,6 +27258,16 @@ namespace odb
 
     std::size_t n (0);
 
+    // auto_id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.auto_id_value;
+      b[n].is_null = &i.auto_id_null;
+      n++;
+    }
+
     // hhold
     //
     b[n].type = sqlite::bind::integer;
@@ -27313,13 +27277,10 @@ namespace odb
 
     // vehicle
     //
-    if (sk != statement_update)
-    {
-      b[n].type = sqlite::bind::integer;
-      b[n].buffer = &i.vehicle_value;
-      b[n].is_null = &i.vehicle_null;
-      n++;
-    }
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.vehicle_value;
+    b[n].is_null = &i.vehicle_null;
+    n++;
 
     // parking
     //
@@ -27370,6 +27331,23 @@ namespace odb
 
     bool grew (false);
 
+    // auto_id
+    //
+    if (sk == statement_insert)
+    {
+      long unsigned int const& v =
+        o.auto_id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_image (
+        i.auto_id_value,
+        is_null,
+        v);
+      i.auto_id_null = is_null;
+    }
+
     // hhold
     //
     {
@@ -27388,7 +27366,6 @@ namespace odb
 
     // vehicle
     //
-    if (sk == statement_insert)
     {
       int const& v =
         o.vehicle;
@@ -27433,17 +27410,28 @@ namespace odb
     // type
     //
     {
-      int const& v =
+      ::std::tr1::shared_ptr< ::pio::Veh_Type > const& v =
         o.type;
 
-      bool is_null (false);
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
-        i.type_value,
-        is_null,
-        v);
-      i.type_null = is_null;
+      typedef object_traits< ::pio::Veh_Type > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Veh_Type > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.type_value,
+          is_null,
+          id);
+        i.type_null = is_null;
+      }
+      else
+        i.type_null = true;
     }
 
     // subtype
@@ -27487,6 +27475,20 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (o);
     ODB_POTENTIALLY_UNUSED (i);
     ODB_POTENTIALLY_UNUSED (db);
+
+    // auto_id
+    //
+    {
+      long unsigned int& v =
+        o.auto_id;
+
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.auto_id_value,
+        i.auto_id_null);
+    }
 
     // hhold
     //
@@ -27549,15 +27551,31 @@ namespace odb
     // type
     //
     {
-      int& v =
+      ::std::tr1::shared_ptr< ::pio::Veh_Type >& v =
         o.type;
 
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
-        v,
-        i.type_value,
-        i.type_null);
+      typedef object_traits< ::pio::Veh_Type > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Veh_Type > > ptr_traits;
+
+      if (i.type_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.type_value,
+          i.type_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          db->load< obj_traits::object_type > (id));
+      }
     }
 
     // subtype
@@ -27595,7 +27613,7 @@ namespace odb
     {
       bool is_null (false);
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_image (
         i.id_value,
         is_null,
@@ -27613,16 +27631,18 @@ namespace odb
 
   const char access::object_traits< ::pio::Vehicle >::persist_statement[] =
   "INSERT INTO \"Vehicle\" ("
+  "\"auto_id\","
   "\"hhold\","
   "\"vehicle\","
   "\"parking\","
   "\"type\","
   "\"subtype\","
   "\"partition\")"
-  " VALUES (?,?,?,?,?,?)";
+  " VALUES (?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Vehicle >::find_statement[] =
   "SELECT "
+  "\"Vehicle\".\"auto_id\","
   "\"Vehicle\".\"hhold\","
   "\"Vehicle\".\"vehicle\","
   "\"Vehicle\".\"parking\","
@@ -27630,23 +27650,25 @@ namespace odb
   "\"Vehicle\".\"subtype\","
   "\"Vehicle\".\"partition\""
   " FROM \"Vehicle\""
-  " WHERE \"Vehicle\".\"vehicle\"=?";
+  " WHERE \"Vehicle\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Vehicle >::update_statement[] =
   "UPDATE \"Vehicle\" SET "
   "\"hhold\"=?,"
+  "\"vehicle\"=?,"
   "\"parking\"=?,"
   "\"type\"=?,"
   "\"subtype\"=?,"
   "\"partition\"=?"
-  " WHERE \"vehicle\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Vehicle >::erase_statement[] =
   "DELETE FROM \"Vehicle\""
-  " WHERE \"vehicle\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Vehicle >::query_statement[] =
   "SELECT "
+  "\"Vehicle\".\"auto_id\","
   "\"Vehicle\".\"hhold\","
   "\"Vehicle\".\"vehicle\","
   "\"Vehicle\".\"parking\","
@@ -27655,6 +27677,7 @@ namespace odb
   "\"Vehicle\".\"partition\""
   " FROM \"Vehicle\""
   " LEFT JOIN \"Parking\" AS \"parking\" ON \"parking\".\"parking\"=\"Vehicle\".\"parking\""
+  " LEFT JOIN \"Veh_Type\" AS \"type\" ON \"type\".\"type\"=\"Vehicle\".\"type\""
   " ";
 
   const char access::object_traits< ::pio::Vehicle >::erase_query_statement[] =
@@ -27665,7 +27688,7 @@ namespace odb
   "\"Vehicle\"";
 
   void access::object_traits< ::pio::Vehicle >::
-  persist (database& db, const object_type& obj)
+  persist (database& db, object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
 
@@ -27677,7 +27700,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::pre_persist);
 
     image_type& im (sts.image ());
@@ -27685,6 +27708,8 @@ namespace odb
 
     if (init (im, obj, statement_insert))
       im.version++;
+
+    im.auto_id_null = true;
 
     if (im.version != sts.insert_image_version () ||
         imb.version == 0)
@@ -27698,8 +27723,10 @@ namespace odb
     if (!st.execute ())
       throw object_already_persistent ();
 
+    obj.auto_id = static_cast< id_type > (st.id ());
+
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::post_persist);
   }
 
@@ -27718,7 +27745,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     id_image_type& i (sts.id_image ());
-    init (i, obj.vehicle);
+    init (i, obj.auto_id);
 
     image_type& im (sts.image ());
     if (init (im, obj, statement_update))
@@ -27887,7 +27914,7 @@ namespace odb
     statements_type::auto_lock l (sts);
 
     const id_type& id  (
-      obj.vehicle);
+      obj.auto_id);
 
     if (!find_ (sts, &id))
       return false;
@@ -28021,15 +28048,20 @@ namespace odb
         case 1:
         {
           db.execute ("CREATE TABLE \"Vehicle\" (\n"
+                      "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                       "  \"hhold\" INTEGER NOT NULL,\n"
-                      "  \"vehicle\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"vehicle\" INTEGER NOT NULL,\n"
                       "  \"parking\" INTEGER,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
+                      "  \"type\" INTEGER,\n"
                       "  \"subtype\" INTEGER NOT NULL,\n"
                       "  \"partition\" INTEGER NOT NULL,\n"
                       "  CONSTRAINT \"parking_fk\"\n"
                       "    FOREIGN KEY (\"parking\")\n"
                       "    REFERENCES \"Parking\" (\"parking\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED,\n"
+                      "  CONSTRAINT \"type_fk\"\n"
+                      "    FOREIGN KEY (\"type\")\n"
+                      "    REFERENCES \"Veh_Type\" (\"type\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -28924,7 +28956,7 @@ namespace odb
   " FROM \"Trip\""
   " LEFT JOIN \"Location\" AS \"origin\" ON \"origin\".\"location\"=\"Trip\".\"origin\""
   " LEFT JOIN \"Location\" AS \"destination\" ON \"destination\".\"location\"=\"Trip\".\"destination\""
-  " LEFT JOIN \"Vehicle\" AS \"vehicle\" ON \"vehicle\".\"vehicle\"=\"Trip\".\"vehicle\""
+  " LEFT JOIN \"Vehicle\" AS \"vehicle\" ON \"vehicle\".\"auto_id\"=\"Trip\".\"vehicle\""
   " ";
 
   const char access::object_traits< ::pio::Trip >::erase_query_statement[] =
@@ -29320,7 +29352,7 @@ namespace odb
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
                       "  CONSTRAINT \"vehicle_fk\"\n"
                       "    FOREIGN KEY (\"vehicle\")\n"
-                      "    REFERENCES \"Vehicle\" (\"vehicle\")\n"
+                      "    REFERENCES \"Vehicle\" (\"auto_id\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
