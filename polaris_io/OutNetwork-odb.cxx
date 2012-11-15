@@ -21809,7 +21809,7 @@ namespace odb
   "\"relation_Selection\".\"type\","
   "\"relation_Selection\".\"partition\""
   " FROM \"relation_Selection\""
-  " LEFT JOIN \"relation_Trip\" AS \"trip\" ON \"trip\".\"trip\"=\"relation_Selection\".\"trip\""
+  " LEFT JOIN \"relation_Trip\" AS \"trip\" ON \"trip\".\"auto_id\"=\"relation_Selection\".\"trip\""
   " ";
 
   const char access::object_traits< ::pio::Selection >::erase_query_statement[] =
@@ -22189,7 +22189,7 @@ namespace odb
                       "  \"partition\" INTEGER NOT NULL,\n"
                       "  CONSTRAINT \"trip_fk\"\n"
                       "    FOREIGN KEY (\"trip\")\n"
-                      "    REFERENCES \"relation_Trip\" (\"trip\")\n"
+                      "    REFERENCES \"relation_Trip\" (\"auto_id\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -28057,11 +28057,11 @@ namespace odb
     id_type id;
     {
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_value (
         id,
-        i.trip_value,
-        i.trip_null);
+        i.auto_id_value,
+        i.auto_id_null);
     }
 
     return id;
@@ -28075,61 +28075,65 @@ namespace odb
 
     bool grew (false);
 
-    // hhold
+    // auto_id
     //
     t[0UL] = false;
 
-    // person
+    // hhold
     //
     t[1UL] = false;
 
-    // tour
+    // person
     //
     t[2UL] = false;
 
-    // trip
+    // tour
     //
     t[3UL] = false;
 
-    // origin
+    // trip
     //
     t[4UL] = false;
 
-    // destination
+    // origin
     //
     t[5UL] = false;
 
-    // purpose
+    // destination
     //
     t[6UL] = false;
 
-    // mode
+    // purpose
     //
     t[7UL] = false;
 
-    // constraint
+    // mode
     //
     t[8UL] = false;
 
-    // priority
+    // constraint
     //
     t[9UL] = false;
 
-    // vehicle
+    // priority
     //
     t[10UL] = false;
 
-    // passengers
+    // vehicle
     //
     t[11UL] = false;
 
-    // type
+    // passengers
     //
     t[12UL] = false;
 
-    // partition
+    // type
     //
     t[13UL] = false;
+
+    // partition
+    //
+    t[14UL] = false;
 
     return grew;
   }
@@ -28144,6 +28148,16 @@ namespace odb
     using namespace sqlite;
 
     std::size_t n (0);
+
+    // auto_id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.auto_id_value;
+      b[n].is_null = &i.auto_id_null;
+      n++;
+    }
 
     // hhold
     //
@@ -28168,13 +28182,10 @@ namespace odb
 
     // trip
     //
-    if (sk != statement_update)
-    {
-      b[n].type = sqlite::bind::integer;
-      b[n].buffer = &i.trip_value;
-      b[n].is_null = &i.trip_null;
-      n++;
-    }
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.trip_value;
+    b[n].is_null = &i.trip_null;
+    n++;
 
     // origin
     //
@@ -28267,6 +28278,23 @@ namespace odb
 
     bool grew (false);
 
+    // auto_id
+    //
+    if (sk == statement_insert)
+    {
+      long unsigned int const& v =
+        o.auto_id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_image (
+        i.auto_id_value,
+        is_null,
+        v);
+      i.auto_id_null = is_null;
+    }
+
     // hhold
     //
     {
@@ -28317,7 +28345,6 @@ namespace odb
 
     // trip
     //
-    if (sk == statement_insert)
     {
       int const& v =
         o.trip;
@@ -28335,33 +28362,55 @@ namespace odb
     // origin
     //
     {
-      int const& v =
+      ::std::tr1::shared_ptr< ::pio::Location > const& v =
         o.origin;
 
-      bool is_null (false);
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
-        i.origin_value,
-        is_null,
-        v);
-      i.origin_null = is_null;
+      typedef object_traits< ::pio::Location > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Location > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.origin_value,
+          is_null,
+          id);
+        i.origin_null = is_null;
+      }
+      else
+        i.origin_null = true;
     }
 
     // destination
     //
     {
-      int const& v =
+      ::std::tr1::shared_ptr< ::pio::Location > const& v =
         o.destination;
 
-      bool is_null (false);
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
-        i.destination_value,
-        is_null,
-        v);
-      i.destination_null = is_null;
+      typedef object_traits< ::pio::Location > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Location > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.destination_value,
+          is_null,
+          id);
+        i.destination_null = is_null;
+      }
+      else
+        i.destination_null = true;
     }
 
     // purpose
@@ -28513,6 +28562,20 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (i);
     ODB_POTENTIALLY_UNUSED (db);
 
+    // auto_id
+    //
+    {
+      long unsigned int& v =
+        o.auto_id;
+
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.auto_id_value,
+        i.auto_id_null);
+    }
+
     // hhold
     //
     {
@@ -28572,29 +28635,61 @@ namespace odb
     // origin
     //
     {
-      int& v =
+      ::std::tr1::shared_ptr< ::pio::Location >& v =
         o.origin;
 
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
-        v,
-        i.origin_value,
-        i.origin_null);
+      typedef object_traits< ::pio::Location > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Location > > ptr_traits;
+
+      if (i.origin_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.origin_value,
+          i.origin_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          db->load< obj_traits::object_type > (id));
+      }
     }
 
     // destination
     //
     {
-      int& v =
+      ::std::tr1::shared_ptr< ::pio::Location >& v =
         o.destination;
 
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
-        v,
-        i.destination_value,
-        i.destination_null);
+      typedef object_traits< ::pio::Location > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Location > > ptr_traits;
+
+      if (i.destination_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.destination_value,
+          i.destination_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          db->load< obj_traits::object_type > (id));
+      }
     }
 
     // purpose
@@ -28732,7 +28827,7 @@ namespace odb
     {
       bool is_null (false);
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_image (
         i.id_value,
         is_null,
@@ -28750,6 +28845,7 @@ namespace odb
 
   const char access::object_traits< ::pio::Trip >::persist_statement[] =
   "INSERT INTO \"relation_Trip\" ("
+  "\"auto_id\","
   "\"hhold\","
   "\"person\","
   "\"tour\","
@@ -28764,10 +28860,11 @@ namespace odb
   "\"passengers\","
   "\"type\","
   "\"partition\")"
-  " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Trip >::find_statement[] =
   "SELECT "
+  "\"relation_Trip\".\"auto_id\","
   "\"relation_Trip\".\"hhold\","
   "\"relation_Trip\".\"person\","
   "\"relation_Trip\".\"tour\","
@@ -28783,13 +28880,14 @@ namespace odb
   "\"relation_Trip\".\"type\","
   "\"relation_Trip\".\"partition\""
   " FROM \"relation_Trip\""
-  " WHERE \"relation_Trip\".\"trip\"=?";
+  " WHERE \"relation_Trip\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Trip >::update_statement[] =
   "UPDATE \"relation_Trip\" SET "
   "\"hhold\"=?,"
   "\"person\"=?,"
   "\"tour\"=?,"
+  "\"trip\"=?,"
   "\"origin\"=?,"
   "\"destination\"=?,"
   "\"purpose\"=?,"
@@ -28800,14 +28898,15 @@ namespace odb
   "\"passengers\"=?,"
   "\"type\"=?,"
   "\"partition\"=?"
-  " WHERE \"trip\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Trip >::erase_statement[] =
   "DELETE FROM \"relation_Trip\""
-  " WHERE \"trip\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Trip >::query_statement[] =
   "SELECT "
+  "\"relation_Trip\".\"auto_id\","
   "\"relation_Trip\".\"hhold\","
   "\"relation_Trip\".\"person\","
   "\"relation_Trip\".\"tour\","
@@ -28823,6 +28922,8 @@ namespace odb
   "\"relation_Trip\".\"type\","
   "\"relation_Trip\".\"partition\""
   " FROM \"relation_Trip\""
+  " LEFT JOIN \"relation_Location\" AS \"origin\" ON \"origin\".\"location\"=\"relation_Trip\".\"origin\""
+  " LEFT JOIN \"relation_Location\" AS \"destination\" ON \"destination\".\"location\"=\"relation_Trip\".\"destination\""
   " LEFT JOIN \"relation_Vehicle\" AS \"vehicle\" ON \"vehicle\".\"vehicle\"=\"relation_Trip\".\"vehicle\""
   " ";
 
@@ -28834,7 +28935,7 @@ namespace odb
   "\"relation_Trip\"";
 
   void access::object_traits< ::pio::Trip >::
-  persist (database& db, const object_type& obj)
+  persist (database& db, object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
 
@@ -28846,7 +28947,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::pre_persist);
 
     image_type& im (sts.image ());
@@ -28854,6 +28955,8 @@ namespace odb
 
     if (init (im, obj, statement_insert))
       im.version++;
+
+    im.auto_id_null = true;
 
     if (im.version != sts.insert_image_version () ||
         imb.version == 0)
@@ -28867,8 +28970,10 @@ namespace odb
     if (!st.execute ())
       throw object_already_persistent ();
 
+    obj.auto_id = static_cast< id_type > (st.id ());
+
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::post_persist);
   }
 
@@ -28887,7 +28992,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     id_image_type& i (sts.id_image ());
-    init (i, obj.trip);
+    init (i, obj.auto_id);
 
     image_type& im (sts.image ());
     if (init (im, obj, statement_update))
@@ -29056,7 +29161,7 @@ namespace odb
     statements_type::auto_lock l (sts);
 
     const id_type& id  (
-      obj.trip);
+      obj.auto_id);
 
     if (!find_ (sts, &id))
       return false;
@@ -29190,12 +29295,13 @@ namespace odb
         case 1:
         {
           db.execute ("CREATE TABLE \"relation_Trip\" (\n"
+                      "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                       "  \"hhold\" INTEGER NOT NULL,\n"
                       "  \"person\" INTEGER NOT NULL,\n"
                       "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"origin\" INTEGER NOT NULL,\n"
-                      "  \"destination\" INTEGER NOT NULL,\n"
+                      "  \"trip\" INTEGER NOT NULL,\n"
+                      "  \"origin\" INTEGER,\n"
+                      "  \"destination\" INTEGER,\n"
                       "  \"purpose\" INTEGER NOT NULL,\n"
                       "  \"mode\" INTEGER NOT NULL,\n"
                       "  \"constraint\" INTEGER NOT NULL,\n"
@@ -29204,6 +29310,14 @@ namespace odb
                       "  \"passengers\" INTEGER NOT NULL,\n"
                       "  \"type\" INTEGER NOT NULL,\n"
                       "  \"partition\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"origin_fk\"\n"
+                      "    FOREIGN KEY (\"origin\")\n"
+                      "    REFERENCES \"relation_Location\" (\"location\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED,\n"
+                      "  CONSTRAINT \"destination_fk\"\n"
+                      "    FOREIGN KEY (\"destination\")\n"
+                      "    REFERENCES \"relation_Location\" (\"location\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED,\n"
                       "  CONSTRAINT \"vehicle_fk\"\n"
                       "    FOREIGN KEY (\"vehicle\")\n"
                       "    REFERENCES \"relation_Vehicle\" (\"vehicle\")\n"
@@ -32446,7 +32560,7 @@ namespace odb
   "\"relation_Event\".\"offset\","
   "\"relation_Event\".\"route\""
   " FROM \"relation_Event\""
-  " LEFT JOIN \"relation_Trip\" AS \"trip\" ON \"trip\".\"trip\"=\"relation_Event\".\"trip\""
+  " LEFT JOIN \"relation_Trip\" AS \"trip\" ON \"trip\".\"auto_id\"=\"relation_Event\".\"trip\""
   " LEFT JOIN \"relation_Link\" AS \"link\" ON \"link\".\"link\"=\"relation_Event\".\"link\""
   " ";
 
@@ -32832,7 +32946,7 @@ namespace odb
                       "  \"route\" INTEGER NOT NULL,\n"
                       "  CONSTRAINT \"trip_fk\"\n"
                       "    FOREIGN KEY (\"trip\")\n"
-                      "    REFERENCES \"relation_Trip\" (\"trip\")\n"
+                      "    REFERENCES \"relation_Trip\" (\"auto_id\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
                       "  CONSTRAINT \"link_fk\"\n"
                       "    FOREIGN KEY (\"link\")\n"
@@ -33612,7 +33726,7 @@ namespace odb
   "\"relation_Traveler\".\"offset\","
   "\"relation_Traveler\".\"route\""
   " FROM \"relation_Traveler\""
-  " LEFT JOIN \"relation_Trip\" AS \"trip\" ON \"trip\".\"trip\"=\"relation_Traveler\".\"trip\""
+  " LEFT JOIN \"relation_Trip\" AS \"trip\" ON \"trip\".\"auto_id\"=\"relation_Traveler\".\"trip\""
   " LEFT JOIN \"relation_Link\" AS \"link\" ON \"link\".\"link\"=\"relation_Traveler\".\"link\""
   " ";
 
@@ -33999,7 +34113,7 @@ namespace odb
                       "  \"route\" INTEGER NOT NULL,\n"
                       "  CONSTRAINT \"trip_fk\"\n"
                       "    FOREIGN KEY (\"trip\")\n"
-                      "    REFERENCES \"relation_Trip\" (\"trip\")\n"
+                      "    REFERENCES \"relation_Trip\" (\"auto_id\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
                       "  CONSTRAINT \"link_fk\"\n"
                       "    FOREIGN KEY (\"link\")\n"

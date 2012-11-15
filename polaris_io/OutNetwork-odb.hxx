@@ -7447,7 +7447,7 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
+        long unsigned int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
     trip_type_;
@@ -9780,6 +9780,18 @@ namespace odb
   template <typename A>
   struct pointer_query_columns< ::pio::Trip, A >
   {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
     // hhold
     //
     typedef
@@ -9950,6 +9962,11 @@ namespace odb
   };
 
   template <typename A>
+  const typename pointer_query_columns< ::pio::Trip, A >::auto_id_type_
+  pointer_query_columns< ::pio::Trip, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
+
+  template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::hhold_type_
   pointer_query_columns< ::pio::Trip, A >::
   hhold (A::table_name, "\"hhold\"", 0);
@@ -10029,8 +10046,8 @@ namespace odb
 
     static const bool polymorphic = false;
 
-    typedef int id_type;
-    static const bool auto_id = false;
+    typedef long unsigned int id_type;
+    static const bool auto_id = true;
 
     struct id_image_type
     {
@@ -10044,6 +10061,11 @@ namespace odb
 
     struct image_type
     {
+      // auto_id
+      //
+      long long auto_id_value;
+      bool auto_id_null;
+
       // hhold
       //
       long long hhold_value;
@@ -10156,7 +10178,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 14UL;
+    static const std::size_t column_count = 15UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -10178,7 +10200,7 @@ namespace odb
     callback (database&, const object_type&, callback_event);
 
     static void
-    persist (database&, const object_type&);
+    persist (database&, object_type&);
 
     static pointer_type
     find (database&, const id_type&);
@@ -11167,7 +11189,7 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
+        long unsigned int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
     trip_type_;
@@ -11569,7 +11591,7 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
+        long unsigned int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
     trip_type_;
@@ -16605,7 +16627,7 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
+        long unsigned int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
     trip_column_type_;
@@ -17559,6 +17581,36 @@ namespace odb
 
   // Trip
   //
+  class origin_alias_tag;
+
+#ifndef ODB_ALIAS_TRAITS_ORIGIN_FOR_PIO_LOCATION
+#define ODB_ALIAS_TRAITS_ORIGIN_FOR_PIO_LOCATION
+  template <bool d>
+  struct alias_traits< ::pio::Location, origin_alias_tag, d >
+  {
+    static const char table_name[];
+  };
+
+  template <bool d>
+  const char alias_traits< ::pio::Location, origin_alias_tag, d >::
+  table_name[] = "\"origin\"";
+#endif // ODB_ALIAS_TRAITS_ORIGIN_FOR_PIO_LOCATION
+
+  class destination_alias_tag;
+
+#ifndef ODB_ALIAS_TRAITS_DESTINATION_FOR_PIO_LOCATION
+#define ODB_ALIAS_TRAITS_DESTINATION_FOR_PIO_LOCATION
+  template <bool d>
+  struct alias_traits< ::pio::Location, destination_alias_tag, d >
+  {
+    static const char table_name[];
+  };
+
+  template <bool d>
+  const char alias_traits< ::pio::Location, destination_alias_tag, d >::
+  table_name[] = "\"destination\"";
+#endif // ODB_ALIAS_TRAITS_DESTINATION_FOR_PIO_LOCATION
+
   class vehicle_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_VEHICLE_FOR_PIO_VEHICLE
@@ -17577,6 +17629,18 @@ namespace odb
   template <>
   struct query_columns_base< ::pio::Trip >
   {
+    // origin
+    //
+    typedef
+    odb::alias_traits< ::pio::Location, origin_alias_tag >
+    origin_alias_;
+
+    // destination
+    //
+    typedef
+    odb::alias_traits< ::pio::Location, destination_alias_tag >
+    destination_alias_;
+
     // vehicle
     //
     typedef
@@ -17588,6 +17652,18 @@ namespace odb
   struct query_columns< ::pio::Trip, A >:
     query_columns_base< ::pio::Trip >
   {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
     // hhold
     //
     typedef
@@ -17644,7 +17720,26 @@ namespace odb
         int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
-    origin_type_;
+    origin_column_type_;
+
+    typedef
+    odb::query_pointer<
+      odb::pointer_query_columns<
+        ::pio::Location,
+        origin_alias_ > >
+    origin_pointer_type_;
+
+    struct origin_type_: origin_pointer_type_, origin_column_type_
+    {
+      origin_type_ ()
+      {
+      }
+
+      origin_type_ (const char* t, const char* c, const char* conv)
+        : origin_column_type_ (t, c, conv)
+      {
+      }
+    };
 
     static const origin_type_ origin;
 
@@ -17656,7 +17751,26 @@ namespace odb
         int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
-    destination_type_;
+    destination_column_type_;
+
+    typedef
+    odb::query_pointer<
+      odb::pointer_query_columns<
+        ::pio::Location,
+        destination_alias_ > >
+    destination_pointer_type_;
+
+    struct destination_type_: destination_pointer_type_, destination_column_type_
+    {
+      destination_type_ ()
+      {
+      }
+
+      destination_type_ (const char* t, const char* c, const char* conv)
+        : destination_column_type_ (t, c, conv)
+      {
+      }
+    };
 
     static const destination_type_ destination;
 
@@ -17775,6 +17889,11 @@ namespace odb
 
     static const partition_type_ partition;
   };
+
+  template <typename A>
+  const typename query_columns< ::pio::Trip, A >::auto_id_type_
+  query_columns< ::pio::Trip, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::hhold_type_
@@ -18076,7 +18195,7 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
+        long unsigned int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
     trip_column_type_;
@@ -18341,7 +18460,7 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
+        long unsigned int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
     trip_column_type_;

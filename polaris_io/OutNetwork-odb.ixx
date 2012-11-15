@@ -1288,7 +1288,7 @@ namespace odb
   access::object_traits< ::pio::Trip >::
   id (const object_type& o)
   {
-    return o.trip;
+    return o.auto_id;
   }
 
   inline
