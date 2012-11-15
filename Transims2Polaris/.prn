@@ -3,7 +3,7 @@
 	|                                          |
 	|     Transims2Polaris - Version 5.0.1     |
 	|  Copyright 2012 by TRANSIMS Open-Source  |
-	|         Thu Nov 15 11:26:16 2012         |
+	|         Thu Nov 15 12:41:36 2012         |
 	|                                          |
 	********************************************
 
@@ -12,7 +12,7 @@
 
 	
 
-	Random Number Seed = 1353000376
+	Random Number Seed = 1353004896
 
 	Input System Network Files:
 	Node File = C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/Node.txt

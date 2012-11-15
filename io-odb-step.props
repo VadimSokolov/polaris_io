@@ -3,7 +3,7 @@
   <ItemGroup>
     <CustomBuild Include="OutNetwork.h">
       <Message>odb OutNetwork.h</Message>
-      <Command>odb.exe --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --table-prefix relation_ OutNetwork.h</Command>
+      <Command>odb.exe --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr OutNetwork.h</Command>
       <Outputs>OutNetwork-odb.hxx;OutNetwork-odb.ixx;OutNetwork-odb.cxx;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">odb OutNetwork.h</Message>
     </CustomBuild>

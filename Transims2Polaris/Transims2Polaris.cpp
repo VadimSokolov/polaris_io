@@ -63,7 +63,6 @@ int main(int argc, char* argv[])
 	net->Init();
 	pio::InputContainer container;
 	string name = "C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite";
-
 	ConvertNodes(name, net, container);
 	ConvertZones(name, net, container);
 	ConvertLinks(name, net, container);

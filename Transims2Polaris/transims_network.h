@@ -28,7 +28,7 @@ public:
 	}
 	void Init()
 	{
-		Quiet(true);
+		Quiet(false);
 		Strings control_keys;
 		//control_keys.push_back("NODE_FILE C:/Users/vsokolov/usr/polaris/TransimsData/Case1/network/Node.txt");
 		//control_keys.push_back("LINK_FILE C:/Users/vsokolov/usr/polaris/TransimsData/Case1/network/Link.txt");

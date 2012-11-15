@@ -9,7 +9,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 	#populate fields, types, accessors
 	with open(cpp_path.replace("\\","/")) as fh:
 		for line in fh:
-			m = p.search(line)
+			m = file_class_member_p.search(line)
 			if m is not None:
 				types.append(m.group(1))
 				fields.append(m.group(3))
@@ -138,8 +138,8 @@ if len(sys.argv) < 2:
 	
 ref_types = []
 #this pattern is applied to *_File.hpp file to extract the fileds
-p = re.compile("(int|string|double)\s*(\w+).*Get_\w+\s*\((\w+)\)")
-#this temlate is applied to File_Service.hpp file to exract the names of *_File objects
+file_class_member_p = re.compile("(char|bool|int|string|double|char|float|short)\s*(\w+).*Get_\w+\s*\((\w+)\)")
+#this template is applied to File_Service.hpp file to exract the names of *_File objects
 p_tables = re.compile("#include\s*\"(\w+)_File\.hpp\"")	
 odb_namespace = "pio"
 container_type = "InputContainer"
@@ -155,38 +155,42 @@ if len(sys.argv)==2:
 	if not os.path.exists(temp):
 		print "The %s path does not exist, exiting..."%temp
 		sys.exit()
-
+	#populate the relations list
 	with open(temp, 'r') as fh:
 		for line in fh:
 			m = p_tables.match(line)
 			if m is not None:
 				relations.append(m.group(1))
+	#initialize strings anf file handlers
 	forward_declarations = ""
 	odb_code=""
 	adapter_code=""
 	input_container = "class %s \n{\npublic:\n"%container_type
 	odb_fh =  open("out\\odb_data_model.h", 'w')
 	adapter_fh =  open("out\\adapter_methods.h", 'w') 
-	odb_fh.write(generate_head())
-	odb_fh.write("namespace %s\n{\n"%odb_namespace)
-	for i in range(len(relations)):
-		item = relations[i]
-		if item.lower() in ["type", "use"]:
-			continue
-		ref_types.append(item)	
+
+	#populate ref_types and forward_declarations
+	for item in relations:
+		if item.lower() not in ["type", "use"]:			
+			ref_types.append(item)	
 		forward_declarations  += "class %s;\n"%item 	
 	forward_declarations += "class %s;\n"%container_type
-	odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)	
+	
+	#generate c++ code for new classes as well as adapter methods from transims to the new classes
 	for item in relations:
 		print "Processing %s"%item
 		(o,a) = generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item)
 		odb_code+=o
 		adapter_code+=a
+	#generate input container class
 	for i in range(len(relations)):
 		item = relations[i]
-		if item.lower() in ["type", "use"]:
-			continue		
 		input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[i],item, item)
+	
+	#write content to the files
+	odb_fh.write(generate_head())
+	odb_fh.write("namespace %s\n{\n"%odb_namespace)	
+	odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)
 	odb_fh.write("//Input Container.\n//\n"+input_container+"};\n")
 	odb_fh.write(odb_code)
 	odb_fh.write("\n}//end of namespace\n") #close namespace bracket
