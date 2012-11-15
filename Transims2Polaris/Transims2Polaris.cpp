@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
 	ConvertLinks(name, net, container);
 	ConvertConnects(name, net, container);
 	ConvertLocations(name, net, container);
-	//ConvertTrips(name, net, container);
+	ConvertTrips(name, net, container);
 	cout << "Press any key...\n";
 	getchar();
 

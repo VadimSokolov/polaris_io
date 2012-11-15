@@ -1,9 +1,7 @@
-// file      : relationship/employee.hxx
-// copyright : not copyrighted - public domain
 
 #ifndef OutNetwork
 #define OutNetwork
-//#pragma warning(disable:4068)
+#pragma warning(disable:4068)
 
 #include <map>
 #include <vector>
@@ -16,23 +14,6 @@
 //
 #include <odb/tr1/memory.hxx>
 using std::tr1::shared_ptr;
-
-// The "pointer architecture" in this object model is as follows: All
-// object pointers are eager. The Link class holds shared pointers
-// to anode and bnode.
-//
-// The following unidirectional relationships are used:
-//
-// to-one  : Link -> Node (anode)
-// to-one  : Link -> Node (bnode)
-//
-
-/*******************************/
-/*******************************/
-/*  Satrt of Generated Code    */
-/*******************************/
-/*******************************/
-
 namespace pio
 {
 //Forward declarations.
@@ -107,13 +88,14 @@ public:
 	std::map<unsigned long,shared_ptr<Ridership>> Riderships;
 	std::map<unsigned long,shared_ptr<Veh_Type>> Veh_Types;
 	std::map<int,shared_ptr<Vehicle>> Vehicles;
-	std::map<int,shared_ptr<Trip>> Trips;
+	std::map<unsigned long,shared_ptr<Trip>> Trips;
 	std::map<int,shared_ptr<Problem>> Problems;
 	std::map<unsigned long,shared_ptr<Plan>> Plans;
 	std::map<unsigned long,shared_ptr<Skim>> Skims;
 	std::map<unsigned long,shared_ptr<Event>> Events;
 	std::map<unsigned long,shared_ptr<Traveler>> Travelers;
 };
+
 #pragma db object
 class Node
 {
@@ -1506,7 +1488,7 @@ public:
 	// Default Constructor
 	Trip () {}	
 	//Contructor
-	Trip ( int hhold_, int person_, int tour_, int trip_, int origin_, int destination_, int purpose_, int mode_, int constraint_, int priority_, shared_ptr<Vehicle> vehicle_, int passengers_, int type_, int partition_ )  
+	Trip ( int hhold_, int person_, int tour_, int trip_, shared_ptr<Location> origin_, shared_ptr<Location> destination_, int purpose_, int mode_, int constraint_, int priority_, shared_ptr<Vehicle> vehicle_, int passengers_, int type_, int partition_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), origin (origin_), destination (destination_), purpose (purpose_), mode (mode_), constraint (constraint_), priority (priority_), vehicle (vehicle_), passengers (passengers_), type (type_), partition (partition_)
 	{
 	}
@@ -1519,10 +1501,12 @@ public:
 	void setTour (const int& tour_){tour = tour_;}
 	const int& getTrip () const {return trip;}
 	void setTrip (const int& trip_){trip = trip_;}
-	const int& getOrigin () const {return origin;}
-	void setOrigin (const int& origin_){origin = origin_;}
-	const int& getDestination () const {return destination;}
-	void setDestination (const int& destination_){destination = destination_;}
+	const shared_ptr<Location>& getOrigin () const {return origin;}
+	void setOrigin (const shared_ptr<Location>& origin_){origin = origin_;}
+	void setOrigin (const int& origin_, InputContainer& container){origin = container.Locations[origin_];}
+	const shared_ptr<Location>& getDestination () const {return destination;}
+	void setDestination (const shared_ptr<Location>& destination_){destination = destination_;}
+	void setDestination (const int& destination_, InputContainer& container){destination = container.Locations[destination_];}
 	const int& getPurpose () const {return purpose;}
 	void setPurpose (const int& purpose_){purpose = purpose_;}
 	const int& getMode () const {return mode;}
@@ -1540,17 +1524,19 @@ public:
 	void setType (const int& type_){type = type_;}
 	const int& getPartition () const {return partition;}
 	void setPartition (const int& partition_){partition = partition_;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
 	friend class odb::access;
+	#pragma db id auto
+	unsigned long auto_id;
 	int hhold;
 	int person;
 	int tour;
-	#pragma db id
 	int trip;
-	int origin;
-	int destination;
+	shared_ptr<Location> origin;
+	shared_ptr<Location> destination;
 	int purpose;
 	int mode;
 	int constraint;
@@ -1801,15 +1787,5 @@ private:
 
 };
 
-
 }//end of namespace
-
-
-/*******************************/
-/*******************************/
-/*   End of Generated Code     */
-/*******************************/
-/*******************************/
-
-
 #endif // OutNetwork

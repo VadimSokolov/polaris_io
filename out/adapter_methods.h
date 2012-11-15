@@ -423,8 +423,8 @@ shared_ptr<pio::Trip> TripAdapter( Trip_File &file, pio::InputContainer& contain
 	result->setPerson(file.Person ()); 
 	result->setTour(file.Tour ()); 
 	result->setTrip(file.Trip ()); 
-	result->setOrigin(file.Origin ()); 
-	result->setDestination(file.Destination ()); 
+	result->setOrigin(file.Origin (), container); 
+	result->setDestination(file.Destination (), container); 
 	result->setPurpose(file.Purpose ()); 
 	result->setMode(file.Mode ()); 
 	result->setConstraint(file.Constraint ()); 

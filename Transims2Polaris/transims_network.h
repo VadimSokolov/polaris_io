@@ -15,7 +15,7 @@ public:
 			NODE, LINK, LOCATION, CONNECTION, PARKING, ZONE,END_FILE
 		};
 		System_File_Type optional_files [] = {
-			 SHAPE, POCKET, SIGN, SIGNAL, TIMING_PLAN, PHASING_PLAN, DETECTOR, END_FILE
+			 SHAPE, POCKET, SIGN, SIGNAL, TIMING_PLAN, PHASING_PLAN, DETECTOR, TRIP, END_FILE
 		};
 		Required_System_Files (required_files);
 		Optional_System_Files (optional_files);

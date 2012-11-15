@@ -1,0 +1,33 @@
+
+	********************************************
+	|                                          |
+	|     Transims2Polaris - Version 5.0.1     |
+	|  Copyright 2012 by TRANSIMS Open-Source  |
+	|         Thu Nov 15 11:26:16 2012         |
+	|                                          |
+	********************************************
+
+	Control File = 
+	Report File  = .prn (Create)
+
+	
+
+	Random Number Seed = 1353000376
+
+	Input System Network Files:
+	Node File = C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/Node.txt
+	Zone File = C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/Zone.txt
+	Link File = C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/link.txt
+	Connection File = ...kolov/usr/polaris/TransimsData/TestNet50/network/Connection.txt
+	Parking File = ...rs/vsokolov/usr/polaris/TransimsData/TestNet50/network/Parking.txt
+	Location File = .../vsokolov/usr/polaris/TransimsData/TestNet50/network/Location.txt
+	Sign File = C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/Sign.txt
+	Signal File = ...sers/vsokolov/usr/polaris/TransimsData/TestNet50/network/Signal.txt
+	Phasing Plan File = ...v/usr/polaris/TransimsData/TestNet50/network/phasing_plan.txt
+	Timing Plan File = ...lov/usr/polaris/TransimsData/TestNet50/network/timing_plan.txt
+	Detector File = .../vsokolov/usr/polaris/TransimsData/TestNet50/network/detector.txt
+
+	Input System Demand Files:
+	Trip File = C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/trip.txt
+
+	Data Service Controls:

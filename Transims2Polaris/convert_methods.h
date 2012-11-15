@@ -24,7 +24,7 @@ void ConvertNodes(string db_file_path, TransimsNetwork *net, InputContainer& con
 		while (file->Read())
 		{		
 			net->Show_Progress();
-			n = NodeAdopter(*file, container);
+			n = NodeAdapter(*file, container);
 			container.Nodes[n->getNode()] = n;		
 			db->persist(n);
 		}
@@ -45,17 +45,17 @@ void ConvertLinks(string db_file_path, TransimsNetwork *net, InputContainer& con
 	try
 	{
 		auto_ptr<database> db (open_sqlite_database (db_file_path));
-		
+		transaction t (db->begin());
 		while (file->Read())
 		{
-			transaction t (db->begin());
+			
 			net->Show_Progress();
-			n = LinkAdopter(*file, container);
+			n = LinkAdapter(*file, container);
 			container.Links[n->getLink()] = n;		
 			db->persist(n);
-			t.commit();
+			
 		}
-		
+		t.commit();
 	}
 	catch (odb::sqlite::database_exception e)
 	{
@@ -72,17 +72,17 @@ void ConvertConnects(string db_file_path, TransimsNetwork *net, InputContainer& 
 	try
 	{
 		auto_ptr<database> db (open_sqlite_database (db_file_path));
-		
+		transaction t (db->begin());
 		while (file->Read())
 		{
-			transaction t (db->begin());
+			
 			net->Show_Progress();
-			n = ConnectAdopter(*file, container);
+			n = ConnectAdapter(*file, container);
 			container.Connects[n->getAuto_id()] = n;		
 			db->persist(n);
-			t.commit();
+			
 		}
-		
+		t.commit();
 	}
 	catch (odb::sqlite::database_exception e)
 	{
@@ -103,7 +103,7 @@ void ConvertLocations(string db_file_path, TransimsNetwork *net, InputContainer&
 		{
 			transaction t (db->begin());
 			net->Show_Progress();
-			n = LocationAdopter(*file, container);
+			n = LocationAdapter(*file, container);
 			container.Locations[n->getLocation()] = n;		
 			db->persist(n);
 			t.commit();
@@ -129,7 +129,7 @@ void ConvertZones(string db_file_path, TransimsNetwork *net, InputContainer& con
 		{
 			transaction t (db->begin());
 			net->Show_Progress();
-			n = ZoneAdopter(*file, container);
+			n = ZoneAdapter(*file, container);
 			container.Zones[n->getZone()] = n;		
 			db->persist(n);
 			t.commit();
@@ -145,22 +145,28 @@ void ConvertZones(string db_file_path, TransimsNetwork *net, InputContainer& con
 void ConvertTrips(string db_file_path, TransimsNetwork *net, InputContainer& container)
 {
 	cout << "ConvertTrips\n";
+	bool flag = net->System_File_Flag (TRIP);
+	if (!flag)
+	{
+		cout << "Trip File was not found\n";
+		return;
+	}
 	shared_ptr<pio::Trip> n;
 	Trip_File *file = (Trip_File *) net->System_File_Handle (TRIP);
 	try
 	{
 		auto_ptr<database> db (open_sqlite_database (db_file_path));
-		
+		transaction t (db->begin());
 		while (file->Read())
 		{
-			transaction t (db->begin());
+			
 			net->Show_Progress();
-			n = TripAdopter(*file, container);
+			n = TripAdapter(*file, container);
 			container.Trips[n->getTrip()] = n;		
 			db->persist(n);
-			t.commit();
+			
 		}
-		
+		t.commit();
 	}
 	catch (odb::sqlite::database_exception e)
 	{
