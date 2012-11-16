@@ -84,7 +84,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 		elif mapping_info is not None:
 			adpater_method += "\n\tresult->set%s(file.%s ().%s()); "%(field.title(), accessor, mapping_info[2])
 		elif conversion_info is not None:
-			adpater_method += "\n\tresult->set%s(%s(file.%s())); "%( field.title(), conversion_info[1], accessor)
+			adpater_method += "\n\tresult->set%s(%s(%sfile.%s())); "%( field.title(), conversion_info[1],conversion_info[2], accessor)
 		else: 
 			adpater_method += "\n\tresult->set%s(file.%s ()); "%(field.title(), accessor)
 	odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(key_type, "PrimaryKey", key_field)
@@ -165,7 +165,7 @@ container_type = "InputContainer"
 relations = []
 relation_primary_key_types = {}
 #(relation name, field name)
-false_primary_keys = [("Trip", "trip"), ("Vehicle", "vehicle")]
+false_primary_keys = [("Trip", "trip"), ("Vehicle", "vehicle"), ("Sign", "sign"), ("Timing", "timing"), ("Phasing", "phasing")]
 #(relation, field name)
 false_foreign_keys = [("Phasing","detectors"), ("Ridership", "schedule"),("Event", "schedule")]
 #(relation name, field name)
@@ -174,9 +174,12 @@ true_primary_keys = [("Veh_Type", "type")]
 true_ref_fields_types = {("Trip","origin"):"Location", ("Trip","destination"):"Location",("Vehicle", "type"):"Veh_Type"}
 #transims type -> (polaris type, transims type, transms type getter)
 type_map = {"Dtime":("double", "Dtime", "Seconds")}
-# (type,field) -> (new type, conversion method)
-field_conversion = {("Connect","lanes"):("string", "Static_Service::Lane_Range_Code")}
-field_conversion[("Connect","to_lanes")] = ("string", "Static_Service::Lane_Range_Code")
+# (type,field) -> (new type, conversion method, class to cast to)
+field_conversion = {("Connect","lanes"):("string", "Static_Service::Lane_Range_Code", "")}
+field_conversion[("Connect","to_lanes")] = ("string", "Static_Service::Lane_Range_Code","")
+field_conversion[("Connect","type")] = ("string", "Static_Service::Connect_Code","(Connect_Type)")
+field_conversion[("Link","type")] = ("string", "Static_Service::Facility_Code","(Facility_Type)")
+field_conversion[("Signal","type")] = ("string", "Static_Service::Signal_Code","(Signal_Type)")
 
 potential_ref_types = []
 actual_ref_types = []
@@ -228,6 +231,11 @@ if len(sys.argv)==2:
 	odb_fh.write(odb_code)
 	odb_fh.write("\n}//end of namespace\n") #close namespace bracket
 	odb_fh.write("#endif // OutNetwork")
+	
+	adapter_fh.write("""#pragma once
+#include "OutNetwork.h"
+#include "File_Service.hpp"
+""")
 	adapter_fh.write(adapter_code)
 	
 	

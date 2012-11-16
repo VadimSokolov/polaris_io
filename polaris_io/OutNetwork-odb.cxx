@@ -2189,7 +2189,11 @@ namespace odb
 
     // type
     //
-    t[9UL] = false;
+    if (t[9UL])
+    {
+      i.type_value.capacity (i.type_size);
+      grew = true;
+    }
 
     // divided
     //
@@ -2341,8 +2345,12 @@ namespace odb
 
     // type
     //
-    b[n].type = sqlite::bind::integer;
-    b[n].buffer = &i.type_value;
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.type_value.data ();
+    b[n].size = &i.type_size;
+    b[n].capacity = i.type_value.capacity ();
     b[n].is_null = &i.type_null;
     n++;
 
@@ -2652,17 +2660,20 @@ namespace odb
     // type
     //
     {
-      int const& v =
+      ::std::string const& v =
         o.type;
 
       bool is_null (false);
+      std::size_t cap (i.type_value.capacity ());
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
+          ::std::string,
+          sqlite::id_text >::set_image (
         i.type_value,
+        i.type_size,
         is_null,
         v);
       i.type_null = is_null;
+      grew = grew || (cap != i.type_value.capacity ());
     }
 
     // divided
@@ -3093,14 +3104,15 @@ namespace odb
     // type
     //
     {
-      int& v =
+      ::std::string& v =
         o.type;
 
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
+          ::std::string,
+          sqlite::id_text >::set_value (
         v,
         i.type_value,
+        i.type_size,
         i.type_null);
     }
 
@@ -3865,7 +3877,7 @@ namespace odb
                       "  \"setback_b\" REAL,\n"
                       "  \"bearing_a\" INTEGER NOT NULL,\n"
                       "  \"bearing_b\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
+                      "  \"type\" TEXT NOT NULL,\n"
                       "  \"divided\" INTEGER NOT NULL,\n"
                       "  \"area_type\" INTEGER NOT NULL,\n"
                       "  \"use\" INTEGER NOT NULL,\n"
@@ -6192,7 +6204,11 @@ namespace odb
 
     // type
     //
-    t[6UL] = false;
+    if (t[6UL])
+    {
+      i.type_value.capacity (i.type_size);
+      grew = true;
+    }
 
     // penalty
     //
@@ -6283,8 +6299,12 @@ namespace odb
 
     // type
     //
-    b[n].type = sqlite::bind::integer;
-    b[n].buffer = &i.type_value;
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.type_value.data ();
+    b[n].size = &i.type_size;
+    b[n].capacity = i.type_value.capacity ();
     b[n].is_null = &i.type_null;
     n++;
 
@@ -6472,17 +6492,20 @@ namespace odb
     // type
     //
     {
-      int const& v =
+      ::std::string const& v =
         o.type;
 
       bool is_null (false);
+      std::size_t cap (i.type_value.capacity ());
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
+          ::std::string,
+          sqlite::id_text >::set_image (
         i.type_value,
+        i.type_size,
         is_null,
         v);
       i.type_null = is_null;
+      grew = grew || (cap != i.type_value.capacity ());
     }
 
     // penalty
@@ -6696,14 +6719,15 @@ namespace odb
     // type
     //
     {
-      int& v =
+      ::std::string& v =
         o.type;
 
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
+          ::std::string,
+          sqlite::id_text >::set_value (
         v,
         i.type_value,
+        i.type_size,
         i.type_null);
     }
 
@@ -7259,7 +7283,7 @@ namespace odb
                       "  \"to_link\" INTEGER,\n"
                       "  \"lanes\" TEXT NOT NULL,\n"
                       "  \"to_lanes\" TEXT NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
+                      "  \"type\" TEXT NOT NULL,\n"
                       "  \"penalty\" INTEGER NOT NULL,\n"
                       "  \"speed\" REAL,\n"
                       "  \"capacity\" INTEGER NOT NULL,\n"
@@ -11407,11 +11431,11 @@ namespace odb
     id_type id;
     {
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_value (
         id,
-        i.sign_value,
-        i.sign_null);
+        i.auto_id_value,
+        i.auto_id_null);
     }
 
     return id;
@@ -11425,17 +11449,21 @@ namespace odb
 
     bool grew (false);
 
-    // link
+    // auto_id
     //
     t[0UL] = false;
 
-    // dir
+    // link
     //
     t[1UL] = false;
 
-    // sign
+    // dir
     //
     t[2UL] = false;
+
+    // sign
+    //
+    t[3UL] = false;
 
     return grew;
   }
@@ -11450,6 +11478,16 @@ namespace odb
     using namespace sqlite;
 
     std::size_t n (0);
+
+    // auto_id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.auto_id_value;
+      b[n].is_null = &i.auto_id_null;
+      n++;
+    }
 
     // link
     //
@@ -11467,13 +11505,10 @@ namespace odb
 
     // sign
     //
-    if (sk != statement_update)
-    {
-      b[n].type = sqlite::bind::integer;
-      b[n].buffer = &i.sign_value;
-      b[n].is_null = &i.sign_null;
-      n++;
-    }
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.sign_value;
+    b[n].is_null = &i.sign_null;
+    n++;
   }
 
   void access::object_traits< ::pio::Sign >::
@@ -11495,6 +11530,23 @@ namespace odb
     using namespace sqlite;
 
     bool grew (false);
+
+    // auto_id
+    //
+    if (sk == statement_insert)
+    {
+      long unsigned int const& v =
+        o.auto_id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_image (
+        i.auto_id_value,
+        is_null,
+        v);
+      i.auto_id_null = is_null;
+    }
 
     // link
     //
@@ -11541,7 +11593,6 @@ namespace odb
 
     // sign
     //
-    if (sk == statement_insert)
     {
       int const& v =
         o.sign;
@@ -11565,6 +11616,20 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (o);
     ODB_POTENTIALLY_UNUSED (i);
     ODB_POTENTIALLY_UNUSED (db);
+
+    // auto_id
+    //
+    {
+      long unsigned int& v =
+        o.auto_id;
+
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.auto_id_value,
+        i.auto_id_null);
+    }
 
     // link
     //
@@ -11631,7 +11696,7 @@ namespace odb
     {
       bool is_null (false);
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_image (
         i.id_value,
         is_null,
@@ -11649,31 +11714,35 @@ namespace odb
 
   const char access::object_traits< ::pio::Sign >::persist_statement[] =
   "INSERT INTO \"Sign\" ("
+  "\"auto_id\","
   "\"link\","
   "\"dir\","
   "\"sign\")"
-  " VALUES (?,?,?)";
+  " VALUES (?,?,?,?)";
 
   const char access::object_traits< ::pio::Sign >::find_statement[] =
   "SELECT "
+  "\"Sign\".\"auto_id\","
   "\"Sign\".\"link\","
   "\"Sign\".\"dir\","
   "\"Sign\".\"sign\""
   " FROM \"Sign\""
-  " WHERE \"Sign\".\"sign\"=?";
+  " WHERE \"Sign\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Sign >::update_statement[] =
   "UPDATE \"Sign\" SET "
   "\"link\"=?,"
-  "\"dir\"=?"
-  " WHERE \"sign\"=?";
+  "\"dir\"=?,"
+  "\"sign\"=?"
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Sign >::erase_statement[] =
   "DELETE FROM \"Sign\""
-  " WHERE \"sign\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Sign >::query_statement[] =
   "SELECT "
+  "\"Sign\".\"auto_id\","
   "\"Sign\".\"link\","
   "\"Sign\".\"dir\","
   "\"Sign\".\"sign\""
@@ -11689,7 +11758,7 @@ namespace odb
   "\"Sign\"";
 
   void access::object_traits< ::pio::Sign >::
-  persist (database& db, const object_type& obj)
+  persist (database& db, object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
 
@@ -11701,7 +11770,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::pre_persist);
 
     image_type& im (sts.image ());
@@ -11709,6 +11778,8 @@ namespace odb
 
     if (init (im, obj, statement_insert))
       im.version++;
+
+    im.auto_id_null = true;
 
     if (im.version != sts.insert_image_version () ||
         imb.version == 0)
@@ -11722,8 +11793,10 @@ namespace odb
     if (!st.execute ())
       throw object_already_persistent ();
 
+    obj.auto_id = static_cast< id_type > (st.id ());
+
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::post_persist);
   }
 
@@ -11742,7 +11815,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     id_image_type& i (sts.id_image ());
-    init (i, obj.sign);
+    init (i, obj.auto_id);
 
     image_type& im (sts.image ());
     if (init (im, obj, statement_update))
@@ -11911,7 +11984,7 @@ namespace odb
     statements_type::auto_lock l (sts);
 
     const id_type& id  (
-      obj.sign);
+      obj.auto_id);
 
     if (!find_ (sts, &id))
       return false;
@@ -12045,9 +12118,10 @@ namespace odb
         case 1:
         {
           db.execute ("CREATE TABLE \"Sign\" (\n"
+                      "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                       "  \"link\" INTEGER,\n"
                       "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"sign\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"sign\" INTEGER NOT NULL,\n"
                       "  CONSTRAINT \"link_fk\"\n"
                       "    FOREIGN KEY (\"link\")\n"
                       "    REFERENCES \"Link\" (\"link\")\n"
@@ -12126,7 +12200,11 @@ namespace odb
 
     // type
     //
-    t[7UL] = false;
+    if (t[7UL])
+    {
+      i.type_value.capacity (i.type_size);
+      grew = true;
+    }
 
     // offset
     //
@@ -12200,8 +12278,12 @@ namespace odb
 
     // type
     //
-    b[n].type = sqlite::bind::integer;
-    b[n].buffer = &i.type_value;
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.type_value.data ();
+    b[n].size = &i.type_size;
+    b[n].capacity = i.type_value.capacity ();
     b[n].is_null = &i.type_null;
     n++;
 
@@ -12317,71 +12399,52 @@ namespace odb
     // timing
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Timing > const& v =
-        o.timing;
-
-      typedef object_traits< ::pio::Timing > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Timing > > ptr_traits;
-
-      bool is_null (ptr_traits::null_ptr (v));
-      if (!is_null)
-      {
-        const obj_traits::id_type& id (
-          obj_traits::id (ptr_traits::get_ref (v)));
-
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_image (
-          i.timing_value,
-          is_null,
-          id);
-        i.timing_null = is_null;
-      }
-      else
-        i.timing_null = true;
-    }
-
-    // phasing
-    //
-    {
-      ::std::tr1::shared_ptr< ::pio::Phasing > const& v =
-        o.phasing;
-
-      typedef object_traits< ::pio::Phasing > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Phasing > > ptr_traits;
-
-      bool is_null (ptr_traits::null_ptr (v));
-      if (!is_null)
-      {
-        const obj_traits::id_type& id (
-          obj_traits::id (ptr_traits::get_ref (v)));
-
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_image (
-          i.phasing_value,
-          is_null,
-          id);
-        i.phasing_null = is_null;
-      }
-      else
-        i.phasing_null = true;
-    }
-
-    // type
-    //
-    {
       int const& v =
-        o.type;
+        o.timing;
 
       bool is_null (false);
       sqlite::value_traits<
           int,
           sqlite::id_integer >::set_image (
+        i.timing_value,
+        is_null,
+        v);
+      i.timing_null = is_null;
+    }
+
+    // phasing
+    //
+    {
+      int const& v =
+        o.phasing;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.phasing_value,
+        is_null,
+        v);
+      i.phasing_null = is_null;
+    }
+
+    // type
+    //
+    {
+      ::std::string const& v =
+        o.type;
+
+      bool is_null (false);
+      std::size_t cap (i.type_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
         i.type_value,
+        i.type_size,
         is_null,
         v);
       i.type_null = is_null;
+      grew = grew || (cap != i.type_value.capacity ());
     }
 
     // offset
@@ -12483,74 +12546,43 @@ namespace odb
     // timing
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Timing >& v =
-        o.timing;
-
-      typedef object_traits< ::pio::Timing > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Timing > > ptr_traits;
-
-      if (i.timing_null)
-        v = ptr_traits::pointer_type ();
-      else
-      {
-        obj_traits::id_type id;
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_value (
-          id,
-          i.timing_value,
-          i.timing_null);
-
-        // If a compiler error points to the line below, then
-        // it most likely means that a pointer used in a member
-        // cannot be initialized from an object pointer.
-        //
-        v = ptr_traits::pointer_type (
-          db->load< obj_traits::object_type > (id));
-      }
-    }
-
-    // phasing
-    //
-    {
-      ::std::tr1::shared_ptr< ::pio::Phasing >& v =
-        o.phasing;
-
-      typedef object_traits< ::pio::Phasing > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Phasing > > ptr_traits;
-
-      if (i.phasing_null)
-        v = ptr_traits::pointer_type ();
-      else
-      {
-        obj_traits::id_type id;
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_value (
-          id,
-          i.phasing_value,
-          i.phasing_null);
-
-        // If a compiler error points to the line below, then
-        // it most likely means that a pointer used in a member
-        // cannot be initialized from an object pointer.
-        //
-        v = ptr_traits::pointer_type (
-          db->load< obj_traits::object_type > (id));
-      }
-    }
-
-    // type
-    //
-    {
       int& v =
-        o.type;
+        o.timing;
 
       sqlite::value_traits<
           int,
           sqlite::id_integer >::set_value (
         v,
+        i.timing_value,
+        i.timing_null);
+    }
+
+    // phasing
+    //
+    {
+      int& v =
+        o.phasing;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.phasing_value,
+        i.phasing_null);
+    }
+
+    // type
+    //
+    {
+      ::std::string& v =
+        o.type;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
         i.type_value,
+        i.type_size,
         i.type_null);
     }
 
@@ -12646,8 +12678,6 @@ namespace odb
   "\"Signal\".\"type\","
   "\"Signal\".\"offset\""
   " FROM \"Signal\""
-  " LEFT JOIN \"Timing\" AS \"timing\" ON \"timing\".\"timing\"=\"Signal\".\"timing\""
-  " LEFT JOIN \"Phasing\" AS \"phasing\" ON \"phasing\".\"phasing\"=\"Signal\".\"phasing\""
   " ";
 
   const char access::object_traits< ::pio::Signal >::erase_query_statement[] =
@@ -12929,6 +12959,20 @@ namespace odb
     auto_result ar (st);
     select_statement::result r (st.fetch ());
 
+    if (r == select_statement::truncated)
+    {
+      if (grow (im, sts.select_image_truncated ()))
+        im.version++;
+
+      if (im.version != sts.select_image_version ())
+      {
+        bind (imb.bind, im, statement_select);
+        sts.select_image_version (im.version);
+        imb.version++;
+        st.refetch ();
+      }
+    }
+
     return r != select_statement::no_data;
   }
 
@@ -13019,18 +13063,10 @@ namespace odb
                       "  \"times\" INTEGER NOT NULL,\n"
                       "  \"start\" REAL,\n"
                       "  \"end\" REAL,\n"
-                      "  \"timing\" INTEGER,\n"
-                      "  \"phasing\" INTEGER,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"offset\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"timing_fk\"\n"
-                      "    FOREIGN KEY (\"timing\")\n"
-                      "    REFERENCES \"Timing\" (\"timing\")\n"
-                      "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"phasing_fk\"\n"
-                      "    FOREIGN KEY (\"phasing\")\n"
-                      "    REFERENCES \"Phasing\" (\"phasing\")\n"
-                      "    DEFERRABLE INITIALLY DEFERRED)");
+                      "  \"timing\" INTEGER NOT NULL,\n"
+                      "  \"phasing\" INTEGER NOT NULL,\n"
+                      "  \"type\" TEXT NOT NULL,\n"
+                      "  \"offset\" INTEGER NOT NULL)");
           return false;
         }
       }
@@ -13057,11 +13093,11 @@ namespace odb
     id_type id;
     {
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_value (
         id,
-        i.timing_value,
-        i.timing_null);
+        i.auto_id_value,
+        i.auto_id_null);
     }
 
     return id;
@@ -13075,65 +13111,69 @@ namespace odb
 
     bool grew (false);
 
-    // signal
+    // auto_id
     //
     t[0UL] = false;
 
-    // timing
+    // signal
     //
     t[1UL] = false;
 
-    // type
+    // timing
     //
     t[2UL] = false;
 
-    // cycle
+    // type
     //
     t[3UL] = false;
 
-    // offset
+    // cycle
     //
     t[4UL] = false;
 
-    // phases
+    // offset
     //
     t[5UL] = false;
 
-    // phase
+    // phases
     //
     t[6UL] = false;
 
-    // barrier
+    // phase
     //
     t[7UL] = false;
 
-    // ring
+    // barrier
     //
     t[8UL] = false;
 
-    // position
+    // ring
     //
     t[9UL] = false;
 
-    // minimum
+    // position
     //
     t[10UL] = false;
 
-    // maximum
+    // minimum
     //
     t[11UL] = false;
 
-    // extend
+    // maximum
     //
     t[12UL] = false;
 
-    // yellow
+    // extend
     //
     t[13UL] = false;
 
-    // red
+    // yellow
     //
     t[14UL] = false;
+
+    // red
+    //
+    t[15UL] = false;
 
     return grew;
   }
@@ -13149,6 +13189,16 @@ namespace odb
 
     std::size_t n (0);
 
+    // auto_id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.auto_id_value;
+      b[n].is_null = &i.auto_id_null;
+      n++;
+    }
+
     // signal
     //
     b[n].type = sqlite::bind::integer;
@@ -13158,13 +13208,10 @@ namespace odb
 
     // timing
     //
-    if (sk != statement_update)
-    {
-      b[n].type = sqlite::bind::integer;
-      b[n].buffer = &i.timing_value;
-      b[n].is_null = &i.timing_null;
-      n++;
-    }
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.timing_value;
+    b[n].is_null = &i.timing_null;
+    n++;
 
     // type
     //
@@ -13278,6 +13325,23 @@ namespace odb
 
     bool grew (false);
 
+    // auto_id
+    //
+    if (sk == statement_insert)
+    {
+      long unsigned int const& v =
+        o.auto_id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_image (
+        i.auto_id_value,
+        is_null,
+        v);
+      i.auto_id_null = is_null;
+    }
+
     // signal
     //
     {
@@ -13307,7 +13371,6 @@ namespace odb
 
     // timing
     //
-    if (sk == statement_insert)
     {
       int const& v =
         o.timing;
@@ -13539,6 +13602,20 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (o);
     ODB_POTENTIALLY_UNUSED (i);
     ODB_POTENTIALLY_UNUSED (db);
+
+    // auto_id
+    //
+    {
+      long unsigned int& v =
+        o.auto_id;
+
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.auto_id_value,
+        i.auto_id_null);
+    }
 
     // signal
     //
@@ -13773,7 +13850,7 @@ namespace odb
     {
       bool is_null (false);
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_image (
         i.id_value,
         is_null,
@@ -13791,6 +13868,7 @@ namespace odb
 
   const char access::object_traits< ::pio::Timing >::persist_statement[] =
   "INSERT INTO \"Timing\" ("
+  "\"auto_id\","
   "\"signal\","
   "\"timing\","
   "\"type\","
@@ -13806,10 +13884,11 @@ namespace odb
   "\"extend\","
   "\"yellow\","
   "\"red\")"
-  " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Timing >::find_statement[] =
   "SELECT "
+  "\"Timing\".\"auto_id\","
   "\"Timing\".\"signal\","
   "\"Timing\".\"timing\","
   "\"Timing\".\"type\","
@@ -13826,11 +13905,12 @@ namespace odb
   "\"Timing\".\"yellow\","
   "\"Timing\".\"red\""
   " FROM \"Timing\""
-  " WHERE \"Timing\".\"timing\"=?";
+  " WHERE \"Timing\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Timing >::update_statement[] =
   "UPDATE \"Timing\" SET "
   "\"signal\"=?,"
+  "\"timing\"=?,"
   "\"type\"=?,"
   "\"cycle\"=?,"
   "\"offset\"=?,"
@@ -13844,14 +13924,15 @@ namespace odb
   "\"extend\"=?,"
   "\"yellow\"=?,"
   "\"red\"=?"
-  " WHERE \"timing\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Timing >::erase_statement[] =
   "DELETE FROM \"Timing\""
-  " WHERE \"timing\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Timing >::query_statement[] =
   "SELECT "
+  "\"Timing\".\"auto_id\","
   "\"Timing\".\"signal\","
   "\"Timing\".\"timing\","
   "\"Timing\".\"type\","
@@ -13879,7 +13960,7 @@ namespace odb
   "\"Timing\"";
 
   void access::object_traits< ::pio::Timing >::
-  persist (database& db, const object_type& obj)
+  persist (database& db, object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
 
@@ -13891,7 +13972,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::pre_persist);
 
     image_type& im (sts.image ());
@@ -13899,6 +13980,8 @@ namespace odb
 
     if (init (im, obj, statement_insert))
       im.version++;
+
+    im.auto_id_null = true;
 
     if (im.version != sts.insert_image_version () ||
         imb.version == 0)
@@ -13912,8 +13995,10 @@ namespace odb
     if (!st.execute ())
       throw object_already_persistent ();
 
+    obj.auto_id = static_cast< id_type > (st.id ());
+
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::post_persist);
   }
 
@@ -13932,7 +14017,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     id_image_type& i (sts.id_image ());
-    init (i, obj.timing);
+    init (i, obj.auto_id);
 
     image_type& im (sts.image ());
     if (init (im, obj, statement_update))
@@ -14101,7 +14186,7 @@ namespace odb
     statements_type::auto_lock l (sts);
 
     const id_type& id  (
-      obj.timing);
+      obj.auto_id);
 
     if (!find_ (sts, &id))
       return false;
@@ -14235,8 +14320,9 @@ namespace odb
         case 1:
         {
           db.execute ("CREATE TABLE \"Timing\" (\n"
+                      "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                       "  \"signal\" INTEGER,\n"
-                      "  \"timing\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"timing\" INTEGER NOT NULL,\n"
                       "  \"type\" INTEGER NOT NULL,\n"
                       "  \"cycle\" INTEGER NOT NULL,\n"
                       "  \"offset\" INTEGER NOT NULL,\n"
@@ -14280,11 +14366,11 @@ namespace odb
     id_type id;
     {
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_value (
         id,
-        i.phasing_value,
-        i.phasing_null);
+        i.auto_id_value,
+        i.auto_id_null);
     }
 
     return id;
@@ -14298,21 +14384,25 @@ namespace odb
 
     bool grew (false);
 
-    // signal
+    // auto_id
     //
     t[0UL] = false;
 
-    // phasing
+    // signal
     //
     t[1UL] = false;
 
-    // phase
+    // phasing
     //
     t[2UL] = false;
 
+    // phase
+    //
+    t[3UL] = false;
+
     // detectors
     //
-    if (t[3UL])
+    if (t[4UL])
     {
       i.detectors_value.capacity (i.detectors_size);
       grew = true;
@@ -14320,27 +14410,27 @@ namespace odb
 
     // movements
     //
-    t[4UL] = false;
+    t[5UL] = false;
 
     // movement
     //
-    t[5UL] = false;
+    t[6UL] = false;
 
     // link
     //
-    t[6UL] = false;
+    t[7UL] = false;
 
     // dir
     //
-    t[7UL] = false;
+    t[8UL] = false;
 
     // to_link
     //
-    t[8UL] = false;
+    t[9UL] = false;
 
     // protect
     //
-    t[9UL] = false;
+    t[10UL] = false;
 
     return grew;
   }
@@ -14356,6 +14446,16 @@ namespace odb
 
     std::size_t n (0);
 
+    // auto_id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.auto_id_value;
+      b[n].is_null = &i.auto_id_null;
+      n++;
+    }
+
     // signal
     //
     b[n].type = sqlite::bind::integer;
@@ -14365,13 +14465,10 @@ namespace odb
 
     // phasing
     //
-    if (sk != statement_update)
-    {
-      b[n].type = sqlite::bind::integer;
-      b[n].buffer = &i.phasing_value;
-      b[n].is_null = &i.phasing_null;
-      n++;
-    }
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.phasing_value;
+    b[n].is_null = &i.phasing_null;
+    n++;
 
     // phase
     //
@@ -14454,6 +14551,23 @@ namespace odb
 
     bool grew (false);
 
+    // auto_id
+    //
+    if (sk == statement_insert)
+    {
+      long unsigned int const& v =
+        o.auto_id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_image (
+        i.auto_id_value,
+        is_null,
+        v);
+      i.auto_id_null = is_null;
+    }
+
     // signal
     //
     {
@@ -14483,7 +14597,6 @@ namespace odb
 
     // phasing
     //
-    if (sk == statement_insert)
     {
       int const& v =
         o.phasing;
@@ -14660,6 +14773,20 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (o);
     ODB_POTENTIALLY_UNUSED (i);
     ODB_POTENTIALLY_UNUSED (db);
+
+    // auto_id
+    //
+    {
+      long unsigned int& v =
+        o.auto_id;
+
+      sqlite::value_traits<
+          long unsigned int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.auto_id_value,
+        i.auto_id_null);
+    }
 
     // signal
     //
@@ -14857,7 +14984,7 @@ namespace odb
     {
       bool is_null (false);
       sqlite::value_traits<
-          int,
+          long unsigned int,
           sqlite::id_integer >::set_image (
         i.id_value,
         is_null,
@@ -14875,6 +15002,7 @@ namespace odb
 
   const char access::object_traits< ::pio::Phasing >::persist_statement[] =
   "INSERT INTO \"Phasing\" ("
+  "\"auto_id\","
   "\"signal\","
   "\"phasing\","
   "\"phase\","
@@ -14885,10 +15013,11 @@ namespace odb
   "\"dir\","
   "\"to_link\","
   "\"protect\")"
-  " VALUES (?,?,?,?,?,?,?,?,?,?)";
+  " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Phasing >::find_statement[] =
   "SELECT "
+  "\"Phasing\".\"auto_id\","
   "\"Phasing\".\"signal\","
   "\"Phasing\".\"phasing\","
   "\"Phasing\".\"phase\","
@@ -14900,11 +15029,12 @@ namespace odb
   "\"Phasing\".\"to_link\","
   "\"Phasing\".\"protect\""
   " FROM \"Phasing\""
-  " WHERE \"Phasing\".\"phasing\"=?";
+  " WHERE \"Phasing\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Phasing >::update_statement[] =
   "UPDATE \"Phasing\" SET "
   "\"signal\"=?,"
+  "\"phasing\"=?,"
   "\"phase\"=?,"
   "\"detectors\"=?,"
   "\"movements\"=?,"
@@ -14913,14 +15043,15 @@ namespace odb
   "\"dir\"=?,"
   "\"to_link\"=?,"
   "\"protect\"=?"
-  " WHERE \"phasing\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Phasing >::erase_statement[] =
   "DELETE FROM \"Phasing\""
-  " WHERE \"phasing\"=?";
+  " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Phasing >::query_statement[] =
   "SELECT "
+  "\"Phasing\".\"auto_id\","
   "\"Phasing\".\"signal\","
   "\"Phasing\".\"phasing\","
   "\"Phasing\".\"phase\","
@@ -14945,7 +15076,7 @@ namespace odb
   "\"Phasing\"";
 
   void access::object_traits< ::pio::Phasing >::
-  persist (database& db, const object_type& obj)
+  persist (database& db, object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
 
@@ -14957,7 +15088,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::pre_persist);
 
     image_type& im (sts.image ());
@@ -14965,6 +15096,8 @@ namespace odb
 
     if (init (im, obj, statement_insert))
       im.version++;
+
+    im.auto_id_null = true;
 
     if (im.version != sts.insert_image_version () ||
         imb.version == 0)
@@ -14978,8 +15111,10 @@ namespace odb
     if (!st.execute ())
       throw object_already_persistent ();
 
+    obj.auto_id = static_cast< id_type > (st.id ());
+
     callback (db,
-              obj,
+              static_cast<const object_type&> (obj),
               callback_event::post_persist);
   }
 
@@ -14998,7 +15133,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     id_image_type& i (sts.id_image ());
-    init (i, obj.phasing);
+    init (i, obj.auto_id);
 
     image_type& im (sts.image ());
     if (init (im, obj, statement_update))
@@ -15167,7 +15302,7 @@ namespace odb
     statements_type::auto_lock l (sts);
 
     const id_type& id  (
-      obj.phasing);
+      obj.auto_id);
 
     if (!find_ (sts, &id))
       return false;
@@ -15315,8 +15450,9 @@ namespace odb
         case 1:
         {
           db.execute ("CREATE TABLE \"Phasing\" (\n"
+                      "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                       "  \"signal\" INTEGER,\n"
-                      "  \"phasing\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"phasing\" INTEGER NOT NULL,\n"
                       "  \"phase\" INTEGER NOT NULL,\n"
                       "  \"detectors\" TEXT NOT NULL,\n"
                       "  \"movements\" INTEGER NOT NULL,\n"

@@ -1,3 +1,6 @@
+#pragma once
+#include "OutNetwork.h"
+#include "File_Service.hpp"
 //Converter for Node
 shared_ptr<pio::Node> Adapter( Node_File &file, pio::InputContainer& container) 
 {
@@ -40,7 +43,7 @@ shared_ptr<pio::Link> Adapter( Link_File &file, pio::InputContainer& container)
 	result->setSetback_B(file.Setback_B ()); 
 	result->setBearing_A(file.Bearing_A ()); 
 	result->setBearing_B(file.Bearing_B ()); 
-	result->setType(file.Type ()); 
+	result->setType(Static_Service::Facility_Code((Facility_Type)file.Type())); 
 	result->setDivided(file.Divided ()); 
 	result->setArea_Type(file.Area_Type ()); 
 	result->setUse(file.Use ()); 
@@ -103,7 +106,7 @@ shared_ptr<pio::Connect> Adapter( Connect_File &file, pio::InputContainer& conta
 	result->setTo_Link(file.To_Link (), container); 
 	result->setLanes(Static_Service::Lane_Range_Code(file.Lanes())); 
 	result->setTo_Lanes(Static_Service::Lane_Range_Code(file.To_Lanes())); 
-	result->setType(file.Type ()); 
+	result->setType(Static_Service::Connect_Code((Connect_Type)file.Type())); 
 	result->setPenalty(file.Penalty ()); 
 	result->setSpeed(file.Speed ()); 
 	result->setCapacity(file.Capacity ()); 
@@ -191,9 +194,9 @@ shared_ptr<pio::Signal> Adapter( Signal_File &file, pio::InputContainer& contain
 	result->setTimes(file.Times ()); 
 	result->setStart(file.Start ().Seconds()); 
 	result->setEnd(file.End ().Seconds()); 
-	result->setTiming(file.Timing (), container); 
-	result->setPhasing(file.Phasing (), container); 
-	result->setType(file.Type ()); 
+	result->setTiming(file.Timing ()); 
+	result->setPhasing(file.Phasing ()); 
+	result->setType(Static_Service::Signal_Code((Signal_Type)file.Type())); 
 	result->setOffset(file.Offset ());
 	return result;
 }

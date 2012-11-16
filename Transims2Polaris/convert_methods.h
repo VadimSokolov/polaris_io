@@ -16,8 +16,11 @@ using namespace odb::core;
 template<class FileType, class ODBType, class KeyType>
 void Convert(TransimsNetwork *net, InputContainer &container, std::map<KeyType,shared_ptr<ODBType>> &container_map, System_File_Type file_type, string odb_type_name, bool nested_flag)
 {
+	if (!net->System_File_Flag(file_type))
+		return;
 	cout << "Converting " << odb_type_name << "\n";
 	shared_ptr<ODBType> record;
+
 	FileType *file = (FileType *) net->System_File_Handle (file_type);
 	try
 	{
@@ -37,6 +40,10 @@ void Convert(TransimsNetwork *net, InputContainer &container, std::map<KeyType,s
 				cout << "Persist for " << odb_type_name << " failed.\n";
 				cout << "Primary key value: " << record->getPrimaryKey() << ". This object will not be converted\n";
 			}
+			int num = file->Num_Nest ();
+			for (int i=1; i <= num; i++) {
+				file->Read (true);
+			}
 		}
 		t.commit();
 	}
@@ -50,6 +57,8 @@ void Convert(TransimsNetwork *net, InputContainer &container, std::map<KeyType,s
 template<class FileType, class ODBType, class KeyType>
 void Convert(TransimsNetwork *net, InputContainer &container, System_File_Type file_type, string odb_type_name, bool nested_flag)
 {
+	if (!net->System_File_Flag(file_type))
+		return;
 	cout << "Converting " << odb_type_name << "\n";
 	shared_ptr<ODBType> record;
 	FileType *file = (FileType *) net->System_File_Handle (file_type);
@@ -69,6 +78,10 @@ void Convert(TransimsNetwork *net, InputContainer &container, System_File_Type f
 			{
 				cout << "Persist for " << odb_type_name << " failed.\n";
 				cout << "Primary key value: " << record->getPrimaryKey() << ". This object will not be converted\n";
+			}
+			int num = file->Num_Nest ();
+			for (int i=1; i <= num; i++) {
+				file->Read (true);
 			}
 		}
 		t.commit();

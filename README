@@ -13,5 +13,4 @@ There is a custom compilation step whcih calls the odb.exe on the correspondding
 Make sure that the file path is your PATH variable. The odb.exe is a part of the io_sdk
 
 TODO:
-	* SUpport for Date-Time in the database
-	* Mapping of Transims Dtime class. Currently only the following types are mapped char|bool|int|string|double|float|short.
+	* Support for nested files

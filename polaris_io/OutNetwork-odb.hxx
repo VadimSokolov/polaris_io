@@ -855,9 +855,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     type_type_;
 
     static const type_type_ type;
@@ -1258,7 +1258,8 @@ namespace odb
 
       // type
       //
-      long long type_value;
+      details::buffer type_value;
+      std::size_t type_size;
       bool type_null;
 
       // divided
@@ -2356,9 +2357,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     type_type_;
 
     static const type_type_ type;
@@ -2543,7 +2544,8 @@ namespace odb
 
       // type
       //
-      long long type_value;
+      details::buffer type_value;
+      std::size_t type_size;
       bool type_null;
 
       // penalty
@@ -4115,6 +4117,18 @@ namespace odb
   template <typename A>
   struct pointer_query_columns< ::pio::Sign, A >
   {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
     // link
     //
     typedef
@@ -4153,6 +4167,11 @@ namespace odb
   };
 
   template <typename A>
+  const typename pointer_query_columns< ::pio::Sign, A >::auto_id_type_
+  pointer_query_columns< ::pio::Sign, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
+
+  template <typename A>
   const typename pointer_query_columns< ::pio::Sign, A >::link_type_
   pointer_query_columns< ::pio::Sign, A >::
   link (A::table_name, "\"link\"", 0);
@@ -4177,8 +4196,8 @@ namespace odb
 
     static const bool polymorphic = false;
 
-    typedef int id_type;
-    static const bool auto_id = false;
+    typedef long unsigned int id_type;
+    static const bool auto_id = true;
 
     struct id_image_type
     {
@@ -4192,6 +4211,11 @@ namespace odb
 
     struct image_type
     {
+      // auto_id
+      //
+      long long auto_id_value;
+      bool auto_id_null;
+
       // link
       //
       long long link_value;
@@ -4249,7 +4273,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 3UL;
+    static const std::size_t column_count = 4UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -4271,7 +4295,7 @@ namespace odb
     callback (database&, const object_type&, callback_event);
 
     static void
-    persist (database&, const object_type&);
+    persist (database&, object_type&);
 
     static pointer_type
     find (database&, const id_type&);
@@ -4317,7 +4341,7 @@ namespace odb
   };
 
   template <typename A>
-  struct pointer_query_columns< ::pio::Signal, A >
+  struct query_columns< ::pio::Signal, A >
   {
     // signal
     //
@@ -4408,9 +4432,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     type_type_;
 
     static const type_type_ type;
@@ -4429,49 +4453,55 @@ namespace odb
   };
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::signal_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::signal_type_
+  query_columns< ::pio::Signal, A >::
   signal (A::table_name, "\"signal\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::group_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::group_type_
+  query_columns< ::pio::Signal, A >::
   group (A::table_name, "\"group\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::times_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::times_type_
+  query_columns< ::pio::Signal, A >::
   times (A::table_name, "\"times\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::start_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::start_type_
+  query_columns< ::pio::Signal, A >::
   start (A::table_name, "\"start\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::end_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::end_type_
+  query_columns< ::pio::Signal, A >::
   end (A::table_name, "\"end\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::timing_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::timing_type_
+  query_columns< ::pio::Signal, A >::
   timing (A::table_name, "\"timing\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::phasing_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::phasing_type_
+  query_columns< ::pio::Signal, A >::
   phasing (A::table_name, "\"phasing\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::type_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::type_type_
+  query_columns< ::pio::Signal, A >::
   type (A::table_name, "\"type\"", 0);
 
   template <typename A>
-  const typename pointer_query_columns< ::pio::Signal, A >::offset_type_
-  pointer_query_columns< ::pio::Signal, A >::
+  const typename query_columns< ::pio::Signal, A >::offset_type_
+  query_columns< ::pio::Signal, A >::
   offset (A::table_name, "\"offset\"", 0);
+
+  template <typename A>
+  struct pointer_query_columns< ::pio::Signal, A >:
+    query_columns< ::pio::Signal, A >
+  {
+  };
 
   template <>
   class access::object_traits< ::pio::Signal >
@@ -4535,7 +4565,8 @@ namespace odb
 
       // type
       //
-      long long type_value;
+      details::buffer type_value;
+      std::size_t type_size;
       bool type_null;
 
       // offset
@@ -4655,6 +4686,18 @@ namespace odb
   template <typename A>
   struct pointer_query_columns< ::pio::Timing, A >
   {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
     // signal
     //
     typedef
@@ -4837,6 +4880,11 @@ namespace odb
   };
 
   template <typename A>
+  const typename pointer_query_columns< ::pio::Timing, A >::auto_id_type_
+  pointer_query_columns< ::pio::Timing, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
+
+  template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::signal_type_
   pointer_query_columns< ::pio::Timing, A >::
   signal (A::table_name, "\"signal\"", 0);
@@ -4921,8 +4969,8 @@ namespace odb
 
     static const bool polymorphic = false;
 
-    typedef int id_type;
-    static const bool auto_id = false;
+    typedef long unsigned int id_type;
+    static const bool auto_id = true;
 
     struct id_image_type
     {
@@ -4936,6 +4984,11 @@ namespace odb
 
     struct image_type
     {
+      // auto_id
+      //
+      long long auto_id_value;
+      bool auto_id_null;
+
       // signal
       //
       long long signal_value;
@@ -5053,7 +5106,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 15UL;
+    static const std::size_t column_count = 16UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -5075,7 +5128,7 @@ namespace odb
     callback (database&, const object_type&, callback_event);
 
     static void
-    persist (database&, const object_type&);
+    persist (database&, object_type&);
 
     static pointer_type
     find (database&, const id_type&);
@@ -5123,6 +5176,18 @@ namespace odb
   template <typename A>
   struct pointer_query_columns< ::pio::Phasing, A >
   {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
     // signal
     //
     typedef
@@ -5245,6 +5310,11 @@ namespace odb
   };
 
   template <typename A>
+  const typename pointer_query_columns< ::pio::Phasing, A >::auto_id_type_
+  pointer_query_columns< ::pio::Phasing, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
+
+  template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::signal_type_
   pointer_query_columns< ::pio::Phasing, A >::
   signal (A::table_name, "\"signal\"", 0);
@@ -5304,8 +5374,8 @@ namespace odb
 
     static const bool polymorphic = false;
 
-    typedef int id_type;
-    static const bool auto_id = false;
+    typedef long unsigned int id_type;
+    static const bool auto_id = true;
 
     struct id_image_type
     {
@@ -5319,6 +5389,11 @@ namespace odb
 
     struct image_type
     {
+      // auto_id
+      //
+      long long auto_id_value;
+      bool auto_id_null;
+
       // signal
       //
       long long signal_value;
@@ -5412,7 +5487,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 10UL;
+    static const std::size_t column_count = 11UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -5434,7 +5509,7 @@ namespace odb
     callback (database&, const object_type&, callback_event);
 
     static void
-    persist (database&, const object_type&);
+    persist (database&, object_type&);
 
     static pointer_type
     find (database&, const id_type&);
@@ -13233,9 +13308,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     type_type_;
 
     static const type_type_ type;
@@ -14212,9 +14287,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     type_type_;
 
     static const type_type_ type;
@@ -15325,6 +15400,18 @@ namespace odb
   struct query_columns< ::pio::Sign, A >:
     query_columns_base< ::pio::Sign >
   {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
     // link
     //
     typedef
@@ -15382,6 +15469,11 @@ namespace odb
   };
 
   template <typename A>
+  const typename query_columns< ::pio::Sign, A >::auto_id_type_
+  query_columns< ::pio::Sign, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
+
+  template <typename A>
   const typename query_columns< ::pio::Sign, A >::link_type_
   query_columns< ::pio::Sign, A >::
   link (A::table_name, "\"link\"", 0);
@@ -15395,250 +15487,6 @@ namespace odb
   const typename query_columns< ::pio::Sign, A >::sign_type_
   query_columns< ::pio::Sign, A >::
   sign (A::table_name, "\"sign\"", 0);
-
-  // Signal
-  //
-  class timing_alias_tag;
-
-#ifndef ODB_ALIAS_TRAITS_TIMING_FOR_PIO_TIMING
-#define ODB_ALIAS_TRAITS_TIMING_FOR_PIO_TIMING
-  template <bool d>
-  struct alias_traits< ::pio::Timing, timing_alias_tag, d >
-  {
-    static const char table_name[];
-  };
-
-  template <bool d>
-  const char alias_traits< ::pio::Timing, timing_alias_tag, d >::
-  table_name[] = "\"timing\"";
-#endif // ODB_ALIAS_TRAITS_TIMING_FOR_PIO_TIMING
-
-  class phasing_alias_tag;
-
-#ifndef ODB_ALIAS_TRAITS_PHASING_FOR_PIO_PHASING
-#define ODB_ALIAS_TRAITS_PHASING_FOR_PIO_PHASING
-  template <bool d>
-  struct alias_traits< ::pio::Phasing, phasing_alias_tag, d >
-  {
-    static const char table_name[];
-  };
-
-  template <bool d>
-  const char alias_traits< ::pio::Phasing, phasing_alias_tag, d >::
-  table_name[] = "\"phasing\"";
-#endif // ODB_ALIAS_TRAITS_PHASING_FOR_PIO_PHASING
-
-  template <>
-  struct query_columns_base< ::pio::Signal >
-  {
-    // timing
-    //
-    typedef
-    odb::alias_traits< ::pio::Timing, timing_alias_tag >
-    timing_alias_;
-
-    // phasing
-    //
-    typedef
-    odb::alias_traits< ::pio::Phasing, phasing_alias_tag >
-    phasing_alias_;
-  };
-
-  template <typename A>
-  struct query_columns< ::pio::Signal, A >:
-    query_columns_base< ::pio::Signal >
-  {
-    // signal
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    signal_type_;
-
-    static const signal_type_ signal;
-
-    // group
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    group_type_;
-
-    static const group_type_ group;
-
-    // times
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    times_type_;
-
-    static const times_type_ times;
-
-    // start
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    start_type_;
-
-    static const start_type_ start;
-
-    // end
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    end_type_;
-
-    static const end_type_ end;
-
-    // timing
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    timing_column_type_;
-
-    typedef
-    odb::query_pointer<
-      odb::pointer_query_columns<
-        ::pio::Timing,
-        timing_alias_ > >
-    timing_pointer_type_;
-
-    struct timing_type_: timing_pointer_type_, timing_column_type_
-    {
-      timing_type_ ()
-      {
-      }
-
-      timing_type_ (const char* t, const char* c, const char* conv)
-        : timing_column_type_ (t, c, conv)
-      {
-      }
-    };
-
-    static const timing_type_ timing;
-
-    // phasing
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    phasing_column_type_;
-
-    typedef
-    odb::query_pointer<
-      odb::pointer_query_columns<
-        ::pio::Phasing,
-        phasing_alias_ > >
-    phasing_pointer_type_;
-
-    struct phasing_type_: phasing_pointer_type_, phasing_column_type_
-    {
-      phasing_type_ ()
-      {
-      }
-
-      phasing_type_ (const char* t, const char* c, const char* conv)
-        : phasing_column_type_ (t, c, conv)
-      {
-      }
-    };
-
-    static const phasing_type_ phasing;
-
-    // type
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    type_type_;
-
-    static const type_type_ type;
-
-    // offset
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    offset_type_;
-
-    static const offset_type_ offset;
-  };
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::signal_type_
-  query_columns< ::pio::Signal, A >::
-  signal (A::table_name, "\"signal\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::group_type_
-  query_columns< ::pio::Signal, A >::
-  group (A::table_name, "\"group\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::times_type_
-  query_columns< ::pio::Signal, A >::
-  times (A::table_name, "\"times\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::start_type_
-  query_columns< ::pio::Signal, A >::
-  start (A::table_name, "\"start\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::end_type_
-  query_columns< ::pio::Signal, A >::
-  end (A::table_name, "\"end\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::timing_type_
-  query_columns< ::pio::Signal, A >::
-  timing (A::table_name, "\"timing\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::phasing_type_
-  query_columns< ::pio::Signal, A >::
-  phasing (A::table_name, "\"phasing\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::type_type_
-  query_columns< ::pio::Signal, A >::
-  type (A::table_name, "\"type\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::offset_type_
-  query_columns< ::pio::Signal, A >::
-  offset (A::table_name, "\"offset\"", 0);
 
   // Timing
   //
@@ -15671,6 +15519,18 @@ namespace odb
   struct query_columns< ::pio::Timing, A >:
     query_columns_base< ::pio::Timing >
   {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
     // signal
     //
     typedef
@@ -15872,6 +15732,11 @@ namespace odb
   };
 
   template <typename A>
+  const typename query_columns< ::pio::Timing, A >::auto_id_type_
+  query_columns< ::pio::Timing, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
+
+  template <typename A>
   const typename query_columns< ::pio::Timing, A >::signal_type_
   query_columns< ::pio::Timing, A >::
   signal (A::table_name, "\"signal\"", 0);
@@ -15974,6 +15839,18 @@ namespace odb
   struct query_columns< ::pio::Phasing, A >:
     query_columns_base< ::pio::Phasing >
   {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
     // signal
     //
     typedef
@@ -16151,6 +16028,11 @@ namespace odb
 
     static const protect_type_ protect;
   };
+
+  template <typename A>
+  const typename query_columns< ::pio::Phasing, A >::auto_id_type_
+  query_columns< ::pio::Phasing, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::signal_type_

@@ -65,8 +65,6 @@ public:
 	std::map<int,shared_ptr<Parking>> Parkings;
 	std::map<int,shared_ptr<Location>> Locations;
 	std::map<int,shared_ptr<Signal>> Signals;
-	std::map<int,shared_ptr<Timing>> Timings;
-	std::map<int,shared_ptr<Phasing>> Phasings;
 	std::map<int,shared_ptr<Stop>> Stops;
 	std::map<int,shared_ptr<Veh_Type>> Veh_Types;
 };
@@ -177,7 +175,7 @@ public:
 	// Default Constructor
 	Link () {}	
 	//Contructor
-	Link ( int link_, std::string name_, shared_ptr<Node> node_a_, shared_ptr<Node> node_b_, double length_, double setback_a_, double setback_b_, int bearing_a_, int bearing_b_, int type_, int divided_, int area_type_, int use_, double grade_, int lanes_ab_, double speed_ab_, double fspd_ab_, int cap_ab_, int lanes_ba_, double speed_ba_, double fspd_ba_, int cap_ba_, int left_ab_, int right_ab_, int left_ba_, int right_ba_ )  
+	Link ( int link_, std::string name_, shared_ptr<Node> node_a_, shared_ptr<Node> node_b_, double length_, double setback_a_, double setback_b_, int bearing_a_, int bearing_b_, std::string type_, int divided_, int area_type_, int use_, double grade_, int lanes_ab_, double speed_ab_, double fspd_ab_, int cap_ab_, int lanes_ba_, double speed_ba_, double fspd_ba_, int cap_ba_, int left_ab_, int right_ab_, int left_ba_, int right_ba_ )  
 	: link (link_), name (name_), node_a (node_a_), node_b (node_b_), length (length_), setback_a (setback_a_), setback_b (setback_b_), bearing_a (bearing_a_), bearing_b (bearing_b_), type (type_), divided (divided_), area_type (area_type_), use (use_), grade (grade_), lanes_ab (lanes_ab_), speed_ab (speed_ab_), fspd_ab (fspd_ab_), cap_ab (cap_ab_), lanes_ba (lanes_ba_), speed_ba (speed_ba_), fspd_ba (fspd_ba_), cap_ba (cap_ba_), left_ab (left_ab_), right_ab (right_ab_), left_ba (left_ba_), right_ba (right_ba_)
 	{
 	}
@@ -202,8 +200,8 @@ public:
 	void setBearing_A (const int& bearing_a_){bearing_a = bearing_a_;}
 	const int& getBearing_B () const {return bearing_b;}
 	void setBearing_B (const int& bearing_b_){bearing_b = bearing_b_;}
-	const int& getType () const {return type;}
-	void setType (const int& type_){type = type_;}
+	const std::string& getType () const {return type;}
+	void setType (const std::string& type_){type = type_;}
 	const int& getDivided () const {return divided;}
 	void setDivided (const int& divided_){divided = divided_;}
 	const int& getArea_Type () const {return area_type;}
@@ -251,7 +249,7 @@ private:
 	double setback_b;
 	int bearing_a;
 	int bearing_b;
-	int type;
+	std::string type;
 	int divided;
 	int area_type;
 	int use;
@@ -395,7 +393,7 @@ public:
 	// Default Constructor
 	Connect () {}	
 	//Contructor
-	Connect ( shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, std::string lanes_, std::string to_lanes_, int type_, int penalty_, double speed_, int capacity_, int in_high_, int out_high_ )  
+	Connect ( shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, std::string lanes_, std::string to_lanes_, std::string type_, int penalty_, double speed_, int capacity_, int in_high_, int out_high_ )  
 	: link (link_), dir (dir_), to_link (to_link_), lanes (lanes_), to_lanes (to_lanes_), type (type_), penalty (penalty_), speed (speed_), capacity (capacity_), in_high (in_high_), out_high (out_high_)
 	{
 	}
@@ -412,8 +410,8 @@ public:
 	void setLanes (const std::string& lanes_){lanes = lanes_;}
 	const std::string& getTo_Lanes () const {return to_lanes;}
 	void setTo_Lanes (const std::string& to_lanes_){to_lanes = to_lanes_;}
-	const int& getType () const {return type;}
-	void setType (const int& type_){type = type_;}
+	const std::string& getType () const {return type;}
+	void setType (const std::string& type_){type = type_;}
 	const int& getPenalty () const {return penalty;}
 	void setPenalty (const int& penalty_){penalty = penalty_;}
 	const double& getSpeed () const {return speed;}
@@ -437,7 +435,7 @@ private:
 	shared_ptr<Link> to_link;
 	std::string lanes;
 	std::string to_lanes;
-	int type;
+	std::string type;
 	int penalty;
 	double speed;
 	int capacity;
@@ -675,14 +673,16 @@ public:
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getSign () const {return sign;}
 	void setSign (const int& sign_){sign = sign_;}
-	const int& getPrimaryKey () const {return sign;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
 	friend class odb::access;
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int dir;
-	#pragma db id
 	int sign;
 
 };
@@ -694,7 +694,7 @@ public:
 	// Default Constructor
 	Signal () {}	
 	//Contructor
-	Signal ( int signal_, int group_, int times_, double start_, double end_, shared_ptr<Timing> timing_, shared_ptr<Phasing> phasing_, int type_, int offset_ )  
+	Signal ( int signal_, int group_, int times_, double start_, double end_, int timing_, int phasing_, std::string type_, int offset_ )  
 	: signal (signal_), group (group_), times (times_), start (start_), end (end_), timing (timing_), phasing (phasing_), type (type_), offset (offset_)
 	{
 	}
@@ -709,14 +709,12 @@ public:
 	void setStart (const double& start_){start = start_;}
 	const double& getEnd () const {return end;}
 	void setEnd (const double& end_){end = end_;}
-	const shared_ptr<Timing>& getTiming () const {return timing;}
-	void setTiming (const shared_ptr<Timing>& timing_){timing = timing_;}
-	void setTiming (const int& timing_, InputContainer& container){timing = container.Timings[timing_];}
-	const shared_ptr<Phasing>& getPhasing () const {return phasing;}
-	void setPhasing (const shared_ptr<Phasing>& phasing_){phasing = phasing_;}
-	void setPhasing (const int& phasing_, InputContainer& container){phasing = container.Phasings[phasing_];}
-	const int& getType () const {return type;}
-	void setType (const int& type_){type = type_;}
+	const int& getTiming () const {return timing;}
+	void setTiming (const int& timing_){timing = timing_;}
+	const int& getPhasing () const {return phasing;}
+	void setPhasing (const int& phasing_){phasing = phasing_;}
+	const std::string& getType () const {return type;}
+	void setType (const std::string& type_){type = type_;}
 	const int& getOffset () const {return offset;}
 	void setOffset (const int& offset_){offset = offset_;}
 	const int& getPrimaryKey () const {return signal;}
@@ -730,9 +728,9 @@ private:
 	int times;
 	double start;
 	double end;
-	shared_ptr<Timing> timing;
-	shared_ptr<Phasing> phasing;
-	int type;
+	int timing;
+	int phasing;
+	std::string type;
 	int offset;
 
 };
@@ -780,13 +778,15 @@ public:
 	void setYellow (const int& yellow_){yellow = yellow_;}
 	const int& getRed () const {return red;}
 	void setRed (const int& red_){red = red_;}
-	const int& getPrimaryKey () const {return timing;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
 	friend class odb::access;
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Signal> signal;
-	#pragma db id
 	int timing;
 	int type;
 	int cycle;
@@ -839,13 +839,15 @@ public:
 	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
 	const int& getProtect () const {return protect;}
 	void setProtect (const int& protect_){protect = protect_;}
-	const int& getPrimaryKey () const {return phasing;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
+	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
 private:
 	friend class odb::access;
+	#pragma db id auto
+	unsigned long auto_id;
 	shared_ptr<Signal> signal;
-	#pragma db id
 	int phasing;
 	int phase;
 	std::string detectors;
