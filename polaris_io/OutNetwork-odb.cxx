@@ -11463,7 +11463,11 @@ namespace odb
 
     // sign
     //
-    t[3UL] = false;
+    if (t[3UL])
+    {
+      i.sign_value.capacity (i.sign_size);
+      grew = true;
+    }
 
     return grew;
   }
@@ -11505,8 +11509,12 @@ namespace odb
 
     // sign
     //
-    b[n].type = sqlite::bind::integer;
-    b[n].buffer = &i.sign_value;
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.sign_value.data ();
+    b[n].size = &i.sign_size;
+    b[n].capacity = i.sign_value.capacity ();
     b[n].is_null = &i.sign_null;
     n++;
   }
@@ -11594,17 +11602,20 @@ namespace odb
     // sign
     //
     {
-      int const& v =
+      ::std::string const& v =
         o.sign;
 
       bool is_null (false);
+      std::size_t cap (i.sign_value.capacity ());
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
+          ::std::string,
+          sqlite::id_text >::set_image (
         i.sign_value,
+        i.sign_size,
         is_null,
         v);
       i.sign_null = is_null;
+      grew = grew || (cap != i.sign_value.capacity ());
     }
 
     return grew;
@@ -11678,14 +11689,15 @@ namespace odb
     // sign
     //
     {
-      int& v =
+      ::std::string& v =
         o.sign;
 
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
+          ::std::string,
+          sqlite::id_text >::set_value (
         v,
         i.sign_value,
+        i.sign_size,
         i.sign_null);
     }
   }
@@ -12033,6 +12045,20 @@ namespace odb
     auto_result ar (st);
     select_statement::result r (st.fetch ());
 
+    if (r == select_statement::truncated)
+    {
+      if (grow (im, sts.select_image_truncated ()))
+        im.version++;
+
+      if (im.version != sts.select_image_version ())
+      {
+        bind (imb.bind, im, statement_select);
+        sts.select_image_version (im.version);
+        imb.version++;
+        st.refetch ();
+      }
+    }
+
     return r != select_statement::no_data;
   }
 
@@ -12121,7 +12147,7 @@ namespace odb
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                       "  \"link\" INTEGER,\n"
                       "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"sign\" INTEGER NOT NULL,\n"
+                      "  \"sign\" TEXT NOT NULL,\n"
                       "  CONSTRAINT \"link_fk\"\n"
                       "    FOREIGN KEY (\"link\")\n"
                       "    REFERENCES \"Link\" (\"link\")\n"
@@ -14414,7 +14440,11 @@ namespace odb
 
     // movement
     //
-    t[6UL] = false;
+    if (t[6UL])
+    {
+      i.movement_value.capacity (i.movement_size);
+      grew = true;
+    }
 
     // link
     //
@@ -14430,7 +14460,11 @@ namespace odb
 
     // protect
     //
-    t[10UL] = false;
+    if (t[10UL])
+    {
+      i.protect_value.capacity (i.protect_size);
+      grew = true;
+    }
 
     return grew;
   }
@@ -14497,8 +14531,12 @@ namespace odb
 
     // movement
     //
-    b[n].type = sqlite::bind::integer;
-    b[n].buffer = &i.movement_value;
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.movement_value.data ();
+    b[n].size = &i.movement_size;
+    b[n].capacity = i.movement_value.capacity ();
     b[n].is_null = &i.movement_null;
     n++;
 
@@ -14525,8 +14563,12 @@ namespace odb
 
     // protect
     //
-    b[n].type = sqlite::bind::integer;
-    b[n].buffer = &i.protect_value;
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.protect_value.data ();
+    b[n].size = &i.protect_size;
+    b[n].capacity = i.protect_value.capacity ();
     b[n].is_null = &i.protect_null;
     n++;
   }
@@ -14665,17 +14707,20 @@ namespace odb
     // movement
     //
     {
-      int const& v =
+      ::std::string const& v =
         o.movement;
 
       bool is_null (false);
+      std::size_t cap (i.movement_value.capacity ());
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
+          ::std::string,
+          sqlite::id_text >::set_image (
         i.movement_value,
+        i.movement_size,
         is_null,
         v);
       i.movement_null = is_null;
+      grew = grew || (cap != i.movement_value.capacity ());
     }
 
     // link
@@ -14751,17 +14796,20 @@ namespace odb
     // protect
     //
     {
-      int const& v =
+      ::std::string const& v =
         o.protect;
 
       bool is_null (false);
+      std::size_t cap (i.protect_value.capacity ());
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
+          ::std::string,
+          sqlite::id_text >::set_image (
         i.protect_value,
+        i.protect_size,
         is_null,
         v);
       i.protect_null = is_null;
+      grew = grew || (cap != i.protect_value.capacity ());
     }
 
     return grew;
@@ -14878,14 +14926,15 @@ namespace odb
     // movement
     //
     {
-      int& v =
+      ::std::string& v =
         o.movement;
 
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
+          ::std::string,
+          sqlite::id_text >::set_value (
         v,
         i.movement_value,
+        i.movement_size,
         i.movement_null);
     }
 
@@ -14966,14 +15015,15 @@ namespace odb
     // protect
     //
     {
-      int& v =
+      ::std::string& v =
         o.protect;
 
       sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
+          ::std::string,
+          sqlite::id_text >::set_value (
         v,
         i.protect_value,
+        i.protect_size,
         i.protect_null);
     }
   }
@@ -15456,11 +15506,11 @@ namespace odb
                       "  \"phase\" INTEGER NOT NULL,\n"
                       "  \"detectors\" TEXT NOT NULL,\n"
                       "  \"movements\" INTEGER NOT NULL,\n"
-                      "  \"movement\" INTEGER NOT NULL,\n"
+                      "  \"movement\" TEXT NOT NULL,\n"
                       "  \"link\" INTEGER,\n"
                       "  \"dir\" INTEGER NOT NULL,\n"
                       "  \"to_link\" INTEGER,\n"
-                      "  \"protect\" INTEGER NOT NULL,\n"
+                      "  \"protect\" TEXT NOT NULL,\n"
                       "  CONSTRAINT \"signal_fk\"\n"
                       "    FOREIGN KEY (\"signal\")\n"
                       "    REFERENCES \"Signal\" (\"signal\")\n"

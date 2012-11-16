@@ -23,9 +23,6 @@
     <ClInclude Include="adopter_methods.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="includes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="transims_network.h">
       <Filter>Header Files</Filter>
     </ClInclude>

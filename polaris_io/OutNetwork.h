@@ -661,7 +661,7 @@ public:
 	// Default Constructor
 	Sign () {}	
 	//Contructor
-	Sign ( shared_ptr<Link> link_, int dir_, int sign_ )  
+	Sign ( shared_ptr<Link> link_, int dir_, std::string sign_ )  
 	: link (link_), dir (dir_), sign (sign_)
 	{
 	}
@@ -671,8 +671,8 @@ public:
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
-	const int& getSign () const {return sign;}
-	void setSign (const int& sign_){sign = sign_;}
+	const std::string& getSign () const {return sign;}
+	void setSign (const std::string& sign_){sign = sign_;}
 	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
@@ -683,7 +683,7 @@ private:
 	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int dir;
-	int sign;
+	std::string sign;
 
 };
 
@@ -811,7 +811,7 @@ public:
 	// Default Constructor
 	Phasing () {}	
 	//Contructor
-	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, std::string detectors_, int movements_, int movement_, shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int protect_ )  
+	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, std::string detectors_, int movements_, std::string movement_, shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, std::string protect_ )  
 	: signal (signal_), phasing (phasing_), phase (phase_), detectors (detectors_), movements (movements_), movement (movement_), link (link_), dir (dir_), to_link (to_link_), protect (protect_)
 	{
 	}
@@ -827,8 +827,8 @@ public:
 	void setDetectors (const std::string& detectors_){detectors = detectors_;}
 	const int& getMovements () const {return movements;}
 	void setMovements (const int& movements_){movements = movements_;}
-	const int& getMovement () const {return movement;}
-	void setMovement (const int& movement_){movement = movement_;}
+	const std::string& getMovement () const {return movement;}
+	void setMovement (const std::string& movement_){movement = movement_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
@@ -837,8 +837,8 @@ public:
 	const shared_ptr<Link>& getTo_Link () const {return to_link;}
 	void setTo_Link (const shared_ptr<Link>& to_link_){to_link = to_link_;}
 	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
-	const int& getProtect () const {return protect;}
-	void setProtect (const int& protect_){protect = protect_;}
+	const std::string& getProtect () const {return protect;}
+	void setProtect (const std::string& protect_){protect = protect_;}
 	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
@@ -852,11 +852,11 @@ private:
 	int phase;
 	std::string detectors;
 	int movements;
-	int movement;
+	std::string movement;
 	shared_ptr<Link> link;
 	int dir;
 	shared_ptr<Link> to_link;
-	int protect;
+	std::string protect;
 
 };
 

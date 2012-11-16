@@ -4158,9 +4158,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     sign_type_;
 
     static const sign_type_ sign;
@@ -4228,7 +4228,8 @@ namespace odb
 
       // sign
       //
-      long long sign_value;
+      details::buffer sign_value;
+      std::size_t sign_size;
       bool sign_null;
 
       std::size_t version;
@@ -5253,9 +5254,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     movement_type_;
 
     static const movement_type_ movement;
@@ -5301,9 +5302,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     protect_type_;
 
     static const protect_type_ protect;
@@ -5422,7 +5423,8 @@ namespace odb
 
       // movement
       //
-      long long movement_value;
+      details::buffer movement_value;
+      std::size_t movement_size;
       bool movement_null;
 
       // link
@@ -5442,7 +5444,8 @@ namespace odb
 
       // protect
       //
-      long long protect_value;
+      details::buffer protect_value;
+      std::size_t protect_size;
       bool protect_null;
 
       std::size_t version;
@@ -15460,9 +15463,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     sign_type_;
 
     static const sign_type_ sign;
@@ -15935,9 +15938,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     movement_type_;
 
     static const movement_type_ movement;
@@ -16021,9 +16024,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     protect_type_;
 
     static const protect_type_ protect;
