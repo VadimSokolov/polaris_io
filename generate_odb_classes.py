@@ -21,28 +21,40 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 	#Second part of the constructor
 	constructor2 = " \n\t: "
 	#Adapter from transims type to polaris
-	adpater_method = "shared_ptr<%s> %sAdapter( %s_File &file, %s::%s& container) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn,class_name, class_name, odb_namespace,container_type, nscn, nscn)
+	adpater_method = "shared_ptr<%s> Adapter( %s_File &file, %s::%s& container) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn, class_name, odb_namespace,container_type, nscn, nscn)
 	members = ""
 	odb_accessors = ""
 	#Whether the table has a unique key is a class member
 	# if not then a dummy id field will need to be added
-	auto_primary_key_member = "\n\t#pragma db id auto\n\tunsigned long auto_id;"
+	
 	key_type = "unsigned long"
+	key_field = "auto_id"
+	auto_primary_key_member = "\n\t#pragma db id auto\n\t%s %s;"%(key_type, key_field)
+	
 	for i in range(len(fields)):
+		mapping_info = None
+		conversion_info = None
 		field =  fields[i]
 		type = types[i]
 		accessor = accessors[i]
+		if type in type_map:
+			mapping_info = type_map[type]
+			type = mapping_info[0]
+		if (class_name, field) in field_conversion:
+			conversion_info = field_conversion[(class_name, field)]
+			type = conversion_info[0]
 		original_type = ""
 		#skip the geometry
 		if field in ["x", "y", "z"]:
 			print "A geo field %s was skipped for relation %s"%(field, class_name)
 			continue
 		ref_type = ""
+		#check if this field is a foreign key
 		for item in potential_ref_types:
-			if item.lower() in field.lower():
+			if item.lower() in field.lower() and (class_name,field) not in false_foreign_keys:
 				ref_type = item
-		if (field, class_name) in true_ref_fields_types:
-			ref_type = true_ref_fields_types[(field, class_name)]
+		if (class_name,field) in true_ref_fields_types:
+			ref_type = true_ref_fields_types[(class_name, field)]
 		if ref_type!="" and field != class_name.lower():
 			original_type = type
 			type = "shared_ptr<%s>"%ref_type
@@ -56,6 +68,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 		constructor2 += "%s (%s_), "%(field, field)
 		if (class_name.lower() in field.lower() and (class_name, field) not in false_primary_keys) or (class_name, field) in true_primary_keys: #this field is a primary key field
 			key_type = type
+			key_field = field
 			auto_primary_key_member = ""
 			members += "\t#pragma db id\n"
 		members += "\t%s %s;\n"%(type, field)
@@ -68,9 +81,14 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 			#odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
 			adpater_method += "\n\tresult->set%s(file.%s (), container); "%(field.title(), accessor)
 			actual_ref_types.append(ref_type)
-		else:
+		elif mapping_info is not None:
+			adpater_method += "\n\tresult->set%s(file.%s ().%s()); "%(field.title(), accessor, mapping_info[2])
+		elif conversion_info is not None:
+			adpater_method += "\n\tresult->set%s(%s(file.%s())); "%( field.title(), conversion_info[1], accessor)
+		else: 
 			adpater_method += "\n\tresult->set%s(file.%s ()); "%(field.title(), accessor)
-	relation_primary_key_types.append(key_type)
+	odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(key_type, "PrimaryKey", key_field)
+	relation_primary_key_types[class_name] = key_type
 	if auto_primary_key_member!="":
 		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%("unsigned long", "Auto_id", "auto_id")	
 		
@@ -139,19 +157,26 @@ if len(sys.argv) < 2:
 	
 
 #this pattern is applied to *_File.hpp file to extract the fileds
-file_class_member_p = re.compile("(char|bool|int|string|double|float|short)\s*(\w+).*Get_\w+\s*\((\w+)\)")
+file_class_member_p = re.compile("(char|bool|int|string|double|float|short|Dtime)\s*(\w+).*Get_\w+\s*\((\w+)\)")
 #this template is applied to File_Service.hpp file to exract the names of *_File objects
 p_tables = re.compile("#include\s*\"(\w+)_File\.hpp\"")	
 odb_namespace = "pio"
 container_type = "InputContainer"
 relations = []
-relation_primary_key_types = []
+relation_primary_key_types = {}
 #(relation name, field name)
 false_primary_keys = [("Trip", "trip"), ("Vehicle", "vehicle")]
+#(relation, field name)
+false_foreign_keys = [("Phasing","detectors"), ("Ridership", "schedule"),("Event", "schedule")]
 #(relation name, field name)
 true_primary_keys = [("Veh_Type", "type")]
 # (field name, in relation name):referes to relation
-true_ref_fields_types = {("origin", "Trip"):"Location", ("destination", "Trip"):"Location",("type","Vehicle"):"Veh_Type"}
+true_ref_fields_types = {("Trip","origin"):"Location", ("Trip","destination"):"Location",("Vehicle", "type"):"Veh_Type"}
+#transims type -> (polaris type, transims type, transms type getter)
+type_map = {"Dtime":("double", "Dtime", "Seconds")}
+# (type,field) -> (new type, conversion method)
+field_conversion = {("Connect","lanes"):("string", "Static_Service::Lane_Range_Code")}
+field_conversion[("Connect","to_lanes")] = ("string", "Static_Service::Lane_Range_Code")
 
 potential_ref_types = []
 actual_ref_types = []
@@ -193,7 +218,7 @@ if len(sys.argv)==2:
 		item = relations[i]
 		if item not in actual_ref_types:
 			continue
-		input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[i],item, item)
+		input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[item],item, item)
 	
 	#write content to the files
 	odb_fh.write(generate_head())

@@ -19,9 +19,14 @@ public:
 		};
 		Required_System_Files (required_files);
 		Optional_System_Files (optional_files);
+
+		Control_Key transims2polaris_keys [] = { //--- code, key, level, status, type, default, range, help ----
+			{NEW_SQLITE_DATABASE, "NEW_SQLITE_DATABASE", LEVEL0, REQ_KEY, OUT_KEY, "", FILE_RANGE, NO_HELP},
+			END_CONTROL
+		};
+		Key_List(transims2polaris_keys);
 	}
 	~TransimsNetwork (void) {}
-
 
 	void Init(int argc, char* argv[])
 	{
@@ -75,7 +80,18 @@ protected:
 	{
 		//open the network files
 		Data_Service::Program_Control();
+		String key = Get_Control_String(NEW_SQLITE_DATABASE);
+		if (key.empty()) 
+		{
+			cout << "Error: The required NEW_SQLITE_DATABASE key was not specified\n";
+			exit(0);
+		}
+		this->path_to_database = Project_Filename(key);
 	}
+	enum Transims2Polaris_Keys {
+		NEW_SQLITE_DATABASE = 1
+	};
+
 
 }; //end class TransimsNetwork
 

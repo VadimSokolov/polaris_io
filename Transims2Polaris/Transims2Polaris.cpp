@@ -7,6 +7,7 @@
 
 #include "transims_network.h"
 
+using namespace std;
 
 void test_create(const string& name)
 {
@@ -59,24 +60,25 @@ int main(int argc, char* argv[])
 {
 	//test_create("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite");
 	//test_read("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite");
+
 	TransimsNetwork* net = new TransimsNetwork();
 	pio::InputContainer container;
-#ifdef DEBUG
-	net->Init();
-#else
-	net->Init(argc, argv);
-#endif
+	if (argc==1)
+		net->Init();
+	else
+		net->Init(argc, argv);
+	create_sqlite_database (net->path_to_database);
+	Convert<Node_File,Node, int>(net,container, container.Nodes, NODE, "Node", false);
+	Convert<Zone_File,Zone, int>(net,container, container.Zones, ZONE, "ZONE", false);
+	Convert<Link_File,Link, int>(net,container, container.Links, LINK, "LINK", false);
+	Convert<Connect_File,Connect, int>(net,container, CONNECTION, "CONNECTION", false);
+	Convert<Location_File,Location, int>(net,container, container.Locations, LOCATION, "LOCATION", false);
+	Convert<Parking_File,Parking, int>(net,container, container.Parkings, PARKING, "PARKING", false);	
+	Convert<Veh_Type_File,Veh_Type, int>(net,container, container.Veh_Types, VEHICLE_TYPE, "VEHICLE_TYPE", false);
+	Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE", false);
+	Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP", false);
 
-	
-	ConvertNodes(net, container);
-	ConvertZones(net, container);
-	ConvertLinks(net, container);
-	ConvertConnects(net, container);
-	ConvertLocations(net, container);
-	ConvertParkings(net, container);
-	ConvertVeh_Types(net, container);
-	ConvertVehicles(net, container);
-	ConvertTrips(net, container);
+
 	cout << "Press any key...\n";
 	getchar();
 

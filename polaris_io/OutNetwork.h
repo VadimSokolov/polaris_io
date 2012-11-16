@@ -67,7 +67,6 @@ public:
 	std::map<int,shared_ptr<Signal>> Signals;
 	std::map<int,shared_ptr<Timing>> Timings;
 	std::map<int,shared_ptr<Phasing>> Phasings;
-	std::map<int,shared_ptr<Detector>> Detectors;
 	std::map<int,shared_ptr<Stop>> Stops;
 	std::map<int,shared_ptr<Veh_Type>> Veh_Types;
 };
@@ -90,6 +89,7 @@ public:
 	void setSubarea (const int& subarea_){subarea = subarea_;}
 	const int& getPart () const {return part;}
 	void setPart (const int& part_){part = part_;}
+	const int& getPrimaryKey () const {return node;}
 
 //Data Fields
 private:
@@ -125,6 +125,7 @@ public:
 	void setMax_X (const double& max_x_){max_x = max_x_;}
 	const double& getMax_Y () const {return max_y;}
 	void setMax_Y (const double& max_y_){max_y = max_y_;}
+	const int& getPrimaryKey () const {return zone;}
 
 //Data Fields
 private:
@@ -156,6 +157,7 @@ public:
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getPoints () const {return points;}
 	void setPoints (const int& points_){points = points_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -234,6 +236,7 @@ public:
 	void setLeft_Ba (const int& left_ba_){left_ba = left_ba_;}
 	const int& getRight_Ba () const {return right_ba;}
 	void setRight_Ba (const int& right_ba_){right_ba = right_ba_;}
+	const int& getPrimaryKey () const {return link;}
 
 //Data Fields
 private:
@@ -293,6 +296,7 @@ public:
 	void setLength (const double& length_){length = length_;}
 	const double& getOffset () const {return offset;}
 	void setOffset (const double& offset_){offset = offset_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -316,8 +320,8 @@ public:
 	// Default Constructor
 	Lane_Use () {}	
 	//Contructor
-	Lane_Use ( shared_ptr<Link> link_, int dir_, int lanes_, int use_, int type_, int min_type_, int max_type_, int min_trav_, int max_trav_, double offset_, double length_, int toll_, double rate_, double min_delay_, double max_delay_ )  
-	: link (link_), dir (dir_), lanes (lanes_), use (use_), type (type_), min_type (min_type_), max_type (max_type_), min_trav (min_trav_), max_trav (max_trav_), offset (offset_), length (length_), toll (toll_), rate (rate_), min_delay (min_delay_), max_delay (max_delay_)
+	Lane_Use ( shared_ptr<Link> link_, int dir_, int lanes_, int use_, int type_, int min_type_, int max_type_, int min_trav_, int max_trav_, double start_, double end_, double offset_, double length_, int toll_, double rate_, double min_delay_, double max_delay_ )  
+	: link (link_), dir (dir_), lanes (lanes_), use (use_), type (type_), min_type (min_type_), max_type (max_type_), min_trav (min_trav_), max_trav (max_trav_), start (start_), end (end_), offset (offset_), length (length_), toll (toll_), rate (rate_), min_delay (min_delay_), max_delay (max_delay_)
 	{
 	}
 	//Accessors
@@ -340,6 +344,10 @@ public:
 	void setMin_Trav (const int& min_trav_){min_trav = min_trav_;}
 	const int& getMax_Trav () const {return max_trav;}
 	void setMax_Trav (const int& max_trav_){max_trav = max_trav_;}
+	const double& getStart () const {return start;}
+	void setStart (const double& start_){start = start_;}
+	const double& getEnd () const {return end;}
+	void setEnd (const double& end_){end = end_;}
 	const double& getOffset () const {return offset;}
 	void setOffset (const double& offset_){offset = offset_;}
 	const double& getLength () const {return length;}
@@ -352,6 +360,7 @@ public:
 	void setMin_Delay (const double& min_delay_){min_delay = min_delay_;}
 	const double& getMax_Delay () const {return max_delay;}
 	void setMax_Delay (const double& max_delay_){max_delay = max_delay_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -368,6 +377,8 @@ private:
 	int max_type;
 	int min_trav;
 	int max_trav;
+	double start;
+	double end;
 	double offset;
 	double length;
 	int toll;
@@ -384,7 +395,7 @@ public:
 	// Default Constructor
 	Connect () {}	
 	//Contructor
-	Connect ( shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int lanes_, int to_lanes_, int type_, int penalty_, double speed_, int capacity_, int in_high_, int out_high_ )  
+	Connect ( shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, std::string lanes_, std::string to_lanes_, int type_, int penalty_, double speed_, int capacity_, int in_high_, int out_high_ )  
 	: link (link_), dir (dir_), to_link (to_link_), lanes (lanes_), to_lanes (to_lanes_), type (type_), penalty (penalty_), speed (speed_), capacity (capacity_), in_high (in_high_), out_high (out_high_)
 	{
 	}
@@ -397,10 +408,10 @@ public:
 	const shared_ptr<Link>& getTo_Link () const {return to_link;}
 	void setTo_Link (const shared_ptr<Link>& to_link_){to_link = to_link_;}
 	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
-	const int& getLanes () const {return lanes;}
-	void setLanes (const int& lanes_){lanes = lanes_;}
-	const int& getTo_Lanes () const {return to_lanes;}
-	void setTo_Lanes (const int& to_lanes_){to_lanes = to_lanes_;}
+	const std::string& getLanes () const {return lanes;}
+	void setLanes (const std::string& lanes_){lanes = lanes_;}
+	const std::string& getTo_Lanes () const {return to_lanes;}
+	void setTo_Lanes (const std::string& to_lanes_){to_lanes = to_lanes_;}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const int& getPenalty () const {return penalty;}
@@ -413,6 +424,7 @@ public:
 	void setIn_High (const int& in_high_){in_high = in_high_;}
 	const int& getOut_High () const {return out_high;}
 	void setOut_High (const int& out_high_){out_high = out_high_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -423,8 +435,8 @@ private:
 	shared_ptr<Link> link;
 	int dir;
 	shared_ptr<Link> to_link;
-	int lanes;
-	int to_lanes;
+	std::string lanes;
+	std::string to_lanes;
 	int type;
 	int penalty;
 	double speed;
@@ -441,8 +453,8 @@ public:
 	// Default Constructor
 	Turn_Pen () {}	
 	//Contructor
-	Turn_Pen ( shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int use_, int min_type_, int max_type_, int penalty_, shared_ptr<Node> in_node_, shared_ptr<Node> out_node_ )  
-	: link (link_), dir (dir_), to_link (to_link_), use (use_), min_type (min_type_), max_type (max_type_), penalty (penalty_), in_node (in_node_), out_node (out_node_)
+	Turn_Pen ( shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, double start_, double end_, int use_, int min_type_, int max_type_, int penalty_, shared_ptr<Node> in_node_, shared_ptr<Node> out_node_ )  
+	: link (link_), dir (dir_), to_link (to_link_), start (start_), end (end_), use (use_), min_type (min_type_), max_type (max_type_), penalty (penalty_), in_node (in_node_), out_node (out_node_)
 	{
 	}
 	//Accessors
@@ -454,6 +466,10 @@ public:
 	const shared_ptr<Link>& getTo_Link () const {return to_link;}
 	void setTo_Link (const shared_ptr<Link>& to_link_){to_link = to_link_;}
 	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
+	const double& getStart () const {return start;}
+	void setStart (const double& start_){start = start_;}
+	const double& getEnd () const {return end;}
+	void setEnd (const double& end_){end = end_;}
 	const int& getUse () const {return use;}
 	void setUse (const int& use_){use = use_;}
 	const int& getMin_Type () const {return min_type;}
@@ -468,6 +484,7 @@ public:
 	const shared_ptr<Node>& getOut_Node () const {return out_node;}
 	void setOut_Node (const shared_ptr<Node>& out_node_){out_node = out_node_;}
 	void setOut_Node (const int& out_node_, InputContainer& container){out_node = container.Nodes[out_node_];}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -478,6 +495,8 @@ private:
 	shared_ptr<Link> link;
 	int dir;
 	shared_ptr<Link> to_link;
+	double start;
+	double end;
 	int use;
 	int min_type;
 	int max_type;
@@ -494,8 +513,8 @@ public:
 	// Default Constructor
 	Parking () {}	
 	//Contructor
-	Parking ( int parking_, shared_ptr<Link> link_, int dir_, double offset_, int type_, int use_, int space_, int hourly_, int daily_ )  
-	: parking (parking_), link (link_), dir (dir_), offset (offset_), type (type_), use (use_), space (space_), hourly (hourly_), daily (daily_)
+	Parking ( int parking_, shared_ptr<Link> link_, int dir_, double offset_, int type_, int use_, double start_, double end_, int space_, double time_in_, double time_out_, int hourly_, int daily_ )  
+	: parking (parking_), link (link_), dir (dir_), offset (offset_), type (type_), use (use_), start (start_), end (end_), space (space_), time_in (time_in_), time_out (time_out_), hourly (hourly_), daily (daily_)
 	{
 	}
 	//Accessors
@@ -512,12 +531,21 @@ public:
 	void setType (const int& type_){type = type_;}
 	const int& getUse () const {return use;}
 	void setUse (const int& use_){use = use_;}
+	const double& getStart () const {return start;}
+	void setStart (const double& start_){start = start_;}
+	const double& getEnd () const {return end;}
+	void setEnd (const double& end_){end = end_;}
 	const int& getSpace () const {return space;}
 	void setSpace (const int& space_){space = space_;}
+	const double& getTime_In () const {return time_in;}
+	void setTime_In (const double& time_in_){time_in = time_in_;}
+	const double& getTime_Out () const {return time_out;}
+	void setTime_Out (const double& time_out_){time_out = time_out_;}
 	const int& getHourly () const {return hourly;}
 	void setHourly (const int& hourly_){hourly = hourly_;}
 	const int& getDaily () const {return daily;}
 	void setDaily (const int& daily_){daily = daily_;}
+	const int& getPrimaryKey () const {return parking;}
 
 //Data Fields
 private:
@@ -529,7 +557,11 @@ private:
 	double offset;
 	int type;
 	int use;
+	double start;
+	double end;
 	int space;
+	double time_in;
+	double time_out;
 	int hourly;
 	int daily;
 
@@ -561,6 +593,7 @@ public:
 	const shared_ptr<Zone>& getZone () const {return zone;}
 	void setZone (const shared_ptr<Zone>& zone_){zone = zone_;}
 	void setZone (const int& zone_, InputContainer& container){zone = container.Zones[zone_];}
+	const int& getPrimaryKey () const {return location;}
 
 //Data Fields
 private:
@@ -582,8 +615,8 @@ public:
 	// Default Constructor
 	Access () {}	
 	//Contructor
-	Access ( shared_ptr<Link> link_, int from_id_, int from_type_, int to_id_, int to_type_, int dir_, int cost_ )  
-	: link (link_), from_id (from_id_), from_type (from_type_), to_id (to_id_), to_type (to_type_), dir (dir_), cost (cost_)
+	Access ( shared_ptr<Link> link_, int from_id_, int from_type_, int to_id_, int to_type_, int dir_, double time_, int cost_ )  
+	: link (link_), from_id (from_id_), from_type (from_type_), to_id (to_id_), to_type (to_type_), dir (dir_), time (time_), cost (cost_)
 	{
 	}
 	//Accessors
@@ -600,8 +633,11 @@ public:
 	void setTo_Type (const int& to_type_){to_type = to_type_;}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
+	const double& getTime () const {return time;}
+	void setTime (const double& time_){time = time_;}
 	const int& getCost () const {return cost;}
 	void setCost (const int& cost_){cost = cost_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -615,6 +651,7 @@ private:
 	int to_id;
 	int to_type;
 	int dir;
+	double time;
 	int cost;
 
 };
@@ -638,6 +675,7 @@ public:
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getSign () const {return sign;}
 	void setSign (const int& sign_){sign = sign_;}
+	const int& getPrimaryKey () const {return sign;}
 
 //Data Fields
 private:
@@ -656,8 +694,8 @@ public:
 	// Default Constructor
 	Signal () {}	
 	//Contructor
-	Signal ( int signal_, int group_, int times_, shared_ptr<Timing> timing_, shared_ptr<Phasing> phasing_, int type_, int offset_ )  
-	: signal (signal_), group (group_), times (times_), timing (timing_), phasing (phasing_), type (type_), offset (offset_)
+	Signal ( int signal_, int group_, int times_, double start_, double end_, shared_ptr<Timing> timing_, shared_ptr<Phasing> phasing_, int type_, int offset_ )  
+	: signal (signal_), group (group_), times (times_), start (start_), end (end_), timing (timing_), phasing (phasing_), type (type_), offset (offset_)
 	{
 	}
 	//Accessors
@@ -667,6 +705,10 @@ public:
 	void setGroup (const int& group_){group = group_;}
 	const int& getTimes () const {return times;}
 	void setTimes (const int& times_){times = times_;}
+	const double& getStart () const {return start;}
+	void setStart (const double& start_){start = start_;}
+	const double& getEnd () const {return end;}
+	void setEnd (const double& end_){end = end_;}
 	const shared_ptr<Timing>& getTiming () const {return timing;}
 	void setTiming (const shared_ptr<Timing>& timing_){timing = timing_;}
 	void setTiming (const int& timing_, InputContainer& container){timing = container.Timings[timing_];}
@@ -677,6 +719,7 @@ public:
 	void setType (const int& type_){type = type_;}
 	const int& getOffset () const {return offset;}
 	void setOffset (const int& offset_){offset = offset_;}
+	const int& getPrimaryKey () const {return signal;}
 
 //Data Fields
 private:
@@ -685,6 +728,8 @@ private:
 	int signal;
 	int group;
 	int times;
+	double start;
+	double end;
 	shared_ptr<Timing> timing;
 	shared_ptr<Phasing> phasing;
 	int type;
@@ -735,6 +780,7 @@ public:
 	void setYellow (const int& yellow_){yellow = yellow_;}
 	const int& getRed () const {return red;}
 	void setRed (const int& red_){red = red_;}
+	const int& getPrimaryKey () const {return timing;}
 
 //Data Fields
 private:
@@ -765,7 +811,7 @@ public:
 	// Default Constructor
 	Phasing () {}	
 	//Contructor
-	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, shared_ptr<Detector> detectors_, int movements_, int movement_, shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int protect_ )  
+	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, std::string detectors_, int movements_, int movement_, shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int protect_ )  
 	: signal (signal_), phasing (phasing_), phase (phase_), detectors (detectors_), movements (movements_), movement (movement_), link (link_), dir (dir_), to_link (to_link_), protect (protect_)
 	{
 	}
@@ -777,9 +823,8 @@ public:
 	void setPhasing (const int& phasing_){phasing = phasing_;}
 	const int& getPhase () const {return phase;}
 	void setPhase (const int& phase_){phase = phase_;}
-	const shared_ptr<Detector>& getDetectors () const {return detectors;}
-	void setDetectors (const shared_ptr<Detector>& detectors_){detectors = detectors_;}
-	//void setDetectors (const string& detectors_, InputContainer& container){detectors = container.Detectors[detectors_];}
+	const std::string& getDetectors () const {return detectors;}
+	void setDetectors (const std::string& detectors_){detectors = detectors_;}
 	const int& getMovements () const {return movements;}
 	void setMovements (const int& movements_){movements = movements_;}
 	const int& getMovement () const {return movement;}
@@ -794,6 +839,7 @@ public:
 	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
 	const int& getProtect () const {return protect;}
 	void setProtect (const int& protect_){protect = protect_;}
+	const int& getPrimaryKey () const {return phasing;}
 
 //Data Fields
 private:
@@ -802,7 +848,7 @@ private:
 	#pragma db id
 	int phasing;
 	int phase;
-	shared_ptr<Detector> detectors;
+	std::string detectors;
 	int movements;
 	int movement;
 	shared_ptr<Link> link;
@@ -845,6 +891,7 @@ public:
 	void setLow (const int& low_){low = low_;}
 	const int& getHigh () const {return high;}
 	void setHigh (const int& high_){high = high_;}
+	const int& getPrimaryKey () const {return detector;}
 
 //Data Fields
 private:
@@ -892,6 +939,7 @@ public:
 	void setType (const int& type_){type = type_;}
 	const int& getSpace () const {return space;}
 	void setSpace (const int& space_){space = space_;}
+	const int& getPrimaryKey () const {return stop;}
 
 //Data Fields
 private:
@@ -936,6 +984,7 @@ public:
 	void setType (const int& type_){type = type_;}
 	const int& getFare () const {return fare;}
 	void setFare (const int& fare_){fare = fare_;}
+	const int& getPrimaryKey () const {return fare;}
 
 //Data Fields
 private:
@@ -982,6 +1031,7 @@ public:
 	void setZone (const int& zone_, InputContainer& container){zone = container.Zones[zone_];}
 	const int& getFlag () const {return flag;}
 	void setFlag (const int& flag_){flag = flag_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1020,6 +1070,7 @@ public:
 	const shared_ptr<Stop>& getStop () const {return stop;}
 	void setStop (const shared_ptr<Stop>& stop_){stop = stop_;}
 	void setStop (const int& stop_, InputContainer& container){stop = container.Stops[stop_];}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1059,6 +1110,7 @@ public:
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1082,8 +1134,8 @@ public:
 	// Default Constructor
 	Route_Nodes () {}	
 	//Contructor
-	Route_Nodes ( int route_, int mode_, shared_ptr<Veh_Type> veh_type_, shared_ptr<Node> nodes_, std::string name_, shared_ptr<Node> node_, int type_, double speed_ )  
-	: route (route_), mode (mode_), veh_type (veh_type_), nodes (nodes_), name (name_), node (node_), type (type_), speed (speed_)
+	Route_Nodes ( int route_, int mode_, shared_ptr<Veh_Type> veh_type_, shared_ptr<Node> nodes_, std::string name_, shared_ptr<Node> node_, int type_, double dwell_, double time_, double speed_ )  
+	: route (route_), mode (mode_), veh_type (veh_type_), nodes (nodes_), name (name_), node (node_), type (type_), dwell (dwell_), time (time_), speed (speed_)
 	{
 	}
 	//Accessors
@@ -1104,8 +1156,13 @@ public:
 	void setNode (const int& node_, InputContainer& container){node = container.Nodes[node_];}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
+	const double& getDwell () const {return dwell;}
+	void setDwell (const double& dwell_){dwell = dwell_;}
+	const double& getTime () const {return time;}
+	void setTime (const double& time_){time = time_;}
 	const double& getSpeed () const {return speed;}
 	void setSpeed (const double& speed_){speed = speed_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1120,6 +1177,8 @@ private:
 	std::string name;
 	shared_ptr<Node> node;
 	int type;
+	double dwell;
+	double time;
 	double speed;
 
 };
@@ -1148,6 +1207,7 @@ public:
 	void setType (const int& type_){type = type_;}
 	const int& getPartition () const {return partition;}
 	void setPartition (const int& partition_){partition = partition_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1203,6 +1263,7 @@ public:
 	void setWork (const int& work_){work = work_;}
 	const int& getDrive () const {return drive;}
 	void setDrive (const int& drive_){drive = drive_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1233,8 +1294,8 @@ public:
 	// Default Constructor
 	Link_Delay () {}	
 	//Contructor
-	Link_Delay ( shared_ptr<Link> link_, int dir_, int type_, double flow_, shared_ptr<Link> out_link_, double out_flow_ )  
-	: link (link_), dir (dir_), type (type_), flow (flow_), out_link (out_link_), out_flow (out_flow_)
+	Link_Delay ( shared_ptr<Link> link_, int dir_, int type_, double start_, double end_, double flow_, double time_, shared_ptr<Link> out_link_, double out_flow_, double out_time_ )  
+	: link (link_), dir (dir_), type (type_), start (start_), end (end_), flow (flow_), time (time_), out_link (out_link_), out_flow (out_flow_), out_time (out_time_)
 	{
 	}
 	//Accessors
@@ -1245,13 +1306,22 @@ public:
 	void setDir (const int& dir_){dir = dir_;}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
+	const double& getStart () const {return start;}
+	void setStart (const double& start_){start = start_;}
+	const double& getEnd () const {return end;}
+	void setEnd (const double& end_){end = end_;}
 	const double& getFlow () const {return flow;}
 	void setFlow (const double& flow_){flow = flow_;}
+	const double& getTime () const {return time;}
+	void setTime (const double& time_){time = time_;}
 	const shared_ptr<Link>& getOut_Link () const {return out_link;}
 	void setOut_Link (const shared_ptr<Link>& out_link_){out_link = out_link_;}
 	void setOut_Link (const int& out_link_, InputContainer& container){out_link = container.Links[out_link_];}
 	const double& getOut_Flow () const {return out_flow;}
 	void setOut_Flow (const double& out_flow_){out_flow = out_flow_;}
+	const double& getOut_Time () const {return out_time;}
+	void setOut_Time (const double& out_time_){out_time = out_time_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1262,9 +1332,13 @@ private:
 	shared_ptr<Link> link;
 	int dir;
 	int type;
+	double start;
+	double end;
 	double flow;
+	double time;
 	shared_ptr<Link> out_link;
 	double out_flow;
+	double out_time;
 
 };
 
@@ -1275,13 +1349,15 @@ public:
 	// Default Constructor
 	Performance () {}	
 	//Contructor
-	Performance ( double speed_, double density_, double max_den_, double ratio_, double queue_, int max_que_, int fail_ )  
-	: speed (speed_), density (density_), max_den (max_den_), ratio (ratio_), queue (queue_), max_que (max_que_), fail (fail_)
+	Performance ( double speed_, double delay_, double density_, double max_den_, double ratio_, double queue_, int max_que_, int fail_ )  
+	: speed (speed_), delay (delay_), density (density_), max_den (max_den_), ratio (ratio_), queue (queue_), max_que (max_que_), fail (fail_)
 	{
 	}
 	//Accessors
 	const double& getSpeed () const {return speed;}
 	void setSpeed (const double& speed_){speed = speed_;}
+	const double& getDelay () const {return delay;}
+	void setDelay (const double& delay_){delay = delay_;}
 	const double& getDensity () const {return density;}
 	void setDensity (const double& density_){density = density_;}
 	const double& getMax_Den () const {return max_den;}
@@ -1294,6 +1370,7 @@ public:
 	void setMax_Que (const int& max_que_){max_que = max_que_;}
 	const int& getFail () const {return fail;}
 	void setFail (const int& fail_){fail = fail_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1302,6 +1379,7 @@ private:
 	#pragma db id auto
 	unsigned long auto_id;
 	double speed;
+	double delay;
 	double density;
 	double max_den;
 	double ratio;
@@ -1318,8 +1396,8 @@ public:
 	// Default Constructor
 	Ridership () {}	
 	//Contructor
-	Ridership ( int mode_, int route_, int run_, shared_ptr<Stop> stop_, int board_, int alight_, int load_, double factor_ )  
-	: mode (mode_), route (route_), run (run_), stop (stop_), board (board_), alight (alight_), load (load_), factor (factor_)
+	Ridership ( int mode_, int route_, int run_, shared_ptr<Stop> stop_, double schedule_, double time_, int board_, int alight_, int load_, double factor_ )  
+	: mode (mode_), route (route_), run (run_), stop (stop_), schedule (schedule_), time (time_), board (board_), alight (alight_), load (load_), factor (factor_)
 	{
 	}
 	//Accessors
@@ -1332,6 +1410,10 @@ public:
 	const shared_ptr<Stop>& getStop () const {return stop;}
 	void setStop (const shared_ptr<Stop>& stop_){stop = stop_;}
 	void setStop (const int& stop_, InputContainer& container){stop = container.Stops[stop_];}
+	const double& getSchedule () const {return schedule;}
+	void setSchedule (const double& schedule_){schedule = schedule_;}
+	const double& getTime () const {return time;}
+	void setTime (const double& time_){time = time_;}
 	const int& getBoard () const {return board;}
 	void setBoard (const int& board_){board = board_;}
 	const int& getAlight () const {return alight;}
@@ -1340,6 +1422,7 @@ public:
 	void setLoad (const int& load_){load = load_;}
 	const double& getFactor () const {return factor;}
 	void setFactor (const double& factor_){factor = factor_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1351,6 +1434,8 @@ private:
 	int route;
 	int run;
 	shared_ptr<Stop> stop;
+	double schedule;
+	double time;
 	int board;
 	int alight;
 	int load;
@@ -1365,8 +1450,8 @@ public:
 	// Default Constructor
 	Veh_Type () {}	
 	//Contructor
-	Veh_Type ( int type_, double length_, double max_speed_, double max_accel_, double max_decel_, double op_cost_, int use_, int capacity_, double load_, double unload_, int method_, int subtype_ )  
-	: type (type_), length (length_), max_speed (max_speed_), max_accel (max_accel_), max_decel (max_decel_), op_cost (op_cost_), use (use_), capacity (capacity_), load (load_), unload (unload_), method (method_), subtype (subtype_)
+	Veh_Type ( int type_, double length_, double max_speed_, double max_accel_, double max_decel_, double op_cost_, int use_, int capacity_, double load_, double unload_, int method_, double min_dwell_, double max_dwell_, int subtype_ )  
+	: type (type_), length (length_), max_speed (max_speed_), max_accel (max_accel_), max_decel (max_decel_), op_cost (op_cost_), use (use_), capacity (capacity_), load (load_), unload (unload_), method (method_), min_dwell (min_dwell_), max_dwell (max_dwell_), subtype (subtype_)
 	{
 	}
 	//Accessors
@@ -1392,8 +1477,13 @@ public:
 	void setUnload (const double& unload_){unload = unload_;}
 	const int& getMethod () const {return method;}
 	void setMethod (const int& method_){method = method_;}
+	const double& getMin_Dwell () const {return min_dwell;}
+	void setMin_Dwell (const double& min_dwell_){min_dwell = min_dwell_;}
+	const double& getMax_Dwell () const {return max_dwell;}
+	void setMax_Dwell (const double& max_dwell_){max_dwell = max_dwell_;}
 	const int& getSubtype () const {return subtype;}
 	void setSubtype (const int& subtype_){subtype = subtype_;}
+	const int& getPrimaryKey () const {return type;}
 
 //Data Fields
 private:
@@ -1410,6 +1500,8 @@ private:
 	double load;
 	double unload;
 	int method;
+	double min_dwell;
+	double max_dwell;
 	int subtype;
 
 };
@@ -1440,6 +1532,7 @@ public:
 	void setSubtype (const int& subtype_){subtype = subtype_;}
 	const int& getPartition () const {return partition;}
 	void setPartition (const int& partition_){partition = partition_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1463,8 +1556,8 @@ public:
 	// Default Constructor
 	Trip () {}	
 	//Contructor
-	Trip ( int hhold_, int person_, int tour_, int trip_, shared_ptr<Location> origin_, shared_ptr<Location> destination_, int purpose_, int mode_, int constraint_, int priority_, int vehicle_, int passengers_, int type_, int partition_ )  
-	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), origin (origin_), destination (destination_), purpose (purpose_), mode (mode_), constraint (constraint_), priority (priority_), vehicle (vehicle_), passengers (passengers_), type (type_), partition (partition_)
+	Trip ( int hhold_, int person_, int tour_, int trip_, double start_, double end_, double duration_, shared_ptr<Location> origin_, shared_ptr<Location> destination_, int purpose_, int mode_, int constraint_, int priority_, int vehicle_, int passengers_, int type_, int partition_ )  
+	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), start (start_), end (end_), duration (duration_), origin (origin_), destination (destination_), purpose (purpose_), mode (mode_), constraint (constraint_), priority (priority_), vehicle (vehicle_), passengers (passengers_), type (type_), partition (partition_)
 	{
 	}
 	//Accessors
@@ -1476,6 +1569,12 @@ public:
 	void setTour (const int& tour_){tour = tour_;}
 	const int& getTrip () const {return trip;}
 	void setTrip (const int& trip_){trip = trip_;}
+	const double& getStart () const {return start;}
+	void setStart (const double& start_){start = start_;}
+	const double& getEnd () const {return end;}
+	void setEnd (const double& end_){end = end_;}
+	const double& getDuration () const {return duration;}
+	void setDuration (const double& duration_){duration = duration_;}
 	const shared_ptr<Location>& getOrigin () const {return origin;}
 	void setOrigin (const shared_ptr<Location>& origin_){origin = origin_;}
 	void setOrigin (const int& origin_, InputContainer& container){origin = container.Locations[origin_];}
@@ -1498,6 +1597,7 @@ public:
 	void setType (const int& type_){type = type_;}
 	const int& getPartition () const {return partition;}
 	void setPartition (const int& partition_){partition = partition_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1509,6 +1609,9 @@ private:
 	int person;
 	int tour;
 	int trip;
+	double start;
+	double end;
+	double duration;
 	shared_ptr<Location> origin;
 	shared_ptr<Location> destination;
 	int purpose;
@@ -1529,13 +1632,15 @@ public:
 	// Default Constructor
 	Problem () {}	
 	//Contructor
-	Problem ( int problem_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_, int survey_ )  
-	: problem (problem_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_), survey (survey_)
+	Problem ( int problem_, double time_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_, int survey_ )  
+	: problem (problem_), time (time_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_), survey (survey_)
 	{
 	}
 	//Accessors
 	const int& getProblem () const {return problem;}
 	void setProblem (const int& problem_){problem = problem_;}
+	const double& getTime () const {return time;}
+	void setTime (const double& time_){time = time_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
@@ -1549,12 +1654,14 @@ public:
 	void setRoute (const int& route_){route = route_;}
 	const int& getSurvey () const {return survey;}
 	void setSurvey (const int& survey_){survey = survey_;}
+	const int& getPrimaryKey () const {return problem;}
 
 //Data Fields
 private:
 	friend class odb::access;
 	#pragma db id
 	int problem;
+	double time;
 	shared_ptr<Link> link;
 	int dir;
 	int lane;
@@ -1571,11 +1678,27 @@ public:
 	// Default Constructor
 	Plan () {}	
 	//Contructor
-	Plan ( double length_, double cost_, int impedance_, int leg_mode_, int leg_type_, int leg_id_, double leg_length_, double leg_cost_, int leg_imp_ )  
-	: length (length_), cost (cost_), impedance (impedance_), leg_mode (leg_mode_), leg_type (leg_type_), leg_id (leg_id_), leg_length (leg_length_), leg_cost (leg_cost_), leg_imp (leg_imp_)
+	Plan ( double depart_, double arrive_, double activity_, double walk_, double drive_, double transit_, double wait_, double other_, double length_, double cost_, int impedance_, int leg_mode_, int leg_type_, int leg_id_, double leg_time_, double leg_length_, double leg_cost_, int leg_imp_ )  
+	: depart (depart_), arrive (arrive_), activity (activity_), walk (walk_), drive (drive_), transit (transit_), wait (wait_), other (other_), length (length_), cost (cost_), impedance (impedance_), leg_mode (leg_mode_), leg_type (leg_type_), leg_id (leg_id_), leg_time (leg_time_), leg_length (leg_length_), leg_cost (leg_cost_), leg_imp (leg_imp_)
 	{
 	}
 	//Accessors
+	const double& getDepart () const {return depart;}
+	void setDepart (const double& depart_){depart = depart_;}
+	const double& getArrive () const {return arrive;}
+	void setArrive (const double& arrive_){arrive = arrive_;}
+	const double& getActivity () const {return activity;}
+	void setActivity (const double& activity_){activity = activity_;}
+	const double& getWalk () const {return walk;}
+	void setWalk (const double& walk_){walk = walk_;}
+	const double& getDrive () const {return drive;}
+	void setDrive (const double& drive_){drive = drive_;}
+	const double& getTransit () const {return transit;}
+	void setTransit (const double& transit_){transit = transit_;}
+	const double& getWait () const {return wait;}
+	void setWait (const double& wait_){wait = wait_;}
+	const double& getOther () const {return other;}
+	void setOther (const double& other_){other = other_;}
 	const double& getLength () const {return length;}
 	void setLength (const double& length_){length = length_;}
 	const double& getCost () const {return cost;}
@@ -1588,12 +1711,15 @@ public:
 	void setLeg_Type (const int& leg_type_){leg_type = leg_type_;}
 	const int& getLeg_Id () const {return leg_id;}
 	void setLeg_Id (const int& leg_id_){leg_id = leg_id_;}
+	const double& getLeg_Time () const {return leg_time;}
+	void setLeg_Time (const double& leg_time_){leg_time = leg_time_;}
 	const double& getLeg_Length () const {return leg_length;}
 	void setLeg_Length (const double& leg_length_){leg_length = leg_length_;}
 	const double& getLeg_Cost () const {return leg_cost;}
 	void setLeg_Cost (const double& leg_cost_){leg_cost = leg_cost_;}
 	const int& getLeg_Imp () const {return leg_imp;}
 	void setLeg_Imp (const int& leg_imp_){leg_imp = leg_imp_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1601,12 +1727,21 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	double depart;
+	double arrive;
+	double activity;
+	double walk;
+	double drive;
+	double transit;
+	double wait;
+	double other;
 	double length;
 	double cost;
 	int impedance;
 	int leg_mode;
 	int leg_type;
 	int leg_id;
+	double leg_time;
 	double leg_length;
 	double leg_cost;
 	int leg_imp;
@@ -1620,17 +1755,30 @@ public:
 	// Default Constructor
 	Skim () {}	
 	//Contructor
-	Skim ( double length_, double cost_, int impedance_ )  
-	: length (length_), cost (cost_), impedance (impedance_)
+	Skim ( double time_, double walk_, double drive_, double transit_, double wait_, double other_, double length_, double cost_, int impedance_ )  
+	: time (time_), walk (walk_), drive (drive_), transit (transit_), wait (wait_), other (other_), length (length_), cost (cost_), impedance (impedance_)
 	{
 	}
 	//Accessors
+	const double& getTime () const {return time;}
+	void setTime (const double& time_){time = time_;}
+	const double& getWalk () const {return walk;}
+	void setWalk (const double& walk_){walk = walk_;}
+	const double& getDrive () const {return drive;}
+	void setDrive (const double& drive_){drive = drive_;}
+	const double& getTransit () const {return transit;}
+	void setTransit (const double& transit_){transit = transit_;}
+	const double& getWait () const {return wait;}
+	void setWait (const double& wait_){wait = wait_;}
+	const double& getOther () const {return other;}
+	void setOther (const double& other_){other = other_;}
 	const double& getLength () const {return length;}
 	void setLength (const double& length_){length = length_;}
 	const double& getCost () const {return cost;}
 	void setCost (const double& cost_){cost = cost_;}
 	const int& getImpedance () const {return impedance;}
 	void setImpedance (const int& impedance_){impedance = impedance_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1638,6 +1786,12 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	double time;
+	double walk;
+	double drive;
+	double transit;
+	double wait;
+	double other;
 	double length;
 	double cost;
 	int impedance;
@@ -1651,8 +1805,8 @@ public:
 	// Default Constructor
 	Event () {}	
 	//Contructor
-	Event ( int hhold_, int person_, int tour_, int trip_, int mode_, int type_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
-	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), mode (mode_), type (type_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_)
+	Event ( int hhold_, int person_, int tour_, int trip_, int mode_, int type_, double schedule_, double actual_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
+	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), mode (mode_), type (type_), schedule (schedule_), actual (actual_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_)
 	{
 	}
 	//Accessors
@@ -1668,6 +1822,10 @@ public:
 	void setMode (const int& mode_){mode = mode_;}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
+	const double& getSchedule () const {return schedule;}
+	void setSchedule (const double& schedule_){schedule = schedule_;}
+	const double& getActual () const {return actual;}
+	void setActual (const double& actual_){actual = actual_;}
 	const shared_ptr<Link>& getLink () const {return link;}
 	void setLink (const shared_ptr<Link>& link_){link = link_;}
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
@@ -1679,6 +1837,7 @@ public:
 	void setOffset (const double& offset_){offset = offset_;}
 	const int& getRoute () const {return route;}
 	void setRoute (const int& route_){route = route_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1692,6 +1851,8 @@ private:
 	int trip;
 	int mode;
 	int type;
+	double schedule;
+	double actual;
 	shared_ptr<Link> link;
 	int dir;
 	int lane;
@@ -1707,8 +1868,8 @@ public:
 	// Default Constructor
 	Traveler () {}	
 	//Contructor
-	Traveler ( int hhold_, int person_, int tour_, int trip_, int mode_, double distance_, double speed_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
-	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), mode (mode_), distance (distance_), speed (speed_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_)
+	Traveler ( int hhold_, int person_, int tour_, int trip_, int mode_, double time_, double distance_, double speed_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
+	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), mode (mode_), time (time_), distance (distance_), speed (speed_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_)
 	{
 	}
 	//Accessors
@@ -1722,6 +1883,8 @@ public:
 	void setTrip (const int& trip_){trip = trip_;}
 	const int& getMode () const {return mode;}
 	void setMode (const int& mode_){mode = mode_;}
+	const double& getTime () const {return time;}
+	void setTime (const double& time_){time = time_;}
 	const double& getDistance () const {return distance;}
 	void setDistance (const double& distance_){distance = distance_;}
 	const double& getSpeed () const {return speed;}
@@ -1737,6 +1900,7 @@ public:
 	void setOffset (const double& offset_){offset = offset_;}
 	const int& getRoute () const {return route;}
 	void setRoute (const int& route_){route = route_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
 //Data Fields
@@ -1749,6 +1913,7 @@ private:
 	int tour;
 	int trip;
 	int mode;
+	double time;
 	double distance;
 	double speed;
 	shared_ptr<Link> link;
