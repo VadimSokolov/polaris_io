@@ -118,32 +118,9 @@ private:
 	return result;
 }
 """%(class_name, adpater_method[:-1])
-	return (odb_code, adapter_code)
-	# if odb_fh is not None:
-		# odb_fh.write(odb_code);
-	# if adapter_fh is not None:
-		# adapter_fh.write(adapter_code);
-					
+	return (odb_code, adapter_code)					
 
-def generate_head():
-	s = """
-#ifndef OutNetwork
-#define OutNetwork
-#pragma warning(disable:4068)
 
-#include <map>
-#include <vector>
-#include <string>
-
-#include <odb/core.hxx>
-
-// Include TR1 <memory> header in a compiler-specific fashion. Fall back
-// on the Boost implementation if the compiler does not support TR1.
-//
-#include <odb/tr1/memory.hxx>
-using std::tr1::shared_ptr;
-"""
-	return s
 #parse the command line arguments
 help_msg = """
 usage: generate_odb_classes.py syslib_include_path
@@ -156,6 +133,9 @@ if len(sys.argv) < 2:
 	sys.exit()
 	
 
+###################################################
+#	         	Initialization 					  #
+###################################################	
 #this pattern is applied to *_File.hpp file to extract the fileds
 file_class_member_p = re.compile("(char|bool|int|string|double|float|short|Dtime)\s*(\w+).*Get_\w+\s*\((\w+)\)")
 #this template is applied to File_Service.hpp file to exract the names of *_File objects
@@ -164,6 +144,12 @@ odb_namespace = "pio"
 container_type = "InputContainer"
 relations = []
 relation_primary_key_types = {}
+potential_ref_types = []
+actual_ref_types = []
+
+###################################################
+#	         	Custom Rules 					  #
+###################################################
 #(relation name, field name)
 false_primary_keys = [("Trip", "trip"), ("Vehicle", "vehicle"), ("Sign", "sign"), ("Timing", "timing"), ("Phasing", "phasing")]
 #(relation, field name)
@@ -180,63 +166,85 @@ field_conversion[("Connect","to_lanes")] = ("string", "Static_Service::Lane_Rang
 field_conversion[("Connect","type")] = ("string", "Static_Service::Connect_Code","(Connect_Type)")
 field_conversion[("Link","type")] = ("string", "Static_Service::Facility_Code","(Facility_Type)")
 field_conversion[("Signal","type")] = ("string", "Static_Service::Signal_Code","(Signal_Type)")
+field_conversion[("Sign","sign")] = ("string", "Static_Service::Control_Code","(Control_Type)")
+field_conversion[("Phasing","movement")] = ("string", "Static_Service::Movement_Code","(Movement_Type)")
+field_conversion[("Phasing","protect")] = ("string", "Static_Service::Protection_Code","(Protection_Type)")
 
-potential_ref_types = []
-actual_ref_types = []
-if len(sys.argv)==2:
-	syslib_include_path = sys.argv[1]
-	temp =  os.path.join(syslib_include_path, "File_Service.hpp")
-	if not os.path.exists(temp):
-		print "The %s path does not exist, exiting..."%temp
-		sys.exit()
-	#populate the relations list
-	with open(temp, 'r') as fh:
-		for line in fh:
-			m = p_tables.match(line)
-			if m is not None:
-				relations.append(m.group(1))
-	#initialize strings anf file handlers
-	forward_declarations = ""
-	odb_code=""
-	adapter_code=""
-	input_container = "class %s \n{\npublic:\n"%container_type
-	odb_fh =  open("out\\odb_data_model.h", 'w')
-	adapter_fh =  open("out\\adapter_methods.h", 'w') 
 
-	#populate potential_ref_types and forward_declarations
-	for item in relations:
-		if item.lower() not in ["type", "use"] and item not in zip(*false_primary_keys)[0]:			
-			potential_ref_types.append(item)	
-		forward_declarations  += "class %s;\n"%item 	
-	forward_declarations += "class %s;\n"%container_type
+if len(sys.argv)!=2:
+	print "The path to the SysLib Include folder was not provided. Exiting... "
+	sys.exit()
+syslib_include_path = sys.argv[1]
+temp =  os.path.join(syslib_include_path, "File_Service.hpp")
+if not os.path.exists(temp):
+	print "The %s path does not exist, exiting..."%temp
+	sys.exit()
+#populate the relations list
+with open(temp, 'r') as fh:
+	for line in fh:
+		m = p_tables.match(line)
+		if m is not None:
+			relations.append(m.group(1))
+			
+#initialize strings and file handlers
+forward_declarations = ""
+odb_code=""
+adapter_code=""
+input_container = "class %s \n{\npublic:\n"%container_type
+odb_fh =  open("out\\odb_data_model.h", 'w')
+adapter_fh =  open("out\\adapter_methods.h", 'w') 
+
+#populate potential_ref_types and forward_declarations
+for item in relations:
+	if item.lower() not in ["type", "use"] and item not in zip(*false_primary_keys)[0]:			
+		potential_ref_types.append(item)	
+	forward_declarations  += "class %s;\n"%item 	
+forward_declarations += "class %s;\n"%container_type
+
+#generate c++ code for new classes as well as adapter methods from transims to the new classes
+for item in relations:
+	print "Processing %s"%item
+	(o,a) = generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item)
+	odb_code+=o
+	adapter_code+=a
+#generate input container class
+for i in range(len(relations)):
+	item = relations[i]
+	if item not in actual_ref_types:
+		continue
+	input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[item],item, item)
+
+#write content to the files
+odb_fh.write("""
+#ifndef OutNetwork
+#define OutNetwork
+#pragma warning(disable:4068)
+
+#include <map>
+#include <vector>
+#include <string>
+
+#include <odb/core.hxx>
+
+// Include TR1 <memory> header in a compiler-specific fashion. Fall back
+// on the Boost implementation if the compiler does not support TR1.
+//
+#include <odb/tr1/memory.hxx>
+using std::tr1::shared_ptr;
+""")
+odb_fh.write("namespace %s\n{\n"%odb_namespace)	
+odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)
+odb_fh.write("//Input Container.\n//\n"+input_container+"};\n")
+odb_fh.write(odb_code)
+odb_fh.write("\n}//end of namespace\n") #close namespace bracket
+odb_fh.write("#endif // OutNetwork")
 	
-	#generate c++ code for new classes as well as adapter methods from transims to the new classes
-	for item in relations:
-		print "Processing %s"%item
-		(o,a) = generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item)
-		odb_code+=o
-		adapter_code+=a
-	#generate input container class
-	for i in range(len(relations)):
-		item = relations[i]
-		if item not in actual_ref_types:
-			continue
-		input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[item],item, item)
-	
-	#write content to the files
-	odb_fh.write(generate_head())
-	odb_fh.write("namespace %s\n{\n"%odb_namespace)	
-	odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)
-	odb_fh.write("//Input Container.\n//\n"+input_container+"};\n")
-	odb_fh.write(odb_code)
-	odb_fh.write("\n}//end of namespace\n") #close namespace bracket
-	odb_fh.write("#endif // OutNetwork")
-	
-	adapter_fh.write("""#pragma once
+adapter_fh.write("""
+#pragma once
 #include "OutNetwork.h"
 #include "File_Service.hpp"
 """)
-	adapter_fh.write(adapter_code)
+adapter_fh.write(adapter_code)
 	
 	
 		

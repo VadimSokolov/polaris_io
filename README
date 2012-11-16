@@ -14,3 +14,4 @@ Make sure that the file path is your PATH variable. The odb.exe is a part of the
 
 TODO:
 	* Support for nested files
+	* Geo data conversion

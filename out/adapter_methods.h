@@ -1,3 +1,4 @@
+
 #pragma once
 #include "OutNetwork.h"
 #include "File_Service.hpp"
@@ -182,7 +183,7 @@ shared_ptr<pio::Sign> Adapter( Sign_File &file, pio::InputContainer& container)
 	shared_ptr<pio::Sign> result (new pio::Sign ());
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
-	result->setSign(file.Sign ());
+	result->setSign(Static_Service::Control_Code((Control_Type)file.Sign()));
 	return result;
 }
 //Converter for Signal
@@ -230,11 +231,11 @@ shared_ptr<pio::Phasing> Adapter( Phasing_File &file, pio::InputContainer& conta
 	result->setPhase(file.Phase ()); 
 	result->setDetectors(file.Detectors ()); 
 	result->setMovements(file.Movements ()); 
-	result->setMovement(file.Movement ()); 
+	result->setMovement(Static_Service::Movement_Code((Movement_Type)file.Movement())); 
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
 	result->setTo_Link(file.To_Link (), container); 
-	result->setProtect(file.Protection ());
+	result->setProtect(Static_Service::Protection_Code((Protection_Type)file.Protection()));
 	return result;
 }
 //Converter for Detector
