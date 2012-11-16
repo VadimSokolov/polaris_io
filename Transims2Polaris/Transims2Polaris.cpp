@@ -60,20 +60,23 @@ int main(int argc, char* argv[])
 	//test_create("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite");
 	//test_read("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite");
 	TransimsNetwork* net = new TransimsNetwork();
-	net->Init();
-
-
 	pio::InputContainer container;
-	string name = "C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite";
-	ConvertNodes(name, net, container);
-	ConvertZones(name, net, container);
-	ConvertLinks(name, net, container);
-	ConvertConnects(name, net, container);
-	ConvertLocations(name, net, container);
-	ConvertParkings(name, net, container);
-	ConvertVeh_Types(name, net, container);
-	ConvertVehicles(name, net, container);
-	ConvertTrips(name, net, container);
+#ifdef DEBUG
+	net->Init();
+#else
+	net->Init(argc, argv);
+#endif
+
+	
+	ConvertNodes(net, container);
+	ConvertZones(net, container);
+	ConvertLinks(net, container);
+	ConvertConnects(net, container);
+	ConvertLocations(net, container);
+	ConvertParkings(net, container);
+	ConvertVeh_Types(net, container);
+	ConvertVehicles(net, container);
+	ConvertTrips(net, container);
 	cout << "Press any key...\n";
 	getchar();
 

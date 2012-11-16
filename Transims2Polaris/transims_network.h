@@ -21,6 +21,13 @@ public:
 		Optional_System_Files (optional_files);
 	}
 	~TransimsNetwork (void) {}
+
+
+	void Init(int argc, char* argv[])
+	{
+		Start_Execution(argc,argv);
+	}
+
 	void Init(Strings control_keys)
 	{
 		Quiet(false);
@@ -52,6 +59,9 @@ public:
 		control_keys.push_back("TRIP_FILE C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/trip.txt");
 		control_keys.push_back("VEHICLE_TYPE_FILE C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/Vehicle_Type.txt");
 		control_keys.push_back("VEHICLE_FILE C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/vehicle.txt");
+
+		this->path_to_database ="C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite";
+
 		Start_Execution(control_keys);
 	}
 	void Execute (void)
@@ -59,6 +69,7 @@ public:
 		//read the network files
 		//Data_Service::Execute();
 	}
+	std::string path_to_database;
 protected:
 	void Program_Control (void)
 	{

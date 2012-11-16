@@ -38,7 +38,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 			print "A geo field %s was skipped for relation %s"%(field, class_name)
 			continue
 		ref_type = ""
-		for item in ref_types:
+		for item in potential_ref_types:
 			if item.lower() in field.lower():
 				ref_type = item
 		if (field, class_name) in true_ref_fields_types:
@@ -67,6 +67,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 			odb_accessors += "\tvoid set%s (const %s& %s_, %s& container){%s = container.%ss[%s_];}\n"%(field.title(),original_type, field, container_type,field,ref_type,field)
 			#odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
 			adpater_method += "\n\tresult->set%s(file.%s (), container); "%(field.title(), accessor)
+			actual_ref_types.append(ref_type)
 		else:
 			adpater_method += "\n\tresult->set%s(file.%s ()); "%(field.title(), accessor)
 	relation_primary_key_types.append(key_type)
@@ -136,7 +137,7 @@ if len(sys.argv) < 2:
 	print help_msg
 	sys.exit()
 	
-ref_types = []
+
 #this pattern is applied to *_File.hpp file to extract the fileds
 file_class_member_p = re.compile("(char|bool|int|string|double|float|short)\s*(\w+).*Get_\w+\s*\((\w+)\)")
 #this template is applied to File_Service.hpp file to exract the names of *_File objects
@@ -151,6 +152,9 @@ false_primary_keys = [("Trip", "trip"), ("Vehicle", "vehicle")]
 true_primary_keys = [("Veh_Type", "type")]
 # (field name, in relation name):referes to relation
 true_ref_fields_types = {("origin", "Trip"):"Location", ("destination", "Trip"):"Location",("type","Vehicle"):"Veh_Type"}
+
+potential_ref_types = []
+actual_ref_types = []
 if len(sys.argv)==2:
 	syslib_include_path = sys.argv[1]
 	temp =  os.path.join(syslib_include_path, "File_Service.hpp")
@@ -171,10 +175,10 @@ if len(sys.argv)==2:
 	odb_fh =  open("out\\odb_data_model.h", 'w')
 	adapter_fh =  open("out\\adapter_methods.h", 'w') 
 
-	#populate ref_types and forward_declarations
+	#populate potential_ref_types and forward_declarations
 	for item in relations:
-		if item.lower() not in ["type", "use"]:			
-			ref_types.append(item)	
+		if item.lower() not in ["type", "use"] and item not in zip(*false_primary_keys)[0]:			
+			potential_ref_types.append(item)	
 		forward_declarations  += "class %s;\n"%item 	
 	forward_declarations += "class %s;\n"%container_type
 	
@@ -187,6 +191,8 @@ if len(sys.argv)==2:
 	#generate input container class
 	for i in range(len(relations)):
 		item = relations[i]
+		if item not in actual_ref_types:
+			continue
 		input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[i],item, item)
 	
 	#write content to the files

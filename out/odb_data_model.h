@@ -61,39 +61,15 @@ class InputContainer
 public:
 	std::map<int,shared_ptr<Node>> Nodes;
 	std::map<int,shared_ptr<Zone>> Zones;
-	std::map<unsigned long,shared_ptr<Shape>> Shapes;
 	std::map<int,shared_ptr<Link>> Links;
-	std::map<unsigned long,shared_ptr<Pocket>> Pockets;
-	std::map<unsigned long,shared_ptr<Lane_Use>> Lane_Uses;
-	std::map<unsigned long,shared_ptr<Connect>> Connects;
-	std::map<unsigned long,shared_ptr<Turn_Pen>> Turn_Pens;
 	std::map<int,shared_ptr<Parking>> Parkings;
 	std::map<int,shared_ptr<Location>> Locations;
-	std::map<unsigned long,shared_ptr<Access>> Accesss;
-	std::map<int,shared_ptr<Sign>> Signs;
 	std::map<int,shared_ptr<Signal>> Signals;
 	std::map<int,shared_ptr<Timing>> Timings;
 	std::map<int,shared_ptr<Phasing>> Phasings;
 	std::map<int,shared_ptr<Detector>> Detectors;
 	std::map<int,shared_ptr<Stop>> Stops;
-	std::map<int,shared_ptr<Fare>> Fares;
-	std::map<unsigned long,shared_ptr<Line>> Lines;
-	std::map<unsigned long,shared_ptr<Schedule>> Schedules;
-	std::map<unsigned long,shared_ptr<Driver>> Drivers;
-	std::map<unsigned long,shared_ptr<Route_Nodes>> Route_Nodess;
-	std::map<unsigned long,shared_ptr<Selection>> Selections;
-	std::map<unsigned long,shared_ptr<Household>> Households;
-	std::map<unsigned long,shared_ptr<Link_Delay>> Link_Delays;
-	std::map<unsigned long,shared_ptr<Performance>> Performances;
-	std::map<unsigned long,shared_ptr<Ridership>> Riderships;
 	std::map<int,shared_ptr<Veh_Type>> Veh_Types;
-	std::map<unsigned long,shared_ptr<Vehicle>> Vehicles;
-	std::map<unsigned long,shared_ptr<Trip>> Trips;
-	std::map<int,shared_ptr<Problem>> Problems;
-	std::map<unsigned long,shared_ptr<Plan>> Plans;
-	std::map<unsigned long,shared_ptr<Skim>> Skims;
-	std::map<unsigned long,shared_ptr<Event>> Events;
-	std::map<unsigned long,shared_ptr<Traveler>> Travelers;
 };
 
 #pragma db object
@@ -1155,7 +1131,7 @@ public:
 	// Default Constructor
 	Selection () {}	
 	//Contructor
-	Selection ( int hhold_, int person_, int tour_, shared_ptr<Trip> trip_, int type_, int partition_ )  
+	Selection ( int hhold_, int person_, int tour_, int trip_, int type_, int partition_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), type (type_), partition (partition_)
 	{
 	}
@@ -1166,9 +1142,8 @@ public:
 	void setPerson (const int& person_){person = person_;}
 	const int& getTour () const {return tour;}
 	void setTour (const int& tour_){tour = tour_;}
-	const shared_ptr<Trip>& getTrip () const {return trip;}
-	void setTrip (const shared_ptr<Trip>& trip_){trip = trip_;}
-	void setTrip (const int& trip_, InputContainer& container){trip = container.Trips[trip_];}
+	const int& getTrip () const {return trip;}
+	void setTrip (const int& trip_){trip = trip_;}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const int& getPartition () const {return partition;}
@@ -1183,7 +1158,7 @@ private:
 	int hhold;
 	int person;
 	int tour;
-	shared_ptr<Trip> trip;
+	int trip;
 	int type;
 	int partition;
 
@@ -1196,7 +1171,7 @@ public:
 	// Default Constructor
 	Household () {}	
 	//Contructor
-	Household ( int hhold_, shared_ptr<Location> location_, int persons_, int workers_, shared_ptr<Vehicle> vehicles_, int type_, int partition_, int person_, int age_, int relate_, int gender_, int work_, int drive_ )  
+	Household ( int hhold_, shared_ptr<Location> location_, int persons_, int workers_, int vehicles_, int type_, int partition_, int person_, int age_, int relate_, int gender_, int work_, int drive_ )  
 	: hhold (hhold_), location (location_), persons (persons_), workers (workers_), vehicles (vehicles_), type (type_), partition (partition_), person (person_), age (age_), relate (relate_), gender (gender_), work (work_), drive (drive_)
 	{
 	}
@@ -1210,9 +1185,8 @@ public:
 	void setPersons (const int& persons_){persons = persons_;}
 	const int& getWorkers () const {return workers;}
 	void setWorkers (const int& workers_){workers = workers_;}
-	const shared_ptr<Vehicle>& getVehicles () const {return vehicles;}
-	void setVehicles (const shared_ptr<Vehicle>& vehicles_){vehicles = vehicles_;}
-	void setVehicles (const int& vehicles_, InputContainer& container){vehicles = container.Vehicles[vehicles_];}
+	const int& getVehicles () const {return vehicles;}
+	void setVehicles (const int& vehicles_){vehicles = vehicles_;}
 	const int& getType () const {return type;}
 	void setType (const int& type_){type = type_;}
 	const int& getPartition () const {return partition;}
@@ -1240,7 +1214,7 @@ private:
 	shared_ptr<Location> location;
 	int persons;
 	int workers;
-	shared_ptr<Vehicle> vehicles;
+	int vehicles;
 	int type;
 	int partition;
 	int person;
@@ -1489,7 +1463,7 @@ public:
 	// Default Constructor
 	Trip () {}	
 	//Contructor
-	Trip ( int hhold_, int person_, int tour_, int trip_, shared_ptr<Location> origin_, shared_ptr<Location> destination_, int purpose_, int mode_, int constraint_, int priority_, shared_ptr<Vehicle> vehicle_, int passengers_, int type_, int partition_ )  
+	Trip ( int hhold_, int person_, int tour_, int trip_, shared_ptr<Location> origin_, shared_ptr<Location> destination_, int purpose_, int mode_, int constraint_, int priority_, int vehicle_, int passengers_, int type_, int partition_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), origin (origin_), destination (destination_), purpose (purpose_), mode (mode_), constraint (constraint_), priority (priority_), vehicle (vehicle_), passengers (passengers_), type (type_), partition (partition_)
 	{
 	}
@@ -1516,9 +1490,8 @@ public:
 	void setConstraint (const int& constraint_){constraint = constraint_;}
 	const int& getPriority () const {return priority;}
 	void setPriority (const int& priority_){priority = priority_;}
-	const shared_ptr<Vehicle>& getVehicle () const {return vehicle;}
-	void setVehicle (const shared_ptr<Vehicle>& vehicle_){vehicle = vehicle_;}
-	void setVehicle (const int& vehicle_, InputContainer& container){vehicle = container.Vehicles[vehicle_];}
+	const int& getVehicle () const {return vehicle;}
+	void setVehicle (const int& vehicle_){vehicle = vehicle_;}
 	const int& getPassengers () const {return passengers;}
 	void setPassengers (const int& passengers_){passengers = passengers_;}
 	const int& getType () const {return type;}
@@ -1542,7 +1515,7 @@ private:
 	int mode;
 	int constraint;
 	int priority;
-	shared_ptr<Vehicle> vehicle;
+	int vehicle;
 	int passengers;
 	int type;
 	int partition;
@@ -1678,7 +1651,7 @@ public:
 	// Default Constructor
 	Event () {}	
 	//Contructor
-	Event ( int hhold_, int person_, int tour_, shared_ptr<Trip> trip_, int mode_, int type_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
+	Event ( int hhold_, int person_, int tour_, int trip_, int mode_, int type_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), mode (mode_), type (type_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_)
 	{
 	}
@@ -1689,9 +1662,8 @@ public:
 	void setPerson (const int& person_){person = person_;}
 	const int& getTour () const {return tour;}
 	void setTour (const int& tour_){tour = tour_;}
-	const shared_ptr<Trip>& getTrip () const {return trip;}
-	void setTrip (const shared_ptr<Trip>& trip_){trip = trip_;}
-	void setTrip (const int& trip_, InputContainer& container){trip = container.Trips[trip_];}
+	const int& getTrip () const {return trip;}
+	void setTrip (const int& trip_){trip = trip_;}
 	const int& getMode () const {return mode;}
 	void setMode (const int& mode_){mode = mode_;}
 	const int& getType () const {return type;}
@@ -1717,7 +1689,7 @@ private:
 	int hhold;
 	int person;
 	int tour;
-	shared_ptr<Trip> trip;
+	int trip;
 	int mode;
 	int type;
 	shared_ptr<Link> link;
@@ -1735,7 +1707,7 @@ public:
 	// Default Constructor
 	Traveler () {}	
 	//Contructor
-	Traveler ( int hhold_, int person_, int tour_, shared_ptr<Trip> trip_, int mode_, double distance_, double speed_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
+	Traveler ( int hhold_, int person_, int tour_, int trip_, int mode_, double distance_, double speed_, shared_ptr<Link> link_, int dir_, int lane_, double offset_, int route_ )  
 	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), mode (mode_), distance (distance_), speed (speed_), link (link_), dir (dir_), lane (lane_), offset (offset_), route (route_)
 	{
 	}
@@ -1746,9 +1718,8 @@ public:
 	void setPerson (const int& person_){person = person_;}
 	const int& getTour () const {return tour;}
 	void setTour (const int& tour_){tour = tour_;}
-	const shared_ptr<Trip>& getTrip () const {return trip;}
-	void setTrip (const shared_ptr<Trip>& trip_){trip = trip_;}
-	void setTrip (const int& trip_, InputContainer& container){trip = container.Trips[trip_];}
+	const int& getTrip () const {return trip;}
+	void setTrip (const int& trip_){trip = trip_;}
 	const int& getMode () const {return mode;}
 	void setMode (const int& mode_){mode = mode_;}
 	const double& getDistance () const {return distance;}
@@ -1776,7 +1747,7 @@ private:
 	int hhold;
 	int person;
 	int tour;
-	shared_ptr<Trip> trip;
+	int trip;
 	int mode;
 	double distance;
 	double speed;

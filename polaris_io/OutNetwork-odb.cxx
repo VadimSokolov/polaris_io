@@ -21559,28 +21559,17 @@ namespace odb
     // trip
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Trip > const& v =
+      int const& v =
         o.trip;
 
-      typedef object_traits< ::pio::Trip > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Trip > > ptr_traits;
-
-      bool is_null (ptr_traits::null_ptr (v));
-      if (!is_null)
-      {
-        const obj_traits::id_type& id (
-          obj_traits::id (ptr_traits::get_ref (v)));
-
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_image (
-          i.trip_value,
-          is_null,
-          id);
-        i.trip_null = is_null;
-      }
-      else
-        i.trip_null = true;
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.trip_value,
+        is_null,
+        v);
+      i.trip_null = is_null;
     }
 
     // type
@@ -21684,31 +21673,15 @@ namespace odb
     // trip
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Trip >& v =
+      int& v =
         o.trip;
 
-      typedef object_traits< ::pio::Trip > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Trip > > ptr_traits;
-
-      if (i.trip_null)
-        v = ptr_traits::pointer_type ();
-      else
-      {
-        obj_traits::id_type id;
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_value (
-          id,
-          i.trip_value,
-          i.trip_null);
-
-        // If a compiler error points to the line below, then
-        // it most likely means that a pointer used in a member
-        // cannot be initialized from an object pointer.
-        //
-        v = ptr_traits::pointer_type (
-          db->load< obj_traits::object_type > (id));
-      }
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.trip_value,
+        i.trip_null);
     }
 
     // type
@@ -21809,7 +21782,6 @@ namespace odb
   "\"Selection\".\"type\","
   "\"Selection\".\"partition\""
   " FROM \"Selection\""
-  " LEFT JOIN \"Trip\" AS \"trip\" ON \"trip\".\"auto_id\"=\"Selection\".\"trip\""
   " ";
 
   const char access::object_traits< ::pio::Selection >::erase_query_statement[] =
@@ -22184,13 +22156,9 @@ namespace odb
                       "  \"hhold\" INTEGER NOT NULL,\n"
                       "  \"person\" INTEGER NOT NULL,\n"
                       "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER,\n"
+                      "  \"trip\" INTEGER NOT NULL,\n"
                       "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"partition\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"trip_fk\"\n"
-                      "    FOREIGN KEY (\"trip\")\n"
-                      "    REFERENCES \"Trip\" (\"auto_id\")\n"
-                      "    DEFERRABLE INITIALLY DEFERRED)");
+                      "  \"partition\" INTEGER NOT NULL)");
           return false;
         }
       }
@@ -22522,28 +22490,17 @@ namespace odb
     // vehicles
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Vehicle > const& v =
+      int const& v =
         o.vehicles;
 
-      typedef object_traits< ::pio::Vehicle > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Vehicle > > ptr_traits;
-
-      bool is_null (ptr_traits::null_ptr (v));
-      if (!is_null)
-      {
-        const obj_traits::id_type& id (
-          obj_traits::id (ptr_traits::get_ref (v)));
-
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_image (
-          i.vehicles_value,
-          is_null,
-          id);
-        i.vehicles_null = is_null;
-      }
-      else
-        i.vehicles_null = true;
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.vehicles_value,
+        is_null,
+        v);
+      i.vehicles_null = is_null;
     }
 
     // type
@@ -22773,31 +22730,15 @@ namespace odb
     // vehicles
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Vehicle >& v =
+      int& v =
         o.vehicles;
 
-      typedef object_traits< ::pio::Vehicle > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Vehicle > > ptr_traits;
-
-      if (i.vehicles_null)
-        v = ptr_traits::pointer_type ();
-      else
-      {
-        obj_traits::id_type id;
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_value (
-          id,
-          i.vehicles_value,
-          i.vehicles_null);
-
-        // If a compiler error points to the line below, then
-        // it most likely means that a pointer used in a member
-        // cannot be initialized from an object pointer.
-        //
-        v = ptr_traits::pointer_type (
-          db->load< obj_traits::object_type > (id));
-      }
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.vehicles_value,
+        i.vehicles_null);
     }
 
     // type
@@ -23011,7 +22952,6 @@ namespace odb
   "\"Household\".\"drive\""
   " FROM \"Household\""
   " LEFT JOIN \"Location\" AS \"location\" ON \"location\".\"location\"=\"Household\".\"location\""
-  " LEFT JOIN \"Vehicle\" AS \"vehicles\" ON \"vehicles\".\"auto_id\"=\"Household\".\"vehicles\""
   " ";
 
   const char access::object_traits< ::pio::Household >::erase_query_statement[] =
@@ -23387,7 +23327,7 @@ namespace odb
                       "  \"location\" INTEGER,\n"
                       "  \"persons\" INTEGER NOT NULL,\n"
                       "  \"workers\" INTEGER NOT NULL,\n"
-                      "  \"vehicles\" INTEGER,\n"
+                      "  \"vehicles\" INTEGER NOT NULL,\n"
                       "  \"type\" INTEGER NOT NULL,\n"
                       "  \"partition\" INTEGER NOT NULL,\n"
                       "  \"person\" INTEGER NOT NULL,\n"
@@ -23399,10 +23339,6 @@ namespace odb
                       "  CONSTRAINT \"location_fk\"\n"
                       "    FOREIGN KEY (\"location\")\n"
                       "    REFERENCES \"Location\" (\"location\")\n"
-                      "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"vehicles_fk\"\n"
-                      "    FOREIGN KEY (\"vehicles\")\n"
-                      "    REFERENCES \"Vehicle\" (\"auto_id\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -28512,28 +28448,17 @@ namespace odb
     // vehicle
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Vehicle > const& v =
+      int const& v =
         o.vehicle;
 
-      typedef object_traits< ::pio::Vehicle > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Vehicle > > ptr_traits;
-
-      bool is_null (ptr_traits::null_ptr (v));
-      if (!is_null)
-      {
-        const obj_traits::id_type& id (
-          obj_traits::id (ptr_traits::get_ref (v)));
-
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_image (
-          i.vehicle_value,
-          is_null,
-          id);
-        i.vehicle_null = is_null;
-      }
-      else
-        i.vehicle_null = true;
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.vehicle_value,
+        is_null,
+        v);
+      i.vehicle_null = is_null;
     }
 
     // passengers
@@ -28783,31 +28708,15 @@ namespace odb
     // vehicle
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Vehicle >& v =
+      int& v =
         o.vehicle;
 
-      typedef object_traits< ::pio::Vehicle > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Vehicle > > ptr_traits;
-
-      if (i.vehicle_null)
-        v = ptr_traits::pointer_type ();
-      else
-      {
-        obj_traits::id_type id;
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_value (
-          id,
-          i.vehicle_value,
-          i.vehicle_null);
-
-        // If a compiler error points to the line below, then
-        // it most likely means that a pointer used in a member
-        // cannot be initialized from an object pointer.
-        //
-        v = ptr_traits::pointer_type (
-          db->load< obj_traits::object_type > (id));
-      }
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.vehicle_value,
+        i.vehicle_null);
     }
 
     // passengers
@@ -28956,7 +28865,6 @@ namespace odb
   " FROM \"Trip\""
   " LEFT JOIN \"Location\" AS \"origin\" ON \"origin\".\"location\"=\"Trip\".\"origin\""
   " LEFT JOIN \"Location\" AS \"destination\" ON \"destination\".\"location\"=\"Trip\".\"destination\""
-  " LEFT JOIN \"Vehicle\" AS \"vehicle\" ON \"vehicle\".\"auto_id\"=\"Trip\".\"vehicle\""
   " ";
 
   const char access::object_traits< ::pio::Trip >::erase_query_statement[] =
@@ -29338,7 +29246,7 @@ namespace odb
                       "  \"mode\" INTEGER NOT NULL,\n"
                       "  \"constraint\" INTEGER NOT NULL,\n"
                       "  \"priority\" INTEGER NOT NULL,\n"
-                      "  \"vehicle\" INTEGER,\n"
+                      "  \"vehicle\" INTEGER NOT NULL,\n"
                       "  \"passengers\" INTEGER NOT NULL,\n"
                       "  \"type\" INTEGER NOT NULL,\n"
                       "  \"partition\" INTEGER NOT NULL,\n"
@@ -29349,10 +29257,6 @@ namespace odb
                       "  CONSTRAINT \"destination_fk\"\n"
                       "    FOREIGN KEY (\"destination\")\n"
                       "    REFERENCES \"Location\" (\"location\")\n"
-                      "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"vehicle_fk\"\n"
-                      "    FOREIGN KEY (\"vehicle\")\n"
-                      "    REFERENCES \"Vehicle\" (\"auto_id\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -32145,28 +32049,17 @@ namespace odb
     // trip
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Trip > const& v =
+      int const& v =
         o.trip;
 
-      typedef object_traits< ::pio::Trip > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Trip > > ptr_traits;
-
-      bool is_null (ptr_traits::null_ptr (v));
-      if (!is_null)
-      {
-        const obj_traits::id_type& id (
-          obj_traits::id (ptr_traits::get_ref (v)));
-
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_image (
-          i.trip_value,
-          is_null,
-          id);
-        i.trip_null = is_null;
-      }
-      else
-        i.trip_null = true;
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.trip_value,
+        is_null,
+        v);
+      i.trip_null = is_null;
     }
 
     // mode
@@ -32361,31 +32254,15 @@ namespace odb
     // trip
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Trip >& v =
+      int& v =
         o.trip;
 
-      typedef object_traits< ::pio::Trip > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Trip > > ptr_traits;
-
-      if (i.trip_null)
-        v = ptr_traits::pointer_type ();
-      else
-      {
-        obj_traits::id_type id;
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_value (
-          id,
-          i.trip_value,
-          i.trip_null);
-
-        // If a compiler error points to the line below, then
-        // it most likely means that a pointer used in a member
-        // cannot be initialized from an object pointer.
-        //
-        v = ptr_traits::pointer_type (
-          db->load< obj_traits::object_type > (id));
-      }
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.trip_value,
+        i.trip_null);
     }
 
     // mode
@@ -32592,7 +32469,6 @@ namespace odb
   "\"Event\".\"offset\","
   "\"Event\".\"route\""
   " FROM \"Event\""
-  " LEFT JOIN \"Trip\" AS \"trip\" ON \"trip\".\"auto_id\"=\"Event\".\"trip\""
   " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Event\".\"link\""
   " ";
 
@@ -32968,7 +32844,7 @@ namespace odb
                       "  \"hhold\" INTEGER NOT NULL,\n"
                       "  \"person\" INTEGER NOT NULL,\n"
                       "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER,\n"
+                      "  \"trip\" INTEGER NOT NULL,\n"
                       "  \"mode\" INTEGER NOT NULL,\n"
                       "  \"type\" INTEGER NOT NULL,\n"
                       "  \"link\" INTEGER,\n"
@@ -32976,10 +32852,6 @@ namespace odb
                       "  \"lane\" INTEGER NOT NULL,\n"
                       "  \"offset\" REAL,\n"
                       "  \"route\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"trip_fk\"\n"
-                      "    FOREIGN KEY (\"trip\")\n"
-                      "    REFERENCES \"Trip\" (\"auto_id\")\n"
-                      "    DEFERRABLE INITIALLY DEFERRED,\n"
                       "  CONSTRAINT \"link_fk\"\n"
                       "    FOREIGN KEY (\"link\")\n"
                       "    REFERENCES \"Link\" (\"link\")\n"
@@ -33277,28 +33149,17 @@ namespace odb
     // trip
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Trip > const& v =
+      int const& v =
         o.trip;
 
-      typedef object_traits< ::pio::Trip > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Trip > > ptr_traits;
-
-      bool is_null (ptr_traits::null_ptr (v));
-      if (!is_null)
-      {
-        const obj_traits::id_type& id (
-          obj_traits::id (ptr_traits::get_ref (v)));
-
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_image (
-          i.trip_value,
-          is_null,
-          id);
-        i.trip_null = is_null;
-      }
-      else
-        i.trip_null = true;
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.trip_value,
+        is_null,
+        v);
+      i.trip_null = is_null;
     }
 
     // mode
@@ -33509,31 +33370,15 @@ namespace odb
     // trip
     //
     {
-      ::std::tr1::shared_ptr< ::pio::Trip >& v =
+      int& v =
         o.trip;
 
-      typedef object_traits< ::pio::Trip > obj_traits;
-      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Trip > > ptr_traits;
-
-      if (i.trip_null)
-        v = ptr_traits::pointer_type ();
-      else
-      {
-        obj_traits::id_type id;
-        sqlite::value_traits<
-            obj_traits::id_type,
-            sqlite::id_integer >::set_value (
-          id,
-          i.trip_value,
-          i.trip_null);
-
-        // If a compiler error points to the line below, then
-        // it most likely means that a pointer used in a member
-        // cannot be initialized from an object pointer.
-        //
-        v = ptr_traits::pointer_type (
-          db->load< obj_traits::object_type > (id));
-      }
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.trip_value,
+        i.trip_null);
     }
 
     // mode
@@ -33758,7 +33603,6 @@ namespace odb
   "\"Traveler\".\"offset\","
   "\"Traveler\".\"route\""
   " FROM \"Traveler\""
-  " LEFT JOIN \"Trip\" AS \"trip\" ON \"trip\".\"auto_id\"=\"Traveler\".\"trip\""
   " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Traveler\".\"link\""
   " ";
 
@@ -34134,7 +33978,7 @@ namespace odb
                       "  \"hhold\" INTEGER NOT NULL,\n"
                       "  \"person\" INTEGER NOT NULL,\n"
                       "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER,\n"
+                      "  \"trip\" INTEGER NOT NULL,\n"
                       "  \"mode\" INTEGER NOT NULL,\n"
                       "  \"distance\" REAL,\n"
                       "  \"speed\" REAL,\n"
@@ -34143,10 +33987,6 @@ namespace odb
                       "  \"lane\" INTEGER NOT NULL,\n"
                       "  \"offset\" REAL,\n"
                       "  \"route\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"trip_fk\"\n"
-                      "    FOREIGN KEY (\"trip\")\n"
-                      "    REFERENCES \"Trip\" (\"auto_id\")\n"
-                      "    DEFERRABLE INITIALLY DEFERRED,\n"
                       "  CONSTRAINT \"link_fk\"\n"
                       "    FOREIGN KEY (\"link\")\n"
                       "    REFERENCES \"Link\" (\"link\")\n"

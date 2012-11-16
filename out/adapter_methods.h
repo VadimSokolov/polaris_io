@@ -322,7 +322,7 @@ shared_ptr<pio::Selection> SelectionAdapter( Selection_File &file, pio::InputCon
 	result->setHhold(file.Household ()); 
 	result->setPerson(file.Person ()); 
 	result->setTour(file.Tour ()); 
-	result->setTrip(file.Trip (), container); 
+	result->setTrip(file.Trip ()); 
 	result->setType(file.Type ()); 
 	result->setPartition(file.Partition ());
 	return result;
@@ -335,7 +335,7 @@ shared_ptr<pio::Household> HouseholdAdapter( Household_File &file, pio::InputCon
 	result->setLocation(file.Location (), container); 
 	result->setPersons(file.Persons ()); 
 	result->setWorkers(file.Workers ()); 
-	result->setVehicles(file.Vehicles (), container); 
+	result->setVehicles(file.Vehicles ()); 
 	result->setType(file.Type ()); 
 	result->setPartition(file.Partition ()); 
 	result->setPerson(file.Person ()); 
@@ -429,7 +429,7 @@ shared_ptr<pio::Trip> TripAdapter( Trip_File &file, pio::InputContainer& contain
 	result->setMode(file.Mode ()); 
 	result->setConstraint(file.Constraint ()); 
 	result->setPriority(file.Priority ()); 
-	result->setVehicle(file.Vehicle (), container); 
+	result->setVehicle(file.Vehicle ()); 
 	result->setPassengers(file.Passengers ()); 
 	result->setType(file.Type ()); 
 	result->setPartition(file.Partition ());
@@ -479,7 +479,7 @@ shared_ptr<pio::Event> EventAdapter( Event_File &file, pio::InputContainer& cont
 	result->setHhold(file.Household ()); 
 	result->setPerson(file.Person ()); 
 	result->setTour(file.Tour ()); 
-	result->setTrip(file.Trip (), container); 
+	result->setTrip(file.Trip ()); 
 	result->setMode(file.Mode ()); 
 	result->setType(file.Event ()); 
 	result->setLink(file.Link (), container); 
@@ -496,7 +496,7 @@ shared_ptr<pio::Traveler> TravelerAdapter( Traveler_File &file, pio::InputContai
 	result->setHhold(file.Household ()); 
 	result->setPerson(file.Person ()); 
 	result->setTour(file.Tour ()); 
-	result->setTrip(file.Trip (), container); 
+	result->setTrip(file.Trip ()); 
 	result->setMode(file.Mode ()); 
 	result->setDistance(file.Distance ()); 
 	result->setSpeed(file.Speed ()); 
