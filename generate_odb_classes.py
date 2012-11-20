@@ -88,7 +88,7 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 		else: 
 			adpater_method += "\n\tresult->set%s(file.%s ()); "%(field.title(), accessor)
 	odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(key_type, "PrimaryKey", key_field)
-	relation_primary_key_types[class_name] = key_type
+	type_primary_key_types[class_name] = key_type
 	if auto_primary_key_member!="":
 		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%("unsigned long", "Auto_id", "auto_id")	
 		
@@ -125,7 +125,7 @@ private:
 help_msg = """
 usage: generate_odb_classes.py syslib_include_path
 usage: generate_odb_classes.py C:\\Users\\vsokolov\\usr\\transims\\sf-version5\\branches\\aecom\\1457\\SysLib\\Include\\
-will generate a single cpp file with the classes defined for the relations defined in File_Service.hpp
+will generate a single cpp file with the classes defined for the types defined in File_Service.hpp
 
 """
 if len(sys.argv) < 2:
@@ -142,21 +142,21 @@ file_class_member_p = re.compile("(char|bool|int|string|double|float|short|Dtime
 p_tables = re.compile("#include\s*\"(\w+)_File\.hpp\"")	
 odb_namespace = "pio"
 container_type = "InputContainer"
-relations = []
-relation_primary_key_types = {}
+types = []
+type_primary_key_types = {}
 potential_ref_types = []
 actual_ref_types = []
 
 ###################################################
 #	         	Custom Rules 					  #
 ###################################################
-#(relation name, field name)
+#(type, field)
 false_primary_keys = [("Trip", "trip"), ("Vehicle", "vehicle"), ("Sign", "sign"), ("Timing", "timing"), ("Phasing", "phasing")]
-#(relation, field name)
+#(type, field)
 false_foreign_keys = [("Phasing","detectors"), ("Ridership", "schedule"),("Event", "schedule")]
-#(relation name, field name)
+#(type, field)
 true_primary_keys = [("Veh_Type", "type")]
-# (field name, in relation name):referes to relation
+# (type, field) -> foreign key to relation
 true_ref_fields_types = {("Trip","origin"):"Location", ("Trip","destination"):"Location",("Vehicle", "type"):"Veh_Type"}
 #transims type -> (polaris type, transims type, transms type getter)
 type_map = {"Dtime":("double", "Dtime", "Seconds")}
@@ -168,7 +168,7 @@ field_conversion[("Link","type")] = ("string", "Static_Service::Facility_Code","
 field_conversion[("Signal","type")] = ("string", "Static_Service::Signal_Code","(Signal_Type)")
 field_conversion[("Sign","sign")] = ("string", "Static_Service::Control_Code","(Control_Type)")
 field_conversion[("Phasing","movement")] = ("string", "Static_Service::Movement_Code","(Movement_Type)")
-field_conversion[("Phasing","protect")] = ("string", "Static_Service::Protection_Code","(Protection_Type)")
+field_conversion[("Pocket","type")] = ("string", "Static_Service::Pocket_Code","(Pocket_Type)")
 
 
 if len(sys.argv)!=2:
@@ -179,12 +179,12 @@ temp =  os.path.join(syslib_include_path, "File_Service.hpp")
 if not os.path.exists(temp):
 	print "The %s path does not exist, exiting..."%temp
 	sys.exit()
-#populate the relations list
+#populate the types list
 with open(temp, 'r') as fh:
 	for line in fh:
 		m = p_tables.match(line)
 		if m is not None:
-			relations.append(m.group(1))
+			types.append(m.group(1))
 			
 #initialize strings and file handlers
 forward_declarations = ""
@@ -195,24 +195,24 @@ odb_fh =  open("out\\odb_data_model.h", 'w')
 adapter_fh =  open("out\\adapter_methods.h", 'w') 
 
 #populate potential_ref_types and forward_declarations
-for item in relations:
+for item in types:
 	if item.lower() not in ["type", "use"] and item not in zip(*false_primary_keys)[0]:			
 		potential_ref_types.append(item)	
 	forward_declarations  += "class %s;\n"%item 	
 forward_declarations += "class %s;\n"%container_type
 
 #generate c++ code for new classes as well as adapter methods from transims to the new classes
-for item in relations:
+for item in types:
 	print "Processing %s"%item
 	(o,a) = generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item)
 	odb_code+=o
 	adapter_code+=a
 #generate input container class
-for i in range(len(relations)):
-	item = relations[i]
+for i in range(len(types)):
+	item = types[i]
 	if item not in actual_ref_types:
 		continue
-	input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(relation_primary_key_types[item],item, item)
+	input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(type_primary_key_types[item],item, item)
 
 #write content to the files
 odb_fh.write("""

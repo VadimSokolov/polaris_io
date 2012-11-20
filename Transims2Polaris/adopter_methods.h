@@ -69,7 +69,7 @@ shared_ptr<pio::Pocket> Adapter( Pocket_File &file, pio::InputContainer& contain
 	shared_ptr<pio::Pocket> result (new pio::Pocket ());
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
-	result->setType(file.Type ()); 
+	result->setType(Static_Service::Pocket_Code((Pocket_Type)file.Type())); 
 	result->setLanes(file.Lanes ()); 
 	result->setLength(file.Length ()); 
 	result->setOffset(file.Offset ());
@@ -235,7 +235,7 @@ shared_ptr<pio::Phasing> Adapter( Phasing_File &file, pio::InputContainer& conta
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
 	result->setTo_Link(file.To_Link (), container); 
-	result->setProtect(Static_Service::Protection_Code((Protection_Type)file.Protection()));
+	result->setProtect(file.Protection ());
 	return result;
 }
 //Converter for Detector

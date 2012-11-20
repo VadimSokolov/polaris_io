@@ -276,7 +276,7 @@ public:
 	// Default Constructor
 	Pocket () {}	
 	//Contructor
-	Pocket ( shared_ptr<Link> link_, int dir_, int type_, int lanes_, double length_, double offset_ )  
+	Pocket ( shared_ptr<Link> link_, int dir_, std::string type_, int lanes_, double length_, double offset_ )  
 	: link (link_), dir (dir_), type (type_), lanes (lanes_), length (length_), offset (offset_)
 	{
 	}
@@ -286,8 +286,8 @@ public:
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getDir () const {return dir;}
 	void setDir (const int& dir_){dir = dir_;}
-	const int& getType () const {return type;}
-	void setType (const int& type_){type = type_;}
+	const std::string& getType () const {return type;}
+	void setType (const std::string& type_){type = type_;}
 	const int& getLanes () const {return lanes;}
 	void setLanes (const int& lanes_){lanes = lanes_;}
 	const double& getLength () const {return length;}
@@ -304,7 +304,7 @@ private:
 	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int dir;
-	int type;
+	std::string type;
 	int lanes;
 	double length;
 	double offset;
@@ -811,7 +811,7 @@ public:
 	// Default Constructor
 	Phasing () {}	
 	//Contructor
-	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, std::string detectors_, int movements_, std::string movement_, shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, std::string protect_ )  
+	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, std::string detectors_, int movements_, std::string movement_, shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int protect_ )  
 	: signal (signal_), phasing (phasing_), phase (phase_), detectors (detectors_), movements (movements_), movement (movement_), link (link_), dir (dir_), to_link (to_link_), protect (protect_)
 	{
 	}
@@ -837,8 +837,8 @@ public:
 	const shared_ptr<Link>& getTo_Link () const {return to_link;}
 	void setTo_Link (const shared_ptr<Link>& to_link_){to_link = to_link_;}
 	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
-	const std::string& getProtect () const {return protect;}
-	void setProtect (const std::string& protect_){protect = protect_;}
+	const int& getProtect () const {return protect;}
+	void setProtect (const int& protect_){protect = protect_;}
 	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
 
@@ -856,7 +856,7 @@ private:
 	shared_ptr<Link> link;
 	int dir;
 	shared_ptr<Link> to_link;
-	std::string protect;
+	int protect;
 
 };
 

@@ -1495,9 +1495,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     type_type_;
 
     static const type_type_ type;
@@ -1616,7 +1616,8 @@ namespace odb
 
       // type
       //
-      long long type_value;
+      details::buffer type_value;
+      std::size_t type_size;
       bool type_null;
 
       // lanes
@@ -5302,9 +5303,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        ::std::string,
-        sqlite::id_text >::query_type,
-      sqlite::id_text >
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
     protect_type_;
 
     static const protect_type_ protect;
@@ -5444,8 +5445,7 @@ namespace odb
 
       // protect
       //
-      details::buffer protect_value;
-      std::size_t protect_size;
+      long long protect_value;
       bool protect_null;
 
       std::size_t version;
@@ -13717,9 +13717,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
     type_type_;
 
     static const type_type_ type;
@@ -16024,9 +16024,9 @@ namespace odb
     typedef
     sqlite::query_column<
       sqlite::value_traits<
-        ::std::string,
-        sqlite::id_text >::query_type,
-      sqlite::id_text >
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
     protect_type_;
 
     static const protect_type_ protect;
