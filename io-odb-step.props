@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="OutNetwork.h">
-      <Message>odb OutNetwork.h</Message>
-      <Command>odb.exe --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr OutNetwork.h</Command>
-      <Outputs>OutNetwork-odb.hxx;OutNetwork-odb.ixx;OutNetwork-odb.cxx;%(Outputs)</Outputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">odb OutNetwork.h</Message>
+    <CustomBuild Include="InputContext.h">
+      <Message>odb InputContext.h</Message>
+      <Command>odb.exe --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr InputContext.h</Command>
+      <Outputs>InputContext-odb.hxx;InputContext-odb.ixx;InputContext-odb.cxx;%(Outputs)</Outputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">odb InputContext.h</Message>
     </CustomBuild>
   </ItemGroup>
 </Project>

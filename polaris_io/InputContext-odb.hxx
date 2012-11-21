@@ -2,8 +2,8 @@
 // compiler for C++.
 //
 
-#ifndef OUT_NETWORK_ODB_HXX
-#define OUT_NETWORK_ODB_HXX
+#ifndef INPUT_CONTEXT_ODB_HXX
+#define INPUT_CONTEXT_ODB_HXX
 
 #include <odb/version.hxx>
 
@@ -13,7 +13,7 @@
 
 #include <odb/pre.hxx>
 
-#include "OutNetwork.h"
+#include "InputContext.h"
 
 #include <memory>
 #include <cstddef>
@@ -64,6 +64,42 @@ namespace odb
 
     static const node_type_ node;
 
+    // x
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    x_type_;
+
+    static const x_type_ x;
+
+    // y
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    y_type_;
+
+    static const y_type_ y;
+
+    // z
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    z_type_;
+
+    static const z_type_ z;
+
     // subarea
     //
     typedef
@@ -93,6 +129,21 @@ namespace odb
   const typename query_columns< ::pio::Node, A >::node_type_
   query_columns< ::pio::Node, A >::
   node (A::table_name, "\"node\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Node, A >::x_type_
+  query_columns< ::pio::Node, A >::
+  x (A::table_name, "\"x\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Node, A >::y_type_
+  query_columns< ::pio::Node, A >::
+  y (A::table_name, "\"y\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Node, A >::z_type_
+  query_columns< ::pio::Node, A >::
+  z (A::table_name, "\"z\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Node, A >::subarea_type_
@@ -139,6 +190,21 @@ namespace odb
       //
       long long node_value;
       bool node_null;
+
+      // x
+      //
+      double x_value;
+      bool x_null;
+
+      // y
+      //
+      double y_value;
+      bool y_null;
+
+      // z
+      //
+      double z_value;
+      bool z_null;
 
       // subarea
       //
@@ -192,7 +258,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 3UL;
+    static const std::size_t column_count = 6UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -274,6 +340,42 @@ namespace odb
 
     static const zone_type_ zone;
 
+    // x
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    x_type_;
+
+    static const x_type_ x;
+
+    // y
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    y_type_;
+
+    static const y_type_ y;
+
+    // z
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    z_type_;
+
+    static const z_type_ z;
+
     // area
     //
     typedef
@@ -341,6 +443,21 @@ namespace odb
   zone (A::table_name, "\"zone\"", 0);
 
   template <typename A>
+  const typename query_columns< ::pio::Zone, A >::x_type_
+  query_columns< ::pio::Zone, A >::
+  x (A::table_name, "\"x\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Zone, A >::y_type_
+  query_columns< ::pio::Zone, A >::
+  y (A::table_name, "\"y\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Zone, A >::z_type_
+  query_columns< ::pio::Zone, A >::
+  z (A::table_name, "\"z\"", 0);
+
+  template <typename A>
   const typename query_columns< ::pio::Zone, A >::area_type_
   query_columns< ::pio::Zone, A >::
   area (A::table_name, "\"area\"", 0);
@@ -400,6 +517,21 @@ namespace odb
       //
       long long zone_value;
       bool zone_null;
+
+      // x
+      //
+      double x_value;
+      bool x_null;
+
+      // y
+      //
+      double y_value;
+      bool y_null;
+
+      // z
+      //
+      double z_value;
+      bool z_null;
 
       // area
       //
@@ -468,7 +600,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 6UL;
+    static const std::size_t column_count = 9UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -573,6 +705,42 @@ namespace odb
     points_type_;
 
     static const points_type_ points;
+
+    // x
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    x_type_;
+
+    static const x_type_ x;
+
+    // y
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    y_type_;
+
+    static const y_type_ y;
+
+    // z
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    z_type_;
+
+    static const z_type_ z;
   };
 
   template <typename A>
@@ -589,6 +757,21 @@ namespace odb
   const typename pointer_query_columns< ::pio::Shape, A >::points_type_
   pointer_query_columns< ::pio::Shape, A >::
   points (A::table_name, "\"points\"", 0);
+
+  template <typename A>
+  const typename pointer_query_columns< ::pio::Shape, A >::x_type_
+  pointer_query_columns< ::pio::Shape, A >::
+  x (A::table_name, "\"x\"", 0);
+
+  template <typename A>
+  const typename pointer_query_columns< ::pio::Shape, A >::y_type_
+  pointer_query_columns< ::pio::Shape, A >::
+  y (A::table_name, "\"y\"", 0);
+
+  template <typename A>
+  const typename pointer_query_columns< ::pio::Shape, A >::z_type_
+  pointer_query_columns< ::pio::Shape, A >::
+  z (A::table_name, "\"z\"", 0);
 
   template <>
   class access::object_traits< ::pio::Shape >
@@ -629,6 +812,21 @@ namespace odb
       //
       long long points_value;
       bool points_null;
+
+      // x
+      //
+      double x_value;
+      bool x_null;
+
+      // y
+      //
+      double y_value;
+      bool y_null;
+
+      // z
+      //
+      double z_value;
+      bool z_null;
 
       std::size_t version;
     };
@@ -672,7 +870,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 3UL;
+    static const std::size_t column_count = 6UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -13091,6 +13289,42 @@ namespace odb
     points_type_;
 
     static const points_type_ points;
+
+    // x
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    x_type_;
+
+    static const x_type_ x;
+
+    // y
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    y_type_;
+
+    static const y_type_ y;
+
+    // z
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    z_type_;
+
+    static const z_type_ z;
   };
 
   template <typename A>
@@ -13107,6 +13341,21 @@ namespace odb
   const typename query_columns< ::pio::Shape, A >::points_type_
   query_columns< ::pio::Shape, A >::
   points (A::table_name, "\"points\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Shape, A >::x_type_
+  query_columns< ::pio::Shape, A >::
+  x (A::table_name, "\"x\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Shape, A >::y_type_
+  query_columns< ::pio::Shape, A >::
+  y (A::table_name, "\"y\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Shape, A >::z_type_
+  query_columns< ::pio::Shape, A >::
+  z (A::table_name, "\"z\"", 0);
 
   // Link
   //
@@ -19689,8 +19938,8 @@ namespace odb
   route (A::table_name, "\"route\"", 0);
 }
 
-#include "OutNetwork-odb.ixx"
+#include "InputContext-odb.ixx"
 
 #include <odb/post.hxx>
 
-#endif // OUT_NETWORK_ODB_HXX
+#endif // INPUT_CONTEXT_ODB_HXX

@@ -79,14 +79,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="OutNetwork-odb.cxx" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="database.h" />
-    <ClInclude Include="OutNetwork-odb.hxx" />
+    <ClInclude Include="InputContext-odb.hxx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="OutNetwork-odb.ixx" />
+    <ClCompile Include="InputContext-odb.cxx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="InputContext-odb.ixx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

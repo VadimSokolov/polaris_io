@@ -4,7 +4,7 @@
 #include <memory>   // std::auto_ptr
 #include <odb/database.hxx>
 #include <odb/transaction.hxx>
-#include "OutNetwork-odb.hxx"
+#include "InputContext-odb.hxx"
 #include "transims_network.h"
 using odb::database;
 using odb::transaction;

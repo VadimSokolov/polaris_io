@@ -1,12 +1,15 @@
 
 #pragma once
-#include "OutNetwork.h"
+#include "InputContext.h"
 #include "File_Service.hpp"
 //Converter for Node
 shared_ptr<pio::Node> Adapter( Node_File &file, pio::InputContainer& container) 
 {
 	shared_ptr<pio::Node> result (new pio::Node ());
 	result->setNode(file.Node ()); 
+	result->setX(file.X ()); 
+	result->setY(file.Y ()); 
+	result->setZ(file.Z ()); 
 	result->setSubarea(file.Subarea ()); 
 	result->setPart(file.Partition ());
 	return result;
@@ -16,6 +19,9 @@ shared_ptr<pio::Zone> Adapter( Zone_File &file, pio::InputContainer& container)
 {
 	shared_ptr<pio::Zone> result (new pio::Zone ());
 	result->setZone(file.Zone ()); 
+	result->setX(file.X ()); 
+	result->setY(file.Y ()); 
+	result->setZ(file.Z ()); 
 	result->setArea(file.Area_Type ()); 
 	result->setMin_X(file.Min_X ()); 
 	result->setMin_Y(file.Min_Y ()); 
@@ -28,7 +34,10 @@ shared_ptr<pio::Shape> Adapter( Shape_File &file, pio::InputContainer& container
 {
 	shared_ptr<pio::Shape> result (new pio::Shape ());
 	result->setLink(file.Link (), container); 
-	result->setPoints(file.Points ());
+	result->setPoints(file.Points ()); 
+	result->setX(file.X ()); 
+	result->setY(file.Y ()); 
+	result->setZ(file.Z ());
 	return result;
 }
 //Converter for Link

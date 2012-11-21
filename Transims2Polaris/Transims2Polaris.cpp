@@ -2,7 +2,7 @@
 //
 
 #include "convert_methods.h"
-#include "OutNetwork.h"
+#include "InputContext.h"
 //#include <sqlite3.h>
 
 #include "transims_network.h"
@@ -12,10 +12,10 @@ using namespace std;
 void test_create(const string& name)
 {
 	pio::InputContainer container;
-	shared_ptr<Node> n1 (new Node(1,1,1));
-	shared_ptr<Node> n2 (new Node(2,2,1));
-	shared_ptr<Node> n3 (new Node(3,1,1));
-	shared_ptr<Node> n4 (new Node(4,1,1));
+	shared_ptr<Node> n1 (new Node(1,1,1,0,0,0));
+	shared_ptr<Node> n2 (new Node(2,2,1,0,0,0));
+	shared_ptr<Node> n3 (new Node(3,1,1,0,0,0));
+	shared_ptr<Node> n4 (new Node(4,1,1,0,0,0));
 	container.Nodes[1] = n1;
 	container.Nodes[2] = n2;
 	container.Nodes[3] = n3;

@@ -45,9 +45,9 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 			type = conversion_info[0]
 		original_type = ""
 		#skip the geometry
-		if field in ["x", "y", "z"]:
-			print "A geo field %s was skipped for relation %s"%(field, class_name)
-			continue
+		# if field in ["x", "y", "z"]:
+			# print "A geo field %s was skipped for relation %s"%(field, class_name)
+			# continue
 		ref_type = ""
 		#check if this field is a foreign key
 		for item in potential_ref_types:
@@ -191,7 +191,7 @@ forward_declarations = ""
 odb_code=""
 adapter_code=""
 input_container = "class %s \n{\npublic:\n"%container_type
-odb_fh =  open("out\\odb_data_model.h", 'w')
+odb_fh =  open("out\\InputContext.h", 'w')
 adapter_fh =  open("out\\adapter_methods.h", 'w') 
 
 #populate potential_ref_types and forward_declarations
@@ -216,8 +216,8 @@ for i in range(len(types)):
 
 #write content to the files
 odb_fh.write("""
-#ifndef OutNetwork
-#define OutNetwork
+#ifndef InputContext
+#define InputContext
 #pragma warning(disable:4068)
 
 #include <map>
@@ -237,11 +237,11 @@ odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)
 odb_fh.write("//Input Container.\n//\n"+input_container+"};\n")
 odb_fh.write(odb_code)
 odb_fh.write("\n}//end of namespace\n") #close namespace bracket
-odb_fh.write("#endif // OutNetwork")
+odb_fh.write("#endif // InputContext")
 	
 adapter_fh.write("""
 #pragma once
-#include "OutNetwork.h"
+#include "InputContext.h"
 #include "File_Service.hpp"
 """)
 adapter_fh.write(adapter_code)

@@ -15,12 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="OutNetwork-odb.cxx">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="OutNetwork.h">
+    <CustomBuild Include="InputContext.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -28,12 +23,17 @@
     <ClInclude Include="database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OutNetwork-odb.hxx">
+    <ClInclude Include="InputContext-odb.hxx">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="OutNetwork-odb.ixx">
+    <ClCompile Include="InputContext-odb.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="InputContext-odb.ixx">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
