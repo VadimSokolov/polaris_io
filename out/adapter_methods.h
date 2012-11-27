@@ -564,3 +564,26 @@ shared_ptr<pio::Traveler> Adapter( Traveler_File &file, pio::InputContainer& con
 	result->setRoute(file.Route ());
 	return result;
 }
+//Converter for Trip
+shared_ptr<pio::TripNoRef> AdapterNoRef( Trip_File &file, pio::InputContainer& container) 
+{
+	shared_ptr<pio::TripNoRef> result (new pio::TripNoRef ());
+	result->setHhold(file.Household ()); 
+	result->setPerson(file.Person ()); 
+	result->setTour(file.Tour ()); 
+	result->setTrip(file.Trip ()); 
+	result->setStart(file.Start ().Seconds()); 
+	result->setEnd(file.End ().Seconds()); 
+	result->setDuration(file.Duration ().Seconds()); 
+	result->setOrigin(file.Origin ()); 
+	result->setDestination(file.Destination ()); 
+	result->setPurpose(file.Purpose ()); 
+	result->setMode(file.Mode ()); 
+	result->setConstraint(file.Constraint ()); 
+	result->setPriority(file.Priority ()); 
+	result->setVehicle(file.Vehicle ()); 
+	result->setPassengers(file.Passengers ()); 
+	result->setType(file.Type ()); 
+	result->setPartition(file.Partition ());
+	return result;
+}

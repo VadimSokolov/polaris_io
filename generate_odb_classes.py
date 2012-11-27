@@ -2,10 +2,12 @@ import re
 import sys
 import os	
 
-def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
+def generate(cpp_path, class_name, ref_flag=True, polaris_class_name=None):
 	fields = []
 	types = []
 	accessors = []
+	if polaris_class_name is None:
+		polaris_class_name = class_name
 	#populate fields, types, accessors
 	with open(cpp_path.replace("\\","/")) as fh:
 		for line in fh:
@@ -14,14 +16,17 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 				types.append(m.group(1))
 				fields.append(m.group(3))
 				accessors.append(m.group(2))
-	nscn = "%s::%s"%(odb_namespace,class_name)		
+	nscn = "%s::%s"%(odb_namespace,polaris_class_name)		
 	# create constructor
 	#First part of the constructor
-	constructor1 = "%s ( "%class_name
+	constructor1 = "%s ( "%polaris_class_name
 	#Second part of the constructor
 	constructor2 = " \n\t: "
 	#Adapter from transims type to polaris
-	adpater_method = "shared_ptr<%s> Adapter( %s_File &file, %s::%s& container) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn, class_name, odb_namespace,container_type, nscn, nscn)
+	if ref_flag:
+		adpater_method = "shared_ptr<%s> Adapter( %s_File &file, %s::%s& container) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn, class_name, odb_namespace,container_type, nscn, nscn)
+	else:
+		adpater_method = "shared_ptr<%s> AdapterNoRef( %s_File &file, %s::%s& container) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn, class_name, odb_namespace,container_type, nscn, nscn)
 	members = ""
 	odb_accessors = ""
 	#Whether the table has a unique key is a class member
@@ -55,6 +60,10 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 				ref_type = item
 		if (class_name,field) in true_ref_fields_types:
 			ref_type = true_ref_fields_types[(class_name, field)]
+		
+		if not ref_flag:
+			ref_type = ""
+		
 		if ref_type!="" and field != class_name.lower():
 			original_type = type
 			type = "shared_ptr<%s>"%ref_type
@@ -88,6 +97,9 @@ def generate(cpp_path, class_name, odb_fh=None, adapter_fh=None):
 		else: 
 			adpater_method += "\n\tresult->set%s(file.%s ()); "%(field.title(), accessor)
 	odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(key_type, "PrimaryKey", key_field)
+	#define index for primary key
+	if key_field!="auto_id":
+		members += "\t#pragma db index member(%s)\n"%key_field
 	type_primary_key_types[class_name] = key_type
 	if auto_primary_key_member!="":
 		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%("unsigned long", "Auto_id", "auto_id")	
@@ -111,7 +123,7 @@ private:
 	friend class odb::access;%s
 %s
 };
-"""%(class_name, class_name, constructor1[:-2], constructor2[:-2],  odb_accessors, auto_primary_key_member, members)
+"""%(polaris_class_name, polaris_class_name, constructor1[:-2], constructor2[:-2],  odb_accessors, auto_primary_key_member, members)
 	
 	adapter_code = """//Converter for %s
 %s
@@ -193,6 +205,7 @@ adapter_code=""
 input_container = "class %s \n{\npublic:\n"%container_type
 odb_fh =  open("out\\InputContext.h", 'w')
 adapter_fh =  open("out\\adapter_methods.h", 'w') 
+no_ref_types = ["Trip"]
 
 #populate potential_ref_types and forward_declarations
 for item in types:
@@ -205,6 +218,12 @@ forward_declarations += "class %s;\n"%container_type
 for item in types:
 	print "Processing %s"%item
 	(o,a) = generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item)
+	odb_code+=o
+	adapter_code+=a
+
+for item in no_ref_types:
+	print "Processing %s"%item
+	(o,a) = generate(os.path.join(syslib_include_path,"%s_File.hpp"%item), item, False, item+"NoRef")
 	odb_code+=o
 	adapter_code+=a
 #generate input container class

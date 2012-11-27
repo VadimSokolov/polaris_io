@@ -12,4 +12,4 @@ DETECTOR_FILE		    C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/
 TRIP_FILE		        C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/trip.txt
 VEHICLE_TYPE_FILE   	C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/Vehicle_Type.txt
 VEHICLE_FILE		    C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/vehicle.txt
-NEW_SQLITE_DATABASE     C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/test.sqlite
+NEW_SQLITE_DATABASE     C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/TestNet50.sqlite

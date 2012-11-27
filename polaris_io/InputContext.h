@@ -105,6 +105,7 @@ private:
 	double z;
 	int subarea;
 	int part;
+	#pragma db index member(node)
 
 };
 
@@ -153,6 +154,7 @@ private:
 	double min_y;
 	double max_x;
 	double max_y;
+	#pragma db index member(zone)
 
 };
 
@@ -293,6 +295,7 @@ private:
 	int right_ab;
 	int left_ba;
 	int right_ba;
+	#pragma db index member(link)
 
 };
 
@@ -589,6 +592,7 @@ private:
 	double time_out;
 	int hourly;
 	int daily;
+	#pragma db index member(parking)
 
 };
 
@@ -630,6 +634,7 @@ private:
 	double offset;
 	double setback;
 	shared_ptr<Zone> zone;
+	#pragma db index member(location)
 
 };
 
@@ -759,6 +764,7 @@ private:
 	int phasing;
 	std::string type;
 	int offset;
+	#pragma db index member(signal)
 
 };
 
@@ -936,6 +942,7 @@ private:
 	int use;
 	int low;
 	int high;
+	#pragma db index member(detector)
 
 };
 
@@ -982,6 +989,7 @@ private:
 	int use;
 	int type;
 	int space;
+	#pragma db index member(stop)
 
 };
 
@@ -1026,6 +1034,7 @@ private:
 	int type;
 	#pragma db id
 	int fare;
+	#pragma db index member(fare)
 
 };
 
@@ -1532,6 +1541,7 @@ private:
 	double min_dwell;
 	double max_dwell;
 	int subtype;
+	#pragma db index member(type)
 
 };
 
@@ -1697,6 +1707,7 @@ private:
 	double offset;
 	int route;
 	int survey;
+	#pragma db index member(problem)
 
 };
 
@@ -1950,6 +1961,80 @@ private:
 	int lane;
 	double offset;
 	int route;
+
+};
+
+#pragma db object
+class TripNoRef
+{
+public:
+	// Default Constructor
+	TripNoRef () {}	
+	//Contructor
+	TripNoRef ( int hhold_, int person_, int tour_, int trip_, double start_, double end_, double duration_, int origin_, int destination_, int purpose_, int mode_, int constraint_, int priority_, int vehicle_, int passengers_, int type_, int partition_ )  
+	: hhold (hhold_), person (person_), tour (tour_), trip (trip_), start (start_), end (end_), duration (duration_), origin (origin_), destination (destination_), purpose (purpose_), mode (mode_), constraint (constraint_), priority (priority_), vehicle (vehicle_), passengers (passengers_), type (type_), partition (partition_)
+	{
+	}
+	//Accessors
+	const int& getHhold () const {return hhold;}
+	void setHhold (const int& hhold_){hhold = hhold_;}
+	const int& getPerson () const {return person;}
+	void setPerson (const int& person_){person = person_;}
+	const int& getTour () const {return tour;}
+	void setTour (const int& tour_){tour = tour_;}
+	const int& getTrip () const {return trip;}
+	void setTrip (const int& trip_){trip = trip_;}
+	const double& getStart () const {return start;}
+	void setStart (const double& start_){start = start_;}
+	const double& getEnd () const {return end;}
+	void setEnd (const double& end_){end = end_;}
+	const double& getDuration () const {return duration;}
+	void setDuration (const double& duration_){duration = duration_;}
+	const int& getOrigin () const {return origin;}
+	void setOrigin (const int& origin_){origin = origin_;}
+	const int& getDestination () const {return destination;}
+	void setDestination (const int& destination_){destination = destination_;}
+	const int& getPurpose () const {return purpose;}
+	void setPurpose (const int& purpose_){purpose = purpose_;}
+	const int& getMode () const {return mode;}
+	void setMode (const int& mode_){mode = mode_;}
+	const int& getConstraint () const {return constraint;}
+	void setConstraint (const int& constraint_){constraint = constraint_;}
+	const int& getPriority () const {return priority;}
+	void setPriority (const int& priority_){priority = priority_;}
+	const int& getVehicle () const {return vehicle;}
+	void setVehicle (const int& vehicle_){vehicle = vehicle_;}
+	const int& getPassengers () const {return passengers;}
+	void setPassengers (const int& passengers_){passengers = passengers_;}
+	const int& getType () const {return type;}
+	void setType (const int& type_){type = type_;}
+	const int& getPartition () const {return partition;}
+	void setPartition (const int& partition_){partition = partition_;}
+	const unsigned long& getPrimaryKey () const {return auto_id;}
+	const unsigned long& getAuto_id () const {return auto_id;}
+
+//Data Fields
+private:
+	friend class odb::access;
+	#pragma db id auto
+	unsigned long auto_id;
+	int hhold;
+	int person;
+	int tour;
+	int trip;
+	double start;
+	double end;
+	double duration;
+	int origin;
+	int destination;
+	int purpose;
+	int mode;
+	int constraint;
+	int priority;
+	int vehicle;
+	int passengers;
+	int type;
+	int partition;
 
 };
 

@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
 	Convert<Veh_Type_File,Veh_Type, int>(net,container, container.Veh_Types, VEHICLE_TYPE, "VEHICLE_TYPE", false);
 	Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE", false);
 	Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP", false);
-
+	ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef", false);
 
 	cout << "Press any key...\n";
 	getchar();

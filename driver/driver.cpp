@@ -2,9 +2,11 @@
 #include <odb/database.hxx>
 #include <odb/transaction.hxx>
 #include "database.h" // create_database
-#include "OutNetwork.h"
-#include "OutNetwork-odb.hxx"
-//#include <sqlite3.h>
+#include "InputContext.h"
+#include "InputContext-odb.hxx"
+#include <time.h>
+#include <iostream>
+#include <fstream>
 using namespace std;
 using namespace odb::core;
 using namespace pio;
@@ -15,10 +17,10 @@ using namespace pio;
 typedef odb::query<Node> node_query;
 typedef odb::result<Node> node_result;
 
-int AddGeoColumn(string table_name, string geo_type, string epsg, auto_ptr<database> db)
+__int64 AddGeoColumn(string table_name, string geo_type, string epsg, auto_ptr<database> db)
 {
 	char buff[500];
-	long ret;
+	__int64 ret;
 	char *err_msg = NULL;
 	sprintf_s(buff, "SELECT AddGeometryColumn ( '%s', 'GEO', %s, '%s', 2 );", table_name.c_str(), epsg.c_str(), geo_type.c_str());
 	connection_ptr c (db->connection ());
@@ -33,50 +35,86 @@ int AddGeoColumn(string table_name, string geo_type, string epsg, auto_ptr<datab
 
 }
 
-int main (int argc, char *argv [])
+static int callback(void *NotUsed, int n_columns, char **columns, char **column_names)
 {
-	sqlite3 *db_handle;
+	int id;
+	id = atoi(columns[0]);
+	if (id % 100000 == 0)
+		printf("%s = %d\n", column_names[0],  atoi(columns[0]));
+	 return 0;
+}
+static void profile_callback(void *log_file, const char* content, sqlite3_uint64 wall_time)
+{
+	ofstream *fh = new ofstream();
+	fh = reinterpret_cast<ofstream*>(log_file);
+	*fh << content << "\n";
+	*fh << "Wall time is (in sec): " <<  wall_time/1000000000 << "\n";
+}
+static void trace_callback(void *log_file, const char* content)
+{
+	ofstream *fh = new ofstream();
+	fh = reinterpret_cast<ofstream*>(log_file);
+	*fh << content << "\n";
+}
+
+int TestReadTripsSQL(string path_to_database)
+{
+	sqlite3* db_handler;
 	int ret;
 	string sql;
 	char *err_msg = NULL;
-	char buff[500];
-	auto_ptr<database> db (create_database (argc, argv));
-	cout << "A new " << argv[2] << " was generated\n";
+	ret = sqlite3_open(path_to_database.c_str(), &db_handler);
+	sql = "select * from Trip";
+	clock_t now = clock();
+	ret = sqlite3_exec(db_handler, sql.c_str(), callback, 0, &err_msg);
+	clock_t later = clock();
+	printf("%.3f trip table access (raw sql)\n",(double)(later-now)/(double)CLOCKS_PER_SEC);
+	return 0;
+}
 
-	shared_ptr<Node> n1 (new Node(1,1,1));
-	shared_ptr<Node> n2 (new Node(2,2,1));
-	shared_ptr<Node> n3 (new Node(3,1,1));
-	shared_ptr<Node> n4 (new Node(4,1,1));
-	//shared_ptr<Node> n2 (new Node(2,1,2,3,4,5));
-	//Node *n3 = new Node(3,4,4,5,6,7);
-	//Node n4 (4,3,3,3,3,5 );
-	//transaction t (db->begin());
-	//db->persist(n1);
-	//db->persist(n2);
-	//t.commit();
-	//ret = sqlite3_open(argv[1], &(db_handle));
-	//sqlite3_enable_load_extension (db_handle, 1);
-	//sql = "SELECT load_extension('C:/Users/vsokolov/usr/io_sdk/x86/bin/libspatialite-2.dll');";
-	//ret = sqlite3_exec (db_handle, sql.c_str(), NULL, NULL, &err_msg);
-	//ret = sqlite3_close_v2(db_handle);
-	//transaction t1 (db->begin());
-	//node_result r(db->query<Node> (node_query. == 1));
- //   for (node_result::iterator i (r.begin ()); i != r.end (); ++i)
- //   {
-	//	cout << i->first () << " " << i->last () << " " << i->age () << endl;
- //   }
-
-	shared_ptr<Link> l1 (new Link(1, "lalal", n1, n2, 1.0, 2.0, 3.0, 10, 20, 2, 0, 8, 12, 0.3, 2,22,22,122,1,33,333,2,3,2,1,2));
-	shared_ptr<Link> l2 (new Link(2, "lalal", n3, n4, 1.0, 2.0, 3.0, 10, 20, 2, 0, 8, 12, 0.3, 2,22,22,122,1,33,333,2,3,2,1, 3));
-
-	transaction t (db->begin());
-	db->persist(n1);
-	db->persist(n2);
-	db->persist(n3);
-	db->persist(n4);
-	db->persist(l1);
-	db->persist(l2);
+template<class TripClass>
+int TestReadTrips(string path_to_database)
+{
+	typedef odb::query<TripClass> query;
+	typedef odb::result<TripClass> result;
+	//int a,b, c, dest, origin;
+	int a;
+	int res;
+	ofstream fh, fh1;
+	fh.open("sql_trace.txt");
+	fh1.open("sql_profile.txt");
+	a = 0;
+	Trip trip;
+	auto_ptr<database> db (open_sqlite_database (path_to_database));
+	//sqlite3* db_handle = ((odb::sqlite::database*)db.get())->connection()->handle();
+	//sqlite3_profile(db_handle,profile_callback, fh1);
+	//sqlite3_trace(db_handle,trace_callback, fh);
+	transaction t (db->begin ());
+	result r(db->query<TripClass> (query::true_expr, true));
+	clock_t now = clock();	
+	for (result::iterator it (r.begin()); it!=r.end(); ++it)
+	{
+		a++;
+		res = it->getAuto_id();
+		//it.load();
+		//res  = it.id();
+		if (a % 100000 ==0)
+			cout << a << "\n";
+	}
+	clock_t later = clock();
+	printf("%.3f trip table access\n",(double)(later-now)/(double)CLOCKS_PER_SEC);
 	t.commit();
+	fh.close();
+	fh1.close();
+	cout << "OK\n";
+	return 0;
+}
+
+int main (int argc, char *argv [])
+{
+	//TestReadTrips<Trip>("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\TestNet50.sqlite");
+	TestReadTrips<TripNoRef>("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\chicago_with_demand.sqlite");
+	//TestReadTripsSQL("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\chicago_with_demand.sqlite");
 	cout << "Press any key...\n";
 	getchar();
 	return 0;

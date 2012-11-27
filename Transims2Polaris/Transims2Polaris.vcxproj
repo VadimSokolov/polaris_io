@@ -80,11 +80,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Transims2Polaris.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="adopter_methods.h" />
     <ClInclude Include="convert_methods.h" />
+    <ClInclude Include="Geometry.h" />
     <ClInclude Include="transims_network.h" />
   </ItemGroup>
   <ItemGroup>

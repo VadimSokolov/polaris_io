@@ -13204,6 +13204,546 @@ namespace odb
     load_ (statements_type&, object_type&);
   };
 
+  // TripNoRef
+  //
+  template <>
+  struct class_traits< ::pio::TripNoRef >
+  {
+    static const class_kind kind = class_object;
+  };
+
+  template <typename A>
+  struct query_columns< ::pio::TripNoRef, A >
+  {
+    // auto_id
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        long unsigned int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    auto_id_type_;
+
+    static const auto_id_type_ auto_id;
+
+    // hhold
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    hhold_type_;
+
+    static const hhold_type_ hhold;
+
+    // person
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    person_type_;
+
+    static const person_type_ person;
+
+    // tour
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    tour_type_;
+
+    static const tour_type_ tour;
+
+    // trip
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    trip_type_;
+
+    static const trip_type_ trip;
+
+    // start
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    start_type_;
+
+    static const start_type_ start;
+
+    // end
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    end_type_;
+
+    static const end_type_ end;
+
+    // duration
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    duration_type_;
+
+    static const duration_type_ duration;
+
+    // origin
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    origin_type_;
+
+    static const origin_type_ origin;
+
+    // destination
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    destination_type_;
+
+    static const destination_type_ destination;
+
+    // purpose
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    purpose_type_;
+
+    static const purpose_type_ purpose;
+
+    // mode
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    mode_type_;
+
+    static const mode_type_ mode;
+
+    // constraint
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    constraint_type_;
+
+    static const constraint_type_ constraint;
+
+    // priority
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    priority_type_;
+
+    static const priority_type_ priority;
+
+    // vehicle
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    vehicle_type_;
+
+    static const vehicle_type_ vehicle;
+
+    // passengers
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    passengers_type_;
+
+    static const passengers_type_ passengers;
+
+    // type
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    type_type_;
+
+    static const type_type_ type;
+
+    // partition
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    partition_type_;
+
+    static const partition_type_ partition;
+  };
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::auto_id_type_
+  query_columns< ::pio::TripNoRef, A >::
+  auto_id (A::table_name, "\"auto_id\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::hhold_type_
+  query_columns< ::pio::TripNoRef, A >::
+  hhold (A::table_name, "\"hhold\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::person_type_
+  query_columns< ::pio::TripNoRef, A >::
+  person (A::table_name, "\"person\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::tour_type_
+  query_columns< ::pio::TripNoRef, A >::
+  tour (A::table_name, "\"tour\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::trip_type_
+  query_columns< ::pio::TripNoRef, A >::
+  trip (A::table_name, "\"trip\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::start_type_
+  query_columns< ::pio::TripNoRef, A >::
+  start (A::table_name, "\"start\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::end_type_
+  query_columns< ::pio::TripNoRef, A >::
+  end (A::table_name, "\"end\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::duration_type_
+  query_columns< ::pio::TripNoRef, A >::
+  duration (A::table_name, "\"duration\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::origin_type_
+  query_columns< ::pio::TripNoRef, A >::
+  origin (A::table_name, "\"origin\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::destination_type_
+  query_columns< ::pio::TripNoRef, A >::
+  destination (A::table_name, "\"destination\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::purpose_type_
+  query_columns< ::pio::TripNoRef, A >::
+  purpose (A::table_name, "\"purpose\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::mode_type_
+  query_columns< ::pio::TripNoRef, A >::
+  mode (A::table_name, "\"mode\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::constraint_type_
+  query_columns< ::pio::TripNoRef, A >::
+  constraint (A::table_name, "\"constraint\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::priority_type_
+  query_columns< ::pio::TripNoRef, A >::
+  priority (A::table_name, "\"priority\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::vehicle_type_
+  query_columns< ::pio::TripNoRef, A >::
+  vehicle (A::table_name, "\"vehicle\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::passengers_type_
+  query_columns< ::pio::TripNoRef, A >::
+  passengers (A::table_name, "\"passengers\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::type_type_
+  query_columns< ::pio::TripNoRef, A >::
+  type (A::table_name, "\"type\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::TripNoRef, A >::partition_type_
+  query_columns< ::pio::TripNoRef, A >::
+  partition (A::table_name, "\"partition\"", 0);
+
+  template <typename A>
+  struct pointer_query_columns< ::pio::TripNoRef, A >:
+    query_columns< ::pio::TripNoRef, A >
+  {
+  };
+
+  template <>
+  class access::object_traits< ::pio::TripNoRef >
+  {
+    public:
+    typedef ::pio::TripNoRef object_type;
+    typedef ::std::tr1::shared_ptr< ::pio::TripNoRef > pointer_type;
+    typedef odb::pointer_traits<pointer_type> pointer_traits;
+
+    static const bool polymorphic = false;
+
+    typedef long unsigned int id_type;
+    static const bool auto_id = true;
+
+    struct id_image_type
+    {
+      long long id_value;
+      bool id_null;
+
+      std::size_t version;
+    };
+
+    static const bool abstract = false;
+
+    struct image_type
+    {
+      // auto_id
+      //
+      long long auto_id_value;
+      bool auto_id_null;
+
+      // hhold
+      //
+      long long hhold_value;
+      bool hhold_null;
+
+      // person
+      //
+      long long person_value;
+      bool person_null;
+
+      // tour
+      //
+      long long tour_value;
+      bool tour_null;
+
+      // trip
+      //
+      long long trip_value;
+      bool trip_null;
+
+      // start
+      //
+      double start_value;
+      bool start_null;
+
+      // end
+      //
+      double end_value;
+      bool end_null;
+
+      // duration
+      //
+      double duration_value;
+      bool duration_null;
+
+      // origin
+      //
+      long long origin_value;
+      bool origin_null;
+
+      // destination
+      //
+      long long destination_value;
+      bool destination_null;
+
+      // purpose
+      //
+      long long purpose_value;
+      bool purpose_null;
+
+      // mode
+      //
+      long long mode_value;
+      bool mode_null;
+
+      // constraint
+      //
+      long long constraint_value;
+      bool constraint_null;
+
+      // priority
+      //
+      long long priority_value;
+      bool priority_null;
+
+      // vehicle
+      //
+      long long vehicle_value;
+      bool vehicle_null;
+
+      // passengers
+      //
+      long long passengers_value;
+      bool passengers_null;
+
+      // type
+      //
+      long long type_value;
+      bool type_null;
+
+      // partition
+      //
+      long long partition_value;
+      bool partition_null;
+
+      std::size_t version;
+    };
+
+    static id_type
+    id (const object_type&);
+
+    static id_type
+    id (const image_type&);
+
+    static bool
+    grow (image_type&, bool*);
+
+    static void
+    bind (sqlite::bind*,
+          image_type&,
+          sqlite::statement_kind);
+
+    static void
+    bind (sqlite::bind*, id_image_type&);
+
+    static bool
+    init (image_type&, const object_type&, sqlite::statement_kind);
+
+    static void
+    init (object_type&, const image_type&, database*);
+
+    static void
+    init (id_image_type&, const id_type&);
+
+    typedef
+    odb::pointer_cache_traits<pointer_type>
+    pointer_cache_traits;
+    typedef
+    odb::reference_cache_traits<object_type>
+    reference_cache_traits;
+
+    typedef sqlite::object_statements<object_type> statements_type;
+
+    typedef sqlite::query query_base_type;
+
+    struct container_statement_cache_type;
+
+    static const std::size_t column_count = 18UL;
+    static const std::size_t id_column_count = 1UL;
+    static const std::size_t inverse_column_count = 0UL;
+    static const std::size_t readonly_column_count = 0UL;
+    static const std::size_t managed_optimistic_column_count = 0UL;
+
+    static const char persist_statement[];
+    static const char find_statement[];
+    static const char update_statement[];
+    static const char erase_statement[];
+    static const char query_statement[];
+    static const char erase_query_statement[];
+
+    static const char table_name[];
+
+    static void
+    callback (database&, object_type&, callback_event);
+
+    static void
+    callback (database&, const object_type&, callback_event);
+
+    static void
+    persist (database&, object_type&);
+
+    static pointer_type
+    find (database&, const id_type&);
+
+    static bool
+    find (database&, const id_type&, object_type&);
+
+    static bool
+    reload (database&, object_type&);
+
+    static void
+    update (database&, const object_type&);
+
+    static void
+    erase (database&, const id_type&);
+
+    static void
+    erase (database&, const object_type&);
+
+    static result<object_type>
+    query (database&, const query_base_type&);
+
+    static unsigned long long
+    erase_query (database&, const query_base_type&);
+
+    static bool
+    create_schema (database&, unsigned short pass, bool drop);
+
+    public:
+    static bool
+    find_ (statements_type&, const id_type*);
+
+    static void
+    load_ (statements_type&, object_type&);
+  };
+
   // Shape
   //
   class link_alias_tag;

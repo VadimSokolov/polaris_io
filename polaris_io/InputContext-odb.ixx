@@ -1543,5 +1543,49 @@ namespace odb
   load_ (statements_type&, object_type&)
   {
   }
+
+  // TripNoRef
+  //
+
+  inline
+  access::object_traits< ::pio::TripNoRef >::id_type
+  access::object_traits< ::pio::TripNoRef >::
+  id (const object_type& o)
+  {
+    return o.auto_id;
+  }
+
+  inline
+  void access::object_traits< ::pio::TripNoRef >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits< ::pio::TripNoRef >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::pio::TripNoRef >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::pio::TripNoRef >::
+  load_ (statements_type&, object_type&)
+  {
+  }
 }
 
