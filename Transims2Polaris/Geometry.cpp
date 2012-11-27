@@ -1,6 +1,6 @@
 #include "Geometry.h"
 
-int AddGeometryTables(const std::string& name)
+sqlite3* AddGeometryTables(const std::string& name)
 {
 	sqlite3 *db_handle;
 	char sql[2048];
@@ -8,7 +8,7 @@ int AddGeometryTables(const std::string& name)
 	int ret;
 	ret = sqlite3_open_v2(name.c_str(), &db_handle, SQLITE_OPEN_READWRITE , NULL);
 	sqlite3_enable_load_extension (db_handle, 1);
-	strcpy (sql, "SELECT load_extension('C:\\Users\\vsokolov\\usr\\io_sdk\\x86\\bin\\libspatialite-2.dll')");
+	strcpy (sql, "SELECT load_extension('C:\\Users\\vsokolov\\usr\\io_sdk\\x86\\bin\\libspatialite-4.dll')");
 	ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
    if (ret != SQLITE_OK)
    {
@@ -26,7 +26,7 @@ int AddGeometryTables(const std::string& name)
     }
     fprintf(stderr, "\n\n**** SpatiaLite loaded as an extension ***\n\n");
     strcpy (sql, "SELECT AddGeometryColumn('Link', ");
-    strcat (sql, "'geom', 4326, 'POINT', 2)");
+    strcat (sql, "'geom', 4326, 'LINESTRING', 'XY')");
 	ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
    if (ret != SQLITE_OK)
       {
@@ -35,6 +35,6 @@ int AddGeometryTables(const std::string& name)
 		  goto stop;
       }
 	stop:
-		sqlite3_close (db_handle);
-		return 0;
+		//sqlite3_close (db_handle);
+		return db_handle;
 }

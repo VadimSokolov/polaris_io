@@ -6,7 +6,7 @@
 //#include <sqlite3.h>
 
 #include "transims_network.h"
-
+#include "Geometry.h"
 using namespace std;
 
 void test_create(const string& name)
@@ -68,23 +68,25 @@ int main(int argc, char* argv[])
 	else
 		net->Init(argc, argv);
 	create_sqlite_database (net->path_to_database);
+	/************************************************/
+	/*****************Conversion*********************/
+	/************************************************/	
 	Convert<Node_File,Node, int>(net,container, container.Nodes, NODE, "NODE", false);
 	Convert<Zone_File,Zone, int>(net,container, container.Zones, ZONE, "ZONE", false);
 	Convert<Link_File,Link, int>(net,container, container.Links, LINK, "LINK", false);
-
-	Convert<Pocket_File,Pocket, int>(net,container, POCKET, "POCKET", false);
-	Convert<Sign_File,Sign, int>(net,container, SIGN, "SIGN", false);
-	Convert<Signal_File,Signal, int>(net,container, container.Signals,SIGNAL, "SIGNAL", false);
-	Convert<Timing_File,Timing, int>(net,container, TIMING_PLAN, "TIMING_PLAN", false);
-	Convert<Phasing_File,Phasing, int>(net,container, PHASING_PLAN, "PHASING_PLAN", false);
-
-	Convert<Connect_File,Connect, int>(net,container, CONNECTION, "CONNECTION", false);
-	Convert<Location_File,Location, int>(net,container, container.Locations, LOCATION, "LOCATION", false);
-	Convert<Parking_File,Parking, int>(net,container, container.Parkings, PARKING, "PARKING", false);	
-	Convert<Veh_Type_File,Veh_Type, int>(net,container, container.Veh_Types, VEHICLE_TYPE, "VEHICLE_TYPE", false);
-	Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE", false);
-	Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP", false);
-	ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef", false);
+	//Convert<Pocket_File,Pocket, int>(net,container, POCKET, "POCKET", false);
+	//Convert<Sign_File,Sign, int>(net,container, SIGN, "SIGN", false);
+	//Convert<Signal_File,Signal, int>(net,container, container.Signals,SIGNAL, "SIGNAL", false);
+	//Convert<Timing_File,Timing, int>(net,container, TIMING_PLAN, "TIMING_PLAN", false);
+	//Convert<Phasing_File,Phasing, int>(net,container, PHASING_PLAN, "PHASING_PLAN", false);
+	//Convert<Connect_File,Connect, int>(net,container, CONNECTION, "CONNECTION", false);
+	//Convert<Location_File,Location, int>(net,container, container.Locations, LOCATION, "LOCATION", false);
+	//Convert<Parking_File,Parking, int>(net,container, container.Parkings, PARKING, "PARKING", false);	
+	//Convert<Veh_Type_File,Veh_Type, int>(net,container, container.Veh_Types, VEHICLE_TYPE, "VEHICLE_TYPE", false);
+	//Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE", false);
+	//Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP", false);
+	//ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef", false);
+	ConvertShape(net);
 
 	cout << "Press any key...\n";
 	getchar();
