@@ -71,10 +71,13 @@ int main(int argc, char* argv[])
 	/************************************************/
 	/*****************Conversion*********************/
 	/************************************************/	
-	Convert<Node_File,Node, int>(net,container, container.Nodes, NODE, "NODE", false);
-	Convert<Zone_File,Zone, int>(net,container, container.Zones, ZONE, "ZONE", false);
-	Convert<Link_File,Link, int>(net,container, container.Links, LINK, "LINK", false);
+	Convert<Node_File,Node, int>(net,container, NODE, "NODE", &container.Nodes);
+	Convert<Link_File,Link, int>(net,container, LINK, "LINK", &container.Links);
+	Convert<Shape_File,Shape, int>(net,container, SHAPE, "SHAPE");
+	//Convert<Link_File,Link, int>(net,container, container.Links, LINK, "LINK", false);
+	//Convert<Zone_File,Zone, int>(net,container, container.Zones, ZONE, "ZONE", false);
 	//Convert<Pocket_File,Pocket, int>(net,container, POCKET, "POCKET", false);
+	//Convert<Shape_File,Shape, int>(net,container, SHAPE, "SHAPE", false);
 	//Convert<Sign_File,Sign, int>(net,container, SIGN, "SIGN", false);
 	//Convert<Signal_File,Signal, int>(net,container, container.Signals,SIGNAL, "SIGNAL", false);
 	//Convert<Timing_File,Timing, int>(net,container, TIMING_PLAN, "TIMING_PLAN", false);
@@ -86,7 +89,7 @@ int main(int argc, char* argv[])
 	//Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE", false);
 	//Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP", false);
 	//ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef", false);
-	ConvertShape(net);
+	//ConvertShape(net);
 
 	cout << "Press any key...\n";
 	getchar();

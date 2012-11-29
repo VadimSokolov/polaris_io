@@ -7,6 +7,7 @@
 #include "InputContext-odb.hxx"
 #include "transims_network.h"
 #include <time.h>
+#include <string>
 #include "Geometry.h"
 using odb::database;
 using odb::transaction;
@@ -23,23 +24,25 @@ static void trace_callback(void *log_file, const char* content)
 }
 
 template<class FileType, class ODBType, class KeyType>
-void Convert(TransimsNetwork *net, InputContainer &container, std::map<KeyType,shared_ptr<ODBType>> &container_map, System_File_Type file_type, string odb_type_name, bool nested_flag)
+void Convert(TransimsNetwork *net, InputContainer &container, System_File_Type file_type, string odb_type_name, std::map<KeyType,shared_ptr<ODBType>> *container_map = NULL)
 {
 	if (!net->System_File_Flag(file_type))
 		return;
 	cout << "Converting " << odb_type_name << "\n";
-	shared_ptr<ODBType> record;
+	shared_ptr<ODBType> record (new ODBType ());
 
 	FileType *file = (FileType *) net->System_File_Handle (file_type);
 	try
 	{
 		auto_ptr<database> db (open_sqlite_database (net->path_to_database));
 		transaction t (db->begin());
-		while (file->Read(nested_flag))
+		while (file->Read(false))
 		{		
+			record.reset(new ODBType ());
 			net->Show_Progress();
-			record = Adapter(*file, container);
-			container_map[record->getPrimaryKey()] = record;		
+			Adapter(*file, container, record);
+			if (container_map!=NULL)
+				(*container_map)[record->getPrimaryKey()] = record;		
 			try 
 			{
 				db->persist(record);
@@ -51,7 +54,18 @@ void Convert(TransimsNetwork *net, InputContainer &container, std::map<KeyType,s
 			}
 			int num = file->Num_Nest ();
 			for (int i=1; i <= num; i++) {
+				record.reset(new ODBType ());
 				file->Read (true);
+				Adapter(*file, container, record);
+				try 
+				{
+					db->persist(record);
+				}
+				catch (odb::object_already_persistent e)
+				{
+					cout << "Persist for " << odb_type_name << " failed.\n";
+					cout << "Primary key value: " << record->getPrimaryKey() << ". This object will not be converted\n";
+				}
 			}
 		}
 		t.commit();
@@ -63,168 +77,115 @@ void Convert(TransimsNetwork *net, InputContainer &container, std::map<KeyType,s
 	}
 }
 
-template<class FileType, class ODBType, class KeyType>
-void Convert(TransimsNetwork *net, InputContainer &container, System_File_Type file_type, string odb_type_name, bool nested_flag)
-{
-	if (!net->System_File_Flag(file_type))
-		return;
-	cout << "Converting " << odb_type_name << "\n";
-	shared_ptr<ODBType> record;
-	FileType *file = (FileType *) net->System_File_Handle (file_type);
-	try
-	{
-		auto_ptr<database> db (open_sqlite_database (net->path_to_database));
-		transaction t (db->begin());
-		while (file->Read(nested_flag))
-		{		
-			net->Show_Progress();
-			record = Adapter(*file, container);
-			try 
-			{
-				db->persist(record);
-			}
-			catch (odb::object_already_persistent e)
-			{
-				cout << "Persist for " << odb_type_name << " failed.\n";
-				cout << "Primary key value: " << record->getPrimaryKey() << ". This object will not be converted\n";
-			}
-			int num = file->Num_Nest ();
-			for (int i=1; i <= num; i++) {
-				file->Read (true);
-			}
-		}
-		t.commit();
-	}
-	catch (odb::sqlite::database_exception e)
-	{
-		cout << "Convert" << odb_type_name <<"s failed. " <<e.message() << "\n";
-		exit(0);
-	}
-}
-template<class FileType, class ODBType, class KeyType>
-void ConvertNoRef(TransimsNetwork *net, InputContainer &container, System_File_Type file_type, string odb_type_name, bool nested_flag)
-{
-	if (!net->System_File_Flag(file_type))
-		return;
-	cout << "Converting " << odb_type_name << "\n";
-	shared_ptr<ODBType> record;
-	FileType *file = (FileType *) net->System_File_Handle (file_type);
-	file->Rewind();
-	try
-	{
-		auto_ptr<database> db (open_sqlite_database (net->path_to_database));
-		transaction t (db->begin());
-		while (file->Read(nested_flag))
-		{		
-			net->Show_Progress();
-			record = AdapterNoRef(*file, container);
-			try 
-			{
-				db->persist(record);
-			}
-			catch (odb::object_already_persistent e)
-			{
-				cout << "Persist for " << odb_type_name << " failed.\n";
-				cout << "Primary key value: " << record->getPrimaryKey() << ". This object will not be converted\n";
-			}
-			int num = file->Num_Nest ();
-			for (int i=1; i <= num; i++) {
-				file->Read (true);
-			}
-		}
-		t.commit();
-	}
-	catch (odb::sqlite::database_exception e)
-	{
-		cout << "Convert" << odb_type_name <<"s failed. " <<e.message() << "\n";
-		exit(0);
-	}
-}
 
-void ConvertShape(TransimsNetwork *net)
-{
-	ofstream fh, fh1;
-	fh.open("sql_trace.txt");
-	fh1.open("sql_profile.txt");
-	char sql[2048];
-	char sql2[1024];
-	char geom[2048];
-    sqlite3 *db_handle;
-    sqlite3_stmt *stmt;
-    int ret;
-    char *err_msg = NULL;
-	if (!net->System_File_Flag(SHAPE))
-		return;
-	cout << "Converting SHAPE" << "\n";
-	Shape_File *file = (Shape_File *) net->System_File_Handle (SHAPE);
-	//add geometry column to links table
-	db_handle = AddGeometryTables(net->path_to_database);
-	#ifdef DEBUG
-	sqlite3_trace(db_handle,trace_callback, fh);
-	#endif
-	int link_id;
-	double x,y,z;
-	strcpy (sql, "UPDATE Link set geom = ");
-	strcat (sql, "GeomFromText(?, 4326) where link=?");
-    ret = sqlite3_prepare_v2 (db_handle, sql, strlen (sql), &stmt, NULL);
-    if (ret != SQLITE_OK)
-	{
-		fprintf (stderr, "SQL error: %s\n%s\n", sql,
-		sqlite3_errmsg (db_handle));
-	}
-	ret = sqlite3_exec (db_handle, "BEGIN", NULL, NULL, &err_msg);
-    if (ret != SQLITE_OK)
-	{
-		fprintf (stderr, "Error: %s\n", err_msg);
-		sqlite3_free (err_msg);
-	}
-	int i = 10;
-	while (file->Read(false))
-	{
-		strcpy (geom, "LINESTRING(");
-		net->Show_Progress();
-		link_id = file->Link();
-        strcat (geom, "-180.0 -90.0, ");
-        sprintf (sql2, "%1.6f %1.6f, ", -10.0 - (i / 1000.0),
-        	 -10.0 - (i / 1000.0));
-        strcat (geom, sql2);
-        sprintf (sql2, "%1.6f %1.6f, ", -10.0 - (i / 1000.0),
-        	 10.0 + (i / 1000.0));
-        strcat (geom, sql2);
-        sprintf (sql2, "%1.6f %1.6f, ", 10.0 + (i / 1000.0),
-        	 10.0 + (i / 1000.0));
-        strcat (geom, sql2);
-        strcat (geom, "180.0 90.0");
-		strcat (geom, ")");
-		sqlite3_reset (stmt);
-		sqlite3_clear_bindings (stmt);
-		sqlite3_bind_int (stmt, 2, link_id);
-		sqlite3_bind_text (stmt, 1, geom, strlen (geom), SQLITE_STATIC);
-		ret = sqlite3_step (stmt);
-		if (ret == SQLITE_DONE || ret == SQLITE_ROW)
-			continue;
-		else
-		{
-			fprintf (stderr, "Error: %s\n", err_msg);
-			sqlite3_free (err_msg);
-		}
-		
-
-		int num = file->Num_Nest ();
-		for (int i=1; i <= num; i++) {
-			file->Read (true);
-			net->Show_Progress ();
-			x = file->X();
-			y = file->Y();
-			z = file->Z();
-
-		}
-	}
-	sqlite3_finalize (stmt);
-	ret = sqlite3_exec (db_handle, "COMMIT", NULL, NULL, &err_msg);
-	if (ret != SQLITE_OK)
-	{
-		fprintf (stderr, "Error: %s\n", err_msg);
-		sqlite3_free (err_msg);
-	}
-}
+//void ConvertShape(TransimsNetwork *net)
+//{
+//	ofstream fh, fh1;
+//	fh.open("sql_trace.txt");
+//	fh1.open("sql_profile.txt");
+//	char sql[2048];
+//	char buff[1024];
+//	string geometry;
+//    sqlite3 *db_handle;
+//    sqlite3_stmt *stmt;
+//    int ret;
+//	size_t pos;
+//    char *err_msg = NULL;
+//	int link_id;
+//	double x,y;
+//	if (!net->System_File_Flag(SHAPE))
+//		return;
+//
+//	typedef odb::query<Link> query;
+//	typedef odb::result<Link> result;
+//	cout << "Converting SHAPE" << "\n";
+//	Shape_File *file = (Shape_File *) net->System_File_Handle (SHAPE);
+//
+//	//add geometry column to links table
+//	db_handle = AddGeometryTables(net->path_to_database);
+//
+//	//open another connection to get node data
+//	auto_ptr<database> db (open_sqlite_database (net->path_to_database));
+//	//db_handle = ((odb::sqlite::database*)db.get())->connection()->handle();
+//	transaction t (db->begin ());
+//	#ifdef _DEBUG
+//		sqlite3_trace(db_handle,trace_callback, fh);
+//	#endif
+//	strcpy (sql, "UPDATE Link SET geom=GeomFromText(?, 26916) WHERE link=?");
+//    ret = sqlite3_prepare_v2 (db_handle, sql, strlen (sql), &stmt, NULL);
+//    if (ret != SQLITE_OK)
+//	{
+//		fprintf (stderr, "SQL error: %s\n%s\n", sql,
+//		sqlite3_errmsg (db_handle));
+//		goto stop;
+//	}
+//	ret = sqlite3_exec (db_handle, "BEGIN", NULL, NULL, &err_msg);
+//    if (ret != SQLITE_OK)
+//	{
+//		fprintf (stderr, "Error: %s\n", err_msg);
+//		sqlite3_free (err_msg);
+//		goto stop;
+//	}
+//	
+//	while (file->Read(false))
+//	{		
+//		
+//		//net->Show_Progress();
+//		link_id = file->Link();	
+//		if (link_id == 11216)
+//		{
+//			int a = 5;
+//		}
+//		cout << link_id << "\n";
+//		result r(db->query<Link> (query::link==link_id));
+//		bool empty_flag = r.empty();
+//		if (empty_flag)
+//			continue;
+//		x = r.begin()->getNode_A()->getX();
+//		y = r.begin()->getNode_A()->getY();
+//		t.commit();
+//		t.reset (db->begin ());
+//		sprintf (buff, "%1.6f %1.6f, ", x, y);
+//		geometry += buff;
+//		int num = file->Num_Nest ();
+//		geometry = "LINESTRING(";
+//		for (int i=1; i <= num; i++) {
+//			file->Read (true);
+//			//net->Show_Progress ();
+//			x = file->X();
+//			y = file->Y();			
+//			sprintf (buff, "%1.6f %1.6f, ", x, y);
+//			geometry += buff;
+//		}
+//		//pos = geometry.find_last_of(",");
+//		//geometry = geometry.substr(0, pos);
+//		x = r.begin()->getNode_B()->getX();
+//		y = r.begin()->getNode_B()->getY();
+//		sprintf (buff, "%1.6f %1.6f", x, y);
+//		geometry += buff;
+//		geometry += ")";
+//		sqlite3_reset (stmt);
+//		sqlite3_clear_bindings (stmt);
+//		sqlite3_bind_int (stmt, 2, link_id);
+//		sqlite3_bind_text (stmt, 1, geometry.c_str(), strlen (geometry.c_str()), SQLITE_STATIC);
+//		ret = sqlite3_step (stmt);
+//		if (ret == SQLITE_DONE || ret == SQLITE_ROW)
+//			continue;
+//		else
+//		{
+//			fprintf (stderr, "Error: %s\n", err_msg);
+//			sqlite3_free (err_msg);
+//			goto stop;
+//		}
+//	}
+//	t.commit();
+//	sqlite3_finalize (stmt);
+//	ret = sqlite3_exec (db_handle, "COMMIT", NULL, NULL, &err_msg);
+//	if (ret != SQLITE_OK)
+//	{
+//		fprintf (stderr, "Error: %s\n", err_msg);
+//		sqlite3_free (err_msg);
+//	}
+//	stop:
+//		sqlite3_close (db_handle);
+//}

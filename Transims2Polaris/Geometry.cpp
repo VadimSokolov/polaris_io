@@ -25,15 +25,22 @@ sqlite3* AddGeometryTables(const std::string& name)
 		return 0;
     }
     fprintf(stderr, "\n\n**** SpatiaLite loaded as an extension ***\n\n");
-    strcpy (sql, "SELECT AddGeometryColumn('Link', ");
-    strcat (sql, "'geom', 4326, 'LINESTRING', 'XY')");
+	strcpy (sql, "SELECT DiscardGeometryColumn('Link', 'geom')");
+	if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "Error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+		goto stop;
+	}
+	strcpy (sql, "SELECT AddGeometryColumn('Link', ");
+    strcat (sql, "'geom', 26916, 'LINESTRING', 'XY')");
 	ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
-   if (ret != SQLITE_OK)
-      {
-		  fprintf (stderr, "Error: %s\n", err_msg);
-		  sqlite3_free (err_msg);
-		  goto stop;
-      }
+	if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "Error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+		goto stop;
+	}
 	stop:
 		//sqlite3_close (db_handle);
 		return db_handle;

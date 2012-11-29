@@ -24,9 +24,9 @@ def generate(cpp_path, class_name, ref_flag=True, polaris_class_name=None):
 	constructor2 = " \n\t: "
 	#Adapter from transims type to polaris
 	if ref_flag:
-		adpater_method = "shared_ptr<%s> Adapter( %s_File &file, %s::%s& container) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn, class_name, odb_namespace,container_type, nscn, nscn)
+		adpater_method = "void Adapter( %s_File &file, %s::%s& container, shared_ptr<%s> result) \n{"%(class_name, odb_namespace,container_type, nscn)
 	else:
-		adpater_method = "shared_ptr<%s> AdapterNoRef( %s_File &file, %s::%s& container) \n{\n\tshared_ptr<%s> result (new %s ());"%(nscn, class_name, odb_namespace,container_type, nscn, nscn)
+		adpater_method = "void AdapterNoRef( %s_File &file, %s::%s& container, shared_ptr<%s> result) \n{"%(class_name, odb_namespace,container_type, nscn)
 	members = ""
 	odb_accessors = ""
 	#Whether the table has a unique key is a class member
@@ -127,7 +127,6 @@ private:
 	
 	adapter_code = """//Converter for %s
 %s
-	return result;
 }
 """%(class_name, adpater_method[:-1])
 	return (odb_code, adapter_code)					
