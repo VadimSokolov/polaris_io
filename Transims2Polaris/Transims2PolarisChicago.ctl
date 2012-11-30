@@ -1,11 +1,11 @@
 #######NETWORK##############
 NODE_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Node
 LINK_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Link
-#LOCATION_FILE		    C:/Users/vsokolov/usr/transims/Run4_1/network/Location
-#CONNECTION_FILE	    	C:/Users/vsokolov/usr/transims/Run4_1/network/Connection
-#PARKING_FILE	    	C:/Users/vsokolov/usr/transims/Run4_1/network/Parking
-#ZONE_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Zone
-#POCKET_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Pocket
+LOCATION_FILE		    C:/Users/vsokolov/usr/transims/Run4_1/network/Location
+CONNECTION_FILE	    	C:/Users/vsokolov/usr/transims/Run4_1/network/Connection
+PARKING_FILE	    	C:/Users/vsokolov/usr/transims/Run4_1/network/Parking
+ZONE_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Zone
+POCKET_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Pocket
 SHAPE_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Shape
 
 #######DEMAND##############
@@ -16,10 +16,10 @@ SHAPE_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Shape
 
 
 #######CONTROL##############
-#SIGN_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Sign
-#SIGNAL_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Signal
-#TIMING_PLAN_FILE    	C:/Users/vsokolov/usr/transims/Run4_1/network/timing_plan
-#PHASING_PLAN_FILE   	C:/Users/vsokolov/usr/transims/Run4_1/network/phasing_plan
+SIGN_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Sign
+SIGNAL_FILE		        C:/Users/vsokolov/usr/transims/Run4_1/network/Signal
+TIMING_PLAN_FILE    	C:/Users/vsokolov/usr/transims/Run4_1/network/timing_plan
+PHASING_PLAN_FILE   	C:/Users/vsokolov/usr/transims/Run4_1/network/phasing_plan
 
 #######OUTPUT##############
 NEW_SQLITE_DATABASE     C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/chicago.sqlite

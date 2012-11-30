@@ -4,6 +4,64 @@
 
 namespace odb
 {
+  // shape_geometry
+  //
+
+  inline
+  bool access::composite_value_traits< ::pio::shape_geometry >::
+  get_null (const image_type& i)
+  {
+    bool r (true);
+    r = r && i.x_null;
+    r = r && i.y_null;
+    r = r && i.z_null;
+    return r;
+  }
+
+  inline
+  void access::composite_value_traits< ::pio::shape_geometry >::
+  set_null (image_type& i, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    i.x_null = true;
+    i.y_null = true;
+    i.z_null = true;
+  }
+
+  // signal_time
+  //
+
+  inline
+  bool access::composite_value_traits< ::pio::signal_time >::
+  get_null (const image_type& i)
+  {
+    bool r (true);
+    r = r && i.start_null;
+    r = r && i.end_null;
+    r = r && i.timing_null;
+    r = r && i.phasing_null;
+    r = r && i.notes_null;
+    return r;
+  }
+
+  inline
+  void access::composite_value_traits< ::pio::signal_time >::
+  set_null (image_type& i, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    i.start_null = true;
+    i.end_null = true;
+    i.timing_null = true;
+    i.phasing_null = true;
+    i.notes_null = true;
+  }
+
   // Node
   //
 
@@ -128,12 +186,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::pio::Shape >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Link
@@ -568,12 +620,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::pio::Signal >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Timing

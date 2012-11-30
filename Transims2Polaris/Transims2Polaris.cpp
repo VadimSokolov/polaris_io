@@ -73,22 +73,24 @@ int main(int argc, char* argv[])
 	/************************************************/	
 	Convert<Node_File,Node, int>(net,container, NODE, "NODE", &container.Nodes);
 	Convert<Link_File,Link, int>(net,container, LINK, "LINK", &container.Links);
+	ConvertNested<Shape_File,Shape, int, shape_geometry>(net,container, SHAPE, "SHAPE");
+
+	//Convert<Signal_File,Signal, int>(net,container, SIGNAL, "SIGNAL", &container.Signals);
+	ConvertNested<Signal_File,Signal, int, signal_time>(net,container, SIGNAL, "SIGNAL", &container.Signals);
+	Convert<Location_File,Location, int>(net,container, LOCATION, "LOCATION", &container.Locations);
+	Convert<Parking_File,Parking, int>(net,container, PARKING, "PARKING", &container.Parkings);
+	Convert<Veh_Type_File,Veh_Type, int>(net,container, VEHICLE_TYPE, "VEHICLE_TYPE", &container.Veh_Types);
+	Convert<Zone_File,Zone, int>(net,container, ZONE, "ZONE", &container.Zones);
+
+	Convert<Pocket_File,Pocket, int>(net,container, POCKET, "POCKET");
 	Convert<Shape_File,Shape, int>(net,container, SHAPE, "SHAPE");
-	//Convert<Link_File,Link, int>(net,container, container.Links, LINK, "LINK", false);
-	//Convert<Zone_File,Zone, int>(net,container, container.Zones, ZONE, "ZONE", false);
-	//Convert<Pocket_File,Pocket, int>(net,container, POCKET, "POCKET", false);
-	//Convert<Shape_File,Shape, int>(net,container, SHAPE, "SHAPE", false);
-	//Convert<Sign_File,Sign, int>(net,container, SIGN, "SIGN", false);
-	//Convert<Signal_File,Signal, int>(net,container, container.Signals,SIGNAL, "SIGNAL", false);
-	//Convert<Timing_File,Timing, int>(net,container, TIMING_PLAN, "TIMING_PLAN", false);
-	//Convert<Phasing_File,Phasing, int>(net,container, PHASING_PLAN, "PHASING_PLAN", false);
-	//Convert<Connect_File,Connect, int>(net,container, CONNECTION, "CONNECTION", false);
-	//Convert<Location_File,Location, int>(net,container, container.Locations, LOCATION, "LOCATION", false);
-	//Convert<Parking_File,Parking, int>(net,container, container.Parkings, PARKING, "PARKING", false);	
-	//Convert<Veh_Type_File,Veh_Type, int>(net,container, container.Veh_Types, VEHICLE_TYPE, "VEHICLE_TYPE", false);
-	//Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE", false);
-	//Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP", false);
-	//ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef", false);
+	Convert<Sign_File,Sign, int>(net,container, SIGN, "SIGN");
+	Convert<Timing_File,Timing, int>(net,container, TIMING_PLAN, "TIMING_PLAN");
+	Convert<Phasing_File,Phasing, int>(net,container, PHASING_PLAN, "PHASING_PLAN");
+	Convert<Connect_File,Connect, int>(net,container, CONNECTION, "CONNECTION");
+	Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE");
+	Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP");
+	ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef");
 	//ConvertShape(net);
 
 	cout << "Press any key...\n";

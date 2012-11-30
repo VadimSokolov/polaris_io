@@ -16,6 +16,24 @@
 using std::tr1::shared_ptr;
 namespace pio
 {
+#pragma db value
+class shape_geometry
+{
+public:
+	double x;
+	double y;
+	double z;
+};
+#pragma db value
+class signal_time
+{
+public:
+	double start;
+	double end;
+	int timing;
+	int phasing;
+	std::string notes;
+};
 //Forward declarations.
 //
 class Node;
@@ -165,8 +183,8 @@ public:
 	// Default Constructor
 	Shape () {}	
 	//Contructor
-	Shape ( shared_ptr<Link> link_, int points_, double x_, double y_, double z_ )  
-	: link (link_), points (points_), x (x_), y (y_), z (z_)
+	Shape ( shared_ptr<Link> link_, int points_ )  
+	: link (link_), points (points_)
 	{
 	}
 	//Accessors
@@ -175,14 +193,12 @@ public:
 	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
 	const int& getPoints () const {return points;}
 	void setPoints (const int& points_){points = points_;}
-	const double& getX () const {return x;}
-	void setX (const double& x_){x = x_;}
-	const double& getY () const {return y;}
-	void setY (const double& y_){y = y_;}
-	const double& getZ () const {return z;}
-	void setZ (const double& z_){z = z_;}
 	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
+
+
+	//Vector that contains the associated nested records
+	 std::vector<shape_geometry> nested_records;
 
 //Data Fields
 private:
@@ -191,9 +207,6 @@ private:
 	unsigned long auto_id;
 	shared_ptr<Link> link;
 	int points;
-	double x;
-	double y;
-	double z;
 
 };
 
@@ -726,8 +739,8 @@ public:
 	// Default Constructor
 	Signal () {}	
 	//Contructor
-	Signal ( int signal_, int group_, int times_, double start_, double end_, int timing_, int phasing_, std::string type_, int offset_ )  
-	: signal (signal_), group (group_), times (times_), start (start_), end (end_), timing (timing_), phasing (phasing_), type (type_), offset (offset_)
+	Signal ( int signal_, int group_, int times_, std::string type_, int offset_ )  
+	: signal (signal_), group (group_), times (times_), type (type_), offset (offset_)
 	{
 	}
 	//Accessors
@@ -737,19 +750,15 @@ public:
 	void setGroup (const int& group_){group = group_;}
 	const int& getTimes () const {return times;}
 	void setTimes (const int& times_){times = times_;}
-	const double& getStart () const {return start;}
-	void setStart (const double& start_){start = start_;}
-	const double& getEnd () const {return end;}
-	void setEnd (const double& end_){end = end_;}
-	const int& getTiming () const {return timing;}
-	void setTiming (const int& timing_){timing = timing_;}
-	const int& getPhasing () const {return phasing;}
-	void setPhasing (const int& phasing_){phasing = phasing_;}
 	const std::string& getType () const {return type;}
 	void setType (const std::string& type_){type = type_;}
 	const int& getOffset () const {return offset;}
 	void setOffset (const int& offset_){offset = offset_;}
 	const int& getPrimaryKey () const {return signal;}
+
+
+	//Vector that contains the associated nested records
+	 std::vector<signal_time> nested_records;
 
 //Data Fields
 private:
@@ -758,10 +767,6 @@ private:
 	int signal;
 	int group;
 	int times;
-	double start;
-	double end;
-	int timing;
-	int phasing;
 	std::string type;
 	int offset;
 	#pragma db index member(signal)

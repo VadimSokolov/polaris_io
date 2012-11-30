@@ -41,6 +41,119 @@
 
 namespace odb
 {
+  // shape_geometry
+  //
+  template <>
+  struct class_traits< ::pio::shape_geometry >
+  {
+    static const class_kind kind = class_composite;
+  };
+
+  template <>
+  class access::composite_value_traits< ::pio::shape_geometry >
+  {
+    public:
+    typedef ::pio::shape_geometry value_type;
+
+    struct image_type
+    {
+      // x
+      //
+      double x_value;
+      bool x_null;
+
+      // y
+      //
+      double y_value;
+      bool y_null;
+
+      // z
+      //
+      double z_value;
+      bool z_null;
+    };
+
+    static bool
+    grow (image_type&, bool*);
+
+    static void
+    bind (sqlite::bind*, image_type&, sqlite::statement_kind);
+
+    static bool
+    init (image_type&, const value_type&, sqlite::statement_kind);
+
+    static void
+    init (value_type&, const image_type&, database*);
+
+    static bool
+    get_null (const image_type&);
+
+    static void
+    set_null (image_type&, sqlite::statement_kind);
+  };
+
+  // signal_time
+  //
+  template <>
+  struct class_traits< ::pio::signal_time >
+  {
+    static const class_kind kind = class_composite;
+  };
+
+  template <>
+  class access::composite_value_traits< ::pio::signal_time >
+  {
+    public:
+    typedef ::pio::signal_time value_type;
+
+    struct image_type
+    {
+      // start
+      //
+      double start_value;
+      bool start_null;
+
+      // end
+      //
+      double end_value;
+      bool end_null;
+
+      // timing
+      //
+      long long timing_value;
+      bool timing_null;
+
+      // phasing
+      //
+      long long phasing_value;
+      bool phasing_null;
+
+      // notes
+      //
+      details::buffer notes_value;
+      std::size_t notes_size;
+      bool notes_null;
+    };
+
+    static bool
+    grow (image_type&, bool*);
+
+    static void
+    bind (sqlite::bind*, image_type&, sqlite::statement_kind);
+
+    static bool
+    init (image_type&, const value_type&, sqlite::statement_kind);
+
+    static void
+    init (value_type&, const image_type&, database*);
+
+    static bool
+    get_null (const image_type&);
+
+    static void
+    set_null (image_type&, sqlite::statement_kind);
+  };
+
   // Node
   //
   template <>
@@ -705,42 +818,6 @@ namespace odb
     points_type_;
 
     static const points_type_ points;
-
-    // x
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    x_type_;
-
-    static const x_type_ x;
-
-    // y
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    y_type_;
-
-    static const y_type_ y;
-
-    // z
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    z_type_;
-
-    static const z_type_ z;
   };
 
   template <typename A>
@@ -757,21 +834,6 @@ namespace odb
   const typename pointer_query_columns< ::pio::Shape, A >::points_type_
   pointer_query_columns< ::pio::Shape, A >::
   points (A::table_name, "\"points\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Shape, A >::x_type_
-  pointer_query_columns< ::pio::Shape, A >::
-  x (A::table_name, "\"x\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Shape, A >::y_type_
-  pointer_query_columns< ::pio::Shape, A >::
-  y (A::table_name, "\"y\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Shape, A >::z_type_
-  pointer_query_columns< ::pio::Shape, A >::
-  z (A::table_name, "\"z\"", 0);
 
   template <>
   class access::object_traits< ::pio::Shape >
@@ -813,22 +875,102 @@ namespace odb
       long long points_value;
       bool points_null;
 
-      // x
-      //
-      double x_value;
-      bool x_null;
-
-      // y
-      //
-      double y_value;
-      bool y_null;
-
-      // z
-      //
-      double z_value;
-      bool z_null;
-
       std::size_t version;
+    };
+
+    // nested_records
+    //
+    struct nested_records_traits
+    {
+      static const std::size_t id_column_count = 1UL;
+      static const std::size_t cond_column_count = 1UL;
+      static const std::size_t data_column_count = 5UL;
+
+      static const char insert_one_statement[];
+      static const char select_all_statement[];
+      static const char delete_all_statement[];
+
+      typedef ::std::vector< ::pio::shape_geometry > container_type;
+      typedef
+      odb::access::container_traits<container_type>
+      container_traits_type;
+      typedef container_traits_type::index_type index_type;
+      typedef container_traits_type::value_type value_type;
+
+      typedef ordered_functions<index_type, value_type> functions_type;
+      typedef sqlite::container_statements< nested_records_traits > statements_type;
+
+      struct cond_image_type
+      {
+        // index
+        //
+        long long index_value;
+        bool index_null;
+
+        std::size_t version;
+      };
+
+      struct data_image_type
+      {
+        // index
+        //
+        long long index_value;
+        bool index_null;
+
+        // value
+        //
+        composite_value_traits< value_type >::image_type value_value;
+
+        std::size_t version;
+      };
+
+      static void
+      bind (sqlite::bind*,
+            const sqlite::bind* id,
+            std::size_t id_size,
+            cond_image_type&);
+
+      static void
+      bind (sqlite::bind*,
+            const sqlite::bind* id,
+            std::size_t id_size,
+            data_image_type&);
+
+      static void
+      grow (data_image_type&, bool*);
+
+      static void
+      init (data_image_type&, index_type, const value_type&);
+
+      static void
+      init (index_type&, value_type&, const data_image_type&, database*);
+
+      static void
+      insert_one (index_type, const value_type&, void*);
+
+      static bool
+      load_all (index_type&, value_type&, void*);
+
+      static void
+      delete_all (void*);
+
+      static void
+      persist (const container_type&,
+               const sqlite::binding& id,
+               statements_type&);
+
+      static void
+      load (container_type&,
+            const sqlite::binding& id,
+            statements_type&);
+
+      static void
+      update (const container_type&,
+              const sqlite::binding& id,
+              statements_type&);
+
+      static void
+      erase (const sqlite::binding& id, statements_type&);
     };
 
     static id_type
@@ -870,7 +1012,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 6UL;
+    static const std::size_t column_count = 3UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -4579,54 +4721,6 @@ namespace odb
 
     static const times_type_ times;
 
-    // start
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    start_type_;
-
-    static const start_type_ start;
-
-    // end
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    end_type_;
-
-    static const end_type_ end;
-
-    // timing
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    timing_type_;
-
-    static const timing_type_ timing;
-
-    // phasing
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    phasing_type_;
-
-    static const phasing_type_ phasing;
-
     // type
     //
     typedef
@@ -4666,26 +4760,6 @@ namespace odb
   const typename query_columns< ::pio::Signal, A >::times_type_
   query_columns< ::pio::Signal, A >::
   times (A::table_name, "\"times\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::start_type_
-  query_columns< ::pio::Signal, A >::
-  start (A::table_name, "\"start\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::end_type_
-  query_columns< ::pio::Signal, A >::
-  end (A::table_name, "\"end\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::timing_type_
-  query_columns< ::pio::Signal, A >::
-  timing (A::table_name, "\"timing\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Signal, A >::phasing_type_
-  query_columns< ::pio::Signal, A >::
-  phasing (A::table_name, "\"phasing\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Signal, A >::type_type_
@@ -4743,26 +4817,6 @@ namespace odb
       long long times_value;
       bool times_null;
 
-      // start
-      //
-      double start_value;
-      bool start_null;
-
-      // end
-      //
-      double end_value;
-      bool end_null;
-
-      // timing
-      //
-      long long timing_value;
-      bool timing_null;
-
-      // phasing
-      //
-      long long phasing_value;
-      bool phasing_null;
-
       // type
       //
       details::buffer type_value;
@@ -4775,6 +4829,101 @@ namespace odb
       bool offset_null;
 
       std::size_t version;
+    };
+
+    // nested_records
+    //
+    struct nested_records_traits
+    {
+      static const std::size_t id_column_count = 1UL;
+      static const std::size_t cond_column_count = 1UL;
+      static const std::size_t data_column_count = 7UL;
+
+      static const char insert_one_statement[];
+      static const char select_all_statement[];
+      static const char delete_all_statement[];
+
+      typedef ::std::vector< ::pio::signal_time > container_type;
+      typedef
+      odb::access::container_traits<container_type>
+      container_traits_type;
+      typedef container_traits_type::index_type index_type;
+      typedef container_traits_type::value_type value_type;
+
+      typedef ordered_functions<index_type, value_type> functions_type;
+      typedef sqlite::container_statements< nested_records_traits > statements_type;
+
+      struct cond_image_type
+      {
+        // index
+        //
+        long long index_value;
+        bool index_null;
+
+        std::size_t version;
+      };
+
+      struct data_image_type
+      {
+        // index
+        //
+        long long index_value;
+        bool index_null;
+
+        // value
+        //
+        composite_value_traits< value_type >::image_type value_value;
+
+        std::size_t version;
+      };
+
+      static void
+      bind (sqlite::bind*,
+            const sqlite::bind* id,
+            std::size_t id_size,
+            cond_image_type&);
+
+      static void
+      bind (sqlite::bind*,
+            const sqlite::bind* id,
+            std::size_t id_size,
+            data_image_type&);
+
+      static void
+      grow (data_image_type&, bool*);
+
+      static void
+      init (data_image_type&, index_type, const value_type&);
+
+      static void
+      init (index_type&, value_type&, const data_image_type&, database*);
+
+      static void
+      insert_one (index_type, const value_type&, void*);
+
+      static bool
+      load_all (index_type&, value_type&, void*);
+
+      static void
+      delete_all (void*);
+
+      static void
+      persist (const container_type&,
+               const sqlite::binding& id,
+               statements_type&);
+
+      static void
+      load (container_type&,
+            const sqlite::binding& id,
+            statements_type&);
+
+      static void
+      update (const container_type&,
+              const sqlite::binding& id,
+              statements_type&);
+
+      static void
+      erase (const sqlite::binding& id, statements_type&);
     };
 
     static id_type
@@ -4816,7 +4965,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 9UL;
+    static const std::size_t column_count = 5UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -13829,42 +13978,6 @@ namespace odb
     points_type_;
 
     static const points_type_ points;
-
-    // x
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    x_type_;
-
-    static const x_type_ x;
-
-    // y
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    y_type_;
-
-    static const y_type_ y;
-
-    // z
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        double,
-        sqlite::id_real >::query_type,
-      sqlite::id_real >
-    z_type_;
-
-    static const z_type_ z;
   };
 
   template <typename A>
@@ -13881,21 +13994,6 @@ namespace odb
   const typename query_columns< ::pio::Shape, A >::points_type_
   query_columns< ::pio::Shape, A >::
   points (A::table_name, "\"points\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Shape, A >::x_type_
-  query_columns< ::pio::Shape, A >::
-  x (A::table_name, "\"x\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Shape, A >::y_type_
-  query_columns< ::pio::Shape, A >::
-  y (A::table_name, "\"y\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Shape, A >::z_type_
-  query_columns< ::pio::Shape, A >::
-  z (A::table_name, "\"z\"", 0);
 
   // Link
   //
