@@ -813,56 +813,56 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Node >::persist_statement[] =
-  "INSERT INTO \"Node\" ("
-  "\"node\","
-  "\"x\","
-  "\"y\","
-  "\"z\","
-  "\"subarea\","
-  "\"part\")"
+  "INSERT INTO \"NODE\" ("
+  "\"NODE\","
+  "\"X\","
+  "\"Y\","
+  "\"Z\","
+  "\"SUBAREA\","
+  "\"PART\")"
   " VALUES (?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Node >::find_statement[] =
   "SELECT "
-  "\"Node\".\"node\","
-  "\"Node\".\"x\","
-  "\"Node\".\"y\","
-  "\"Node\".\"z\","
-  "\"Node\".\"subarea\","
-  "\"Node\".\"part\""
-  " FROM \"Node\""
-  " WHERE \"Node\".\"node\"=?";
+  "\"NODE\".\"NODE\","
+  "\"NODE\".\"X\","
+  "\"NODE\".\"Y\","
+  "\"NODE\".\"Z\","
+  "\"NODE\".\"SUBAREA\","
+  "\"NODE\".\"PART\""
+  " FROM \"NODE\""
+  " WHERE \"NODE\".\"NODE\"=?";
 
   const char access::object_traits< ::pio::Node >::update_statement[] =
-  "UPDATE \"Node\" SET "
-  "\"x\"=?,"
-  "\"y\"=?,"
-  "\"z\"=?,"
-  "\"subarea\"=?,"
-  "\"part\"=?"
-  " WHERE \"node\"=?";
+  "UPDATE \"NODE\" SET "
+  "\"X\"=?,"
+  "\"Y\"=?,"
+  "\"Z\"=?,"
+  "\"SUBAREA\"=?,"
+  "\"PART\"=?"
+  " WHERE \"NODE\"=?";
 
   const char access::object_traits< ::pio::Node >::erase_statement[] =
-  "DELETE FROM \"Node\""
-  " WHERE \"node\"=?";
+  "DELETE FROM \"NODE\""
+  " WHERE \"NODE\"=?";
 
   const char access::object_traits< ::pio::Node >::query_statement[] =
   "SELECT "
-  "\"Node\".\"node\","
-  "\"Node\".\"x\","
-  "\"Node\".\"y\","
-  "\"Node\".\"z\","
-  "\"Node\".\"subarea\","
-  "\"Node\".\"part\""
-  " FROM \"Node\""
+  "\"NODE\".\"NODE\","
+  "\"NODE\".\"X\","
+  "\"NODE\".\"Y\","
+  "\"NODE\".\"Z\","
+  "\"NODE\".\"SUBAREA\","
+  "\"NODE\".\"PART\""
+  " FROM \"NODE\""
   " ";
 
   const char access::object_traits< ::pio::Node >::erase_query_statement[] =
-  "DELETE FROM \"Node\""
+  "DELETE FROM \"NODE\""
   " ";
 
   const char access::object_traits< ::pio::Node >::table_name[] =
-  "\"Node\"";
+  "\"NODE\"";
 
   void access::object_traits< ::pio::Node >::
   persist (database& db, const object_type& obj)
@@ -1209,7 +1209,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Node\"");
+          db.execute ("DROP TABLE IF EXISTS \"NODE\"");
           return false;
         }
       }
@@ -1220,15 +1220,15 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Node\" (\n"
-                      "  \"node\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"x\" REAL,\n"
-                      "  \"y\" REAL,\n"
-                      "  \"z\" REAL,\n"
-                      "  \"subarea\" INTEGER NOT NULL,\n"
-                      "  \"part\" INTEGER NOT NULL)");
-          db.execute ("CREATE INDEX \"Node_node_i\"\n"
-                      "  ON \"Node\" (\"node\")");
+          db.execute ("CREATE TABLE \"NODE\" (\n"
+                      "  \"NODE\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"X\" REAL,\n"
+                      "  \"Y\" REAL,\n"
+                      "  \"Z\" REAL,\n"
+                      "  \"SUBAREA\" INTEGER NOT NULL,\n"
+                      "  \"PART\" INTEGER NOT NULL)");
+          db.execute ("CREATE INDEX \"NODE_NODE_i\"\n"
+                      "  ON \"NODE\" (\"NODE\")");
           return false;
         }
       }
@@ -1715,68 +1715,68 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Zone >::persist_statement[] =
-  "INSERT INTO \"Zone\" ("
-  "\"zone\","
-  "\"x\","
-  "\"y\","
-  "\"z\","
-  "\"area\","
-  "\"min_x\","
-  "\"min_y\","
-  "\"max_x\","
-  "\"max_y\")"
+  "INSERT INTO \"ZONE\" ("
+  "\"ZONE\","
+  "\"X\","
+  "\"Y\","
+  "\"Z\","
+  "\"AREA\","
+  "\"MIN_X\","
+  "\"MIN_Y\","
+  "\"MAX_X\","
+  "\"MAX_Y\")"
   " VALUES (?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Zone >::find_statement[] =
   "SELECT "
-  "\"Zone\".\"zone\","
-  "\"Zone\".\"x\","
-  "\"Zone\".\"y\","
-  "\"Zone\".\"z\","
-  "\"Zone\".\"area\","
-  "\"Zone\".\"min_x\","
-  "\"Zone\".\"min_y\","
-  "\"Zone\".\"max_x\","
-  "\"Zone\".\"max_y\""
-  " FROM \"Zone\""
-  " WHERE \"Zone\".\"zone\"=?";
+  "\"ZONE\".\"ZONE\","
+  "\"ZONE\".\"X\","
+  "\"ZONE\".\"Y\","
+  "\"ZONE\".\"Z\","
+  "\"ZONE\".\"AREA\","
+  "\"ZONE\".\"MIN_X\","
+  "\"ZONE\".\"MIN_Y\","
+  "\"ZONE\".\"MAX_X\","
+  "\"ZONE\".\"MAX_Y\""
+  " FROM \"ZONE\""
+  " WHERE \"ZONE\".\"ZONE\"=?";
 
   const char access::object_traits< ::pio::Zone >::update_statement[] =
-  "UPDATE \"Zone\" SET "
-  "\"x\"=?,"
-  "\"y\"=?,"
-  "\"z\"=?,"
-  "\"area\"=?,"
-  "\"min_x\"=?,"
-  "\"min_y\"=?,"
-  "\"max_x\"=?,"
-  "\"max_y\"=?"
-  " WHERE \"zone\"=?";
+  "UPDATE \"ZONE\" SET "
+  "\"X\"=?,"
+  "\"Y\"=?,"
+  "\"Z\"=?,"
+  "\"AREA\"=?,"
+  "\"MIN_X\"=?,"
+  "\"MIN_Y\"=?,"
+  "\"MAX_X\"=?,"
+  "\"MAX_Y\"=?"
+  " WHERE \"ZONE\"=?";
 
   const char access::object_traits< ::pio::Zone >::erase_statement[] =
-  "DELETE FROM \"Zone\""
-  " WHERE \"zone\"=?";
+  "DELETE FROM \"ZONE\""
+  " WHERE \"ZONE\"=?";
 
   const char access::object_traits< ::pio::Zone >::query_statement[] =
   "SELECT "
-  "\"Zone\".\"zone\","
-  "\"Zone\".\"x\","
-  "\"Zone\".\"y\","
-  "\"Zone\".\"z\","
-  "\"Zone\".\"area\","
-  "\"Zone\".\"min_x\","
-  "\"Zone\".\"min_y\","
-  "\"Zone\".\"max_x\","
-  "\"Zone\".\"max_y\""
-  " FROM \"Zone\""
+  "\"ZONE\".\"ZONE\","
+  "\"ZONE\".\"X\","
+  "\"ZONE\".\"Y\","
+  "\"ZONE\".\"Z\","
+  "\"ZONE\".\"AREA\","
+  "\"ZONE\".\"MIN_X\","
+  "\"ZONE\".\"MIN_Y\","
+  "\"ZONE\".\"MAX_X\","
+  "\"ZONE\".\"MAX_Y\""
+  " FROM \"ZONE\""
   " ";
 
   const char access::object_traits< ::pio::Zone >::erase_query_statement[] =
-  "DELETE FROM \"Zone\""
+  "DELETE FROM \"ZONE\""
   " ";
 
   const char access::object_traits< ::pio::Zone >::table_name[] =
-  "\"Zone\"";
+  "\"ZONE\"";
 
   void access::object_traits< ::pio::Zone >::
   persist (database& db, const object_type& obj)
@@ -2123,7 +2123,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Zone\"");
+          db.execute ("DROP TABLE IF EXISTS \"ZONE\"");
           return false;
         }
       }
@@ -2134,18 +2134,18 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Zone\" (\n"
-                      "  \"zone\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"x\" REAL,\n"
-                      "  \"y\" REAL,\n"
-                      "  \"z\" REAL,\n"
-                      "  \"area\" INTEGER NOT NULL,\n"
-                      "  \"min_x\" REAL,\n"
-                      "  \"min_y\" REAL,\n"
-                      "  \"max_x\" REAL,\n"
-                      "  \"max_y\" REAL)");
-          db.execute ("CREATE INDEX \"Zone_zone_i\"\n"
-                      "  ON \"Zone\" (\"zone\")");
+          db.execute ("CREATE TABLE \"ZONE\" (\n"
+                      "  \"ZONE\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"X\" REAL,\n"
+                      "  \"Y\" REAL,\n"
+                      "  \"Z\" REAL,\n"
+                      "  \"AREA\" INTEGER NOT NULL,\n"
+                      "  \"MIN_X\" REAL,\n"
+                      "  \"MIN_Y\" REAL,\n"
+                      "  \"MAX_X\" REAL,\n"
+                      "  \"MAX_Y\" REAL)");
+          db.execute ("CREATE INDEX \"ZONE_ZONE_i\"\n"
+                      "  ON \"ZONE\" (\"ZONE\")");
           return false;
         }
       }
@@ -2168,17 +2168,17 @@ namespace odb
   const char access::object_traits< ::pio::Shape >::nested_records_traits::
   select_all_statement[] =
   "SELECT "
-  "\"Shape_nested_records\".\"index\","
-  "\"Shape_nested_records\".\"value_x\","
-  "\"Shape_nested_records\".\"value_y\","
-  "\"Shape_nested_records\".\"value_z\""
-  " FROM \"Shape_nested_records\""
-  " WHERE \"Shape_nested_records\".\"object_id\"=?"
-  " ORDER BY \"Shape_nested_records\".\"index\"";
+  "\"SHAPE_nested_records\".\"index\","
+  "\"SHAPE_nested_records\".\"value_x\","
+  "\"SHAPE_nested_records\".\"value_y\","
+  "\"SHAPE_nested_records\".\"value_z\""
+  " FROM \"SHAPE_nested_records\""
+  " WHERE \"SHAPE_nested_records\".\"object_id\"=?"
+  " ORDER BY \"SHAPE_nested_records\".\"index\"";
 
   const char access::object_traits< ::pio::Shape >::nested_records_traits::
   insert_one_statement[] =
-  "INSERT INTO \"Shape_nested_records\" ("
+  "INSERT INTO \"SHAPE_nested_records\" ("
   "\"object_id\","
   "\"index\","
   "\"value_x\","
@@ -2188,7 +2188,7 @@ namespace odb
 
   const char access::object_traits< ::pio::Shape >::nested_records_traits::
   delete_all_statement[] =
-  "DELETE FROM \"Shape_nested_records\""
+  "DELETE FROM \"SHAPE_nested_records\""
   " WHERE \"object_id\"=?";
 
   void access::object_traits< ::pio::Shape >::nested_records_traits::
@@ -2729,45 +2729,45 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Shape >::persist_statement[] =
-  "INSERT INTO \"Shape\" ("
+  "INSERT INTO \"SHAPE\" ("
   "\"auto_id\","
-  "\"link\","
-  "\"points\")"
+  "\"LINK\","
+  "\"POINTS\")"
   " VALUES (?,?,?)";
 
   const char access::object_traits< ::pio::Shape >::find_statement[] =
   "SELECT "
-  "\"Shape\".\"auto_id\","
-  "\"Shape\".\"link\","
-  "\"Shape\".\"points\""
-  " FROM \"Shape\""
-  " WHERE \"Shape\".\"auto_id\"=?";
+  "\"SHAPE\".\"auto_id\","
+  "\"SHAPE\".\"LINK\","
+  "\"SHAPE\".\"POINTS\""
+  " FROM \"SHAPE\""
+  " WHERE \"SHAPE\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Shape >::update_statement[] =
-  "UPDATE \"Shape\" SET "
-  "\"link\"=?,"
-  "\"points\"=?"
+  "UPDATE \"SHAPE\" SET "
+  "\"LINK\"=?,"
+  "\"POINTS\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Shape >::erase_statement[] =
-  "DELETE FROM \"Shape\""
+  "DELETE FROM \"SHAPE\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Shape >::query_statement[] =
   "SELECT "
-  "\"Shape\".\"auto_id\","
-  "\"Shape\".\"link\","
-  "\"Shape\".\"points\""
-  " FROM \"Shape\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Shape\".\"link\""
+  "\"SHAPE\".\"auto_id\","
+  "\"SHAPE\".\"LINK\","
+  "\"SHAPE\".\"POINTS\""
+  " FROM \"SHAPE\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"SHAPE\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Shape >::erase_query_statement[] =
-  "DELETE FROM \"Shape\""
+  "DELETE FROM \"SHAPE\""
   " ";
 
   const char access::object_traits< ::pio::Shape >::table_name[] =
-  "\"Shape\"";
+  "\"SHAPE\"";
 
   void access::object_traits< ::pio::Shape >::
   persist (database& db, object_type& obj)
@@ -3177,8 +3177,8 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Shape_nested_records\"");
-          db.execute ("DROP TABLE IF EXISTS \"Shape\"");
+          db.execute ("DROP TABLE IF EXISTS \"SHAPE_nested_records\"");
+          db.execute ("DROP TABLE IF EXISTS \"SHAPE\"");
           return false;
         }
       }
@@ -3189,15 +3189,15 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Shape\" (\n"
+          db.execute ("CREATE TABLE \"SHAPE\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"points\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"POINTS\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
-          db.execute ("CREATE TABLE \"Shape_nested_records\" (\n"
+          db.execute ("CREATE TABLE \"SHAPE_nested_records\" (\n"
                       "  \"object_id\" INTEGER NOT NULL,\n"
                       "  \"index\" INTEGER NOT NULL,\n"
                       "  \"value_x\" REAL,\n"
@@ -3205,12 +3205,12 @@ namespace odb
                       "  \"value_z\" REAL,\n"
                       "  CONSTRAINT \"object_id_fk\"\n"
                       "    FOREIGN KEY (\"object_id\")\n"
-                      "    REFERENCES \"Shape\" (\"auto_id\")\n"
+                      "    REFERENCES \"SHAPE\" (\"auto_id\")\n"
                       "    ON DELETE CASCADE)");
-          db.execute ("CREATE INDEX \"Shape_nested_records_object_id_i\"\n"
-                      "  ON \"Shape_nested_records\" (\"object_id\")");
-          db.execute ("CREATE INDEX \"Shape_nested_records_index_i\"\n"
-                      "  ON \"Shape_nested_records\" (\"index\")");
+          db.execute ("CREATE INDEX \"SHAPE_nested_records_object_id_i\"\n"
+                      "  ON \"SHAPE_nested_records\" (\"object_id\")");
+          db.execute ("CREATE INDEX \"SHAPE_nested_records_index_i\"\n"
+                      "  ON \"SHAPE_nested_records\" (\"index\")");
           return false;
         }
       }
@@ -4472,138 +4472,138 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Link >::persist_statement[] =
-  "INSERT INTO \"Link\" ("
-  "\"link\","
-  "\"name\","
-  "\"node_a\","
-  "\"node_b\","
-  "\"length\","
-  "\"setback_a\","
-  "\"setback_b\","
-  "\"bearing_a\","
-  "\"bearing_b\","
-  "\"type\","
-  "\"divided\","
-  "\"area_type\","
-  "\"use\","
-  "\"grade\","
-  "\"lanes_ab\","
-  "\"speed_ab\","
-  "\"fspd_ab\","
-  "\"cap_ab\","
-  "\"lanes_ba\","
-  "\"speed_ba\","
-  "\"fspd_ba\","
-  "\"cap_ba\","
-  "\"left_ab\","
-  "\"right_ab\","
-  "\"left_ba\","
-  "\"right_ba\")"
+  "INSERT INTO \"LINK\" ("
+  "\"LINK\","
+  "\"NAME\","
+  "\"NODE_A\","
+  "\"NODE_B\","
+  "\"LENGTH\","
+  "\"SETBACK_A\","
+  "\"SETBACK_B\","
+  "\"BEARING_A\","
+  "\"BEARING_B\","
+  "\"TYPE\","
+  "\"DIVIDED\","
+  "\"AREA_TYPE\","
+  "\"USE\","
+  "\"GRADE\","
+  "\"LANES_AB\","
+  "\"SPEED_AB\","
+  "\"FSPD_AB\","
+  "\"CAP_AB\","
+  "\"LANES_BA\","
+  "\"SPEED_BA\","
+  "\"FSPD_BA\","
+  "\"CAP_BA\","
+  "\"LEFT_AB\","
+  "\"RIGHT_AB\","
+  "\"LEFT_BA\","
+  "\"RIGHT_BA\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Link >::find_statement[] =
   "SELECT "
-  "\"Link\".\"link\","
-  "\"Link\".\"name\","
-  "\"Link\".\"node_a\","
-  "\"Link\".\"node_b\","
-  "\"Link\".\"length\","
-  "\"Link\".\"setback_a\","
-  "\"Link\".\"setback_b\","
-  "\"Link\".\"bearing_a\","
-  "\"Link\".\"bearing_b\","
-  "\"Link\".\"type\","
-  "\"Link\".\"divided\","
-  "\"Link\".\"area_type\","
-  "\"Link\".\"use\","
-  "\"Link\".\"grade\","
-  "\"Link\".\"lanes_ab\","
-  "\"Link\".\"speed_ab\","
-  "\"Link\".\"fspd_ab\","
-  "\"Link\".\"cap_ab\","
-  "\"Link\".\"lanes_ba\","
-  "\"Link\".\"speed_ba\","
-  "\"Link\".\"fspd_ba\","
-  "\"Link\".\"cap_ba\","
-  "\"Link\".\"left_ab\","
-  "\"Link\".\"right_ab\","
-  "\"Link\".\"left_ba\","
-  "\"Link\".\"right_ba\""
-  " FROM \"Link\""
-  " WHERE \"Link\".\"link\"=?";
+  "\"LINK\".\"LINK\","
+  "\"LINK\".\"NAME\","
+  "\"LINK\".\"NODE_A\","
+  "\"LINK\".\"NODE_B\","
+  "\"LINK\".\"LENGTH\","
+  "\"LINK\".\"SETBACK_A\","
+  "\"LINK\".\"SETBACK_B\","
+  "\"LINK\".\"BEARING_A\","
+  "\"LINK\".\"BEARING_B\","
+  "\"LINK\".\"TYPE\","
+  "\"LINK\".\"DIVIDED\","
+  "\"LINK\".\"AREA_TYPE\","
+  "\"LINK\".\"USE\","
+  "\"LINK\".\"GRADE\","
+  "\"LINK\".\"LANES_AB\","
+  "\"LINK\".\"SPEED_AB\","
+  "\"LINK\".\"FSPD_AB\","
+  "\"LINK\".\"CAP_AB\","
+  "\"LINK\".\"LANES_BA\","
+  "\"LINK\".\"SPEED_BA\","
+  "\"LINK\".\"FSPD_BA\","
+  "\"LINK\".\"CAP_BA\","
+  "\"LINK\".\"LEFT_AB\","
+  "\"LINK\".\"RIGHT_AB\","
+  "\"LINK\".\"LEFT_BA\","
+  "\"LINK\".\"RIGHT_BA\""
+  " FROM \"LINK\""
+  " WHERE \"LINK\".\"LINK\"=?";
 
   const char access::object_traits< ::pio::Link >::update_statement[] =
-  "UPDATE \"Link\" SET "
-  "\"name\"=?,"
-  "\"node_a\"=?,"
-  "\"node_b\"=?,"
-  "\"length\"=?,"
-  "\"setback_a\"=?,"
-  "\"setback_b\"=?,"
-  "\"bearing_a\"=?,"
-  "\"bearing_b\"=?,"
-  "\"type\"=?,"
-  "\"divided\"=?,"
-  "\"area_type\"=?,"
-  "\"use\"=?,"
-  "\"grade\"=?,"
-  "\"lanes_ab\"=?,"
-  "\"speed_ab\"=?,"
-  "\"fspd_ab\"=?,"
-  "\"cap_ab\"=?,"
-  "\"lanes_ba\"=?,"
-  "\"speed_ba\"=?,"
-  "\"fspd_ba\"=?,"
-  "\"cap_ba\"=?,"
-  "\"left_ab\"=?,"
-  "\"right_ab\"=?,"
-  "\"left_ba\"=?,"
-  "\"right_ba\"=?"
-  " WHERE \"link\"=?";
+  "UPDATE \"LINK\" SET "
+  "\"NAME\"=?,"
+  "\"NODE_A\"=?,"
+  "\"NODE_B\"=?,"
+  "\"LENGTH\"=?,"
+  "\"SETBACK_A\"=?,"
+  "\"SETBACK_B\"=?,"
+  "\"BEARING_A\"=?,"
+  "\"BEARING_B\"=?,"
+  "\"TYPE\"=?,"
+  "\"DIVIDED\"=?,"
+  "\"AREA_TYPE\"=?,"
+  "\"USE\"=?,"
+  "\"GRADE\"=?,"
+  "\"LANES_AB\"=?,"
+  "\"SPEED_AB\"=?,"
+  "\"FSPD_AB\"=?,"
+  "\"CAP_AB\"=?,"
+  "\"LANES_BA\"=?,"
+  "\"SPEED_BA\"=?,"
+  "\"FSPD_BA\"=?,"
+  "\"CAP_BA\"=?,"
+  "\"LEFT_AB\"=?,"
+  "\"RIGHT_AB\"=?,"
+  "\"LEFT_BA\"=?,"
+  "\"RIGHT_BA\"=?"
+  " WHERE \"LINK\"=?";
 
   const char access::object_traits< ::pio::Link >::erase_statement[] =
-  "DELETE FROM \"Link\""
-  " WHERE \"link\"=?";
+  "DELETE FROM \"LINK\""
+  " WHERE \"LINK\"=?";
 
   const char access::object_traits< ::pio::Link >::query_statement[] =
   "SELECT "
-  "\"Link\".\"link\","
-  "\"Link\".\"name\","
-  "\"Link\".\"node_a\","
-  "\"Link\".\"node_b\","
-  "\"Link\".\"length\","
-  "\"Link\".\"setback_a\","
-  "\"Link\".\"setback_b\","
-  "\"Link\".\"bearing_a\","
-  "\"Link\".\"bearing_b\","
-  "\"Link\".\"type\","
-  "\"Link\".\"divided\","
-  "\"Link\".\"area_type\","
-  "\"Link\".\"use\","
-  "\"Link\".\"grade\","
-  "\"Link\".\"lanes_ab\","
-  "\"Link\".\"speed_ab\","
-  "\"Link\".\"fspd_ab\","
-  "\"Link\".\"cap_ab\","
-  "\"Link\".\"lanes_ba\","
-  "\"Link\".\"speed_ba\","
-  "\"Link\".\"fspd_ba\","
-  "\"Link\".\"cap_ba\","
-  "\"Link\".\"left_ab\","
-  "\"Link\".\"right_ab\","
-  "\"Link\".\"left_ba\","
-  "\"Link\".\"right_ba\""
-  " FROM \"Link\""
-  " LEFT JOIN \"Node\" AS \"node_a\" ON \"node_a\".\"node\"=\"Link\".\"node_a\""
-  " LEFT JOIN \"Node\" AS \"node_b\" ON \"node_b\".\"node\"=\"Link\".\"node_b\""
+  "\"LINK\".\"LINK\","
+  "\"LINK\".\"NAME\","
+  "\"LINK\".\"NODE_A\","
+  "\"LINK\".\"NODE_B\","
+  "\"LINK\".\"LENGTH\","
+  "\"LINK\".\"SETBACK_A\","
+  "\"LINK\".\"SETBACK_B\","
+  "\"LINK\".\"BEARING_A\","
+  "\"LINK\".\"BEARING_B\","
+  "\"LINK\".\"TYPE\","
+  "\"LINK\".\"DIVIDED\","
+  "\"LINK\".\"AREA_TYPE\","
+  "\"LINK\".\"USE\","
+  "\"LINK\".\"GRADE\","
+  "\"LINK\".\"LANES_AB\","
+  "\"LINK\".\"SPEED_AB\","
+  "\"LINK\".\"FSPD_AB\","
+  "\"LINK\".\"CAP_AB\","
+  "\"LINK\".\"LANES_BA\","
+  "\"LINK\".\"SPEED_BA\","
+  "\"LINK\".\"FSPD_BA\","
+  "\"LINK\".\"CAP_BA\","
+  "\"LINK\".\"LEFT_AB\","
+  "\"LINK\".\"RIGHT_AB\","
+  "\"LINK\".\"LEFT_BA\","
+  "\"LINK\".\"RIGHT_BA\""
+  " FROM \"LINK\""
+  " LEFT JOIN \"NODE\" AS \"NODE_A\" ON \"NODE_A\".\"NODE\"=\"LINK\".\"NODE_A\""
+  " LEFT JOIN \"NODE\" AS \"NODE_B\" ON \"NODE_B\".\"NODE\"=\"LINK\".\"NODE_B\""
   " ";
 
   const char access::object_traits< ::pio::Link >::erase_query_statement[] =
-  "DELETE FROM \"Link\""
+  "DELETE FROM \"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Link >::table_name[] =
-  "\"Link\"";
+  "\"LINK\"";
 
   void access::object_traits< ::pio::Link >::
   persist (database& db, const object_type& obj)
@@ -4964,7 +4964,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Link\"");
+          db.execute ("DROP TABLE IF EXISTS \"LINK\"");
           return false;
         }
       }
@@ -4975,43 +4975,43 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Link\" (\n"
-                      "  \"link\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"name\" TEXT NOT NULL,\n"
-                      "  \"node_a\" INTEGER,\n"
-                      "  \"node_b\" INTEGER,\n"
-                      "  \"length\" REAL,\n"
-                      "  \"setback_a\" REAL,\n"
-                      "  \"setback_b\" REAL,\n"
-                      "  \"bearing_a\" INTEGER NOT NULL,\n"
-                      "  \"bearing_b\" INTEGER NOT NULL,\n"
-                      "  \"type\" TEXT NOT NULL,\n"
-                      "  \"divided\" INTEGER NOT NULL,\n"
-                      "  \"area_type\" INTEGER NOT NULL,\n"
-                      "  \"use\" INTEGER NOT NULL,\n"
-                      "  \"grade\" REAL,\n"
-                      "  \"lanes_ab\" INTEGER NOT NULL,\n"
-                      "  \"speed_ab\" REAL,\n"
-                      "  \"fspd_ab\" REAL,\n"
-                      "  \"cap_ab\" INTEGER NOT NULL,\n"
-                      "  \"lanes_ba\" INTEGER NOT NULL,\n"
-                      "  \"speed_ba\" REAL,\n"
-                      "  \"fspd_ba\" REAL,\n"
-                      "  \"cap_ba\" INTEGER NOT NULL,\n"
-                      "  \"left_ab\" INTEGER NOT NULL,\n"
-                      "  \"right_ab\" INTEGER NOT NULL,\n"
-                      "  \"left_ba\" INTEGER NOT NULL,\n"
-                      "  \"right_ba\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"node_a_fk\"\n"
-                      "    FOREIGN KEY (\"node_a\")\n"
-                      "    REFERENCES \"Node\" (\"node\")\n"
+          db.execute ("CREATE TABLE \"LINK\" (\n"
+                      "  \"LINK\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"NAME\" TEXT NOT NULL,\n"
+                      "  \"NODE_A\" INTEGER,\n"
+                      "  \"NODE_B\" INTEGER,\n"
+                      "  \"LENGTH\" REAL,\n"
+                      "  \"SETBACK_A\" REAL,\n"
+                      "  \"SETBACK_B\" REAL,\n"
+                      "  \"BEARING_A\" INTEGER NOT NULL,\n"
+                      "  \"BEARING_B\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" TEXT NOT NULL,\n"
+                      "  \"DIVIDED\" INTEGER NOT NULL,\n"
+                      "  \"AREA_TYPE\" INTEGER NOT NULL,\n"
+                      "  \"USE\" INTEGER NOT NULL,\n"
+                      "  \"GRADE\" REAL,\n"
+                      "  \"LANES_AB\" INTEGER NOT NULL,\n"
+                      "  \"SPEED_AB\" REAL,\n"
+                      "  \"FSPD_AB\" REAL,\n"
+                      "  \"CAP_AB\" INTEGER NOT NULL,\n"
+                      "  \"LANES_BA\" INTEGER NOT NULL,\n"
+                      "  \"SPEED_BA\" REAL,\n"
+                      "  \"FSPD_BA\" REAL,\n"
+                      "  \"CAP_BA\" INTEGER NOT NULL,\n"
+                      "  \"LEFT_AB\" INTEGER NOT NULL,\n"
+                      "  \"RIGHT_AB\" INTEGER NOT NULL,\n"
+                      "  \"LEFT_BA\" INTEGER NOT NULL,\n"
+                      "  \"RIGHT_BA\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"NODE_A_fk\"\n"
+                      "    FOREIGN KEY (\"NODE_A\")\n"
+                      "    REFERENCES \"NODE\" (\"NODE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"node_b_fk\"\n"
-                      "    FOREIGN KEY (\"node_b\")\n"
-                      "    REFERENCES \"Node\" (\"node\")\n"
+                      "  CONSTRAINT \"NODE_B_fk\"\n"
+                      "    FOREIGN KEY (\"NODE_B\")\n"
+                      "    REFERENCES \"NODE\" (\"NODE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
-          db.execute ("CREATE INDEX \"Link_link_i\"\n"
-                      "  ON \"Link\" (\"link\")");
+          db.execute ("CREATE INDEX \"LINK_LINK_i\"\n"
+                      "  ON \"LINK\" (\"LINK\")");
           return false;
         }
       }
@@ -5455,61 +5455,61 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Pocket >::persist_statement[] =
-  "INSERT INTO \"Pocket\" ("
+  "INSERT INTO \"POCKET\" ("
   "\"auto_id\","
-  "\"link\","
-  "\"dir\","
-  "\"type\","
-  "\"lanes\","
-  "\"length\","
-  "\"offset\")"
+  "\"LINK\","
+  "\"DIR\","
+  "\"TYPE\","
+  "\"LANES\","
+  "\"LENGTH\","
+  "\"OFFSET\")"
   " VALUES (?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Pocket >::find_statement[] =
   "SELECT "
-  "\"Pocket\".\"auto_id\","
-  "\"Pocket\".\"link\","
-  "\"Pocket\".\"dir\","
-  "\"Pocket\".\"type\","
-  "\"Pocket\".\"lanes\","
-  "\"Pocket\".\"length\","
-  "\"Pocket\".\"offset\""
-  " FROM \"Pocket\""
-  " WHERE \"Pocket\".\"auto_id\"=?";
+  "\"POCKET\".\"auto_id\","
+  "\"POCKET\".\"LINK\","
+  "\"POCKET\".\"DIR\","
+  "\"POCKET\".\"TYPE\","
+  "\"POCKET\".\"LANES\","
+  "\"POCKET\".\"LENGTH\","
+  "\"POCKET\".\"OFFSET\""
+  " FROM \"POCKET\""
+  " WHERE \"POCKET\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Pocket >::update_statement[] =
-  "UPDATE \"Pocket\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"type\"=?,"
-  "\"lanes\"=?,"
-  "\"length\"=?,"
-  "\"offset\"=?"
+  "UPDATE \"POCKET\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"TYPE\"=?,"
+  "\"LANES\"=?,"
+  "\"LENGTH\"=?,"
+  "\"OFFSET\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Pocket >::erase_statement[] =
-  "DELETE FROM \"Pocket\""
+  "DELETE FROM \"POCKET\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Pocket >::query_statement[] =
   "SELECT "
-  "\"Pocket\".\"auto_id\","
-  "\"Pocket\".\"link\","
-  "\"Pocket\".\"dir\","
-  "\"Pocket\".\"type\","
-  "\"Pocket\".\"lanes\","
-  "\"Pocket\".\"length\","
-  "\"Pocket\".\"offset\""
-  " FROM \"Pocket\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Pocket\".\"link\""
+  "\"POCKET\".\"auto_id\","
+  "\"POCKET\".\"LINK\","
+  "\"POCKET\".\"DIR\","
+  "\"POCKET\".\"TYPE\","
+  "\"POCKET\".\"LANES\","
+  "\"POCKET\".\"LENGTH\","
+  "\"POCKET\".\"OFFSET\""
+  " FROM \"POCKET\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"POCKET\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Pocket >::erase_query_statement[] =
-  "DELETE FROM \"Pocket\""
+  "DELETE FROM \"POCKET\""
   " ";
 
   const char access::object_traits< ::pio::Pocket >::table_name[] =
-  "\"Pocket\"";
+  "\"POCKET\"";
 
   void access::object_traits< ::pio::Pocket >::
   persist (database& db, object_type& obj)
@@ -5874,7 +5874,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Pocket\"");
+          db.execute ("DROP TABLE IF EXISTS \"POCKET\"");
           return false;
         }
       }
@@ -5885,17 +5885,17 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Pocket\" (\n"
+          db.execute ("CREATE TABLE \"POCKET\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"type\" TEXT NOT NULL,\n"
-                      "  \"lanes\" INTEGER NOT NULL,\n"
-                      "  \"length\" REAL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" TEXT NOT NULL,\n"
+                      "  \"LANES\" INTEGER NOT NULL,\n"
+                      "  \"LENGTH\" REAL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -6779,105 +6779,105 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Lane_Use >::persist_statement[] =
-  "INSERT INTO \"Lane_Use\" ("
+  "INSERT INTO \"LANE_USE\" ("
   "\"auto_id\","
-  "\"link\","
-  "\"dir\","
-  "\"lanes\","
-  "\"use\","
-  "\"type\","
-  "\"min_type\","
-  "\"max_type\","
-  "\"min_trav\","
-  "\"max_trav\","
-  "\"start\","
-  "\"end\","
-  "\"offset\","
-  "\"length\","
-  "\"toll\","
-  "\"rate\","
-  "\"min_delay\","
-  "\"max_delay\")"
+  "\"LINK\","
+  "\"DIR\","
+  "\"LANES\","
+  "\"USE\","
+  "\"TYPE\","
+  "\"MIN_TYPE\","
+  "\"MAX_TYPE\","
+  "\"MIN_TRAV\","
+  "\"MAX_TRAV\","
+  "\"START\","
+  "\"END\","
+  "\"OFFSET\","
+  "\"LENGTH\","
+  "\"TOLL\","
+  "\"RATE\","
+  "\"MIN_DELAY\","
+  "\"MAX_DELAY\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Lane_Use >::find_statement[] =
   "SELECT "
-  "\"Lane_Use\".\"auto_id\","
-  "\"Lane_Use\".\"link\","
-  "\"Lane_Use\".\"dir\","
-  "\"Lane_Use\".\"lanes\","
-  "\"Lane_Use\".\"use\","
-  "\"Lane_Use\".\"type\","
-  "\"Lane_Use\".\"min_type\","
-  "\"Lane_Use\".\"max_type\","
-  "\"Lane_Use\".\"min_trav\","
-  "\"Lane_Use\".\"max_trav\","
-  "\"Lane_Use\".\"start\","
-  "\"Lane_Use\".\"end\","
-  "\"Lane_Use\".\"offset\","
-  "\"Lane_Use\".\"length\","
-  "\"Lane_Use\".\"toll\","
-  "\"Lane_Use\".\"rate\","
-  "\"Lane_Use\".\"min_delay\","
-  "\"Lane_Use\".\"max_delay\""
-  " FROM \"Lane_Use\""
-  " WHERE \"Lane_Use\".\"auto_id\"=?";
+  "\"LANE_USE\".\"auto_id\","
+  "\"LANE_USE\".\"LINK\","
+  "\"LANE_USE\".\"DIR\","
+  "\"LANE_USE\".\"LANES\","
+  "\"LANE_USE\".\"USE\","
+  "\"LANE_USE\".\"TYPE\","
+  "\"LANE_USE\".\"MIN_TYPE\","
+  "\"LANE_USE\".\"MAX_TYPE\","
+  "\"LANE_USE\".\"MIN_TRAV\","
+  "\"LANE_USE\".\"MAX_TRAV\","
+  "\"LANE_USE\".\"START\","
+  "\"LANE_USE\".\"END\","
+  "\"LANE_USE\".\"OFFSET\","
+  "\"LANE_USE\".\"LENGTH\","
+  "\"LANE_USE\".\"TOLL\","
+  "\"LANE_USE\".\"RATE\","
+  "\"LANE_USE\".\"MIN_DELAY\","
+  "\"LANE_USE\".\"MAX_DELAY\""
+  " FROM \"LANE_USE\""
+  " WHERE \"LANE_USE\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Lane_Use >::update_statement[] =
-  "UPDATE \"Lane_Use\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"lanes\"=?,"
-  "\"use\"=?,"
-  "\"type\"=?,"
-  "\"min_type\"=?,"
-  "\"max_type\"=?,"
-  "\"min_trav\"=?,"
-  "\"max_trav\"=?,"
-  "\"start\"=?,"
-  "\"end\"=?,"
-  "\"offset\"=?,"
-  "\"length\"=?,"
-  "\"toll\"=?,"
-  "\"rate\"=?,"
-  "\"min_delay\"=?,"
-  "\"max_delay\"=?"
+  "UPDATE \"LANE_USE\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"LANES\"=?,"
+  "\"USE\"=?,"
+  "\"TYPE\"=?,"
+  "\"MIN_TYPE\"=?,"
+  "\"MAX_TYPE\"=?,"
+  "\"MIN_TRAV\"=?,"
+  "\"MAX_TRAV\"=?,"
+  "\"START\"=?,"
+  "\"END\"=?,"
+  "\"OFFSET\"=?,"
+  "\"LENGTH\"=?,"
+  "\"TOLL\"=?,"
+  "\"RATE\"=?,"
+  "\"MIN_DELAY\"=?,"
+  "\"MAX_DELAY\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Lane_Use >::erase_statement[] =
-  "DELETE FROM \"Lane_Use\""
+  "DELETE FROM \"LANE_USE\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Lane_Use >::query_statement[] =
   "SELECT "
-  "\"Lane_Use\".\"auto_id\","
-  "\"Lane_Use\".\"link\","
-  "\"Lane_Use\".\"dir\","
-  "\"Lane_Use\".\"lanes\","
-  "\"Lane_Use\".\"use\","
-  "\"Lane_Use\".\"type\","
-  "\"Lane_Use\".\"min_type\","
-  "\"Lane_Use\".\"max_type\","
-  "\"Lane_Use\".\"min_trav\","
-  "\"Lane_Use\".\"max_trav\","
-  "\"Lane_Use\".\"start\","
-  "\"Lane_Use\".\"end\","
-  "\"Lane_Use\".\"offset\","
-  "\"Lane_Use\".\"length\","
-  "\"Lane_Use\".\"toll\","
-  "\"Lane_Use\".\"rate\","
-  "\"Lane_Use\".\"min_delay\","
-  "\"Lane_Use\".\"max_delay\""
-  " FROM \"Lane_Use\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Lane_Use\".\"link\""
+  "\"LANE_USE\".\"auto_id\","
+  "\"LANE_USE\".\"LINK\","
+  "\"LANE_USE\".\"DIR\","
+  "\"LANE_USE\".\"LANES\","
+  "\"LANE_USE\".\"USE\","
+  "\"LANE_USE\".\"TYPE\","
+  "\"LANE_USE\".\"MIN_TYPE\","
+  "\"LANE_USE\".\"MAX_TYPE\","
+  "\"LANE_USE\".\"MIN_TRAV\","
+  "\"LANE_USE\".\"MAX_TRAV\","
+  "\"LANE_USE\".\"START\","
+  "\"LANE_USE\".\"END\","
+  "\"LANE_USE\".\"OFFSET\","
+  "\"LANE_USE\".\"LENGTH\","
+  "\"LANE_USE\".\"TOLL\","
+  "\"LANE_USE\".\"RATE\","
+  "\"LANE_USE\".\"MIN_DELAY\","
+  "\"LANE_USE\".\"MAX_DELAY\""
+  " FROM \"LANE_USE\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"LANE_USE\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Lane_Use >::erase_query_statement[] =
-  "DELETE FROM \"Lane_Use\""
+  "DELETE FROM \"LANE_USE\""
   " ";
 
   const char access::object_traits< ::pio::Lane_Use >::table_name[] =
-  "\"Lane_Use\"";
+  "\"LANE_USE\"";
 
   void access::object_traits< ::pio::Lane_Use >::
   persist (database& db, object_type& obj)
@@ -7228,7 +7228,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Lane_Use\"");
+          db.execute ("DROP TABLE IF EXISTS \"LANE_USE\"");
           return false;
         }
       }
@@ -7239,28 +7239,28 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Lane_Use\" (\n"
+          db.execute ("CREATE TABLE \"LANE_USE\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"lanes\" INTEGER NOT NULL,\n"
-                      "  \"use\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"min_type\" INTEGER NOT NULL,\n"
-                      "  \"max_type\" INTEGER NOT NULL,\n"
-                      "  \"min_trav\" INTEGER NOT NULL,\n"
-                      "  \"max_trav\" INTEGER NOT NULL,\n"
-                      "  \"start\" REAL,\n"
-                      "  \"end\" REAL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  \"length\" REAL,\n"
-                      "  \"toll\" INTEGER NOT NULL,\n"
-                      "  \"rate\" REAL,\n"
-                      "  \"min_delay\" REAL,\n"
-                      "  \"max_delay\" REAL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"LANES\" INTEGER NOT NULL,\n"
+                      "  \"USE\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"MIN_TYPE\" INTEGER NOT NULL,\n"
+                      "  \"MAX_TYPE\" INTEGER NOT NULL,\n"
+                      "  \"MIN_TRAV\" INTEGER NOT NULL,\n"
+                      "  \"MAX_TRAV\" INTEGER NOT NULL,\n"
+                      "  \"START\" REAL,\n"
+                      "  \"END\" REAL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  \"LENGTH\" REAL,\n"
+                      "  \"TOLL\" INTEGER NOT NULL,\n"
+                      "  \"RATE\" REAL,\n"
+                      "  \"MIN_DELAY\" REAL,\n"
+                      "  \"MAX_DELAY\" REAL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -7961,82 +7961,82 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Connect >::persist_statement[] =
-  "INSERT INTO \"Connect\" ("
+  "INSERT INTO \"CONNECT\" ("
   "\"auto_id\","
-  "\"link\","
-  "\"dir\","
-  "\"to_link\","
-  "\"lanes\","
-  "\"to_lanes\","
-  "\"type\","
-  "\"penalty\","
-  "\"speed\","
-  "\"capacity\","
-  "\"in_high\","
-  "\"out_high\")"
+  "\"LINK\","
+  "\"DIR\","
+  "\"TO_LINK\","
+  "\"LANES\","
+  "\"TO_LANES\","
+  "\"TYPE\","
+  "\"PENALTY\","
+  "\"SPEED\","
+  "\"CAPACITY\","
+  "\"IN_HIGH\","
+  "\"OUT_HIGH\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Connect >::find_statement[] =
   "SELECT "
-  "\"Connect\".\"auto_id\","
-  "\"Connect\".\"link\","
-  "\"Connect\".\"dir\","
-  "\"Connect\".\"to_link\","
-  "\"Connect\".\"lanes\","
-  "\"Connect\".\"to_lanes\","
-  "\"Connect\".\"type\","
-  "\"Connect\".\"penalty\","
-  "\"Connect\".\"speed\","
-  "\"Connect\".\"capacity\","
-  "\"Connect\".\"in_high\","
-  "\"Connect\".\"out_high\""
-  " FROM \"Connect\""
-  " WHERE \"Connect\".\"auto_id\"=?";
+  "\"CONNECT\".\"auto_id\","
+  "\"CONNECT\".\"LINK\","
+  "\"CONNECT\".\"DIR\","
+  "\"CONNECT\".\"TO_LINK\","
+  "\"CONNECT\".\"LANES\","
+  "\"CONNECT\".\"TO_LANES\","
+  "\"CONNECT\".\"TYPE\","
+  "\"CONNECT\".\"PENALTY\","
+  "\"CONNECT\".\"SPEED\","
+  "\"CONNECT\".\"CAPACITY\","
+  "\"CONNECT\".\"IN_HIGH\","
+  "\"CONNECT\".\"OUT_HIGH\""
+  " FROM \"CONNECT\""
+  " WHERE \"CONNECT\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Connect >::update_statement[] =
-  "UPDATE \"Connect\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"to_link\"=?,"
-  "\"lanes\"=?,"
-  "\"to_lanes\"=?,"
-  "\"type\"=?,"
-  "\"penalty\"=?,"
-  "\"speed\"=?,"
-  "\"capacity\"=?,"
-  "\"in_high\"=?,"
-  "\"out_high\"=?"
+  "UPDATE \"CONNECT\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"TO_LINK\"=?,"
+  "\"LANES\"=?,"
+  "\"TO_LANES\"=?,"
+  "\"TYPE\"=?,"
+  "\"PENALTY\"=?,"
+  "\"SPEED\"=?,"
+  "\"CAPACITY\"=?,"
+  "\"IN_HIGH\"=?,"
+  "\"OUT_HIGH\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Connect >::erase_statement[] =
-  "DELETE FROM \"Connect\""
+  "DELETE FROM \"CONNECT\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Connect >::query_statement[] =
   "SELECT "
-  "\"Connect\".\"auto_id\","
-  "\"Connect\".\"link\","
-  "\"Connect\".\"dir\","
-  "\"Connect\".\"to_link\","
-  "\"Connect\".\"lanes\","
-  "\"Connect\".\"to_lanes\","
-  "\"Connect\".\"type\","
-  "\"Connect\".\"penalty\","
-  "\"Connect\".\"speed\","
-  "\"Connect\".\"capacity\","
-  "\"Connect\".\"in_high\","
-  "\"Connect\".\"out_high\""
-  " FROM \"Connect\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Connect\".\"link\""
-  " LEFT JOIN \"Link\" AS \"to_link\" ON \"to_link\".\"link\"=\"Connect\".\"to_link\""
+  "\"CONNECT\".\"auto_id\","
+  "\"CONNECT\".\"LINK\","
+  "\"CONNECT\".\"DIR\","
+  "\"CONNECT\".\"TO_LINK\","
+  "\"CONNECT\".\"LANES\","
+  "\"CONNECT\".\"TO_LANES\","
+  "\"CONNECT\".\"TYPE\","
+  "\"CONNECT\".\"PENALTY\","
+  "\"CONNECT\".\"SPEED\","
+  "\"CONNECT\".\"CAPACITY\","
+  "\"CONNECT\".\"IN_HIGH\","
+  "\"CONNECT\".\"OUT_HIGH\""
+  " FROM \"CONNECT\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"CONNECT\".\"LINK\""
+  " LEFT JOIN \"LINK\" AS \"TO_LINK\" ON \"TO_LINK\".\"LINK\"=\"CONNECT\".\"TO_LINK\""
   " ";
 
   const char access::object_traits< ::pio::Connect >::erase_query_statement[] =
-  "DELETE FROM \"Connect\""
+  "DELETE FROM \"CONNECT\""
   " ";
 
   const char access::object_traits< ::pio::Connect >::table_name[] =
-  "\"Connect\"";
+  "\"CONNECT\"";
 
   void access::object_traits< ::pio::Connect >::
   persist (database& db, object_type& obj)
@@ -8401,7 +8401,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Connect\"");
+          db.execute ("DROP TABLE IF EXISTS \"CONNECT\"");
           return false;
         }
       }
@@ -8412,26 +8412,26 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Connect\" (\n"
+          db.execute ("CREATE TABLE \"CONNECT\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"to_link\" INTEGER,\n"
-                      "  \"lanes\" TEXT NOT NULL,\n"
-                      "  \"to_lanes\" TEXT NOT NULL,\n"
-                      "  \"type\" TEXT NOT NULL,\n"
-                      "  \"penalty\" INTEGER NOT NULL,\n"
-                      "  \"speed\" REAL,\n"
-                      "  \"capacity\" INTEGER NOT NULL,\n"
-                      "  \"in_high\" INTEGER NOT NULL,\n"
-                      "  \"out_high\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"TO_LINK\" INTEGER,\n"
+                      "  \"LANES\" TEXT NOT NULL,\n"
+                      "  \"TO_LANES\" TEXT NOT NULL,\n"
+                      "  \"TYPE\" TEXT NOT NULL,\n"
+                      "  \"PENALTY\" INTEGER NOT NULL,\n"
+                      "  \"SPEED\" REAL,\n"
+                      "  \"CAPACITY\" INTEGER NOT NULL,\n"
+                      "  \"IN_HIGH\" INTEGER NOT NULL,\n"
+                      "  \"OUT_HIGH\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"to_link_fk\"\n"
-                      "    FOREIGN KEY (\"to_link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  CONSTRAINT \"TO_LINK_fk\"\n"
+                      "    FOREIGN KEY (\"TO_LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -9150,84 +9150,84 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Turn_Pen >::persist_statement[] =
-  "INSERT INTO \"Turn_Pen\" ("
+  "INSERT INTO \"TURN_PEN\" ("
   "\"auto_id\","
-  "\"link\","
-  "\"dir\","
-  "\"to_link\","
-  "\"start\","
-  "\"end\","
-  "\"use\","
-  "\"min_type\","
-  "\"max_type\","
-  "\"penalty\","
-  "\"in_node\","
-  "\"out_node\")"
+  "\"LINK\","
+  "\"DIR\","
+  "\"TO_LINK\","
+  "\"START\","
+  "\"END\","
+  "\"USE\","
+  "\"MIN_TYPE\","
+  "\"MAX_TYPE\","
+  "\"PENALTY\","
+  "\"IN_NODE\","
+  "\"OUT_NODE\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Turn_Pen >::find_statement[] =
   "SELECT "
-  "\"Turn_Pen\".\"auto_id\","
-  "\"Turn_Pen\".\"link\","
-  "\"Turn_Pen\".\"dir\","
-  "\"Turn_Pen\".\"to_link\","
-  "\"Turn_Pen\".\"start\","
-  "\"Turn_Pen\".\"end\","
-  "\"Turn_Pen\".\"use\","
-  "\"Turn_Pen\".\"min_type\","
-  "\"Turn_Pen\".\"max_type\","
-  "\"Turn_Pen\".\"penalty\","
-  "\"Turn_Pen\".\"in_node\","
-  "\"Turn_Pen\".\"out_node\""
-  " FROM \"Turn_Pen\""
-  " WHERE \"Turn_Pen\".\"auto_id\"=?";
+  "\"TURN_PEN\".\"auto_id\","
+  "\"TURN_PEN\".\"LINK\","
+  "\"TURN_PEN\".\"DIR\","
+  "\"TURN_PEN\".\"TO_LINK\","
+  "\"TURN_PEN\".\"START\","
+  "\"TURN_PEN\".\"END\","
+  "\"TURN_PEN\".\"USE\","
+  "\"TURN_PEN\".\"MIN_TYPE\","
+  "\"TURN_PEN\".\"MAX_TYPE\","
+  "\"TURN_PEN\".\"PENALTY\","
+  "\"TURN_PEN\".\"IN_NODE\","
+  "\"TURN_PEN\".\"OUT_NODE\""
+  " FROM \"TURN_PEN\""
+  " WHERE \"TURN_PEN\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Turn_Pen >::update_statement[] =
-  "UPDATE \"Turn_Pen\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"to_link\"=?,"
-  "\"start\"=?,"
-  "\"end\"=?,"
-  "\"use\"=?,"
-  "\"min_type\"=?,"
-  "\"max_type\"=?,"
-  "\"penalty\"=?,"
-  "\"in_node\"=?,"
-  "\"out_node\"=?"
+  "UPDATE \"TURN_PEN\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"TO_LINK\"=?,"
+  "\"START\"=?,"
+  "\"END\"=?,"
+  "\"USE\"=?,"
+  "\"MIN_TYPE\"=?,"
+  "\"MAX_TYPE\"=?,"
+  "\"PENALTY\"=?,"
+  "\"IN_NODE\"=?,"
+  "\"OUT_NODE\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Turn_Pen >::erase_statement[] =
-  "DELETE FROM \"Turn_Pen\""
+  "DELETE FROM \"TURN_PEN\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Turn_Pen >::query_statement[] =
   "SELECT "
-  "\"Turn_Pen\".\"auto_id\","
-  "\"Turn_Pen\".\"link\","
-  "\"Turn_Pen\".\"dir\","
-  "\"Turn_Pen\".\"to_link\","
-  "\"Turn_Pen\".\"start\","
-  "\"Turn_Pen\".\"end\","
-  "\"Turn_Pen\".\"use\","
-  "\"Turn_Pen\".\"min_type\","
-  "\"Turn_Pen\".\"max_type\","
-  "\"Turn_Pen\".\"penalty\","
-  "\"Turn_Pen\".\"in_node\","
-  "\"Turn_Pen\".\"out_node\""
-  " FROM \"Turn_Pen\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Turn_Pen\".\"link\""
-  " LEFT JOIN \"Link\" AS \"to_link\" ON \"to_link\".\"link\"=\"Turn_Pen\".\"to_link\""
-  " LEFT JOIN \"Node\" AS \"in_node\" ON \"in_node\".\"node\"=\"Turn_Pen\".\"in_node\""
-  " LEFT JOIN \"Node\" AS \"out_node\" ON \"out_node\".\"node\"=\"Turn_Pen\".\"out_node\""
+  "\"TURN_PEN\".\"auto_id\","
+  "\"TURN_PEN\".\"LINK\","
+  "\"TURN_PEN\".\"DIR\","
+  "\"TURN_PEN\".\"TO_LINK\","
+  "\"TURN_PEN\".\"START\","
+  "\"TURN_PEN\".\"END\","
+  "\"TURN_PEN\".\"USE\","
+  "\"TURN_PEN\".\"MIN_TYPE\","
+  "\"TURN_PEN\".\"MAX_TYPE\","
+  "\"TURN_PEN\".\"PENALTY\","
+  "\"TURN_PEN\".\"IN_NODE\","
+  "\"TURN_PEN\".\"OUT_NODE\""
+  " FROM \"TURN_PEN\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"TURN_PEN\".\"LINK\""
+  " LEFT JOIN \"LINK\" AS \"TO_LINK\" ON \"TO_LINK\".\"LINK\"=\"TURN_PEN\".\"TO_LINK\""
+  " LEFT JOIN \"NODE\" AS \"IN_NODE\" ON \"IN_NODE\".\"NODE\"=\"TURN_PEN\".\"IN_NODE\""
+  " LEFT JOIN \"NODE\" AS \"OUT_NODE\" ON \"OUT_NODE\".\"NODE\"=\"TURN_PEN\".\"OUT_NODE\""
   " ";
 
   const char access::object_traits< ::pio::Turn_Pen >::erase_query_statement[] =
-  "DELETE FROM \"Turn_Pen\""
+  "DELETE FROM \"TURN_PEN\""
   " ";
 
   const char access::object_traits< ::pio::Turn_Pen >::table_name[] =
-  "\"Turn_Pen\"";
+  "\"TURN_PEN\"";
 
   void access::object_traits< ::pio::Turn_Pen >::
   persist (database& db, object_type& obj)
@@ -9578,7 +9578,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Turn_Pen\"");
+          db.execute ("DROP TABLE IF EXISTS \"TURN_PEN\"");
           return false;
         }
       }
@@ -9589,34 +9589,34 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Turn_Pen\" (\n"
+          db.execute ("CREATE TABLE \"TURN_PEN\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"to_link\" INTEGER,\n"
-                      "  \"start\" REAL,\n"
-                      "  \"end\" REAL,\n"
-                      "  \"use\" INTEGER NOT NULL,\n"
-                      "  \"min_type\" INTEGER NOT NULL,\n"
-                      "  \"max_type\" INTEGER NOT NULL,\n"
-                      "  \"penalty\" INTEGER NOT NULL,\n"
-                      "  \"in_node\" INTEGER,\n"
-                      "  \"out_node\" INTEGER,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"TO_LINK\" INTEGER,\n"
+                      "  \"START\" REAL,\n"
+                      "  \"END\" REAL,\n"
+                      "  \"USE\" INTEGER NOT NULL,\n"
+                      "  \"MIN_TYPE\" INTEGER NOT NULL,\n"
+                      "  \"MAX_TYPE\" INTEGER NOT NULL,\n"
+                      "  \"PENALTY\" INTEGER NOT NULL,\n"
+                      "  \"IN_NODE\" INTEGER,\n"
+                      "  \"OUT_NODE\" INTEGER,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"to_link_fk\"\n"
-                      "    FOREIGN KEY (\"to_link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  CONSTRAINT \"TO_LINK_fk\"\n"
+                      "    FOREIGN KEY (\"TO_LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"in_node_fk\"\n"
-                      "    FOREIGN KEY (\"in_node\")\n"
-                      "    REFERENCES \"Node\" (\"node\")\n"
+                      "  CONSTRAINT \"IN_NODE_fk\"\n"
+                      "    FOREIGN KEY (\"IN_NODE\")\n"
+                      "    REFERENCES \"NODE\" (\"NODE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"out_node_fk\"\n"
-                      "    FOREIGN KEY (\"out_node\")\n"
-                      "    REFERENCES \"Node\" (\"node\")\n"
+                      "  CONSTRAINT \"OUT_NODE_fk\"\n"
+                      "    FOREIGN KEY (\"OUT_NODE\")\n"
+                      "    REFERENCES \"NODE\" (\"NODE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -10295,85 +10295,85 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Parking >::persist_statement[] =
-  "INSERT INTO \"Parking\" ("
-  "\"parking\","
-  "\"link\","
-  "\"dir\","
-  "\"offset\","
-  "\"type\","
-  "\"use\","
-  "\"start\","
-  "\"end\","
-  "\"space\","
-  "\"time_in\","
-  "\"time_out\","
-  "\"hourly\","
-  "\"daily\")"
+  "INSERT INTO \"PARKING\" ("
+  "\"PARKING\","
+  "\"LINK\","
+  "\"DIR\","
+  "\"OFFSET\","
+  "\"TYPE\","
+  "\"USE\","
+  "\"START\","
+  "\"END\","
+  "\"SPACE\","
+  "\"TIME_IN\","
+  "\"TIME_OUT\","
+  "\"HOURLY\","
+  "\"DAILY\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Parking >::find_statement[] =
   "SELECT "
-  "\"Parking\".\"parking\","
-  "\"Parking\".\"link\","
-  "\"Parking\".\"dir\","
-  "\"Parking\".\"offset\","
-  "\"Parking\".\"type\","
-  "\"Parking\".\"use\","
-  "\"Parking\".\"start\","
-  "\"Parking\".\"end\","
-  "\"Parking\".\"space\","
-  "\"Parking\".\"time_in\","
-  "\"Parking\".\"time_out\","
-  "\"Parking\".\"hourly\","
-  "\"Parking\".\"daily\""
-  " FROM \"Parking\""
-  " WHERE \"Parking\".\"parking\"=?";
+  "\"PARKING\".\"PARKING\","
+  "\"PARKING\".\"LINK\","
+  "\"PARKING\".\"DIR\","
+  "\"PARKING\".\"OFFSET\","
+  "\"PARKING\".\"TYPE\","
+  "\"PARKING\".\"USE\","
+  "\"PARKING\".\"START\","
+  "\"PARKING\".\"END\","
+  "\"PARKING\".\"SPACE\","
+  "\"PARKING\".\"TIME_IN\","
+  "\"PARKING\".\"TIME_OUT\","
+  "\"PARKING\".\"HOURLY\","
+  "\"PARKING\".\"DAILY\""
+  " FROM \"PARKING\""
+  " WHERE \"PARKING\".\"PARKING\"=?";
 
   const char access::object_traits< ::pio::Parking >::update_statement[] =
-  "UPDATE \"Parking\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"offset\"=?,"
-  "\"type\"=?,"
-  "\"use\"=?,"
-  "\"start\"=?,"
-  "\"end\"=?,"
-  "\"space\"=?,"
-  "\"time_in\"=?,"
-  "\"time_out\"=?,"
-  "\"hourly\"=?,"
-  "\"daily\"=?"
-  " WHERE \"parking\"=?";
+  "UPDATE \"PARKING\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"OFFSET\"=?,"
+  "\"TYPE\"=?,"
+  "\"USE\"=?,"
+  "\"START\"=?,"
+  "\"END\"=?,"
+  "\"SPACE\"=?,"
+  "\"TIME_IN\"=?,"
+  "\"TIME_OUT\"=?,"
+  "\"HOURLY\"=?,"
+  "\"DAILY\"=?"
+  " WHERE \"PARKING\"=?";
 
   const char access::object_traits< ::pio::Parking >::erase_statement[] =
-  "DELETE FROM \"Parking\""
-  " WHERE \"parking\"=?";
+  "DELETE FROM \"PARKING\""
+  " WHERE \"PARKING\"=?";
 
   const char access::object_traits< ::pio::Parking >::query_statement[] =
   "SELECT "
-  "\"Parking\".\"parking\","
-  "\"Parking\".\"link\","
-  "\"Parking\".\"dir\","
-  "\"Parking\".\"offset\","
-  "\"Parking\".\"type\","
-  "\"Parking\".\"use\","
-  "\"Parking\".\"start\","
-  "\"Parking\".\"end\","
-  "\"Parking\".\"space\","
-  "\"Parking\".\"time_in\","
-  "\"Parking\".\"time_out\","
-  "\"Parking\".\"hourly\","
-  "\"Parking\".\"daily\""
-  " FROM \"Parking\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Parking\".\"link\""
+  "\"PARKING\".\"PARKING\","
+  "\"PARKING\".\"LINK\","
+  "\"PARKING\".\"DIR\","
+  "\"PARKING\".\"OFFSET\","
+  "\"PARKING\".\"TYPE\","
+  "\"PARKING\".\"USE\","
+  "\"PARKING\".\"START\","
+  "\"PARKING\".\"END\","
+  "\"PARKING\".\"SPACE\","
+  "\"PARKING\".\"TIME_IN\","
+  "\"PARKING\".\"TIME_OUT\","
+  "\"PARKING\".\"HOURLY\","
+  "\"PARKING\".\"DAILY\""
+  " FROM \"PARKING\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"PARKING\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Parking >::erase_query_statement[] =
-  "DELETE FROM \"Parking\""
+  "DELETE FROM \"PARKING\""
   " ";
 
   const char access::object_traits< ::pio::Parking >::table_name[] =
-  "\"Parking\"";
+  "\"PARKING\"";
 
   void access::object_traits< ::pio::Parking >::
   persist (database& db, const object_type& obj)
@@ -10720,7 +10720,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Parking\"");
+          db.execute ("DROP TABLE IF EXISTS \"PARKING\"");
           return false;
         }
       }
@@ -10731,26 +10731,26 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Parking\" (\n"
-                      "  \"parking\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"use\" INTEGER NOT NULL,\n"
-                      "  \"start\" REAL,\n"
-                      "  \"end\" REAL,\n"
-                      "  \"space\" INTEGER NOT NULL,\n"
-                      "  \"time_in\" REAL,\n"
-                      "  \"time_out\" REAL,\n"
-                      "  \"hourly\" INTEGER NOT NULL,\n"
-                      "  \"daily\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+          db.execute ("CREATE TABLE \"PARKING\" (\n"
+                      "  \"PARKING\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"USE\" INTEGER NOT NULL,\n"
+                      "  \"START\" REAL,\n"
+                      "  \"END\" REAL,\n"
+                      "  \"SPACE\" INTEGER NOT NULL,\n"
+                      "  \"TIME_IN\" REAL,\n"
+                      "  \"TIME_OUT\" REAL,\n"
+                      "  \"HOURLY\" INTEGER NOT NULL,\n"
+                      "  \"DAILY\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
-          db.execute ("CREATE INDEX \"Parking_parking_i\"\n"
-                      "  ON \"Parking\" (\"parking\")");
+          db.execute ("CREATE INDEX \"PARKING_PARKING_i\"\n"
+                      "  ON \"PARKING\" (\"PARKING\")");
           return false;
         }
       }
@@ -11168,58 +11168,58 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Location >::persist_statement[] =
-  "INSERT INTO \"Location\" ("
-  "\"location\","
-  "\"link\","
-  "\"dir\","
-  "\"offset\","
-  "\"setback\","
-  "\"zone\")"
+  "INSERT INTO \"LOCATION\" ("
+  "\"LOCATION\","
+  "\"LINK\","
+  "\"DIR\","
+  "\"OFFSET\","
+  "\"SETBACK\","
+  "\"ZONE\")"
   " VALUES (?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Location >::find_statement[] =
   "SELECT "
-  "\"Location\".\"location\","
-  "\"Location\".\"link\","
-  "\"Location\".\"dir\","
-  "\"Location\".\"offset\","
-  "\"Location\".\"setback\","
-  "\"Location\".\"zone\""
-  " FROM \"Location\""
-  " WHERE \"Location\".\"location\"=?";
+  "\"LOCATION\".\"LOCATION\","
+  "\"LOCATION\".\"LINK\","
+  "\"LOCATION\".\"DIR\","
+  "\"LOCATION\".\"OFFSET\","
+  "\"LOCATION\".\"SETBACK\","
+  "\"LOCATION\".\"ZONE\""
+  " FROM \"LOCATION\""
+  " WHERE \"LOCATION\".\"LOCATION\"=?";
 
   const char access::object_traits< ::pio::Location >::update_statement[] =
-  "UPDATE \"Location\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"offset\"=?,"
-  "\"setback\"=?,"
-  "\"zone\"=?"
-  " WHERE \"location\"=?";
+  "UPDATE \"LOCATION\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"OFFSET\"=?,"
+  "\"SETBACK\"=?,"
+  "\"ZONE\"=?"
+  " WHERE \"LOCATION\"=?";
 
   const char access::object_traits< ::pio::Location >::erase_statement[] =
-  "DELETE FROM \"Location\""
-  " WHERE \"location\"=?";
+  "DELETE FROM \"LOCATION\""
+  " WHERE \"LOCATION\"=?";
 
   const char access::object_traits< ::pio::Location >::query_statement[] =
   "SELECT "
-  "\"Location\".\"location\","
-  "\"Location\".\"link\","
-  "\"Location\".\"dir\","
-  "\"Location\".\"offset\","
-  "\"Location\".\"setback\","
-  "\"Location\".\"zone\""
-  " FROM \"Location\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Location\".\"link\""
-  " LEFT JOIN \"Zone\" AS \"zone\" ON \"zone\".\"zone\"=\"Location\".\"zone\""
+  "\"LOCATION\".\"LOCATION\","
+  "\"LOCATION\".\"LINK\","
+  "\"LOCATION\".\"DIR\","
+  "\"LOCATION\".\"OFFSET\","
+  "\"LOCATION\".\"SETBACK\","
+  "\"LOCATION\".\"ZONE\""
+  " FROM \"LOCATION\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"LOCATION\".\"LINK\""
+  " LEFT JOIN \"ZONE\" AS \"ZONE\" ON \"ZONE\".\"ZONE\"=\"LOCATION\".\"ZONE\""
   " ";
 
   const char access::object_traits< ::pio::Location >::erase_query_statement[] =
-  "DELETE FROM \"Location\""
+  "DELETE FROM \"LOCATION\""
   " ";
 
   const char access::object_traits< ::pio::Location >::table_name[] =
-  "\"Location\"";
+  "\"LOCATION\"";
 
   void access::object_traits< ::pio::Location >::
   persist (database& db, const object_type& obj)
@@ -11566,7 +11566,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Location\"");
+          db.execute ("DROP TABLE IF EXISTS \"LOCATION\"");
           return false;
         }
       }
@@ -11577,23 +11577,23 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Location\" (\n"
-                      "  \"location\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  \"setback\" REAL,\n"
-                      "  \"zone\" INTEGER,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+          db.execute ("CREATE TABLE \"LOCATION\" (\n"
+                      "  \"LOCATION\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  \"SETBACK\" REAL,\n"
+                      "  \"ZONE\" INTEGER,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"zone_fk\"\n"
-                      "    FOREIGN KEY (\"zone\")\n"
-                      "    REFERENCES \"Zone\" (\"zone\")\n"
+                      "  CONSTRAINT \"ZONE_fk\"\n"
+                      "    FOREIGN KEY (\"ZONE\")\n"
+                      "    REFERENCES \"ZONE\" (\"ZONE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
-          db.execute ("CREATE INDEX \"Location_location_i\"\n"
-                      "  ON \"Location\" (\"location\")");
+          db.execute ("CREATE INDEX \"LOCATION_LOCATION_i\"\n"
+                      "  ON \"LOCATION\" (\"LOCATION\")");
           return false;
         }
       }
@@ -12107,69 +12107,69 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Access >::persist_statement[] =
-  "INSERT INTO \"Access\" ("
+  "INSERT INTO \"ACCESS\" ("
   "\"auto_id\","
-  "\"link\","
-  "\"from_id\","
-  "\"from_type\","
-  "\"to_id\","
-  "\"to_type\","
-  "\"dir\","
-  "\"time\","
-  "\"cost\")"
+  "\"LINK\","
+  "\"FROM_ID\","
+  "\"FROM_TYPE\","
+  "\"TO_ID\","
+  "\"TO_TYPE\","
+  "\"DIR\","
+  "\"TIME\","
+  "\"COST\")"
   " VALUES (?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Access >::find_statement[] =
   "SELECT "
-  "\"Access\".\"auto_id\","
-  "\"Access\".\"link\","
-  "\"Access\".\"from_id\","
-  "\"Access\".\"from_type\","
-  "\"Access\".\"to_id\","
-  "\"Access\".\"to_type\","
-  "\"Access\".\"dir\","
-  "\"Access\".\"time\","
-  "\"Access\".\"cost\""
-  " FROM \"Access\""
-  " WHERE \"Access\".\"auto_id\"=?";
+  "\"ACCESS\".\"auto_id\","
+  "\"ACCESS\".\"LINK\","
+  "\"ACCESS\".\"FROM_ID\","
+  "\"ACCESS\".\"FROM_TYPE\","
+  "\"ACCESS\".\"TO_ID\","
+  "\"ACCESS\".\"TO_TYPE\","
+  "\"ACCESS\".\"DIR\","
+  "\"ACCESS\".\"TIME\","
+  "\"ACCESS\".\"COST\""
+  " FROM \"ACCESS\""
+  " WHERE \"ACCESS\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Access >::update_statement[] =
-  "UPDATE \"Access\" SET "
-  "\"link\"=?,"
-  "\"from_id\"=?,"
-  "\"from_type\"=?,"
-  "\"to_id\"=?,"
-  "\"to_type\"=?,"
-  "\"dir\"=?,"
-  "\"time\"=?,"
-  "\"cost\"=?"
+  "UPDATE \"ACCESS\" SET "
+  "\"LINK\"=?,"
+  "\"FROM_ID\"=?,"
+  "\"FROM_TYPE\"=?,"
+  "\"TO_ID\"=?,"
+  "\"TO_TYPE\"=?,"
+  "\"DIR\"=?,"
+  "\"TIME\"=?,"
+  "\"COST\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Access >::erase_statement[] =
-  "DELETE FROM \"Access\""
+  "DELETE FROM \"ACCESS\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Access >::query_statement[] =
   "SELECT "
-  "\"Access\".\"auto_id\","
-  "\"Access\".\"link\","
-  "\"Access\".\"from_id\","
-  "\"Access\".\"from_type\","
-  "\"Access\".\"to_id\","
-  "\"Access\".\"to_type\","
-  "\"Access\".\"dir\","
-  "\"Access\".\"time\","
-  "\"Access\".\"cost\""
-  " FROM \"Access\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Access\".\"link\""
+  "\"ACCESS\".\"auto_id\","
+  "\"ACCESS\".\"LINK\","
+  "\"ACCESS\".\"FROM_ID\","
+  "\"ACCESS\".\"FROM_TYPE\","
+  "\"ACCESS\".\"TO_ID\","
+  "\"ACCESS\".\"TO_TYPE\","
+  "\"ACCESS\".\"DIR\","
+  "\"ACCESS\".\"TIME\","
+  "\"ACCESS\".\"COST\""
+  " FROM \"ACCESS\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"ACCESS\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Access >::erase_query_statement[] =
-  "DELETE FROM \"Access\""
+  "DELETE FROM \"ACCESS\""
   " ";
 
   const char access::object_traits< ::pio::Access >::table_name[] =
-  "\"Access\"";
+  "\"ACCESS\"";
 
   void access::object_traits< ::pio::Access >::
   persist (database& db, object_type& obj)
@@ -12520,7 +12520,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Access\"");
+          db.execute ("DROP TABLE IF EXISTS \"ACCESS\"");
           return false;
         }
       }
@@ -12531,19 +12531,19 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Access\" (\n"
+          db.execute ("CREATE TABLE \"ACCESS\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"from_id\" INTEGER NOT NULL,\n"
-                      "  \"from_type\" INTEGER NOT NULL,\n"
-                      "  \"to_id\" INTEGER NOT NULL,\n"
-                      "  \"to_type\" INTEGER NOT NULL,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"time\" REAL,\n"
-                      "  \"cost\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"FROM_ID\" INTEGER NOT NULL,\n"
+                      "  \"FROM_TYPE\" INTEGER NOT NULL,\n"
+                      "  \"TO_ID\" INTEGER NOT NULL,\n"
+                      "  \"TO_TYPE\" INTEGER NOT NULL,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"TIME\" REAL,\n"
+                      "  \"COST\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -12865,49 +12865,49 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Sign >::persist_statement[] =
-  "INSERT INTO \"Sign\" ("
+  "INSERT INTO \"SIGN\" ("
   "\"auto_id\","
-  "\"link\","
-  "\"dir\","
-  "\"sign\")"
+  "\"LINK\","
+  "\"DIR\","
+  "\"SIGN\")"
   " VALUES (?,?,?,?)";
 
   const char access::object_traits< ::pio::Sign >::find_statement[] =
   "SELECT "
-  "\"Sign\".\"auto_id\","
-  "\"Sign\".\"link\","
-  "\"Sign\".\"dir\","
-  "\"Sign\".\"sign\""
-  " FROM \"Sign\""
-  " WHERE \"Sign\".\"auto_id\"=?";
+  "\"SIGN\".\"auto_id\","
+  "\"SIGN\".\"LINK\","
+  "\"SIGN\".\"DIR\","
+  "\"SIGN\".\"SIGN\""
+  " FROM \"SIGN\""
+  " WHERE \"SIGN\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Sign >::update_statement[] =
-  "UPDATE \"Sign\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"sign\"=?"
+  "UPDATE \"SIGN\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"SIGN\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Sign >::erase_statement[] =
-  "DELETE FROM \"Sign\""
+  "DELETE FROM \"SIGN\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Sign >::query_statement[] =
   "SELECT "
-  "\"Sign\".\"auto_id\","
-  "\"Sign\".\"link\","
-  "\"Sign\".\"dir\","
-  "\"Sign\".\"sign\""
-  " FROM \"Sign\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Sign\".\"link\""
+  "\"SIGN\".\"auto_id\","
+  "\"SIGN\".\"LINK\","
+  "\"SIGN\".\"DIR\","
+  "\"SIGN\".\"SIGN\""
+  " FROM \"SIGN\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"SIGN\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Sign >::erase_query_statement[] =
-  "DELETE FROM \"Sign\""
+  "DELETE FROM \"SIGN\""
   " ";
 
   const char access::object_traits< ::pio::Sign >::table_name[] =
-  "\"Sign\"";
+  "\"SIGN\"";
 
   void access::object_traits< ::pio::Sign >::
   persist (database& db, object_type& obj)
@@ -13272,7 +13272,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Sign\"");
+          db.execute ("DROP TABLE IF EXISTS \"SIGN\"");
           return false;
         }
       }
@@ -13283,14 +13283,14 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Sign\" (\n"
+          db.execute ("CREATE TABLE \"SIGN\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"sign\" TEXT NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"SIGN\" TEXT NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -13314,19 +13314,19 @@ namespace odb
   const char access::object_traits< ::pio::Signal >::nested_records_traits::
   select_all_statement[] =
   "SELECT "
-  "\"Signal_nested_records\".\"index\","
-  "\"Signal_nested_records\".\"value_start\","
-  "\"Signal_nested_records\".\"value_end\","
-  "\"Signal_nested_records\".\"value_timing\","
-  "\"Signal_nested_records\".\"value_phasing\","
-  "\"Signal_nested_records\".\"value_notes\""
-  " FROM \"Signal_nested_records\""
-  " WHERE \"Signal_nested_records\".\"object_id\"=?"
-  " ORDER BY \"Signal_nested_records\".\"index\"";
+  "\"SIGNAL_nested_records\".\"index\","
+  "\"SIGNAL_nested_records\".\"value_start\","
+  "\"SIGNAL_nested_records\".\"value_end\","
+  "\"SIGNAL_nested_records\".\"value_timing\","
+  "\"SIGNAL_nested_records\".\"value_phasing\","
+  "\"SIGNAL_nested_records\".\"value_notes\""
+  " FROM \"SIGNAL_nested_records\""
+  " WHERE \"SIGNAL_nested_records\".\"object_id\"=?"
+  " ORDER BY \"SIGNAL_nested_records\".\"index\"";
 
   const char access::object_traits< ::pio::Signal >::nested_records_traits::
   insert_one_statement[] =
-  "INSERT INTO \"Signal_nested_records\" ("
+  "INSERT INTO \"SIGNAL_nested_records\" ("
   "\"object_id\","
   "\"index\","
   "\"value_start\","
@@ -13338,7 +13338,7 @@ namespace odb
 
   const char access::object_traits< ::pio::Signal >::nested_records_traits::
   delete_all_statement[] =
-  "DELETE FROM \"Signal_nested_records\""
+  "DELETE FROM \"SIGNAL_nested_records\""
   " WHERE \"object_id\"=?";
 
   void access::object_traits< ::pio::Signal >::nested_records_traits::
@@ -13979,52 +13979,52 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Signal >::persist_statement[] =
-  "INSERT INTO \"Signal\" ("
-  "\"signal\","
-  "\"group\","
-  "\"times\","
-  "\"type\","
-  "\"offset\")"
+  "INSERT INTO \"SIGNAL\" ("
+  "\"SIGNAL\","
+  "\"GROUP\","
+  "\"TIMES\","
+  "\"TYPE\","
+  "\"OFFSET\")"
   " VALUES (?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Signal >::find_statement[] =
   "SELECT "
-  "\"Signal\".\"signal\","
-  "\"Signal\".\"group\","
-  "\"Signal\".\"times\","
-  "\"Signal\".\"type\","
-  "\"Signal\".\"offset\""
-  " FROM \"Signal\""
-  " WHERE \"Signal\".\"signal\"=?";
+  "\"SIGNAL\".\"SIGNAL\","
+  "\"SIGNAL\".\"GROUP\","
+  "\"SIGNAL\".\"TIMES\","
+  "\"SIGNAL\".\"TYPE\","
+  "\"SIGNAL\".\"OFFSET\""
+  " FROM \"SIGNAL\""
+  " WHERE \"SIGNAL\".\"SIGNAL\"=?";
 
   const char access::object_traits< ::pio::Signal >::update_statement[] =
-  "UPDATE \"Signal\" SET "
-  "\"group\"=?,"
-  "\"times\"=?,"
-  "\"type\"=?,"
-  "\"offset\"=?"
-  " WHERE \"signal\"=?";
+  "UPDATE \"SIGNAL\" SET "
+  "\"GROUP\"=?,"
+  "\"TIMES\"=?,"
+  "\"TYPE\"=?,"
+  "\"OFFSET\"=?"
+  " WHERE \"SIGNAL\"=?";
 
   const char access::object_traits< ::pio::Signal >::erase_statement[] =
-  "DELETE FROM \"Signal\""
-  " WHERE \"signal\"=?";
+  "DELETE FROM \"SIGNAL\""
+  " WHERE \"SIGNAL\"=?";
 
   const char access::object_traits< ::pio::Signal >::query_statement[] =
   "SELECT "
-  "\"Signal\".\"signal\","
-  "\"Signal\".\"group\","
-  "\"Signal\".\"times\","
-  "\"Signal\".\"type\","
-  "\"Signal\".\"offset\""
-  " FROM \"Signal\""
+  "\"SIGNAL\".\"SIGNAL\","
+  "\"SIGNAL\".\"GROUP\","
+  "\"SIGNAL\".\"TIMES\","
+  "\"SIGNAL\".\"TYPE\","
+  "\"SIGNAL\".\"OFFSET\""
+  " FROM \"SIGNAL\""
   " ";
 
   const char access::object_traits< ::pio::Signal >::erase_query_statement[] =
-  "DELETE FROM \"Signal\""
+  "DELETE FROM \"SIGNAL\""
   " ";
 
   const char access::object_traits< ::pio::Signal >::table_name[] =
-  "\"Signal\"";
+  "\"SIGNAL\"";
 
   void access::object_traits< ::pio::Signal >::
   persist (database& db, const object_type& obj)
@@ -14444,8 +14444,8 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Signal_nested_records\"");
-          db.execute ("DROP TABLE IF EXISTS \"Signal\"");
+          db.execute ("DROP TABLE IF EXISTS \"SIGNAL_nested_records\"");
+          db.execute ("DROP TABLE IF EXISTS \"SIGNAL\"");
           return false;
         }
       }
@@ -14456,15 +14456,15 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Signal\" (\n"
-                      "  \"signal\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"group\" INTEGER NOT NULL,\n"
-                      "  \"times\" INTEGER NOT NULL,\n"
-                      "  \"type\" TEXT NOT NULL,\n"
-                      "  \"offset\" INTEGER NOT NULL)");
-          db.execute ("CREATE INDEX \"Signal_signal_i\"\n"
-                      "  ON \"Signal\" (\"signal\")");
-          db.execute ("CREATE TABLE \"Signal_nested_records\" (\n"
+          db.execute ("CREATE TABLE \"SIGNAL\" (\n"
+                      "  \"SIGNAL\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"GROUP\" INTEGER NOT NULL,\n"
+                      "  \"TIMES\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" TEXT NOT NULL,\n"
+                      "  \"OFFSET\" INTEGER NOT NULL)");
+          db.execute ("CREATE INDEX \"SIGNAL_SIGNAL_i\"\n"
+                      "  ON \"SIGNAL\" (\"SIGNAL\")");
+          db.execute ("CREATE TABLE \"SIGNAL_nested_records\" (\n"
                       "  \"object_id\" INTEGER NOT NULL,\n"
                       "  \"index\" INTEGER NOT NULL,\n"
                       "  \"value_start\" REAL,\n"
@@ -14474,12 +14474,12 @@ namespace odb
                       "  \"value_notes\" TEXT NOT NULL,\n"
                       "  CONSTRAINT \"object_id_fk\"\n"
                       "    FOREIGN KEY (\"object_id\")\n"
-                      "    REFERENCES \"Signal\" (\"signal\")\n"
+                      "    REFERENCES \"SIGNAL\" (\"SIGNAL\")\n"
                       "    ON DELETE CASCADE)");
-          db.execute ("CREATE INDEX \"Signal_nested_records_object_id_i\"\n"
-                      "  ON \"Signal_nested_records\" (\"object_id\")");
-          db.execute ("CREATE INDEX \"Signal_nested_records_index_i\"\n"
-                      "  ON \"Signal_nested_records\" (\"index\")");
+          db.execute ("CREATE INDEX \"SIGNAL_nested_records_object_id_i\"\n"
+                      "  ON \"SIGNAL_nested_records\" (\"object_id\")");
+          db.execute ("CREATE INDEX \"SIGNAL_nested_records_index_i\"\n"
+                      "  ON \"SIGNAL_nested_records\" (\"index\")");
           return false;
         }
       }
@@ -15280,97 +15280,97 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Timing >::persist_statement[] =
-  "INSERT INTO \"Timing\" ("
+  "INSERT INTO \"TIMING\" ("
   "\"auto_id\","
-  "\"signal\","
-  "\"timing\","
-  "\"type\","
-  "\"cycle\","
-  "\"offset\","
-  "\"phases\","
-  "\"phase\","
-  "\"barrier\","
-  "\"ring\","
-  "\"position\","
-  "\"minimum\","
-  "\"maximum\","
-  "\"extend\","
-  "\"yellow\","
-  "\"red\")"
+  "\"SIGNAL\","
+  "\"TIMING\","
+  "\"TYPE\","
+  "\"CYCLE\","
+  "\"OFFSET\","
+  "\"PHASES\","
+  "\"PHASE\","
+  "\"BARRIER\","
+  "\"RING\","
+  "\"POSITION\","
+  "\"MINIMUM\","
+  "\"MAXIMUM\","
+  "\"EXTEND\","
+  "\"YELLOW\","
+  "\"RED\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Timing >::find_statement[] =
   "SELECT "
-  "\"Timing\".\"auto_id\","
-  "\"Timing\".\"signal\","
-  "\"Timing\".\"timing\","
-  "\"Timing\".\"type\","
-  "\"Timing\".\"cycle\","
-  "\"Timing\".\"offset\","
-  "\"Timing\".\"phases\","
-  "\"Timing\".\"phase\","
-  "\"Timing\".\"barrier\","
-  "\"Timing\".\"ring\","
-  "\"Timing\".\"position\","
-  "\"Timing\".\"minimum\","
-  "\"Timing\".\"maximum\","
-  "\"Timing\".\"extend\","
-  "\"Timing\".\"yellow\","
-  "\"Timing\".\"red\""
-  " FROM \"Timing\""
-  " WHERE \"Timing\".\"auto_id\"=?";
+  "\"TIMING\".\"auto_id\","
+  "\"TIMING\".\"SIGNAL\","
+  "\"TIMING\".\"TIMING\","
+  "\"TIMING\".\"TYPE\","
+  "\"TIMING\".\"CYCLE\","
+  "\"TIMING\".\"OFFSET\","
+  "\"TIMING\".\"PHASES\","
+  "\"TIMING\".\"PHASE\","
+  "\"TIMING\".\"BARRIER\","
+  "\"TIMING\".\"RING\","
+  "\"TIMING\".\"POSITION\","
+  "\"TIMING\".\"MINIMUM\","
+  "\"TIMING\".\"MAXIMUM\","
+  "\"TIMING\".\"EXTEND\","
+  "\"TIMING\".\"YELLOW\","
+  "\"TIMING\".\"RED\""
+  " FROM \"TIMING\""
+  " WHERE \"TIMING\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Timing >::update_statement[] =
-  "UPDATE \"Timing\" SET "
-  "\"signal\"=?,"
-  "\"timing\"=?,"
-  "\"type\"=?,"
-  "\"cycle\"=?,"
-  "\"offset\"=?,"
-  "\"phases\"=?,"
-  "\"phase\"=?,"
-  "\"barrier\"=?,"
-  "\"ring\"=?,"
-  "\"position\"=?,"
-  "\"minimum\"=?,"
-  "\"maximum\"=?,"
-  "\"extend\"=?,"
-  "\"yellow\"=?,"
-  "\"red\"=?"
+  "UPDATE \"TIMING\" SET "
+  "\"SIGNAL\"=?,"
+  "\"TIMING\"=?,"
+  "\"TYPE\"=?,"
+  "\"CYCLE\"=?,"
+  "\"OFFSET\"=?,"
+  "\"PHASES\"=?,"
+  "\"PHASE\"=?,"
+  "\"BARRIER\"=?,"
+  "\"RING\"=?,"
+  "\"POSITION\"=?,"
+  "\"MINIMUM\"=?,"
+  "\"MAXIMUM\"=?,"
+  "\"EXTEND\"=?,"
+  "\"YELLOW\"=?,"
+  "\"RED\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Timing >::erase_statement[] =
-  "DELETE FROM \"Timing\""
+  "DELETE FROM \"TIMING\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Timing >::query_statement[] =
   "SELECT "
-  "\"Timing\".\"auto_id\","
-  "\"Timing\".\"signal\","
-  "\"Timing\".\"timing\","
-  "\"Timing\".\"type\","
-  "\"Timing\".\"cycle\","
-  "\"Timing\".\"offset\","
-  "\"Timing\".\"phases\","
-  "\"Timing\".\"phase\","
-  "\"Timing\".\"barrier\","
-  "\"Timing\".\"ring\","
-  "\"Timing\".\"position\","
-  "\"Timing\".\"minimum\","
-  "\"Timing\".\"maximum\","
-  "\"Timing\".\"extend\","
-  "\"Timing\".\"yellow\","
-  "\"Timing\".\"red\""
-  " FROM \"Timing\""
-  " LEFT JOIN \"Signal\" AS \"signal\" ON \"signal\".\"signal\"=\"Timing\".\"signal\""
+  "\"TIMING\".\"auto_id\","
+  "\"TIMING\".\"SIGNAL\","
+  "\"TIMING\".\"TIMING\","
+  "\"TIMING\".\"TYPE\","
+  "\"TIMING\".\"CYCLE\","
+  "\"TIMING\".\"OFFSET\","
+  "\"TIMING\".\"PHASES\","
+  "\"TIMING\".\"PHASE\","
+  "\"TIMING\".\"BARRIER\","
+  "\"TIMING\".\"RING\","
+  "\"TIMING\".\"POSITION\","
+  "\"TIMING\".\"MINIMUM\","
+  "\"TIMING\".\"MAXIMUM\","
+  "\"TIMING\".\"EXTEND\","
+  "\"TIMING\".\"YELLOW\","
+  "\"TIMING\".\"RED\""
+  " FROM \"TIMING\""
+  " LEFT JOIN \"SIGNAL\" AS \"SIGNAL\" ON \"SIGNAL\".\"SIGNAL\"=\"TIMING\".\"SIGNAL\""
   " ";
 
   const char access::object_traits< ::pio::Timing >::erase_query_statement[] =
-  "DELETE FROM \"Timing\""
+  "DELETE FROM \"TIMING\""
   " ";
 
   const char access::object_traits< ::pio::Timing >::table_name[] =
-  "\"Timing\"";
+  "\"TIMING\"";
 
   void access::object_traits< ::pio::Timing >::
   persist (database& db, object_type& obj)
@@ -15721,7 +15721,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Timing\"");
+          db.execute ("DROP TABLE IF EXISTS \"TIMING\"");
           return false;
         }
       }
@@ -15732,26 +15732,26 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Timing\" (\n"
+          db.execute ("CREATE TABLE \"TIMING\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"signal\" INTEGER,\n"
-                      "  \"timing\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"cycle\" INTEGER NOT NULL,\n"
-                      "  \"offset\" INTEGER NOT NULL,\n"
-                      "  \"phases\" INTEGER NOT NULL,\n"
-                      "  \"phase\" INTEGER NOT NULL,\n"
-                      "  \"barrier\" INTEGER NOT NULL,\n"
-                      "  \"ring\" INTEGER NOT NULL,\n"
-                      "  \"position\" INTEGER NOT NULL,\n"
-                      "  \"minimum\" INTEGER NOT NULL,\n"
-                      "  \"maximum\" INTEGER NOT NULL,\n"
-                      "  \"extend\" INTEGER NOT NULL,\n"
-                      "  \"yellow\" INTEGER NOT NULL,\n"
-                      "  \"red\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"signal_fk\"\n"
-                      "    FOREIGN KEY (\"signal\")\n"
-                      "    REFERENCES \"Signal\" (\"signal\")\n"
+                      "  \"SIGNAL\" INTEGER,\n"
+                      "  \"TIMING\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"CYCLE\" INTEGER NOT NULL,\n"
+                      "  \"OFFSET\" INTEGER NOT NULL,\n"
+                      "  \"PHASES\" INTEGER NOT NULL,\n"
+                      "  \"PHASE\" INTEGER NOT NULL,\n"
+                      "  \"BARRIER\" INTEGER NOT NULL,\n"
+                      "  \"RING\" INTEGER NOT NULL,\n"
+                      "  \"POSITION\" INTEGER NOT NULL,\n"
+                      "  \"MINIMUM\" INTEGER NOT NULL,\n"
+                      "  \"MAXIMUM\" INTEGER NOT NULL,\n"
+                      "  \"EXTEND\" INTEGER NOT NULL,\n"
+                      "  \"YELLOW\" INTEGER NOT NULL,\n"
+                      "  \"RED\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"SIGNAL_fk\"\n"
+                      "    FOREIGN KEY (\"SIGNAL\")\n"
+                      "    REFERENCES \"SIGNAL\" (\"SIGNAL\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -16426,79 +16426,79 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Phasing >::persist_statement[] =
-  "INSERT INTO \"Phasing\" ("
+  "INSERT INTO \"PHASING\" ("
   "\"auto_id\","
-  "\"signal\","
-  "\"phasing\","
-  "\"phase\","
-  "\"detectors\","
-  "\"movements\","
-  "\"movement\","
-  "\"link\","
-  "\"dir\","
-  "\"to_link\","
-  "\"protect\")"
+  "\"SIGNAL\","
+  "\"PHASING\","
+  "\"PHASE\","
+  "\"DETECTORS\","
+  "\"MOVEMENTS\","
+  "\"MOVEMENT\","
+  "\"LINK\","
+  "\"DIR\","
+  "\"TO_LINK\","
+  "\"PROTECT\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Phasing >::find_statement[] =
   "SELECT "
-  "\"Phasing\".\"auto_id\","
-  "\"Phasing\".\"signal\","
-  "\"Phasing\".\"phasing\","
-  "\"Phasing\".\"phase\","
-  "\"Phasing\".\"detectors\","
-  "\"Phasing\".\"movements\","
-  "\"Phasing\".\"movement\","
-  "\"Phasing\".\"link\","
-  "\"Phasing\".\"dir\","
-  "\"Phasing\".\"to_link\","
-  "\"Phasing\".\"protect\""
-  " FROM \"Phasing\""
-  " WHERE \"Phasing\".\"auto_id\"=?";
+  "\"PHASING\".\"auto_id\","
+  "\"PHASING\".\"SIGNAL\","
+  "\"PHASING\".\"PHASING\","
+  "\"PHASING\".\"PHASE\","
+  "\"PHASING\".\"DETECTORS\","
+  "\"PHASING\".\"MOVEMENTS\","
+  "\"PHASING\".\"MOVEMENT\","
+  "\"PHASING\".\"LINK\","
+  "\"PHASING\".\"DIR\","
+  "\"PHASING\".\"TO_LINK\","
+  "\"PHASING\".\"PROTECT\""
+  " FROM \"PHASING\""
+  " WHERE \"PHASING\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Phasing >::update_statement[] =
-  "UPDATE \"Phasing\" SET "
-  "\"signal\"=?,"
-  "\"phasing\"=?,"
-  "\"phase\"=?,"
-  "\"detectors\"=?,"
-  "\"movements\"=?,"
-  "\"movement\"=?,"
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"to_link\"=?,"
-  "\"protect\"=?"
+  "UPDATE \"PHASING\" SET "
+  "\"SIGNAL\"=?,"
+  "\"PHASING\"=?,"
+  "\"PHASE\"=?,"
+  "\"DETECTORS\"=?,"
+  "\"MOVEMENTS\"=?,"
+  "\"MOVEMENT\"=?,"
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"TO_LINK\"=?,"
+  "\"PROTECT\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Phasing >::erase_statement[] =
-  "DELETE FROM \"Phasing\""
+  "DELETE FROM \"PHASING\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Phasing >::query_statement[] =
   "SELECT "
-  "\"Phasing\".\"auto_id\","
-  "\"Phasing\".\"signal\","
-  "\"Phasing\".\"phasing\","
-  "\"Phasing\".\"phase\","
-  "\"Phasing\".\"detectors\","
-  "\"Phasing\".\"movements\","
-  "\"Phasing\".\"movement\","
-  "\"Phasing\".\"link\","
-  "\"Phasing\".\"dir\","
-  "\"Phasing\".\"to_link\","
-  "\"Phasing\".\"protect\""
-  " FROM \"Phasing\""
-  " LEFT JOIN \"Signal\" AS \"signal\" ON \"signal\".\"signal\"=\"Phasing\".\"signal\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Phasing\".\"link\""
-  " LEFT JOIN \"Link\" AS \"to_link\" ON \"to_link\".\"link\"=\"Phasing\".\"to_link\""
+  "\"PHASING\".\"auto_id\","
+  "\"PHASING\".\"SIGNAL\","
+  "\"PHASING\".\"PHASING\","
+  "\"PHASING\".\"PHASE\","
+  "\"PHASING\".\"DETECTORS\","
+  "\"PHASING\".\"MOVEMENTS\","
+  "\"PHASING\".\"MOVEMENT\","
+  "\"PHASING\".\"LINK\","
+  "\"PHASING\".\"DIR\","
+  "\"PHASING\".\"TO_LINK\","
+  "\"PHASING\".\"PROTECT\""
+  " FROM \"PHASING\""
+  " LEFT JOIN \"SIGNAL\" AS \"SIGNAL\" ON \"SIGNAL\".\"SIGNAL\"=\"PHASING\".\"SIGNAL\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"PHASING\".\"LINK\""
+  " LEFT JOIN \"LINK\" AS \"TO_LINK\" ON \"TO_LINK\".\"LINK\"=\"PHASING\".\"TO_LINK\""
   " ";
 
   const char access::object_traits< ::pio::Phasing >::erase_query_statement[] =
-  "DELETE FROM \"Phasing\""
+  "DELETE FROM \"PHASING\""
   " ";
 
   const char access::object_traits< ::pio::Phasing >::table_name[] =
-  "\"Phasing\"";
+  "\"PHASING\"";
 
   void access::object_traits< ::pio::Phasing >::
   persist (database& db, object_type& obj)
@@ -16863,7 +16863,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Phasing\"");
+          db.execute ("DROP TABLE IF EXISTS \"PHASING\"");
           return false;
         }
       }
@@ -16874,29 +16874,29 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Phasing\" (\n"
+          db.execute ("CREATE TABLE \"PHASING\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"signal\" INTEGER,\n"
-                      "  \"phasing\" INTEGER NOT NULL,\n"
-                      "  \"phase\" INTEGER NOT NULL,\n"
-                      "  \"detectors\" TEXT NOT NULL,\n"
-                      "  \"movements\" INTEGER NOT NULL,\n"
-                      "  \"movement\" TEXT NOT NULL,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"to_link\" INTEGER,\n"
-                      "  \"protect\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"signal_fk\"\n"
-                      "    FOREIGN KEY (\"signal\")\n"
-                      "    REFERENCES \"Signal\" (\"signal\")\n"
+                      "  \"SIGNAL\" INTEGER,\n"
+                      "  \"PHASING\" INTEGER NOT NULL,\n"
+                      "  \"PHASE\" INTEGER NOT NULL,\n"
+                      "  \"DETECTORS\" TEXT NOT NULL,\n"
+                      "  \"MOVEMENTS\" INTEGER NOT NULL,\n"
+                      "  \"MOVEMENT\" TEXT NOT NULL,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"TO_LINK\" INTEGER,\n"
+                      "  \"PROTECT\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"SIGNAL_fk\"\n"
+                      "    FOREIGN KEY (\"SIGNAL\")\n"
+                      "    REFERENCES \"SIGNAL\" (\"SIGNAL\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"to_link_fk\"\n"
-                      "    FOREIGN KEY (\"to_link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  CONSTRAINT \"TO_LINK_fk\"\n"
+                      "    FOREIGN KEY (\"TO_LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -17452,73 +17452,73 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Detector >::persist_statement[] =
-  "INSERT INTO \"Detector\" ("
-  "\"detector\","
-  "\"link\","
-  "\"dir\","
-  "\"offset\","
-  "\"length\","
-  "\"lanes\","
-  "\"type\","
-  "\"use\","
-  "\"low\","
-  "\"high\")"
+  "INSERT INTO \"DETECTOR\" ("
+  "\"DETECTOR\","
+  "\"LINK\","
+  "\"DIR\","
+  "\"OFFSET\","
+  "\"LENGTH\","
+  "\"LANES\","
+  "\"TYPE\","
+  "\"USE\","
+  "\"LOW\","
+  "\"HIGH\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Detector >::find_statement[] =
   "SELECT "
-  "\"Detector\".\"detector\","
-  "\"Detector\".\"link\","
-  "\"Detector\".\"dir\","
-  "\"Detector\".\"offset\","
-  "\"Detector\".\"length\","
-  "\"Detector\".\"lanes\","
-  "\"Detector\".\"type\","
-  "\"Detector\".\"use\","
-  "\"Detector\".\"low\","
-  "\"Detector\".\"high\""
-  " FROM \"Detector\""
-  " WHERE \"Detector\".\"detector\"=?";
+  "\"DETECTOR\".\"DETECTOR\","
+  "\"DETECTOR\".\"LINK\","
+  "\"DETECTOR\".\"DIR\","
+  "\"DETECTOR\".\"OFFSET\","
+  "\"DETECTOR\".\"LENGTH\","
+  "\"DETECTOR\".\"LANES\","
+  "\"DETECTOR\".\"TYPE\","
+  "\"DETECTOR\".\"USE\","
+  "\"DETECTOR\".\"LOW\","
+  "\"DETECTOR\".\"HIGH\""
+  " FROM \"DETECTOR\""
+  " WHERE \"DETECTOR\".\"DETECTOR\"=?";
 
   const char access::object_traits< ::pio::Detector >::update_statement[] =
-  "UPDATE \"Detector\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"offset\"=?,"
-  "\"length\"=?,"
-  "\"lanes\"=?,"
-  "\"type\"=?,"
-  "\"use\"=?,"
-  "\"low\"=?,"
-  "\"high\"=?"
-  " WHERE \"detector\"=?";
+  "UPDATE \"DETECTOR\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"OFFSET\"=?,"
+  "\"LENGTH\"=?,"
+  "\"LANES\"=?,"
+  "\"TYPE\"=?,"
+  "\"USE\"=?,"
+  "\"LOW\"=?,"
+  "\"HIGH\"=?"
+  " WHERE \"DETECTOR\"=?";
 
   const char access::object_traits< ::pio::Detector >::erase_statement[] =
-  "DELETE FROM \"Detector\""
-  " WHERE \"detector\"=?";
+  "DELETE FROM \"DETECTOR\""
+  " WHERE \"DETECTOR\"=?";
 
   const char access::object_traits< ::pio::Detector >::query_statement[] =
   "SELECT "
-  "\"Detector\".\"detector\","
-  "\"Detector\".\"link\","
-  "\"Detector\".\"dir\","
-  "\"Detector\".\"offset\","
-  "\"Detector\".\"length\","
-  "\"Detector\".\"lanes\","
-  "\"Detector\".\"type\","
-  "\"Detector\".\"use\","
-  "\"Detector\".\"low\","
-  "\"Detector\".\"high\""
-  " FROM \"Detector\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Detector\".\"link\""
+  "\"DETECTOR\".\"DETECTOR\","
+  "\"DETECTOR\".\"LINK\","
+  "\"DETECTOR\".\"DIR\","
+  "\"DETECTOR\".\"OFFSET\","
+  "\"DETECTOR\".\"LENGTH\","
+  "\"DETECTOR\".\"LANES\","
+  "\"DETECTOR\".\"TYPE\","
+  "\"DETECTOR\".\"USE\","
+  "\"DETECTOR\".\"LOW\","
+  "\"DETECTOR\".\"HIGH\""
+  " FROM \"DETECTOR\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"DETECTOR\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Detector >::erase_query_statement[] =
-  "DELETE FROM \"Detector\""
+  "DELETE FROM \"DETECTOR\""
   " ";
 
   const char access::object_traits< ::pio::Detector >::table_name[] =
-  "\"Detector\"";
+  "\"DETECTOR\"";
 
   void access::object_traits< ::pio::Detector >::
   persist (database& db, const object_type& obj)
@@ -17865,7 +17865,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Detector\"");
+          db.execute ("DROP TABLE IF EXISTS \"DETECTOR\"");
           return false;
         }
       }
@@ -17876,23 +17876,23 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Detector\" (\n"
-                      "  \"detector\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  \"length\" REAL,\n"
-                      "  \"lanes\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"use\" INTEGER NOT NULL,\n"
-                      "  \"low\" INTEGER NOT NULL,\n"
-                      "  \"high\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+          db.execute ("CREATE TABLE \"DETECTOR\" (\n"
+                      "  \"DETECTOR\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  \"LENGTH\" REAL,\n"
+                      "  \"LANES\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"USE\" INTEGER NOT NULL,\n"
+                      "  \"LOW\" INTEGER NOT NULL,\n"
+                      "  \"HIGH\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
-          db.execute ("CREATE INDEX \"Detector_detector_i\"\n"
-                      "  ON \"Detector\" (\"detector\")");
+          db.execute ("CREATE INDEX \"DETECTOR_DETECTOR_i\"\n"
+                      "  ON \"DETECTOR\" (\"DETECTOR\")");
           return false;
         }
       }
@@ -18377,65 +18377,65 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Stop >::persist_statement[] =
-  "INSERT INTO \"Stop\" ("
-  "\"stop\","
-  "\"name\","
-  "\"link\","
-  "\"dir\","
-  "\"offset\","
-  "\"use\","
-  "\"type\","
-  "\"space\")"
+  "INSERT INTO \"STOP\" ("
+  "\"STOP\","
+  "\"NAME\","
+  "\"LINK\","
+  "\"DIR\","
+  "\"OFFSET\","
+  "\"USE\","
+  "\"TYPE\","
+  "\"SPACE\")"
   " VALUES (?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Stop >::find_statement[] =
   "SELECT "
-  "\"Stop\".\"stop\","
-  "\"Stop\".\"name\","
-  "\"Stop\".\"link\","
-  "\"Stop\".\"dir\","
-  "\"Stop\".\"offset\","
-  "\"Stop\".\"use\","
-  "\"Stop\".\"type\","
-  "\"Stop\".\"space\""
-  " FROM \"Stop\""
-  " WHERE \"Stop\".\"stop\"=?";
+  "\"STOP\".\"STOP\","
+  "\"STOP\".\"NAME\","
+  "\"STOP\".\"LINK\","
+  "\"STOP\".\"DIR\","
+  "\"STOP\".\"OFFSET\","
+  "\"STOP\".\"USE\","
+  "\"STOP\".\"TYPE\","
+  "\"STOP\".\"SPACE\""
+  " FROM \"STOP\""
+  " WHERE \"STOP\".\"STOP\"=?";
 
   const char access::object_traits< ::pio::Stop >::update_statement[] =
-  "UPDATE \"Stop\" SET "
-  "\"name\"=?,"
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"offset\"=?,"
-  "\"use\"=?,"
-  "\"type\"=?,"
-  "\"space\"=?"
-  " WHERE \"stop\"=?";
+  "UPDATE \"STOP\" SET "
+  "\"NAME\"=?,"
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"OFFSET\"=?,"
+  "\"USE\"=?,"
+  "\"TYPE\"=?,"
+  "\"SPACE\"=?"
+  " WHERE \"STOP\"=?";
 
   const char access::object_traits< ::pio::Stop >::erase_statement[] =
-  "DELETE FROM \"Stop\""
-  " WHERE \"stop\"=?";
+  "DELETE FROM \"STOP\""
+  " WHERE \"STOP\"=?";
 
   const char access::object_traits< ::pio::Stop >::query_statement[] =
   "SELECT "
-  "\"Stop\".\"stop\","
-  "\"Stop\".\"name\","
-  "\"Stop\".\"link\","
-  "\"Stop\".\"dir\","
-  "\"Stop\".\"offset\","
-  "\"Stop\".\"use\","
-  "\"Stop\".\"type\","
-  "\"Stop\".\"space\""
-  " FROM \"Stop\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Stop\".\"link\""
+  "\"STOP\".\"STOP\","
+  "\"STOP\".\"NAME\","
+  "\"STOP\".\"LINK\","
+  "\"STOP\".\"DIR\","
+  "\"STOP\".\"OFFSET\","
+  "\"STOP\".\"USE\","
+  "\"STOP\".\"TYPE\","
+  "\"STOP\".\"SPACE\""
+  " FROM \"STOP\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"STOP\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Stop >::erase_query_statement[] =
-  "DELETE FROM \"Stop\""
+  "DELETE FROM \"STOP\""
   " ";
 
   const char access::object_traits< ::pio::Stop >::table_name[] =
-  "\"Stop\"";
+  "\"STOP\"";
 
   void access::object_traits< ::pio::Stop >::
   persist (database& db, const object_type& obj)
@@ -18796,7 +18796,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Stop\"");
+          db.execute ("DROP TABLE IF EXISTS \"STOP\"");
           return false;
         }
       }
@@ -18807,21 +18807,21 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Stop\" (\n"
-                      "  \"stop\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"name\" TEXT NOT NULL,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  \"use\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"space\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+          db.execute ("CREATE TABLE \"STOP\" (\n"
+                      "  \"STOP\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"NAME\" TEXT NOT NULL,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  \"USE\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"SPACE\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
-          db.execute ("CREATE INDEX \"Stop_stop_i\"\n"
-                      "  ON \"Stop\" (\"stop\")");
+          db.execute ("CREATE INDEX \"STOP_STOP_i\"\n"
+                      "  ON \"STOP\" (\"STOP\")");
           return false;
         }
       }
@@ -19280,62 +19280,62 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Fare >::persist_statement[] =
-  "INSERT INTO \"Fare\" ("
-  "\"from_zone\","
-  "\"to_zone\","
-  "\"from_mode\","
-  "\"to_mode\","
-  "\"period\","
-  "\"type\","
-  "\"fare\")"
+  "INSERT INTO \"FARE\" ("
+  "\"FROM_ZONE\","
+  "\"TO_ZONE\","
+  "\"FROM_MODE\","
+  "\"TO_MODE\","
+  "\"PERIOD\","
+  "\"TYPE\","
+  "\"FARE\")"
   " VALUES (?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Fare >::find_statement[] =
   "SELECT "
-  "\"Fare\".\"from_zone\","
-  "\"Fare\".\"to_zone\","
-  "\"Fare\".\"from_mode\","
-  "\"Fare\".\"to_mode\","
-  "\"Fare\".\"period\","
-  "\"Fare\".\"type\","
-  "\"Fare\".\"fare\""
-  " FROM \"Fare\""
-  " WHERE \"Fare\".\"fare\"=?";
+  "\"FARE\".\"FROM_ZONE\","
+  "\"FARE\".\"TO_ZONE\","
+  "\"FARE\".\"FROM_MODE\","
+  "\"FARE\".\"TO_MODE\","
+  "\"FARE\".\"PERIOD\","
+  "\"FARE\".\"TYPE\","
+  "\"FARE\".\"FARE\""
+  " FROM \"FARE\""
+  " WHERE \"FARE\".\"FARE\"=?";
 
   const char access::object_traits< ::pio::Fare >::update_statement[] =
-  "UPDATE \"Fare\" SET "
-  "\"from_zone\"=?,"
-  "\"to_zone\"=?,"
-  "\"from_mode\"=?,"
-  "\"to_mode\"=?,"
-  "\"period\"=?,"
-  "\"type\"=?"
-  " WHERE \"fare\"=?";
+  "UPDATE \"FARE\" SET "
+  "\"FROM_ZONE\"=?,"
+  "\"TO_ZONE\"=?,"
+  "\"FROM_MODE\"=?,"
+  "\"TO_MODE\"=?,"
+  "\"PERIOD\"=?,"
+  "\"TYPE\"=?"
+  " WHERE \"FARE\"=?";
 
   const char access::object_traits< ::pio::Fare >::erase_statement[] =
-  "DELETE FROM \"Fare\""
-  " WHERE \"fare\"=?";
+  "DELETE FROM \"FARE\""
+  " WHERE \"FARE\"=?";
 
   const char access::object_traits< ::pio::Fare >::query_statement[] =
   "SELECT "
-  "\"Fare\".\"from_zone\","
-  "\"Fare\".\"to_zone\","
-  "\"Fare\".\"from_mode\","
-  "\"Fare\".\"to_mode\","
-  "\"Fare\".\"period\","
-  "\"Fare\".\"type\","
-  "\"Fare\".\"fare\""
-  " FROM \"Fare\""
-  " LEFT JOIN \"Zone\" AS \"from_zone\" ON \"from_zone\".\"zone\"=\"Fare\".\"from_zone\""
-  " LEFT JOIN \"Zone\" AS \"to_zone\" ON \"to_zone\".\"zone\"=\"Fare\".\"to_zone\""
+  "\"FARE\".\"FROM_ZONE\","
+  "\"FARE\".\"TO_ZONE\","
+  "\"FARE\".\"FROM_MODE\","
+  "\"FARE\".\"TO_MODE\","
+  "\"FARE\".\"PERIOD\","
+  "\"FARE\".\"TYPE\","
+  "\"FARE\".\"FARE\""
+  " FROM \"FARE\""
+  " LEFT JOIN \"ZONE\" AS \"FROM_ZONE\" ON \"FROM_ZONE\".\"ZONE\"=\"FARE\".\"FROM_ZONE\""
+  " LEFT JOIN \"ZONE\" AS \"TO_ZONE\" ON \"TO_ZONE\".\"ZONE\"=\"FARE\".\"TO_ZONE\""
   " ";
 
   const char access::object_traits< ::pio::Fare >::erase_query_statement[] =
-  "DELETE FROM \"Fare\""
+  "DELETE FROM \"FARE\""
   " ";
 
   const char access::object_traits< ::pio::Fare >::table_name[] =
-  "\"Fare\"";
+  "\"FARE\"";
 
   void access::object_traits< ::pio::Fare >::
   persist (database& db, const object_type& obj)
@@ -19682,7 +19682,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Fare\"");
+          db.execute ("DROP TABLE IF EXISTS \"FARE\"");
           return false;
         }
       }
@@ -19693,24 +19693,24 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Fare\" (\n"
-                      "  \"from_zone\" INTEGER,\n"
-                      "  \"to_zone\" INTEGER,\n"
-                      "  \"from_mode\" INTEGER NOT NULL,\n"
-                      "  \"to_mode\" INTEGER NOT NULL,\n"
-                      "  \"period\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"fare\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  CONSTRAINT \"from_zone_fk\"\n"
-                      "    FOREIGN KEY (\"from_zone\")\n"
-                      "    REFERENCES \"Zone\" (\"zone\")\n"
+          db.execute ("CREATE TABLE \"FARE\" (\n"
+                      "  \"FROM_ZONE\" INTEGER,\n"
+                      "  \"TO_ZONE\" INTEGER,\n"
+                      "  \"FROM_MODE\" INTEGER NOT NULL,\n"
+                      "  \"TO_MODE\" INTEGER NOT NULL,\n"
+                      "  \"PERIOD\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"FARE\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  CONSTRAINT \"FROM_ZONE_fk\"\n"
+                      "    FOREIGN KEY (\"FROM_ZONE\")\n"
+                      "    REFERENCES \"ZONE\" (\"ZONE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"to_zone_fk\"\n"
-                      "    FOREIGN KEY (\"to_zone\")\n"
-                      "    REFERENCES \"Zone\" (\"zone\")\n"
+                      "  CONSTRAINT \"TO_ZONE_fk\"\n"
+                      "    FOREIGN KEY (\"TO_ZONE\")\n"
+                      "    REFERENCES \"ZONE\" (\"ZONE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
-          db.execute ("CREATE INDEX \"Fare_fare_i\"\n"
-                      "  ON \"Fare\" (\"fare\")");
+          db.execute ("CREATE INDEX \"FARE_FARE_i\"\n"
+                      "  ON \"FARE\" (\"FARE\")");
           return false;
         }
       }
@@ -20290,71 +20290,71 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Line >::persist_statement[] =
-  "INSERT INTO \"Line\" ("
+  "INSERT INTO \"LINE\" ("
   "\"auto_id\","
-  "\"route\","
-  "\"stops\","
-  "\"mode\","
-  "\"type\","
-  "\"name\","
-  "\"stop\","
-  "\"zone\","
-  "\"flag\")"
+  "\"ROUTE\","
+  "\"STOPS\","
+  "\"MODE\","
+  "\"TYPE\","
+  "\"NAME\","
+  "\"STOP\","
+  "\"ZONE\","
+  "\"FLAG\")"
   " VALUES (?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Line >::find_statement[] =
   "SELECT "
-  "\"Line\".\"auto_id\","
-  "\"Line\".\"route\","
-  "\"Line\".\"stops\","
-  "\"Line\".\"mode\","
-  "\"Line\".\"type\","
-  "\"Line\".\"name\","
-  "\"Line\".\"stop\","
-  "\"Line\".\"zone\","
-  "\"Line\".\"flag\""
-  " FROM \"Line\""
-  " WHERE \"Line\".\"auto_id\"=?";
+  "\"LINE\".\"auto_id\","
+  "\"LINE\".\"ROUTE\","
+  "\"LINE\".\"STOPS\","
+  "\"LINE\".\"MODE\","
+  "\"LINE\".\"TYPE\","
+  "\"LINE\".\"NAME\","
+  "\"LINE\".\"STOP\","
+  "\"LINE\".\"ZONE\","
+  "\"LINE\".\"FLAG\""
+  " FROM \"LINE\""
+  " WHERE \"LINE\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Line >::update_statement[] =
-  "UPDATE \"Line\" SET "
-  "\"route\"=?,"
-  "\"stops\"=?,"
-  "\"mode\"=?,"
-  "\"type\"=?,"
-  "\"name\"=?,"
-  "\"stop\"=?,"
-  "\"zone\"=?,"
-  "\"flag\"=?"
+  "UPDATE \"LINE\" SET "
+  "\"ROUTE\"=?,"
+  "\"STOPS\"=?,"
+  "\"MODE\"=?,"
+  "\"TYPE\"=?,"
+  "\"NAME\"=?,"
+  "\"STOP\"=?,"
+  "\"ZONE\"=?,"
+  "\"FLAG\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Line >::erase_statement[] =
-  "DELETE FROM \"Line\""
+  "DELETE FROM \"LINE\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Line >::query_statement[] =
   "SELECT "
-  "\"Line\".\"auto_id\","
-  "\"Line\".\"route\","
-  "\"Line\".\"stops\","
-  "\"Line\".\"mode\","
-  "\"Line\".\"type\","
-  "\"Line\".\"name\","
-  "\"Line\".\"stop\","
-  "\"Line\".\"zone\","
-  "\"Line\".\"flag\""
-  " FROM \"Line\""
-  " LEFT JOIN \"Stop\" AS \"stops\" ON \"stops\".\"stop\"=\"Line\".\"stops\""
-  " LEFT JOIN \"Stop\" AS \"stop\" ON \"stop\".\"stop\"=\"Line\".\"stop\""
-  " LEFT JOIN \"Zone\" AS \"zone\" ON \"zone\".\"zone\"=\"Line\".\"zone\""
+  "\"LINE\".\"auto_id\","
+  "\"LINE\".\"ROUTE\","
+  "\"LINE\".\"STOPS\","
+  "\"LINE\".\"MODE\","
+  "\"LINE\".\"TYPE\","
+  "\"LINE\".\"NAME\","
+  "\"LINE\".\"STOP\","
+  "\"LINE\".\"ZONE\","
+  "\"LINE\".\"FLAG\""
+  " FROM \"LINE\""
+  " LEFT JOIN \"STOP\" AS \"STOPS\" ON \"STOPS\".\"STOP\"=\"LINE\".\"STOPS\""
+  " LEFT JOIN \"STOP\" AS \"STOP\" ON \"STOP\".\"STOP\"=\"LINE\".\"STOP\""
+  " LEFT JOIN \"ZONE\" AS \"ZONE\" ON \"ZONE\".\"ZONE\"=\"LINE\".\"ZONE\""
   " ";
 
   const char access::object_traits< ::pio::Line >::erase_query_statement[] =
-  "DELETE FROM \"Line\""
+  "DELETE FROM \"LINE\""
   " ";
 
   const char access::object_traits< ::pio::Line >::table_name[] =
-  "\"Line\"";
+  "\"LINE\"";
 
   void access::object_traits< ::pio::Line >::
   persist (database& db, object_type& obj)
@@ -20719,7 +20719,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Line\"");
+          db.execute ("DROP TABLE IF EXISTS \"LINE\"");
           return false;
         }
       }
@@ -20730,27 +20730,27 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Line\" (\n"
+          db.execute ("CREATE TABLE \"LINE\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"route\" INTEGER NOT NULL,\n"
-                      "  \"stops\" INTEGER,\n"
-                      "  \"mode\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"name\" TEXT NOT NULL,\n"
-                      "  \"stop\" INTEGER,\n"
-                      "  \"zone\" INTEGER,\n"
-                      "  \"flag\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"stops_fk\"\n"
-                      "    FOREIGN KEY (\"stops\")\n"
-                      "    REFERENCES \"Stop\" (\"stop\")\n"
+                      "  \"ROUTE\" INTEGER NOT NULL,\n"
+                      "  \"STOPS\" INTEGER,\n"
+                      "  \"MODE\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"NAME\" TEXT NOT NULL,\n"
+                      "  \"STOP\" INTEGER,\n"
+                      "  \"ZONE\" INTEGER,\n"
+                      "  \"FLAG\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"STOPS_fk\"\n"
+                      "    FOREIGN KEY (\"STOPS\")\n"
+                      "    REFERENCES \"STOP\" (\"STOP\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"stop_fk\"\n"
-                      "    FOREIGN KEY (\"stop\")\n"
-                      "    REFERENCES \"Stop\" (\"stop\")\n"
+                      "  CONSTRAINT \"STOP_fk\"\n"
+                      "    FOREIGN KEY (\"STOP\")\n"
+                      "    REFERENCES \"STOP\" (\"STOP\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"zone_fk\"\n"
-                      "    FOREIGN KEY (\"zone\")\n"
-                      "    REFERENCES \"Zone\" (\"zone\")\n"
+                      "  CONSTRAINT \"ZONE_fk\"\n"
+                      "    FOREIGN KEY (\"ZONE\")\n"
+                      "    REFERENCES \"ZONE\" (\"ZONE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -21087,50 +21087,50 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Schedule >::persist_statement[] =
-  "INSERT INTO \"Schedule\" ("
+  "INSERT INTO \"SCHEDULE\" ("
   "\"auto_id\","
-  "\"route\","
-  "\"stops\","
-  "\"stop\")"
+  "\"ROUTE\","
+  "\"STOPS\","
+  "\"STOP\")"
   " VALUES (?,?,?,?)";
 
   const char access::object_traits< ::pio::Schedule >::find_statement[] =
   "SELECT "
-  "\"Schedule\".\"auto_id\","
-  "\"Schedule\".\"route\","
-  "\"Schedule\".\"stops\","
-  "\"Schedule\".\"stop\""
-  " FROM \"Schedule\""
-  " WHERE \"Schedule\".\"auto_id\"=?";
+  "\"SCHEDULE\".\"auto_id\","
+  "\"SCHEDULE\".\"ROUTE\","
+  "\"SCHEDULE\".\"STOPS\","
+  "\"SCHEDULE\".\"STOP\""
+  " FROM \"SCHEDULE\""
+  " WHERE \"SCHEDULE\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Schedule >::update_statement[] =
-  "UPDATE \"Schedule\" SET "
-  "\"route\"=?,"
-  "\"stops\"=?,"
-  "\"stop\"=?"
+  "UPDATE \"SCHEDULE\" SET "
+  "\"ROUTE\"=?,"
+  "\"STOPS\"=?,"
+  "\"STOP\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Schedule >::erase_statement[] =
-  "DELETE FROM \"Schedule\""
+  "DELETE FROM \"SCHEDULE\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Schedule >::query_statement[] =
   "SELECT "
-  "\"Schedule\".\"auto_id\","
-  "\"Schedule\".\"route\","
-  "\"Schedule\".\"stops\","
-  "\"Schedule\".\"stop\""
-  " FROM \"Schedule\""
-  " LEFT JOIN \"Stop\" AS \"stops\" ON \"stops\".\"stop\"=\"Schedule\".\"stops\""
-  " LEFT JOIN \"Stop\" AS \"stop\" ON \"stop\".\"stop\"=\"Schedule\".\"stop\""
+  "\"SCHEDULE\".\"auto_id\","
+  "\"SCHEDULE\".\"ROUTE\","
+  "\"SCHEDULE\".\"STOPS\","
+  "\"SCHEDULE\".\"STOP\""
+  " FROM \"SCHEDULE\""
+  " LEFT JOIN \"STOP\" AS \"STOPS\" ON \"STOPS\".\"STOP\"=\"SCHEDULE\".\"STOPS\""
+  " LEFT JOIN \"STOP\" AS \"STOP\" ON \"STOP\".\"STOP\"=\"SCHEDULE\".\"STOP\""
   " ";
 
   const char access::object_traits< ::pio::Schedule >::erase_query_statement[] =
-  "DELETE FROM \"Schedule\""
+  "DELETE FROM \"SCHEDULE\""
   " ";
 
   const char access::object_traits< ::pio::Schedule >::table_name[] =
-  "\"Schedule\"";
+  "\"SCHEDULE\"";
 
   void access::object_traits< ::pio::Schedule >::
   persist (database& db, object_type& obj)
@@ -21481,7 +21481,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Schedule\"");
+          db.execute ("DROP TABLE IF EXISTS \"SCHEDULE\"");
           return false;
         }
       }
@@ -21492,18 +21492,18 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Schedule\" (\n"
+          db.execute ("CREATE TABLE \"SCHEDULE\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"route\" INTEGER NOT NULL,\n"
-                      "  \"stops\" INTEGER,\n"
-                      "  \"stop\" INTEGER,\n"
-                      "  CONSTRAINT \"stops_fk\"\n"
-                      "    FOREIGN KEY (\"stops\")\n"
-                      "    REFERENCES \"Stop\" (\"stop\")\n"
+                      "  \"ROUTE\" INTEGER NOT NULL,\n"
+                      "  \"STOPS\" INTEGER,\n"
+                      "  \"STOP\" INTEGER,\n"
+                      "  CONSTRAINT \"STOPS_fk\"\n"
+                      "    FOREIGN KEY (\"STOPS\")\n"
+                      "    REFERENCES \"STOP\" (\"STOP\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"stop_fk\"\n"
-                      "    FOREIGN KEY (\"stop\")\n"
-                      "    REFERENCES \"Stop\" (\"stop\")\n"
+                      "  CONSTRAINT \"STOP_fk\"\n"
+                      "    FOREIGN KEY (\"STOP\")\n"
+                      "    REFERENCES \"STOP\" (\"STOP\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -21963,62 +21963,62 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Driver >::persist_statement[] =
-  "INSERT INTO \"Driver\" ("
+  "INSERT INTO \"DRIVER\" ("
   "\"auto_id\","
-  "\"route\","
-  "\"links\","
-  "\"type\","
-  "\"subtype\","
-  "\"link\","
-  "\"dir\")"
+  "\"ROUTE\","
+  "\"LINKS\","
+  "\"TYPE\","
+  "\"SUBTYPE\","
+  "\"LINK\","
+  "\"DIR\")"
   " VALUES (?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Driver >::find_statement[] =
   "SELECT "
-  "\"Driver\".\"auto_id\","
-  "\"Driver\".\"route\","
-  "\"Driver\".\"links\","
-  "\"Driver\".\"type\","
-  "\"Driver\".\"subtype\","
-  "\"Driver\".\"link\","
-  "\"Driver\".\"dir\""
-  " FROM \"Driver\""
-  " WHERE \"Driver\".\"auto_id\"=?";
+  "\"DRIVER\".\"auto_id\","
+  "\"DRIVER\".\"ROUTE\","
+  "\"DRIVER\".\"LINKS\","
+  "\"DRIVER\".\"TYPE\","
+  "\"DRIVER\".\"SUBTYPE\","
+  "\"DRIVER\".\"LINK\","
+  "\"DRIVER\".\"DIR\""
+  " FROM \"DRIVER\""
+  " WHERE \"DRIVER\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Driver >::update_statement[] =
-  "UPDATE \"Driver\" SET "
-  "\"route\"=?,"
-  "\"links\"=?,"
-  "\"type\"=?,"
-  "\"subtype\"=?,"
-  "\"link\"=?,"
-  "\"dir\"=?"
+  "UPDATE \"DRIVER\" SET "
+  "\"ROUTE\"=?,"
+  "\"LINKS\"=?,"
+  "\"TYPE\"=?,"
+  "\"SUBTYPE\"=?,"
+  "\"LINK\"=?,"
+  "\"DIR\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Driver >::erase_statement[] =
-  "DELETE FROM \"Driver\""
+  "DELETE FROM \"DRIVER\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Driver >::query_statement[] =
   "SELECT "
-  "\"Driver\".\"auto_id\","
-  "\"Driver\".\"route\","
-  "\"Driver\".\"links\","
-  "\"Driver\".\"type\","
-  "\"Driver\".\"subtype\","
-  "\"Driver\".\"link\","
-  "\"Driver\".\"dir\""
-  " FROM \"Driver\""
-  " LEFT JOIN \"Link\" AS \"links\" ON \"links\".\"link\"=\"Driver\".\"links\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Driver\".\"link\""
+  "\"DRIVER\".\"auto_id\","
+  "\"DRIVER\".\"ROUTE\","
+  "\"DRIVER\".\"LINKS\","
+  "\"DRIVER\".\"TYPE\","
+  "\"DRIVER\".\"SUBTYPE\","
+  "\"DRIVER\".\"LINK\","
+  "\"DRIVER\".\"DIR\""
+  " FROM \"DRIVER\""
+  " LEFT JOIN \"LINK\" AS \"LINKS\" ON \"LINKS\".\"LINK\"=\"DRIVER\".\"LINKS\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"DRIVER\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Driver >::erase_query_statement[] =
-  "DELETE FROM \"Driver\""
+  "DELETE FROM \"DRIVER\""
   " ";
 
   const char access::object_traits< ::pio::Driver >::table_name[] =
-  "\"Driver\"";
+  "\"DRIVER\"";
 
   void access::object_traits< ::pio::Driver >::
   persist (database& db, object_type& obj)
@@ -22369,7 +22369,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Driver\"");
+          db.execute ("DROP TABLE IF EXISTS \"DRIVER\"");
           return false;
         }
       }
@@ -22380,21 +22380,21 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Driver\" (\n"
+          db.execute ("CREATE TABLE \"DRIVER\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"route\" INTEGER NOT NULL,\n"
-                      "  \"links\" INTEGER,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"subtype\" INTEGER NOT NULL,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"links_fk\"\n"
-                      "    FOREIGN KEY (\"links\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"ROUTE\" INTEGER NOT NULL,\n"
+                      "  \"LINKS\" INTEGER,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"SUBTYPE\" INTEGER NOT NULL,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINKS_fk\"\n"
+                      "    FOREIGN KEY (\"LINKS\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -23057,79 +23057,79 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Route_Nodes >::persist_statement[] =
-  "INSERT INTO \"Route_Nodes\" ("
+  "INSERT INTO \"ROUTE_NODES\" ("
   "\"auto_id\","
-  "\"route\","
-  "\"mode\","
-  "\"veh_type\","
-  "\"nodes\","
-  "\"name\","
-  "\"node\","
-  "\"type\","
-  "\"dwell\","
-  "\"time\","
-  "\"speed\")"
+  "\"ROUTE\","
+  "\"MODE\","
+  "\"VEH_TYPE\","
+  "\"NODES\","
+  "\"NAME\","
+  "\"NODE\","
+  "\"TYPE\","
+  "\"DWELL\","
+  "\"TIME\","
+  "\"SPEED\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Route_Nodes >::find_statement[] =
   "SELECT "
-  "\"Route_Nodes\".\"auto_id\","
-  "\"Route_Nodes\".\"route\","
-  "\"Route_Nodes\".\"mode\","
-  "\"Route_Nodes\".\"veh_type\","
-  "\"Route_Nodes\".\"nodes\","
-  "\"Route_Nodes\".\"name\","
-  "\"Route_Nodes\".\"node\","
-  "\"Route_Nodes\".\"type\","
-  "\"Route_Nodes\".\"dwell\","
-  "\"Route_Nodes\".\"time\","
-  "\"Route_Nodes\".\"speed\""
-  " FROM \"Route_Nodes\""
-  " WHERE \"Route_Nodes\".\"auto_id\"=?";
+  "\"ROUTE_NODES\".\"auto_id\","
+  "\"ROUTE_NODES\".\"ROUTE\","
+  "\"ROUTE_NODES\".\"MODE\","
+  "\"ROUTE_NODES\".\"VEH_TYPE\","
+  "\"ROUTE_NODES\".\"NODES\","
+  "\"ROUTE_NODES\".\"NAME\","
+  "\"ROUTE_NODES\".\"NODE\","
+  "\"ROUTE_NODES\".\"TYPE\","
+  "\"ROUTE_NODES\".\"DWELL\","
+  "\"ROUTE_NODES\".\"TIME\","
+  "\"ROUTE_NODES\".\"SPEED\""
+  " FROM \"ROUTE_NODES\""
+  " WHERE \"ROUTE_NODES\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Route_Nodes >::update_statement[] =
-  "UPDATE \"Route_Nodes\" SET "
-  "\"route\"=?,"
-  "\"mode\"=?,"
-  "\"veh_type\"=?,"
-  "\"nodes\"=?,"
-  "\"name\"=?,"
-  "\"node\"=?,"
-  "\"type\"=?,"
-  "\"dwell\"=?,"
-  "\"time\"=?,"
-  "\"speed\"=?"
+  "UPDATE \"ROUTE_NODES\" SET "
+  "\"ROUTE\"=?,"
+  "\"MODE\"=?,"
+  "\"VEH_TYPE\"=?,"
+  "\"NODES\"=?,"
+  "\"NAME\"=?,"
+  "\"NODE\"=?,"
+  "\"TYPE\"=?,"
+  "\"DWELL\"=?,"
+  "\"TIME\"=?,"
+  "\"SPEED\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Route_Nodes >::erase_statement[] =
-  "DELETE FROM \"Route_Nodes\""
+  "DELETE FROM \"ROUTE_NODES\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Route_Nodes >::query_statement[] =
   "SELECT "
-  "\"Route_Nodes\".\"auto_id\","
-  "\"Route_Nodes\".\"route\","
-  "\"Route_Nodes\".\"mode\","
-  "\"Route_Nodes\".\"veh_type\","
-  "\"Route_Nodes\".\"nodes\","
-  "\"Route_Nodes\".\"name\","
-  "\"Route_Nodes\".\"node\","
-  "\"Route_Nodes\".\"type\","
-  "\"Route_Nodes\".\"dwell\","
-  "\"Route_Nodes\".\"time\","
-  "\"Route_Nodes\".\"speed\""
-  " FROM \"Route_Nodes\""
-  " LEFT JOIN \"Veh_Type\" AS \"veh_type\" ON \"veh_type\".\"type\"=\"Route_Nodes\".\"veh_type\""
-  " LEFT JOIN \"Node\" AS \"nodes\" ON \"nodes\".\"node\"=\"Route_Nodes\".\"nodes\""
-  " LEFT JOIN \"Node\" AS \"node\" ON \"node\".\"node\"=\"Route_Nodes\".\"node\""
+  "\"ROUTE_NODES\".\"auto_id\","
+  "\"ROUTE_NODES\".\"ROUTE\","
+  "\"ROUTE_NODES\".\"MODE\","
+  "\"ROUTE_NODES\".\"VEH_TYPE\","
+  "\"ROUTE_NODES\".\"NODES\","
+  "\"ROUTE_NODES\".\"NAME\","
+  "\"ROUTE_NODES\".\"NODE\","
+  "\"ROUTE_NODES\".\"TYPE\","
+  "\"ROUTE_NODES\".\"DWELL\","
+  "\"ROUTE_NODES\".\"TIME\","
+  "\"ROUTE_NODES\".\"SPEED\""
+  " FROM \"ROUTE_NODES\""
+  " LEFT JOIN \"VEH_TYPE\" AS \"VEH_TYPE\" ON \"VEH_TYPE\".\"TYPE\"=\"ROUTE_NODES\".\"VEH_TYPE\""
+  " LEFT JOIN \"NODE\" AS \"NODES\" ON \"NODES\".\"NODE\"=\"ROUTE_NODES\".\"NODES\""
+  " LEFT JOIN \"NODE\" AS \"NODE\" ON \"NODE\".\"NODE\"=\"ROUTE_NODES\".\"NODE\""
   " ";
 
   const char access::object_traits< ::pio::Route_Nodes >::erase_query_statement[] =
-  "DELETE FROM \"Route_Nodes\""
+  "DELETE FROM \"ROUTE_NODES\""
   " ";
 
   const char access::object_traits< ::pio::Route_Nodes >::table_name[] =
-  "\"Route_Nodes\"";
+  "\"ROUTE_NODES\"";
 
   void access::object_traits< ::pio::Route_Nodes >::
   persist (database& db, object_type& obj)
@@ -23494,7 +23494,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Route_Nodes\"");
+          db.execute ("DROP TABLE IF EXISTS \"ROUTE_NODES\"");
           return false;
         }
       }
@@ -23505,29 +23505,29 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Route_Nodes\" (\n"
+          db.execute ("CREATE TABLE \"ROUTE_NODES\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"route\" INTEGER NOT NULL,\n"
-                      "  \"mode\" INTEGER NOT NULL,\n"
-                      "  \"veh_type\" INTEGER,\n"
-                      "  \"nodes\" INTEGER,\n"
-                      "  \"name\" TEXT NOT NULL,\n"
-                      "  \"node\" INTEGER,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"dwell\" REAL,\n"
-                      "  \"time\" REAL,\n"
-                      "  \"speed\" REAL,\n"
-                      "  CONSTRAINT \"veh_type_fk\"\n"
-                      "    FOREIGN KEY (\"veh_type\")\n"
-                      "    REFERENCES \"Veh_Type\" (\"type\")\n"
+                      "  \"ROUTE\" INTEGER NOT NULL,\n"
+                      "  \"MODE\" INTEGER NOT NULL,\n"
+                      "  \"VEH_TYPE\" INTEGER,\n"
+                      "  \"NODES\" INTEGER,\n"
+                      "  \"NAME\" TEXT NOT NULL,\n"
+                      "  \"NODE\" INTEGER,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"DWELL\" REAL,\n"
+                      "  \"TIME\" REAL,\n"
+                      "  \"SPEED\" REAL,\n"
+                      "  CONSTRAINT \"VEH_TYPE_fk\"\n"
+                      "    FOREIGN KEY (\"VEH_TYPE\")\n"
+                      "    REFERENCES \"VEH_TYPE\" (\"TYPE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"nodes_fk\"\n"
-                      "    FOREIGN KEY (\"nodes\")\n"
-                      "    REFERENCES \"Node\" (\"node\")\n"
+                      "  CONSTRAINT \"NODES_fk\"\n"
+                      "    FOREIGN KEY (\"NODES\")\n"
+                      "    REFERENCES \"NODE\" (\"NODE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"node_fk\"\n"
-                      "    FOREIGN KEY (\"node\")\n"
-                      "    REFERENCES \"Node\" (\"node\")\n"
+                      "  CONSTRAINT \"NODE_fk\"\n"
+                      "    FOREIGN KEY (\"NODE\")\n"
+                      "    REFERENCES \"NODE\" (\"NODE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -23933,60 +23933,60 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Selection >::persist_statement[] =
-  "INSERT INTO \"Selection\" ("
+  "INSERT INTO \"SELECTION\" ("
   "\"auto_id\","
-  "\"hhold\","
-  "\"person\","
-  "\"tour\","
-  "\"trip\","
-  "\"type\","
-  "\"partition\")"
+  "\"HHOLD\","
+  "\"PERSON\","
+  "\"TOUR\","
+  "\"TRIP\","
+  "\"TYPE\","
+  "\"PARTITION\")"
   " VALUES (?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Selection >::find_statement[] =
   "SELECT "
-  "\"Selection\".\"auto_id\","
-  "\"Selection\".\"hhold\","
-  "\"Selection\".\"person\","
-  "\"Selection\".\"tour\","
-  "\"Selection\".\"trip\","
-  "\"Selection\".\"type\","
-  "\"Selection\".\"partition\""
-  " FROM \"Selection\""
-  " WHERE \"Selection\".\"auto_id\"=?";
+  "\"SELECTION\".\"auto_id\","
+  "\"SELECTION\".\"HHOLD\","
+  "\"SELECTION\".\"PERSON\","
+  "\"SELECTION\".\"TOUR\","
+  "\"SELECTION\".\"TRIP\","
+  "\"SELECTION\".\"TYPE\","
+  "\"SELECTION\".\"PARTITION\""
+  " FROM \"SELECTION\""
+  " WHERE \"SELECTION\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Selection >::update_statement[] =
-  "UPDATE \"Selection\" SET "
-  "\"hhold\"=?,"
-  "\"person\"=?,"
-  "\"tour\"=?,"
-  "\"trip\"=?,"
-  "\"type\"=?,"
-  "\"partition\"=?"
+  "UPDATE \"SELECTION\" SET "
+  "\"HHOLD\"=?,"
+  "\"PERSON\"=?,"
+  "\"TOUR\"=?,"
+  "\"TRIP\"=?,"
+  "\"TYPE\"=?,"
+  "\"PARTITION\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Selection >::erase_statement[] =
-  "DELETE FROM \"Selection\""
+  "DELETE FROM \"SELECTION\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Selection >::query_statement[] =
   "SELECT "
-  "\"Selection\".\"auto_id\","
-  "\"Selection\".\"hhold\","
-  "\"Selection\".\"person\","
-  "\"Selection\".\"tour\","
-  "\"Selection\".\"trip\","
-  "\"Selection\".\"type\","
-  "\"Selection\".\"partition\""
-  " FROM \"Selection\""
+  "\"SELECTION\".\"auto_id\","
+  "\"SELECTION\".\"HHOLD\","
+  "\"SELECTION\".\"PERSON\","
+  "\"SELECTION\".\"TOUR\","
+  "\"SELECTION\".\"TRIP\","
+  "\"SELECTION\".\"TYPE\","
+  "\"SELECTION\".\"PARTITION\""
+  " FROM \"SELECTION\""
   " ";
 
   const char access::object_traits< ::pio::Selection >::erase_query_statement[] =
-  "DELETE FROM \"Selection\""
+  "DELETE FROM \"SELECTION\""
   " ";
 
   const char access::object_traits< ::pio::Selection >::table_name[] =
-  "\"Selection\"";
+  "\"SELECTION\"";
 
   void access::object_traits< ::pio::Selection >::
   persist (database& db, object_type& obj)
@@ -24337,7 +24337,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Selection\"");
+          db.execute ("DROP TABLE IF EXISTS \"SELECTION\"");
           return false;
         }
       }
@@ -24348,14 +24348,14 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Selection\" (\n"
+          db.execute ("CREATE TABLE \"SELECTION\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"hhold\" INTEGER NOT NULL,\n"
-                      "  \"person\" INTEGER NOT NULL,\n"
-                      "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"partition\" INTEGER NOT NULL)");
+                      "  \"HHOLD\" INTEGER NOT NULL,\n"
+                      "  \"PERSON\" INTEGER NOT NULL,\n"
+                      "  \"TOUR\" INTEGER NOT NULL,\n"
+                      "  \"TRIP\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"PARTITION\" INTEGER NOT NULL)");
           return false;
         }
       }
@@ -25074,89 +25074,89 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Household >::persist_statement[] =
-  "INSERT INTO \"Household\" ("
+  "INSERT INTO \"HOUSEHOLD\" ("
   "\"auto_id\","
-  "\"hhold\","
-  "\"location\","
-  "\"persons\","
-  "\"workers\","
-  "\"vehicles\","
-  "\"type\","
-  "\"partition\","
-  "\"person\","
-  "\"age\","
-  "\"relate\","
-  "\"gender\","
-  "\"work\","
-  "\"drive\")"
+  "\"HHOLD\","
+  "\"LOCATION\","
+  "\"PERSONS\","
+  "\"WORKERS\","
+  "\"VEHICLES\","
+  "\"TYPE\","
+  "\"PARTITION\","
+  "\"PERSON\","
+  "\"AGE\","
+  "\"RELATE\","
+  "\"GENDER\","
+  "\"WORK\","
+  "\"DRIVE\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Household >::find_statement[] =
   "SELECT "
-  "\"Household\".\"auto_id\","
-  "\"Household\".\"hhold\","
-  "\"Household\".\"location\","
-  "\"Household\".\"persons\","
-  "\"Household\".\"workers\","
-  "\"Household\".\"vehicles\","
-  "\"Household\".\"type\","
-  "\"Household\".\"partition\","
-  "\"Household\".\"person\","
-  "\"Household\".\"age\","
-  "\"Household\".\"relate\","
-  "\"Household\".\"gender\","
-  "\"Household\".\"work\","
-  "\"Household\".\"drive\""
-  " FROM \"Household\""
-  " WHERE \"Household\".\"auto_id\"=?";
+  "\"HOUSEHOLD\".\"auto_id\","
+  "\"HOUSEHOLD\".\"HHOLD\","
+  "\"HOUSEHOLD\".\"LOCATION\","
+  "\"HOUSEHOLD\".\"PERSONS\","
+  "\"HOUSEHOLD\".\"WORKERS\","
+  "\"HOUSEHOLD\".\"VEHICLES\","
+  "\"HOUSEHOLD\".\"TYPE\","
+  "\"HOUSEHOLD\".\"PARTITION\","
+  "\"HOUSEHOLD\".\"PERSON\","
+  "\"HOUSEHOLD\".\"AGE\","
+  "\"HOUSEHOLD\".\"RELATE\","
+  "\"HOUSEHOLD\".\"GENDER\","
+  "\"HOUSEHOLD\".\"WORK\","
+  "\"HOUSEHOLD\".\"DRIVE\""
+  " FROM \"HOUSEHOLD\""
+  " WHERE \"HOUSEHOLD\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Household >::update_statement[] =
-  "UPDATE \"Household\" SET "
-  "\"hhold\"=?,"
-  "\"location\"=?,"
-  "\"persons\"=?,"
-  "\"workers\"=?,"
-  "\"vehicles\"=?,"
-  "\"type\"=?,"
-  "\"partition\"=?,"
-  "\"person\"=?,"
-  "\"age\"=?,"
-  "\"relate\"=?,"
-  "\"gender\"=?,"
-  "\"work\"=?,"
-  "\"drive\"=?"
+  "UPDATE \"HOUSEHOLD\" SET "
+  "\"HHOLD\"=?,"
+  "\"LOCATION\"=?,"
+  "\"PERSONS\"=?,"
+  "\"WORKERS\"=?,"
+  "\"VEHICLES\"=?,"
+  "\"TYPE\"=?,"
+  "\"PARTITION\"=?,"
+  "\"PERSON\"=?,"
+  "\"AGE\"=?,"
+  "\"RELATE\"=?,"
+  "\"GENDER\"=?,"
+  "\"WORK\"=?,"
+  "\"DRIVE\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Household >::erase_statement[] =
-  "DELETE FROM \"Household\""
+  "DELETE FROM \"HOUSEHOLD\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Household >::query_statement[] =
   "SELECT "
-  "\"Household\".\"auto_id\","
-  "\"Household\".\"hhold\","
-  "\"Household\".\"location\","
-  "\"Household\".\"persons\","
-  "\"Household\".\"workers\","
-  "\"Household\".\"vehicles\","
-  "\"Household\".\"type\","
-  "\"Household\".\"partition\","
-  "\"Household\".\"person\","
-  "\"Household\".\"age\","
-  "\"Household\".\"relate\","
-  "\"Household\".\"gender\","
-  "\"Household\".\"work\","
-  "\"Household\".\"drive\""
-  " FROM \"Household\""
-  " LEFT JOIN \"Location\" AS \"location\" ON \"location\".\"location\"=\"Household\".\"location\""
+  "\"HOUSEHOLD\".\"auto_id\","
+  "\"HOUSEHOLD\".\"HHOLD\","
+  "\"HOUSEHOLD\".\"LOCATION\","
+  "\"HOUSEHOLD\".\"PERSONS\","
+  "\"HOUSEHOLD\".\"WORKERS\","
+  "\"HOUSEHOLD\".\"VEHICLES\","
+  "\"HOUSEHOLD\".\"TYPE\","
+  "\"HOUSEHOLD\".\"PARTITION\","
+  "\"HOUSEHOLD\".\"PERSON\","
+  "\"HOUSEHOLD\".\"AGE\","
+  "\"HOUSEHOLD\".\"RELATE\","
+  "\"HOUSEHOLD\".\"GENDER\","
+  "\"HOUSEHOLD\".\"WORK\","
+  "\"HOUSEHOLD\".\"DRIVE\""
+  " FROM \"HOUSEHOLD\""
+  " LEFT JOIN \"LOCATION\" AS \"LOCATION\" ON \"LOCATION\".\"LOCATION\"=\"HOUSEHOLD\".\"LOCATION\""
   " ";
 
   const char access::object_traits< ::pio::Household >::erase_query_statement[] =
-  "DELETE FROM \"Household\""
+  "DELETE FROM \"HOUSEHOLD\""
   " ";
 
   const char access::object_traits< ::pio::Household >::table_name[] =
-  "\"Household\"";
+  "\"HOUSEHOLD\"";
 
   void access::object_traits< ::pio::Household >::
   persist (database& db, object_type& obj)
@@ -25507,7 +25507,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Household\"");
+          db.execute ("DROP TABLE IF EXISTS \"HOUSEHOLD\"");
           return false;
         }
       }
@@ -25518,24 +25518,24 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Household\" (\n"
+          db.execute ("CREATE TABLE \"HOUSEHOLD\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"hhold\" INTEGER NOT NULL,\n"
-                      "  \"location\" INTEGER,\n"
-                      "  \"persons\" INTEGER NOT NULL,\n"
-                      "  \"workers\" INTEGER NOT NULL,\n"
-                      "  \"vehicles\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"partition\" INTEGER NOT NULL,\n"
-                      "  \"person\" INTEGER NOT NULL,\n"
-                      "  \"age\" INTEGER NOT NULL,\n"
-                      "  \"relate\" INTEGER NOT NULL,\n"
-                      "  \"gender\" INTEGER NOT NULL,\n"
-                      "  \"work\" INTEGER NOT NULL,\n"
-                      "  \"drive\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"location_fk\"\n"
-                      "    FOREIGN KEY (\"location\")\n"
-                      "    REFERENCES \"Location\" (\"location\")\n"
+                      "  \"HHOLD\" INTEGER NOT NULL,\n"
+                      "  \"LOCATION\" INTEGER,\n"
+                      "  \"PERSONS\" INTEGER NOT NULL,\n"
+                      "  \"WORKERS\" INTEGER NOT NULL,\n"
+                      "  \"VEHICLES\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"PARTITION\" INTEGER NOT NULL,\n"
+                      "  \"PERSON\" INTEGER NOT NULL,\n"
+                      "  \"AGE\" INTEGER NOT NULL,\n"
+                      "  \"RELATE\" INTEGER NOT NULL,\n"
+                      "  \"GENDER\" INTEGER NOT NULL,\n"
+                      "  \"WORK\" INTEGER NOT NULL,\n"
+                      "  \"DRIVE\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LOCATION_fk\"\n"
+                      "    FOREIGN KEY (\"LOCATION\")\n"
+                      "    REFERENCES \"LOCATION\" (\"LOCATION\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -26159,78 +26159,78 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Link_Delay >::persist_statement[] =
-  "INSERT INTO \"Link_Delay\" ("
+  "INSERT INTO \"LINK_DELAY\" ("
   "\"auto_id\","
-  "\"link\","
-  "\"dir\","
-  "\"type\","
-  "\"start\","
-  "\"end\","
-  "\"flow\","
-  "\"time\","
-  "\"out_link\","
-  "\"out_flow\","
-  "\"out_time\")"
+  "\"LINK\","
+  "\"DIR\","
+  "\"TYPE\","
+  "\"START\","
+  "\"END\","
+  "\"FLOW\","
+  "\"TIME\","
+  "\"OUT_LINK\","
+  "\"OUT_FLOW\","
+  "\"OUT_TIME\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Link_Delay >::find_statement[] =
   "SELECT "
-  "\"Link_Delay\".\"auto_id\","
-  "\"Link_Delay\".\"link\","
-  "\"Link_Delay\".\"dir\","
-  "\"Link_Delay\".\"type\","
-  "\"Link_Delay\".\"start\","
-  "\"Link_Delay\".\"end\","
-  "\"Link_Delay\".\"flow\","
-  "\"Link_Delay\".\"time\","
-  "\"Link_Delay\".\"out_link\","
-  "\"Link_Delay\".\"out_flow\","
-  "\"Link_Delay\".\"out_time\""
-  " FROM \"Link_Delay\""
-  " WHERE \"Link_Delay\".\"auto_id\"=?";
+  "\"LINK_DELAY\".\"auto_id\","
+  "\"LINK_DELAY\".\"LINK\","
+  "\"LINK_DELAY\".\"DIR\","
+  "\"LINK_DELAY\".\"TYPE\","
+  "\"LINK_DELAY\".\"START\","
+  "\"LINK_DELAY\".\"END\","
+  "\"LINK_DELAY\".\"FLOW\","
+  "\"LINK_DELAY\".\"TIME\","
+  "\"LINK_DELAY\".\"OUT_LINK\","
+  "\"LINK_DELAY\".\"OUT_FLOW\","
+  "\"LINK_DELAY\".\"OUT_TIME\""
+  " FROM \"LINK_DELAY\""
+  " WHERE \"LINK_DELAY\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Link_Delay >::update_statement[] =
-  "UPDATE \"Link_Delay\" SET "
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"type\"=?,"
-  "\"start\"=?,"
-  "\"end\"=?,"
-  "\"flow\"=?,"
-  "\"time\"=?,"
-  "\"out_link\"=?,"
-  "\"out_flow\"=?,"
-  "\"out_time\"=?"
+  "UPDATE \"LINK_DELAY\" SET "
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"TYPE\"=?,"
+  "\"START\"=?,"
+  "\"END\"=?,"
+  "\"FLOW\"=?,"
+  "\"TIME\"=?,"
+  "\"OUT_LINK\"=?,"
+  "\"OUT_FLOW\"=?,"
+  "\"OUT_TIME\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Link_Delay >::erase_statement[] =
-  "DELETE FROM \"Link_Delay\""
+  "DELETE FROM \"LINK_DELAY\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Link_Delay >::query_statement[] =
   "SELECT "
-  "\"Link_Delay\".\"auto_id\","
-  "\"Link_Delay\".\"link\","
-  "\"Link_Delay\".\"dir\","
-  "\"Link_Delay\".\"type\","
-  "\"Link_Delay\".\"start\","
-  "\"Link_Delay\".\"end\","
-  "\"Link_Delay\".\"flow\","
-  "\"Link_Delay\".\"time\","
-  "\"Link_Delay\".\"out_link\","
-  "\"Link_Delay\".\"out_flow\","
-  "\"Link_Delay\".\"out_time\""
-  " FROM \"Link_Delay\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Link_Delay\".\"link\""
-  " LEFT JOIN \"Link\" AS \"out_link\" ON \"out_link\".\"link\"=\"Link_Delay\".\"out_link\""
+  "\"LINK_DELAY\".\"auto_id\","
+  "\"LINK_DELAY\".\"LINK\","
+  "\"LINK_DELAY\".\"DIR\","
+  "\"LINK_DELAY\".\"TYPE\","
+  "\"LINK_DELAY\".\"START\","
+  "\"LINK_DELAY\".\"END\","
+  "\"LINK_DELAY\".\"FLOW\","
+  "\"LINK_DELAY\".\"TIME\","
+  "\"LINK_DELAY\".\"OUT_LINK\","
+  "\"LINK_DELAY\".\"OUT_FLOW\","
+  "\"LINK_DELAY\".\"OUT_TIME\""
+  " FROM \"LINK_DELAY\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"LINK_DELAY\".\"LINK\""
+  " LEFT JOIN \"LINK\" AS \"OUT_LINK\" ON \"OUT_LINK\".\"LINK\"=\"LINK_DELAY\".\"OUT_LINK\""
   " ";
 
   const char access::object_traits< ::pio::Link_Delay >::erase_query_statement[] =
-  "DELETE FROM \"Link_Delay\""
+  "DELETE FROM \"LINK_DELAY\""
   " ";
 
   const char access::object_traits< ::pio::Link_Delay >::table_name[] =
-  "\"Link_Delay\"";
+  "\"LINK_DELAY\"";
 
   void access::object_traits< ::pio::Link_Delay >::
   persist (database& db, object_type& obj)
@@ -26581,7 +26581,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Link_Delay\"");
+          db.execute ("DROP TABLE IF EXISTS \"LINK_DELAY\"");
           return false;
         }
       }
@@ -26592,25 +26592,25 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Link_Delay\" (\n"
+          db.execute ("CREATE TABLE \"LINK_DELAY\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"start\" REAL,\n"
-                      "  \"end\" REAL,\n"
-                      "  \"flow\" REAL,\n"
-                      "  \"time\" REAL,\n"
-                      "  \"out_link\" INTEGER,\n"
-                      "  \"out_flow\" REAL,\n"
-                      "  \"out_time\" REAL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"START\" REAL,\n"
+                      "  \"END\" REAL,\n"
+                      "  \"FLOW\" REAL,\n"
+                      "  \"TIME\" REAL,\n"
+                      "  \"OUT_LINK\" INTEGER,\n"
+                      "  \"OUT_FLOW\" REAL,\n"
+                      "  \"OUT_TIME\" REAL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"out_link_fk\"\n"
-                      "    FOREIGN KEY (\"out_link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  CONSTRAINT \"OUT_LINK_fk\"\n"
+                      "    FOREIGN KEY (\"OUT_LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -27098,68 +27098,68 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Performance >::persist_statement[] =
-  "INSERT INTO \"Performance\" ("
+  "INSERT INTO \"PERFORMANCE\" ("
   "\"auto_id\","
-  "\"speed\","
-  "\"delay\","
-  "\"density\","
-  "\"max_den\","
-  "\"ratio\","
-  "\"queue\","
-  "\"max_que\","
-  "\"fail\")"
+  "\"SPEED\","
+  "\"DELAY\","
+  "\"DENSITY\","
+  "\"MAX_DEN\","
+  "\"RATIO\","
+  "\"QUEUE\","
+  "\"MAX_QUE\","
+  "\"FAIL\")"
   " VALUES (?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Performance >::find_statement[] =
   "SELECT "
-  "\"Performance\".\"auto_id\","
-  "\"Performance\".\"speed\","
-  "\"Performance\".\"delay\","
-  "\"Performance\".\"density\","
-  "\"Performance\".\"max_den\","
-  "\"Performance\".\"ratio\","
-  "\"Performance\".\"queue\","
-  "\"Performance\".\"max_que\","
-  "\"Performance\".\"fail\""
-  " FROM \"Performance\""
-  " WHERE \"Performance\".\"auto_id\"=?";
+  "\"PERFORMANCE\".\"auto_id\","
+  "\"PERFORMANCE\".\"SPEED\","
+  "\"PERFORMANCE\".\"DELAY\","
+  "\"PERFORMANCE\".\"DENSITY\","
+  "\"PERFORMANCE\".\"MAX_DEN\","
+  "\"PERFORMANCE\".\"RATIO\","
+  "\"PERFORMANCE\".\"QUEUE\","
+  "\"PERFORMANCE\".\"MAX_QUE\","
+  "\"PERFORMANCE\".\"FAIL\""
+  " FROM \"PERFORMANCE\""
+  " WHERE \"PERFORMANCE\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Performance >::update_statement[] =
-  "UPDATE \"Performance\" SET "
-  "\"speed\"=?,"
-  "\"delay\"=?,"
-  "\"density\"=?,"
-  "\"max_den\"=?,"
-  "\"ratio\"=?,"
-  "\"queue\"=?,"
-  "\"max_que\"=?,"
-  "\"fail\"=?"
+  "UPDATE \"PERFORMANCE\" SET "
+  "\"SPEED\"=?,"
+  "\"DELAY\"=?,"
+  "\"DENSITY\"=?,"
+  "\"MAX_DEN\"=?,"
+  "\"RATIO\"=?,"
+  "\"QUEUE\"=?,"
+  "\"MAX_QUE\"=?,"
+  "\"FAIL\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Performance >::erase_statement[] =
-  "DELETE FROM \"Performance\""
+  "DELETE FROM \"PERFORMANCE\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Performance >::query_statement[] =
   "SELECT "
-  "\"Performance\".\"auto_id\","
-  "\"Performance\".\"speed\","
-  "\"Performance\".\"delay\","
-  "\"Performance\".\"density\","
-  "\"Performance\".\"max_den\","
-  "\"Performance\".\"ratio\","
-  "\"Performance\".\"queue\","
-  "\"Performance\".\"max_que\","
-  "\"Performance\".\"fail\""
-  " FROM \"Performance\""
+  "\"PERFORMANCE\".\"auto_id\","
+  "\"PERFORMANCE\".\"SPEED\","
+  "\"PERFORMANCE\".\"DELAY\","
+  "\"PERFORMANCE\".\"DENSITY\","
+  "\"PERFORMANCE\".\"MAX_DEN\","
+  "\"PERFORMANCE\".\"RATIO\","
+  "\"PERFORMANCE\".\"QUEUE\","
+  "\"PERFORMANCE\".\"MAX_QUE\","
+  "\"PERFORMANCE\".\"FAIL\""
+  " FROM \"PERFORMANCE\""
   " ";
 
   const char access::object_traits< ::pio::Performance >::erase_query_statement[] =
-  "DELETE FROM \"Performance\""
+  "DELETE FROM \"PERFORMANCE\""
   " ";
 
   const char access::object_traits< ::pio::Performance >::table_name[] =
-  "\"Performance\"";
+  "\"PERFORMANCE\"";
 
   void access::object_traits< ::pio::Performance >::
   persist (database& db, object_type& obj)
@@ -27510,7 +27510,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Performance\"");
+          db.execute ("DROP TABLE IF EXISTS \"PERFORMANCE\"");
           return false;
         }
       }
@@ -27521,16 +27521,16 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Performance\" (\n"
+          db.execute ("CREATE TABLE \"PERFORMANCE\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"speed\" REAL,\n"
-                      "  \"delay\" REAL,\n"
-                      "  \"density\" REAL,\n"
-                      "  \"max_den\" REAL,\n"
-                      "  \"ratio\" REAL,\n"
-                      "  \"queue\" REAL,\n"
-                      "  \"max_que\" INTEGER NOT NULL,\n"
-                      "  \"fail\" INTEGER NOT NULL)");
+                      "  \"SPEED\" REAL,\n"
+                      "  \"DELAY\" REAL,\n"
+                      "  \"DENSITY\" REAL,\n"
+                      "  \"MAX_DEN\" REAL,\n"
+                      "  \"RATIO\" REAL,\n"
+                      "  \"QUEUE\" REAL,\n"
+                      "  \"MAX_QUE\" INTEGER NOT NULL,\n"
+                      "  \"FAIL\" INTEGER NOT NULL)");
           return false;
         }
       }
@@ -28126,77 +28126,77 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Ridership >::persist_statement[] =
-  "INSERT INTO \"Ridership\" ("
+  "INSERT INTO \"RIDERSHIP\" ("
   "\"auto_id\","
-  "\"mode\","
-  "\"route\","
-  "\"run\","
-  "\"stop\","
-  "\"schedule\","
-  "\"time\","
-  "\"board\","
-  "\"alight\","
-  "\"load\","
-  "\"factor\")"
+  "\"MODE\","
+  "\"ROUTE\","
+  "\"RUN\","
+  "\"STOP\","
+  "\"SCHEDULE\","
+  "\"TIME\","
+  "\"BOARD\","
+  "\"ALIGHT\","
+  "\"LOAD\","
+  "\"FACTOR\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Ridership >::find_statement[] =
   "SELECT "
-  "\"Ridership\".\"auto_id\","
-  "\"Ridership\".\"mode\","
-  "\"Ridership\".\"route\","
-  "\"Ridership\".\"run\","
-  "\"Ridership\".\"stop\","
-  "\"Ridership\".\"schedule\","
-  "\"Ridership\".\"time\","
-  "\"Ridership\".\"board\","
-  "\"Ridership\".\"alight\","
-  "\"Ridership\".\"load\","
-  "\"Ridership\".\"factor\""
-  " FROM \"Ridership\""
-  " WHERE \"Ridership\".\"auto_id\"=?";
+  "\"RIDERSHIP\".\"auto_id\","
+  "\"RIDERSHIP\".\"MODE\","
+  "\"RIDERSHIP\".\"ROUTE\","
+  "\"RIDERSHIP\".\"RUN\","
+  "\"RIDERSHIP\".\"STOP\","
+  "\"RIDERSHIP\".\"SCHEDULE\","
+  "\"RIDERSHIP\".\"TIME\","
+  "\"RIDERSHIP\".\"BOARD\","
+  "\"RIDERSHIP\".\"ALIGHT\","
+  "\"RIDERSHIP\".\"LOAD\","
+  "\"RIDERSHIP\".\"FACTOR\""
+  " FROM \"RIDERSHIP\""
+  " WHERE \"RIDERSHIP\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Ridership >::update_statement[] =
-  "UPDATE \"Ridership\" SET "
-  "\"mode\"=?,"
-  "\"route\"=?,"
-  "\"run\"=?,"
-  "\"stop\"=?,"
-  "\"schedule\"=?,"
-  "\"time\"=?,"
-  "\"board\"=?,"
-  "\"alight\"=?,"
-  "\"load\"=?,"
-  "\"factor\"=?"
+  "UPDATE \"RIDERSHIP\" SET "
+  "\"MODE\"=?,"
+  "\"ROUTE\"=?,"
+  "\"RUN\"=?,"
+  "\"STOP\"=?,"
+  "\"SCHEDULE\"=?,"
+  "\"TIME\"=?,"
+  "\"BOARD\"=?,"
+  "\"ALIGHT\"=?,"
+  "\"LOAD\"=?,"
+  "\"FACTOR\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Ridership >::erase_statement[] =
-  "DELETE FROM \"Ridership\""
+  "DELETE FROM \"RIDERSHIP\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Ridership >::query_statement[] =
   "SELECT "
-  "\"Ridership\".\"auto_id\","
-  "\"Ridership\".\"mode\","
-  "\"Ridership\".\"route\","
-  "\"Ridership\".\"run\","
-  "\"Ridership\".\"stop\","
-  "\"Ridership\".\"schedule\","
-  "\"Ridership\".\"time\","
-  "\"Ridership\".\"board\","
-  "\"Ridership\".\"alight\","
-  "\"Ridership\".\"load\","
-  "\"Ridership\".\"factor\""
-  " FROM \"Ridership\""
-  " LEFT JOIN \"Stop\" AS \"stop\" ON \"stop\".\"stop\"=\"Ridership\".\"stop\""
+  "\"RIDERSHIP\".\"auto_id\","
+  "\"RIDERSHIP\".\"MODE\","
+  "\"RIDERSHIP\".\"ROUTE\","
+  "\"RIDERSHIP\".\"RUN\","
+  "\"RIDERSHIP\".\"STOP\","
+  "\"RIDERSHIP\".\"SCHEDULE\","
+  "\"RIDERSHIP\".\"TIME\","
+  "\"RIDERSHIP\".\"BOARD\","
+  "\"RIDERSHIP\".\"ALIGHT\","
+  "\"RIDERSHIP\".\"LOAD\","
+  "\"RIDERSHIP\".\"FACTOR\""
+  " FROM \"RIDERSHIP\""
+  " LEFT JOIN \"STOP\" AS \"STOP\" ON \"STOP\".\"STOP\"=\"RIDERSHIP\".\"STOP\""
   " ";
 
   const char access::object_traits< ::pio::Ridership >::erase_query_statement[] =
-  "DELETE FROM \"Ridership\""
+  "DELETE FROM \"RIDERSHIP\""
   " ";
 
   const char access::object_traits< ::pio::Ridership >::table_name[] =
-  "\"Ridership\"";
+  "\"RIDERSHIP\"";
 
   void access::object_traits< ::pio::Ridership >::
   persist (database& db, object_type& obj)
@@ -28547,7 +28547,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Ridership\"");
+          db.execute ("DROP TABLE IF EXISTS \"RIDERSHIP\"");
           return false;
         }
       }
@@ -28558,21 +28558,21 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Ridership\" (\n"
+          db.execute ("CREATE TABLE \"RIDERSHIP\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"mode\" INTEGER NOT NULL,\n"
-                      "  \"route\" INTEGER NOT NULL,\n"
-                      "  \"run\" INTEGER NOT NULL,\n"
-                      "  \"stop\" INTEGER,\n"
-                      "  \"schedule\" REAL,\n"
-                      "  \"time\" REAL,\n"
-                      "  \"board\" INTEGER NOT NULL,\n"
-                      "  \"alight\" INTEGER NOT NULL,\n"
-                      "  \"load\" INTEGER NOT NULL,\n"
-                      "  \"factor\" REAL,\n"
-                      "  CONSTRAINT \"stop_fk\"\n"
-                      "    FOREIGN KEY (\"stop\")\n"
-                      "    REFERENCES \"Stop\" (\"stop\")\n"
+                      "  \"MODE\" INTEGER NOT NULL,\n"
+                      "  \"ROUTE\" INTEGER NOT NULL,\n"
+                      "  \"RUN\" INTEGER NOT NULL,\n"
+                      "  \"STOP\" INTEGER,\n"
+                      "  \"SCHEDULE\" REAL,\n"
+                      "  \"TIME\" REAL,\n"
+                      "  \"BOARD\" INTEGER NOT NULL,\n"
+                      "  \"ALIGHT\" INTEGER NOT NULL,\n"
+                      "  \"LOAD\" INTEGER NOT NULL,\n"
+                      "  \"FACTOR\" REAL,\n"
+                      "  CONSTRAINT \"STOP_fk\"\n"
+                      "    FOREIGN KEY (\"STOP\")\n"
+                      "    REFERENCES \"STOP\" (\"STOP\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -29265,88 +29265,88 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Veh_Type >::persist_statement[] =
-  "INSERT INTO \"Veh_Type\" ("
-  "\"type\","
-  "\"length\","
-  "\"max_speed\","
-  "\"max_accel\","
-  "\"max_decel\","
-  "\"op_cost\","
-  "\"use\","
-  "\"capacity\","
-  "\"load\","
-  "\"unload\","
-  "\"method\","
-  "\"min_dwell\","
-  "\"max_dwell\","
-  "\"subtype\")"
+  "INSERT INTO \"VEH_TYPE\" ("
+  "\"TYPE\","
+  "\"LENGTH\","
+  "\"MAX_SPEED\","
+  "\"MAX_ACCEL\","
+  "\"MAX_DECEL\","
+  "\"OP_COST\","
+  "\"USE\","
+  "\"CAPACITY\","
+  "\"LOAD\","
+  "\"UNLOAD\","
+  "\"METHOD\","
+  "\"MIN_DWELL\","
+  "\"MAX_DWELL\","
+  "\"SUBTYPE\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Veh_Type >::find_statement[] =
   "SELECT "
-  "\"Veh_Type\".\"type\","
-  "\"Veh_Type\".\"length\","
-  "\"Veh_Type\".\"max_speed\","
-  "\"Veh_Type\".\"max_accel\","
-  "\"Veh_Type\".\"max_decel\","
-  "\"Veh_Type\".\"op_cost\","
-  "\"Veh_Type\".\"use\","
-  "\"Veh_Type\".\"capacity\","
-  "\"Veh_Type\".\"load\","
-  "\"Veh_Type\".\"unload\","
-  "\"Veh_Type\".\"method\","
-  "\"Veh_Type\".\"min_dwell\","
-  "\"Veh_Type\".\"max_dwell\","
-  "\"Veh_Type\".\"subtype\""
-  " FROM \"Veh_Type\""
-  " WHERE \"Veh_Type\".\"type\"=?";
+  "\"VEH_TYPE\".\"TYPE\","
+  "\"VEH_TYPE\".\"LENGTH\","
+  "\"VEH_TYPE\".\"MAX_SPEED\","
+  "\"VEH_TYPE\".\"MAX_ACCEL\","
+  "\"VEH_TYPE\".\"MAX_DECEL\","
+  "\"VEH_TYPE\".\"OP_COST\","
+  "\"VEH_TYPE\".\"USE\","
+  "\"VEH_TYPE\".\"CAPACITY\","
+  "\"VEH_TYPE\".\"LOAD\","
+  "\"VEH_TYPE\".\"UNLOAD\","
+  "\"VEH_TYPE\".\"METHOD\","
+  "\"VEH_TYPE\".\"MIN_DWELL\","
+  "\"VEH_TYPE\".\"MAX_DWELL\","
+  "\"VEH_TYPE\".\"SUBTYPE\""
+  " FROM \"VEH_TYPE\""
+  " WHERE \"VEH_TYPE\".\"TYPE\"=?";
 
   const char access::object_traits< ::pio::Veh_Type >::update_statement[] =
-  "UPDATE \"Veh_Type\" SET "
-  "\"length\"=?,"
-  "\"max_speed\"=?,"
-  "\"max_accel\"=?,"
-  "\"max_decel\"=?,"
-  "\"op_cost\"=?,"
-  "\"use\"=?,"
-  "\"capacity\"=?,"
-  "\"load\"=?,"
-  "\"unload\"=?,"
-  "\"method\"=?,"
-  "\"min_dwell\"=?,"
-  "\"max_dwell\"=?,"
-  "\"subtype\"=?"
-  " WHERE \"type\"=?";
+  "UPDATE \"VEH_TYPE\" SET "
+  "\"LENGTH\"=?,"
+  "\"MAX_SPEED\"=?,"
+  "\"MAX_ACCEL\"=?,"
+  "\"MAX_DECEL\"=?,"
+  "\"OP_COST\"=?,"
+  "\"USE\"=?,"
+  "\"CAPACITY\"=?,"
+  "\"LOAD\"=?,"
+  "\"UNLOAD\"=?,"
+  "\"METHOD\"=?,"
+  "\"MIN_DWELL\"=?,"
+  "\"MAX_DWELL\"=?,"
+  "\"SUBTYPE\"=?"
+  " WHERE \"TYPE\"=?";
 
   const char access::object_traits< ::pio::Veh_Type >::erase_statement[] =
-  "DELETE FROM \"Veh_Type\""
-  " WHERE \"type\"=?";
+  "DELETE FROM \"VEH_TYPE\""
+  " WHERE \"TYPE\"=?";
 
   const char access::object_traits< ::pio::Veh_Type >::query_statement[] =
   "SELECT "
-  "\"Veh_Type\".\"type\","
-  "\"Veh_Type\".\"length\","
-  "\"Veh_Type\".\"max_speed\","
-  "\"Veh_Type\".\"max_accel\","
-  "\"Veh_Type\".\"max_decel\","
-  "\"Veh_Type\".\"op_cost\","
-  "\"Veh_Type\".\"use\","
-  "\"Veh_Type\".\"capacity\","
-  "\"Veh_Type\".\"load\","
-  "\"Veh_Type\".\"unload\","
-  "\"Veh_Type\".\"method\","
-  "\"Veh_Type\".\"min_dwell\","
-  "\"Veh_Type\".\"max_dwell\","
-  "\"Veh_Type\".\"subtype\""
-  " FROM \"Veh_Type\""
+  "\"VEH_TYPE\".\"TYPE\","
+  "\"VEH_TYPE\".\"LENGTH\","
+  "\"VEH_TYPE\".\"MAX_SPEED\","
+  "\"VEH_TYPE\".\"MAX_ACCEL\","
+  "\"VEH_TYPE\".\"MAX_DECEL\","
+  "\"VEH_TYPE\".\"OP_COST\","
+  "\"VEH_TYPE\".\"USE\","
+  "\"VEH_TYPE\".\"CAPACITY\","
+  "\"VEH_TYPE\".\"LOAD\","
+  "\"VEH_TYPE\".\"UNLOAD\","
+  "\"VEH_TYPE\".\"METHOD\","
+  "\"VEH_TYPE\".\"MIN_DWELL\","
+  "\"VEH_TYPE\".\"MAX_DWELL\","
+  "\"VEH_TYPE\".\"SUBTYPE\""
+  " FROM \"VEH_TYPE\""
   " ";
 
   const char access::object_traits< ::pio::Veh_Type >::erase_query_statement[] =
-  "DELETE FROM \"Veh_Type\""
+  "DELETE FROM \"VEH_TYPE\""
   " ";
 
   const char access::object_traits< ::pio::Veh_Type >::table_name[] =
-  "\"Veh_Type\"";
+  "\"VEH_TYPE\"";
 
   void access::object_traits< ::pio::Veh_Type >::
   persist (database& db, const object_type& obj)
@@ -29693,7 +29693,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Veh_Type\"");
+          db.execute ("DROP TABLE IF EXISTS \"VEH_TYPE\"");
           return false;
         }
       }
@@ -29704,23 +29704,23 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Veh_Type\" (\n"
-                      "  \"type\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"length\" REAL,\n"
-                      "  \"max_speed\" REAL,\n"
-                      "  \"max_accel\" REAL,\n"
-                      "  \"max_decel\" REAL,\n"
-                      "  \"op_cost\" REAL,\n"
-                      "  \"use\" INTEGER NOT NULL,\n"
-                      "  \"capacity\" INTEGER NOT NULL,\n"
-                      "  \"load\" REAL,\n"
-                      "  \"unload\" REAL,\n"
-                      "  \"method\" INTEGER NOT NULL,\n"
-                      "  \"min_dwell\" REAL,\n"
-                      "  \"max_dwell\" REAL,\n"
-                      "  \"subtype\" INTEGER NOT NULL)");
-          db.execute ("CREATE INDEX \"Veh_Type_type_i\"\n"
-                      "  ON \"Veh_Type\" (\"type\")");
+          db.execute ("CREATE TABLE \"VEH_TYPE\" (\n"
+                      "  \"TYPE\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"LENGTH\" REAL,\n"
+                      "  \"MAX_SPEED\" REAL,\n"
+                      "  \"MAX_ACCEL\" REAL,\n"
+                      "  \"MAX_DECEL\" REAL,\n"
+                      "  \"OP_COST\" REAL,\n"
+                      "  \"USE\" INTEGER NOT NULL,\n"
+                      "  \"CAPACITY\" INTEGER NOT NULL,\n"
+                      "  \"LOAD\" REAL,\n"
+                      "  \"UNLOAD\" REAL,\n"
+                      "  \"METHOD\" INTEGER NOT NULL,\n"
+                      "  \"MIN_DWELL\" REAL,\n"
+                      "  \"MAX_DWELL\" REAL,\n"
+                      "  \"SUBTYPE\" INTEGER NOT NULL)");
+          db.execute ("CREATE INDEX \"VEH_TYPE_TYPE_i\"\n"
+                      "  ON \"VEH_TYPE\" (\"TYPE\")");
           return false;
         }
       }
@@ -30179,62 +30179,62 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Vehicle >::persist_statement[] =
-  "INSERT INTO \"Vehicle\" ("
+  "INSERT INTO \"VEHICLE\" ("
   "\"auto_id\","
-  "\"hhold\","
-  "\"vehicle\","
-  "\"parking\","
-  "\"type\","
-  "\"subtype\","
-  "\"partition\")"
+  "\"HHOLD\","
+  "\"VEHICLE\","
+  "\"PARKING\","
+  "\"TYPE\","
+  "\"SUBTYPE\","
+  "\"PARTITION\")"
   " VALUES (?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Vehicle >::find_statement[] =
   "SELECT "
-  "\"Vehicle\".\"auto_id\","
-  "\"Vehicle\".\"hhold\","
-  "\"Vehicle\".\"vehicle\","
-  "\"Vehicle\".\"parking\","
-  "\"Vehicle\".\"type\","
-  "\"Vehicle\".\"subtype\","
-  "\"Vehicle\".\"partition\""
-  " FROM \"Vehicle\""
-  " WHERE \"Vehicle\".\"auto_id\"=?";
+  "\"VEHICLE\".\"auto_id\","
+  "\"VEHICLE\".\"HHOLD\","
+  "\"VEHICLE\".\"VEHICLE\","
+  "\"VEHICLE\".\"PARKING\","
+  "\"VEHICLE\".\"TYPE\","
+  "\"VEHICLE\".\"SUBTYPE\","
+  "\"VEHICLE\".\"PARTITION\""
+  " FROM \"VEHICLE\""
+  " WHERE \"VEHICLE\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Vehicle >::update_statement[] =
-  "UPDATE \"Vehicle\" SET "
-  "\"hhold\"=?,"
-  "\"vehicle\"=?,"
-  "\"parking\"=?,"
-  "\"type\"=?,"
-  "\"subtype\"=?,"
-  "\"partition\"=?"
+  "UPDATE \"VEHICLE\" SET "
+  "\"HHOLD\"=?,"
+  "\"VEHICLE\"=?,"
+  "\"PARKING\"=?,"
+  "\"TYPE\"=?,"
+  "\"SUBTYPE\"=?,"
+  "\"PARTITION\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Vehicle >::erase_statement[] =
-  "DELETE FROM \"Vehicle\""
+  "DELETE FROM \"VEHICLE\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Vehicle >::query_statement[] =
   "SELECT "
-  "\"Vehicle\".\"auto_id\","
-  "\"Vehicle\".\"hhold\","
-  "\"Vehicle\".\"vehicle\","
-  "\"Vehicle\".\"parking\","
-  "\"Vehicle\".\"type\","
-  "\"Vehicle\".\"subtype\","
-  "\"Vehicle\".\"partition\""
-  " FROM \"Vehicle\""
-  " LEFT JOIN \"Parking\" AS \"parking\" ON \"parking\".\"parking\"=\"Vehicle\".\"parking\""
-  " LEFT JOIN \"Veh_Type\" AS \"type\" ON \"type\".\"type\"=\"Vehicle\".\"type\""
+  "\"VEHICLE\".\"auto_id\","
+  "\"VEHICLE\".\"HHOLD\","
+  "\"VEHICLE\".\"VEHICLE\","
+  "\"VEHICLE\".\"PARKING\","
+  "\"VEHICLE\".\"TYPE\","
+  "\"VEHICLE\".\"SUBTYPE\","
+  "\"VEHICLE\".\"PARTITION\""
+  " FROM \"VEHICLE\""
+  " LEFT JOIN \"PARKING\" AS \"PARKING\" ON \"PARKING\".\"PARKING\"=\"VEHICLE\".\"PARKING\""
+  " LEFT JOIN \"VEH_TYPE\" AS \"TYPE\" ON \"TYPE\".\"TYPE\"=\"VEHICLE\".\"TYPE\""
   " ";
 
   const char access::object_traits< ::pio::Vehicle >::erase_query_statement[] =
-  "DELETE FROM \"Vehicle\""
+  "DELETE FROM \"VEHICLE\""
   " ";
 
   const char access::object_traits< ::pio::Vehicle >::table_name[] =
-  "\"Vehicle\"";
+  "\"VEHICLE\"";
 
   void access::object_traits< ::pio::Vehicle >::
   persist (database& db, object_type& obj)
@@ -30585,7 +30585,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Vehicle\"");
+          db.execute ("DROP TABLE IF EXISTS \"VEHICLE\"");
           return false;
         }
       }
@@ -30596,21 +30596,21 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Vehicle\" (\n"
+          db.execute ("CREATE TABLE \"VEHICLE\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"hhold\" INTEGER NOT NULL,\n"
-                      "  \"vehicle\" INTEGER NOT NULL,\n"
-                      "  \"parking\" INTEGER,\n"
-                      "  \"type\" INTEGER,\n"
-                      "  \"subtype\" INTEGER NOT NULL,\n"
-                      "  \"partition\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"parking_fk\"\n"
-                      "    FOREIGN KEY (\"parking\")\n"
-                      "    REFERENCES \"Parking\" (\"parking\")\n"
+                      "  \"HHOLD\" INTEGER NOT NULL,\n"
+                      "  \"VEHICLE\" INTEGER NOT NULL,\n"
+                      "  \"PARKING\" INTEGER,\n"
+                      "  \"TYPE\" INTEGER,\n"
+                      "  \"SUBTYPE\" INTEGER NOT NULL,\n"
+                      "  \"PARTITION\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"PARKING_fk\"\n"
+                      "    FOREIGN KEY (\"PARKING\")\n"
+                      "    REFERENCES \"PARKING\" (\"PARKING\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"type_fk\"\n"
-                      "    FOREIGN KEY (\"type\")\n"
-                      "    REFERENCES \"Veh_Type\" (\"type\")\n"
+                      "  CONSTRAINT \"TYPE_fk\"\n"
+                      "    FOREIGN KEY (\"TYPE\")\n"
+                      "    REFERENCES \"VEH_TYPE\" (\"TYPE\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -31521,106 +31521,106 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Trip >::persist_statement[] =
-  "INSERT INTO \"Trip\" ("
+  "INSERT INTO \"TRIP\" ("
   "\"auto_id\","
-  "\"hhold\","
-  "\"person\","
-  "\"tour\","
-  "\"trip\","
-  "\"start\","
-  "\"end\","
-  "\"duration\","
-  "\"origin\","
-  "\"destination\","
-  "\"purpose\","
-  "\"mode\","
-  "\"constraint\","
-  "\"priority\","
-  "\"vehicle\","
-  "\"passengers\","
-  "\"type\","
-  "\"partition\")"
+  "\"HHOLD\","
+  "\"PERSON\","
+  "\"TOUR\","
+  "\"TRIP\","
+  "\"START\","
+  "\"END\","
+  "\"DURATION\","
+  "\"ORIGIN\","
+  "\"DESTINATION\","
+  "\"PURPOSE\","
+  "\"MODE\","
+  "\"CONSTRAINT\","
+  "\"PRIORITY\","
+  "\"VEHICLE\","
+  "\"PASSENGERS\","
+  "\"TYPE\","
+  "\"PARTITION\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Trip >::find_statement[] =
   "SELECT "
-  "\"Trip\".\"auto_id\","
-  "\"Trip\".\"hhold\","
-  "\"Trip\".\"person\","
-  "\"Trip\".\"tour\","
-  "\"Trip\".\"trip\","
-  "\"Trip\".\"start\","
-  "\"Trip\".\"end\","
-  "\"Trip\".\"duration\","
-  "\"Trip\".\"origin\","
-  "\"Trip\".\"destination\","
-  "\"Trip\".\"purpose\","
-  "\"Trip\".\"mode\","
-  "\"Trip\".\"constraint\","
-  "\"Trip\".\"priority\","
-  "\"Trip\".\"vehicle\","
-  "\"Trip\".\"passengers\","
-  "\"Trip\".\"type\","
-  "\"Trip\".\"partition\""
-  " FROM \"Trip\""
-  " WHERE \"Trip\".\"auto_id\"=?";
+  "\"TRIP\".\"auto_id\","
+  "\"TRIP\".\"HHOLD\","
+  "\"TRIP\".\"PERSON\","
+  "\"TRIP\".\"TOUR\","
+  "\"TRIP\".\"TRIP\","
+  "\"TRIP\".\"START\","
+  "\"TRIP\".\"END\","
+  "\"TRIP\".\"DURATION\","
+  "\"TRIP\".\"ORIGIN\","
+  "\"TRIP\".\"DESTINATION\","
+  "\"TRIP\".\"PURPOSE\","
+  "\"TRIP\".\"MODE\","
+  "\"TRIP\".\"CONSTRAINT\","
+  "\"TRIP\".\"PRIORITY\","
+  "\"TRIP\".\"VEHICLE\","
+  "\"TRIP\".\"PASSENGERS\","
+  "\"TRIP\".\"TYPE\","
+  "\"TRIP\".\"PARTITION\""
+  " FROM \"TRIP\""
+  " WHERE \"TRIP\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Trip >::update_statement[] =
-  "UPDATE \"Trip\" SET "
-  "\"hhold\"=?,"
-  "\"person\"=?,"
-  "\"tour\"=?,"
-  "\"trip\"=?,"
-  "\"start\"=?,"
-  "\"end\"=?,"
-  "\"duration\"=?,"
-  "\"origin\"=?,"
-  "\"destination\"=?,"
-  "\"purpose\"=?,"
-  "\"mode\"=?,"
-  "\"constraint\"=?,"
-  "\"priority\"=?,"
-  "\"vehicle\"=?,"
-  "\"passengers\"=?,"
-  "\"type\"=?,"
-  "\"partition\"=?"
+  "UPDATE \"TRIP\" SET "
+  "\"HHOLD\"=?,"
+  "\"PERSON\"=?,"
+  "\"TOUR\"=?,"
+  "\"TRIP\"=?,"
+  "\"START\"=?,"
+  "\"END\"=?,"
+  "\"DURATION\"=?,"
+  "\"ORIGIN\"=?,"
+  "\"DESTINATION\"=?,"
+  "\"PURPOSE\"=?,"
+  "\"MODE\"=?,"
+  "\"CONSTRAINT\"=?,"
+  "\"PRIORITY\"=?,"
+  "\"VEHICLE\"=?,"
+  "\"PASSENGERS\"=?,"
+  "\"TYPE\"=?,"
+  "\"PARTITION\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Trip >::erase_statement[] =
-  "DELETE FROM \"Trip\""
+  "DELETE FROM \"TRIP\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Trip >::query_statement[] =
   "SELECT "
-  "\"Trip\".\"auto_id\","
-  "\"Trip\".\"hhold\","
-  "\"Trip\".\"person\","
-  "\"Trip\".\"tour\","
-  "\"Trip\".\"trip\","
-  "\"Trip\".\"start\","
-  "\"Trip\".\"end\","
-  "\"Trip\".\"duration\","
-  "\"Trip\".\"origin\","
-  "\"Trip\".\"destination\","
-  "\"Trip\".\"purpose\","
-  "\"Trip\".\"mode\","
-  "\"Trip\".\"constraint\","
-  "\"Trip\".\"priority\","
-  "\"Trip\".\"vehicle\","
-  "\"Trip\".\"passengers\","
-  "\"Trip\".\"type\","
-  "\"Trip\".\"partition\""
-  " FROM \"Trip\""
-  " LEFT JOIN \"Location\" AS \"origin\" ON \"origin\".\"location\"=\"Trip\".\"origin\""
-  " LEFT JOIN \"Location\" AS \"destination\" ON \"destination\".\"location\"=\"Trip\".\"destination\""
+  "\"TRIP\".\"auto_id\","
+  "\"TRIP\".\"HHOLD\","
+  "\"TRIP\".\"PERSON\","
+  "\"TRIP\".\"TOUR\","
+  "\"TRIP\".\"TRIP\","
+  "\"TRIP\".\"START\","
+  "\"TRIP\".\"END\","
+  "\"TRIP\".\"DURATION\","
+  "\"TRIP\".\"ORIGIN\","
+  "\"TRIP\".\"DESTINATION\","
+  "\"TRIP\".\"PURPOSE\","
+  "\"TRIP\".\"MODE\","
+  "\"TRIP\".\"CONSTRAINT\","
+  "\"TRIP\".\"PRIORITY\","
+  "\"TRIP\".\"VEHICLE\","
+  "\"TRIP\".\"PASSENGERS\","
+  "\"TRIP\".\"TYPE\","
+  "\"TRIP\".\"PARTITION\""
+  " FROM \"TRIP\""
+  " LEFT JOIN \"LOCATION\" AS \"ORIGIN\" ON \"ORIGIN\".\"LOCATION\"=\"TRIP\".\"ORIGIN\""
+  " LEFT JOIN \"LOCATION\" AS \"DESTINATION\" ON \"DESTINATION\".\"LOCATION\"=\"TRIP\".\"DESTINATION\""
   " ";
 
   const char access::object_traits< ::pio::Trip >::erase_query_statement[] =
-  "DELETE FROM \"Trip\""
+  "DELETE FROM \"TRIP\""
   " ";
 
   const char access::object_traits< ::pio::Trip >::table_name[] =
-  "\"Trip\"";
+  "\"TRIP\"";
 
   void access::object_traits< ::pio::Trip >::
   persist (database& db, object_type& obj)
@@ -31971,7 +31971,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Trip\"");
+          db.execute ("DROP TABLE IF EXISTS \"TRIP\"");
           return false;
         }
       }
@@ -31982,32 +31982,32 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Trip\" (\n"
+          db.execute ("CREATE TABLE \"TRIP\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"hhold\" INTEGER NOT NULL,\n"
-                      "  \"person\" INTEGER NOT NULL,\n"
-                      "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER NOT NULL,\n"
-                      "  \"start\" REAL,\n"
-                      "  \"end\" REAL,\n"
-                      "  \"duration\" REAL,\n"
-                      "  \"origin\" INTEGER,\n"
-                      "  \"destination\" INTEGER,\n"
-                      "  \"purpose\" INTEGER NOT NULL,\n"
-                      "  \"mode\" INTEGER NOT NULL,\n"
-                      "  \"constraint\" INTEGER NOT NULL,\n"
-                      "  \"priority\" INTEGER NOT NULL,\n"
-                      "  \"vehicle\" INTEGER NOT NULL,\n"
-                      "  \"passengers\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"partition\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"origin_fk\"\n"
-                      "    FOREIGN KEY (\"origin\")\n"
-                      "    REFERENCES \"Location\" (\"location\")\n"
+                      "  \"HHOLD\" INTEGER NOT NULL,\n"
+                      "  \"PERSON\" INTEGER NOT NULL,\n"
+                      "  \"TOUR\" INTEGER NOT NULL,\n"
+                      "  \"TRIP\" INTEGER NOT NULL,\n"
+                      "  \"START\" REAL,\n"
+                      "  \"END\" REAL,\n"
+                      "  \"DURATION\" REAL,\n"
+                      "  \"ORIGIN\" INTEGER,\n"
+                      "  \"DESTINATION\" INTEGER,\n"
+                      "  \"PURPOSE\" INTEGER NOT NULL,\n"
+                      "  \"MODE\" INTEGER NOT NULL,\n"
+                      "  \"CONSTRAINT\" INTEGER NOT NULL,\n"
+                      "  \"PRIORITY\" INTEGER NOT NULL,\n"
+                      "  \"VEHICLE\" INTEGER NOT NULL,\n"
+                      "  \"PASSENGERS\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"PARTITION\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"ORIGIN_fk\"\n"
+                      "    FOREIGN KEY (\"ORIGIN\")\n"
+                      "    REFERENCES \"LOCATION\" (\"LOCATION\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED,\n"
-                      "  CONSTRAINT \"destination_fk\"\n"
-                      "    FOREIGN KEY (\"destination\")\n"
-                      "    REFERENCES \"Location\" (\"location\")\n"
+                      "  CONSTRAINT \"DESTINATION_fk\"\n"
+                      "    FOREIGN KEY (\"DESTINATION\")\n"
+                      "    REFERENCES \"LOCATION\" (\"LOCATION\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -32481,65 +32481,65 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Problem >::persist_statement[] =
-  "INSERT INTO \"Problem\" ("
-  "\"problem\","
-  "\"time\","
-  "\"link\","
-  "\"dir\","
-  "\"lane\","
-  "\"offset\","
-  "\"route\","
-  "\"survey\")"
+  "INSERT INTO \"PROBLEM\" ("
+  "\"PROBLEM\","
+  "\"TIME\","
+  "\"LINK\","
+  "\"DIR\","
+  "\"LANE\","
+  "\"OFFSET\","
+  "\"ROUTE\","
+  "\"SURVEY\")"
   " VALUES (?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Problem >::find_statement[] =
   "SELECT "
-  "\"Problem\".\"problem\","
-  "\"Problem\".\"time\","
-  "\"Problem\".\"link\","
-  "\"Problem\".\"dir\","
-  "\"Problem\".\"lane\","
-  "\"Problem\".\"offset\","
-  "\"Problem\".\"route\","
-  "\"Problem\".\"survey\""
-  " FROM \"Problem\""
-  " WHERE \"Problem\".\"problem\"=?";
+  "\"PROBLEM\".\"PROBLEM\","
+  "\"PROBLEM\".\"TIME\","
+  "\"PROBLEM\".\"LINK\","
+  "\"PROBLEM\".\"DIR\","
+  "\"PROBLEM\".\"LANE\","
+  "\"PROBLEM\".\"OFFSET\","
+  "\"PROBLEM\".\"ROUTE\","
+  "\"PROBLEM\".\"SURVEY\""
+  " FROM \"PROBLEM\""
+  " WHERE \"PROBLEM\".\"PROBLEM\"=?";
 
   const char access::object_traits< ::pio::Problem >::update_statement[] =
-  "UPDATE \"Problem\" SET "
-  "\"time\"=?,"
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"lane\"=?,"
-  "\"offset\"=?,"
-  "\"route\"=?,"
-  "\"survey\"=?"
-  " WHERE \"problem\"=?";
+  "UPDATE \"PROBLEM\" SET "
+  "\"TIME\"=?,"
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"LANE\"=?,"
+  "\"OFFSET\"=?,"
+  "\"ROUTE\"=?,"
+  "\"SURVEY\"=?"
+  " WHERE \"PROBLEM\"=?";
 
   const char access::object_traits< ::pio::Problem >::erase_statement[] =
-  "DELETE FROM \"Problem\""
-  " WHERE \"problem\"=?";
+  "DELETE FROM \"PROBLEM\""
+  " WHERE \"PROBLEM\"=?";
 
   const char access::object_traits< ::pio::Problem >::query_statement[] =
   "SELECT "
-  "\"Problem\".\"problem\","
-  "\"Problem\".\"time\","
-  "\"Problem\".\"link\","
-  "\"Problem\".\"dir\","
-  "\"Problem\".\"lane\","
-  "\"Problem\".\"offset\","
-  "\"Problem\".\"route\","
-  "\"Problem\".\"survey\""
-  " FROM \"Problem\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Problem\".\"link\""
+  "\"PROBLEM\".\"PROBLEM\","
+  "\"PROBLEM\".\"TIME\","
+  "\"PROBLEM\".\"LINK\","
+  "\"PROBLEM\".\"DIR\","
+  "\"PROBLEM\".\"LANE\","
+  "\"PROBLEM\".\"OFFSET\","
+  "\"PROBLEM\".\"ROUTE\","
+  "\"PROBLEM\".\"SURVEY\""
+  " FROM \"PROBLEM\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"PROBLEM\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Problem >::erase_query_statement[] =
-  "DELETE FROM \"Problem\""
+  "DELETE FROM \"PROBLEM\""
   " ";
 
   const char access::object_traits< ::pio::Problem >::table_name[] =
-  "\"Problem\"";
+  "\"PROBLEM\"";
 
   void access::object_traits< ::pio::Problem >::
   persist (database& db, const object_type& obj)
@@ -32886,7 +32886,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Problem\"");
+          db.execute ("DROP TABLE IF EXISTS \"PROBLEM\"");
           return false;
         }
       }
@@ -32897,21 +32897,21 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Problem\" (\n"
-                      "  \"problem\" INTEGER NOT NULL PRIMARY KEY,\n"
-                      "  \"time\" REAL,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"lane\" INTEGER NOT NULL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  \"route\" INTEGER NOT NULL,\n"
-                      "  \"survey\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+          db.execute ("CREATE TABLE \"PROBLEM\" (\n"
+                      "  \"PROBLEM\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"TIME\" REAL,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"LANE\" INTEGER NOT NULL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  \"ROUTE\" INTEGER NOT NULL,\n"
+                      "  \"SURVEY\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
-          db.execute ("CREATE INDEX \"Problem_problem_i\"\n"
-                      "  ON \"Problem\" (\"problem\")");
+          db.execute ("CREATE INDEX \"PROBLEM_PROBLEM_i\"\n"
+                      "  ON \"PROBLEM\" (\"PROBLEM\")");
           return false;
         }
       }
@@ -33808,108 +33808,108 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Plan >::persist_statement[] =
-  "INSERT INTO \"Plan\" ("
+  "INSERT INTO \"PLAN\" ("
   "\"auto_id\","
-  "\"depart\","
-  "\"arrive\","
-  "\"activity\","
-  "\"walk\","
-  "\"drive\","
-  "\"transit\","
-  "\"wait\","
-  "\"other\","
-  "\"length\","
-  "\"cost\","
-  "\"impedance\","
-  "\"leg_mode\","
-  "\"leg_type\","
-  "\"leg_id\","
-  "\"leg_time\","
-  "\"leg_length\","
-  "\"leg_cost\","
-  "\"leg_imp\")"
+  "\"DEPART\","
+  "\"ARRIVE\","
+  "\"ACTIVITY\","
+  "\"WALK\","
+  "\"DRIVE\","
+  "\"TRANSIT\","
+  "\"WAIT\","
+  "\"OTHER\","
+  "\"LENGTH\","
+  "\"COST\","
+  "\"IMPEDANCE\","
+  "\"LEG_MODE\","
+  "\"LEG_TYPE\","
+  "\"LEG_ID\","
+  "\"LEG_TIME\","
+  "\"LEG_LENGTH\","
+  "\"LEG_COST\","
+  "\"LEG_IMP\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Plan >::find_statement[] =
   "SELECT "
-  "\"Plan\".\"auto_id\","
-  "\"Plan\".\"depart\","
-  "\"Plan\".\"arrive\","
-  "\"Plan\".\"activity\","
-  "\"Plan\".\"walk\","
-  "\"Plan\".\"drive\","
-  "\"Plan\".\"transit\","
-  "\"Plan\".\"wait\","
-  "\"Plan\".\"other\","
-  "\"Plan\".\"length\","
-  "\"Plan\".\"cost\","
-  "\"Plan\".\"impedance\","
-  "\"Plan\".\"leg_mode\","
-  "\"Plan\".\"leg_type\","
-  "\"Plan\".\"leg_id\","
-  "\"Plan\".\"leg_time\","
-  "\"Plan\".\"leg_length\","
-  "\"Plan\".\"leg_cost\","
-  "\"Plan\".\"leg_imp\""
-  " FROM \"Plan\""
-  " WHERE \"Plan\".\"auto_id\"=?";
+  "\"PLAN\".\"auto_id\","
+  "\"PLAN\".\"DEPART\","
+  "\"PLAN\".\"ARRIVE\","
+  "\"PLAN\".\"ACTIVITY\","
+  "\"PLAN\".\"WALK\","
+  "\"PLAN\".\"DRIVE\","
+  "\"PLAN\".\"TRANSIT\","
+  "\"PLAN\".\"WAIT\","
+  "\"PLAN\".\"OTHER\","
+  "\"PLAN\".\"LENGTH\","
+  "\"PLAN\".\"COST\","
+  "\"PLAN\".\"IMPEDANCE\","
+  "\"PLAN\".\"LEG_MODE\","
+  "\"PLAN\".\"LEG_TYPE\","
+  "\"PLAN\".\"LEG_ID\","
+  "\"PLAN\".\"LEG_TIME\","
+  "\"PLAN\".\"LEG_LENGTH\","
+  "\"PLAN\".\"LEG_COST\","
+  "\"PLAN\".\"LEG_IMP\""
+  " FROM \"PLAN\""
+  " WHERE \"PLAN\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Plan >::update_statement[] =
-  "UPDATE \"Plan\" SET "
-  "\"depart\"=?,"
-  "\"arrive\"=?,"
-  "\"activity\"=?,"
-  "\"walk\"=?,"
-  "\"drive\"=?,"
-  "\"transit\"=?,"
-  "\"wait\"=?,"
-  "\"other\"=?,"
-  "\"length\"=?,"
-  "\"cost\"=?,"
-  "\"impedance\"=?,"
-  "\"leg_mode\"=?,"
-  "\"leg_type\"=?,"
-  "\"leg_id\"=?,"
-  "\"leg_time\"=?,"
-  "\"leg_length\"=?,"
-  "\"leg_cost\"=?,"
-  "\"leg_imp\"=?"
+  "UPDATE \"PLAN\" SET "
+  "\"DEPART\"=?,"
+  "\"ARRIVE\"=?,"
+  "\"ACTIVITY\"=?,"
+  "\"WALK\"=?,"
+  "\"DRIVE\"=?,"
+  "\"TRANSIT\"=?,"
+  "\"WAIT\"=?,"
+  "\"OTHER\"=?,"
+  "\"LENGTH\"=?,"
+  "\"COST\"=?,"
+  "\"IMPEDANCE\"=?,"
+  "\"LEG_MODE\"=?,"
+  "\"LEG_TYPE\"=?,"
+  "\"LEG_ID\"=?,"
+  "\"LEG_TIME\"=?,"
+  "\"LEG_LENGTH\"=?,"
+  "\"LEG_COST\"=?,"
+  "\"LEG_IMP\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Plan >::erase_statement[] =
-  "DELETE FROM \"Plan\""
+  "DELETE FROM \"PLAN\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Plan >::query_statement[] =
   "SELECT "
-  "\"Plan\".\"auto_id\","
-  "\"Plan\".\"depart\","
-  "\"Plan\".\"arrive\","
-  "\"Plan\".\"activity\","
-  "\"Plan\".\"walk\","
-  "\"Plan\".\"drive\","
-  "\"Plan\".\"transit\","
-  "\"Plan\".\"wait\","
-  "\"Plan\".\"other\","
-  "\"Plan\".\"length\","
-  "\"Plan\".\"cost\","
-  "\"Plan\".\"impedance\","
-  "\"Plan\".\"leg_mode\","
-  "\"Plan\".\"leg_type\","
-  "\"Plan\".\"leg_id\","
-  "\"Plan\".\"leg_time\","
-  "\"Plan\".\"leg_length\","
-  "\"Plan\".\"leg_cost\","
-  "\"Plan\".\"leg_imp\""
-  " FROM \"Plan\""
+  "\"PLAN\".\"auto_id\","
+  "\"PLAN\".\"DEPART\","
+  "\"PLAN\".\"ARRIVE\","
+  "\"PLAN\".\"ACTIVITY\","
+  "\"PLAN\".\"WALK\","
+  "\"PLAN\".\"DRIVE\","
+  "\"PLAN\".\"TRANSIT\","
+  "\"PLAN\".\"WAIT\","
+  "\"PLAN\".\"OTHER\","
+  "\"PLAN\".\"LENGTH\","
+  "\"PLAN\".\"COST\","
+  "\"PLAN\".\"IMPEDANCE\","
+  "\"PLAN\".\"LEG_MODE\","
+  "\"PLAN\".\"LEG_TYPE\","
+  "\"PLAN\".\"LEG_ID\","
+  "\"PLAN\".\"LEG_TIME\","
+  "\"PLAN\".\"LEG_LENGTH\","
+  "\"PLAN\".\"LEG_COST\","
+  "\"PLAN\".\"LEG_IMP\""
+  " FROM \"PLAN\""
   " ";
 
   const char access::object_traits< ::pio::Plan >::erase_query_statement[] =
-  "DELETE FROM \"Plan\""
+  "DELETE FROM \"PLAN\""
   " ";
 
   const char access::object_traits< ::pio::Plan >::table_name[] =
-  "\"Plan\"";
+  "\"PLAN\"";
 
   void access::object_traits< ::pio::Plan >::
   persist (database& db, object_type& obj)
@@ -34260,7 +34260,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Plan\"");
+          db.execute ("DROP TABLE IF EXISTS \"PLAN\"");
           return false;
         }
       }
@@ -34271,26 +34271,26 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Plan\" (\n"
+          db.execute ("CREATE TABLE \"PLAN\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"depart\" REAL,\n"
-                      "  \"arrive\" REAL,\n"
-                      "  \"activity\" REAL,\n"
-                      "  \"walk\" REAL,\n"
-                      "  \"drive\" REAL,\n"
-                      "  \"transit\" REAL,\n"
-                      "  \"wait\" REAL,\n"
-                      "  \"other\" REAL,\n"
-                      "  \"length\" REAL,\n"
-                      "  \"cost\" REAL,\n"
-                      "  \"impedance\" INTEGER NOT NULL,\n"
-                      "  \"leg_mode\" INTEGER NOT NULL,\n"
-                      "  \"leg_type\" INTEGER NOT NULL,\n"
-                      "  \"leg_id\" INTEGER NOT NULL,\n"
-                      "  \"leg_time\" REAL,\n"
-                      "  \"leg_length\" REAL,\n"
-                      "  \"leg_cost\" REAL,\n"
-                      "  \"leg_imp\" INTEGER NOT NULL)");
+                      "  \"DEPART\" REAL,\n"
+                      "  \"ARRIVE\" REAL,\n"
+                      "  \"ACTIVITY\" REAL,\n"
+                      "  \"WALK\" REAL,\n"
+                      "  \"DRIVE\" REAL,\n"
+                      "  \"TRANSIT\" REAL,\n"
+                      "  \"WAIT\" REAL,\n"
+                      "  \"OTHER\" REAL,\n"
+                      "  \"LENGTH\" REAL,\n"
+                      "  \"COST\" REAL,\n"
+                      "  \"IMPEDANCE\" INTEGER NOT NULL,\n"
+                      "  \"LEG_MODE\" INTEGER NOT NULL,\n"
+                      "  \"LEG_TYPE\" INTEGER NOT NULL,\n"
+                      "  \"LEG_ID\" INTEGER NOT NULL,\n"
+                      "  \"LEG_TIME\" REAL,\n"
+                      "  \"LEG_LENGTH\" REAL,\n"
+                      "  \"LEG_COST\" REAL,\n"
+                      "  \"LEG_IMP\" INTEGER NOT NULL)");
           return false;
         }
       }
@@ -34818,72 +34818,72 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Skim >::persist_statement[] =
-  "INSERT INTO \"Skim\" ("
+  "INSERT INTO \"SKIM\" ("
   "\"auto_id\","
-  "\"time\","
-  "\"walk\","
-  "\"drive\","
-  "\"transit\","
-  "\"wait\","
-  "\"other\","
-  "\"length\","
-  "\"cost\","
-  "\"impedance\")"
+  "\"TIME\","
+  "\"WALK\","
+  "\"DRIVE\","
+  "\"TRANSIT\","
+  "\"WAIT\","
+  "\"OTHER\","
+  "\"LENGTH\","
+  "\"COST\","
+  "\"IMPEDANCE\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Skim >::find_statement[] =
   "SELECT "
-  "\"Skim\".\"auto_id\","
-  "\"Skim\".\"time\","
-  "\"Skim\".\"walk\","
-  "\"Skim\".\"drive\","
-  "\"Skim\".\"transit\","
-  "\"Skim\".\"wait\","
-  "\"Skim\".\"other\","
-  "\"Skim\".\"length\","
-  "\"Skim\".\"cost\","
-  "\"Skim\".\"impedance\""
-  " FROM \"Skim\""
-  " WHERE \"Skim\".\"auto_id\"=?";
+  "\"SKIM\".\"auto_id\","
+  "\"SKIM\".\"TIME\","
+  "\"SKIM\".\"WALK\","
+  "\"SKIM\".\"DRIVE\","
+  "\"SKIM\".\"TRANSIT\","
+  "\"SKIM\".\"WAIT\","
+  "\"SKIM\".\"OTHER\","
+  "\"SKIM\".\"LENGTH\","
+  "\"SKIM\".\"COST\","
+  "\"SKIM\".\"IMPEDANCE\""
+  " FROM \"SKIM\""
+  " WHERE \"SKIM\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Skim >::update_statement[] =
-  "UPDATE \"Skim\" SET "
-  "\"time\"=?,"
-  "\"walk\"=?,"
-  "\"drive\"=?,"
-  "\"transit\"=?,"
-  "\"wait\"=?,"
-  "\"other\"=?,"
-  "\"length\"=?,"
-  "\"cost\"=?,"
-  "\"impedance\"=?"
+  "UPDATE \"SKIM\" SET "
+  "\"TIME\"=?,"
+  "\"WALK\"=?,"
+  "\"DRIVE\"=?,"
+  "\"TRANSIT\"=?,"
+  "\"WAIT\"=?,"
+  "\"OTHER\"=?,"
+  "\"LENGTH\"=?,"
+  "\"COST\"=?,"
+  "\"IMPEDANCE\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Skim >::erase_statement[] =
-  "DELETE FROM \"Skim\""
+  "DELETE FROM \"SKIM\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Skim >::query_statement[] =
   "SELECT "
-  "\"Skim\".\"auto_id\","
-  "\"Skim\".\"time\","
-  "\"Skim\".\"walk\","
-  "\"Skim\".\"drive\","
-  "\"Skim\".\"transit\","
-  "\"Skim\".\"wait\","
-  "\"Skim\".\"other\","
-  "\"Skim\".\"length\","
-  "\"Skim\".\"cost\","
-  "\"Skim\".\"impedance\""
-  " FROM \"Skim\""
+  "\"SKIM\".\"auto_id\","
+  "\"SKIM\".\"TIME\","
+  "\"SKIM\".\"WALK\","
+  "\"SKIM\".\"DRIVE\","
+  "\"SKIM\".\"TRANSIT\","
+  "\"SKIM\".\"WAIT\","
+  "\"SKIM\".\"OTHER\","
+  "\"SKIM\".\"LENGTH\","
+  "\"SKIM\".\"COST\","
+  "\"SKIM\".\"IMPEDANCE\""
+  " FROM \"SKIM\""
   " ";
 
   const char access::object_traits< ::pio::Skim >::erase_query_statement[] =
-  "DELETE FROM \"Skim\""
+  "DELETE FROM \"SKIM\""
   " ";
 
   const char access::object_traits< ::pio::Skim >::table_name[] =
-  "\"Skim\"";
+  "\"SKIM\"";
 
   void access::object_traits< ::pio::Skim >::
   persist (database& db, object_type& obj)
@@ -35234,7 +35234,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Skim\"");
+          db.execute ("DROP TABLE IF EXISTS \"SKIM\"");
           return false;
         }
       }
@@ -35245,17 +35245,17 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Skim\" (\n"
+          db.execute ("CREATE TABLE \"SKIM\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"time\" REAL,\n"
-                      "  \"walk\" REAL,\n"
-                      "  \"drive\" REAL,\n"
-                      "  \"transit\" REAL,\n"
-                      "  \"wait\" REAL,\n"
-                      "  \"other\" REAL,\n"
-                      "  \"length\" REAL,\n"
-                      "  \"cost\" REAL,\n"
-                      "  \"impedance\" INTEGER NOT NULL)");
+                      "  \"TIME\" REAL,\n"
+                      "  \"WALK\" REAL,\n"
+                      "  \"DRIVE\" REAL,\n"
+                      "  \"TRANSIT\" REAL,\n"
+                      "  \"WAIT\" REAL,\n"
+                      "  \"OTHER\" REAL,\n"
+                      "  \"LENGTH\" REAL,\n"
+                      "  \"COST\" REAL,\n"
+                      "  \"IMPEDANCE\" INTEGER NOT NULL)");
           return false;
         }
       }
@@ -35974,89 +35974,89 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Event >::persist_statement[] =
-  "INSERT INTO \"Event\" ("
+  "INSERT INTO \"EVENT\" ("
   "\"auto_id\","
-  "\"hhold\","
-  "\"person\","
-  "\"tour\","
-  "\"trip\","
-  "\"mode\","
-  "\"type\","
-  "\"schedule\","
-  "\"actual\","
-  "\"link\","
-  "\"dir\","
-  "\"lane\","
-  "\"offset\","
-  "\"route\")"
+  "\"HHOLD\","
+  "\"PERSON\","
+  "\"TOUR\","
+  "\"TRIP\","
+  "\"MODE\","
+  "\"TYPE\","
+  "\"SCHEDULE\","
+  "\"ACTUAL\","
+  "\"LINK\","
+  "\"DIR\","
+  "\"LANE\","
+  "\"OFFSET\","
+  "\"ROUTE\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Event >::find_statement[] =
   "SELECT "
-  "\"Event\".\"auto_id\","
-  "\"Event\".\"hhold\","
-  "\"Event\".\"person\","
-  "\"Event\".\"tour\","
-  "\"Event\".\"trip\","
-  "\"Event\".\"mode\","
-  "\"Event\".\"type\","
-  "\"Event\".\"schedule\","
-  "\"Event\".\"actual\","
-  "\"Event\".\"link\","
-  "\"Event\".\"dir\","
-  "\"Event\".\"lane\","
-  "\"Event\".\"offset\","
-  "\"Event\".\"route\""
-  " FROM \"Event\""
-  " WHERE \"Event\".\"auto_id\"=?";
+  "\"EVENT\".\"auto_id\","
+  "\"EVENT\".\"HHOLD\","
+  "\"EVENT\".\"PERSON\","
+  "\"EVENT\".\"TOUR\","
+  "\"EVENT\".\"TRIP\","
+  "\"EVENT\".\"MODE\","
+  "\"EVENT\".\"TYPE\","
+  "\"EVENT\".\"SCHEDULE\","
+  "\"EVENT\".\"ACTUAL\","
+  "\"EVENT\".\"LINK\","
+  "\"EVENT\".\"DIR\","
+  "\"EVENT\".\"LANE\","
+  "\"EVENT\".\"OFFSET\","
+  "\"EVENT\".\"ROUTE\""
+  " FROM \"EVENT\""
+  " WHERE \"EVENT\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Event >::update_statement[] =
-  "UPDATE \"Event\" SET "
-  "\"hhold\"=?,"
-  "\"person\"=?,"
-  "\"tour\"=?,"
-  "\"trip\"=?,"
-  "\"mode\"=?,"
-  "\"type\"=?,"
-  "\"schedule\"=?,"
-  "\"actual\"=?,"
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"lane\"=?,"
-  "\"offset\"=?,"
-  "\"route\"=?"
+  "UPDATE \"EVENT\" SET "
+  "\"HHOLD\"=?,"
+  "\"PERSON\"=?,"
+  "\"TOUR\"=?,"
+  "\"TRIP\"=?,"
+  "\"MODE\"=?,"
+  "\"TYPE\"=?,"
+  "\"SCHEDULE\"=?,"
+  "\"ACTUAL\"=?,"
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"LANE\"=?,"
+  "\"OFFSET\"=?,"
+  "\"ROUTE\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Event >::erase_statement[] =
-  "DELETE FROM \"Event\""
+  "DELETE FROM \"EVENT\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Event >::query_statement[] =
   "SELECT "
-  "\"Event\".\"auto_id\","
-  "\"Event\".\"hhold\","
-  "\"Event\".\"person\","
-  "\"Event\".\"tour\","
-  "\"Event\".\"trip\","
-  "\"Event\".\"mode\","
-  "\"Event\".\"type\","
-  "\"Event\".\"schedule\","
-  "\"Event\".\"actual\","
-  "\"Event\".\"link\","
-  "\"Event\".\"dir\","
-  "\"Event\".\"lane\","
-  "\"Event\".\"offset\","
-  "\"Event\".\"route\""
-  " FROM \"Event\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Event\".\"link\""
+  "\"EVENT\".\"auto_id\","
+  "\"EVENT\".\"HHOLD\","
+  "\"EVENT\".\"PERSON\","
+  "\"EVENT\".\"TOUR\","
+  "\"EVENT\".\"TRIP\","
+  "\"EVENT\".\"MODE\","
+  "\"EVENT\".\"TYPE\","
+  "\"EVENT\".\"SCHEDULE\","
+  "\"EVENT\".\"ACTUAL\","
+  "\"EVENT\".\"LINK\","
+  "\"EVENT\".\"DIR\","
+  "\"EVENT\".\"LANE\","
+  "\"EVENT\".\"OFFSET\","
+  "\"EVENT\".\"ROUTE\""
+  " FROM \"EVENT\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"EVENT\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Event >::erase_query_statement[] =
-  "DELETE FROM \"Event\""
+  "DELETE FROM \"EVENT\""
   " ";
 
   const char access::object_traits< ::pio::Event >::table_name[] =
-  "\"Event\"";
+  "\"EVENT\"";
 
   void access::object_traits< ::pio::Event >::
   persist (database& db, object_type& obj)
@@ -36407,7 +36407,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Event\"");
+          db.execute ("DROP TABLE IF EXISTS \"EVENT\"");
           return false;
         }
       }
@@ -36418,24 +36418,24 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Event\" (\n"
+          db.execute ("CREATE TABLE \"EVENT\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"hhold\" INTEGER NOT NULL,\n"
-                      "  \"person\" INTEGER NOT NULL,\n"
-                      "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER NOT NULL,\n"
-                      "  \"mode\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"schedule\" REAL,\n"
-                      "  \"actual\" REAL,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"lane\" INTEGER NOT NULL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  \"route\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"HHOLD\" INTEGER NOT NULL,\n"
+                      "  \"PERSON\" INTEGER NOT NULL,\n"
+                      "  \"TOUR\" INTEGER NOT NULL,\n"
+                      "  \"TRIP\" INTEGER NOT NULL,\n"
+                      "  \"MODE\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"SCHEDULE\" REAL,\n"
+                      "  \"ACTUAL\" REAL,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"LANE\" INTEGER NOT NULL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  \"ROUTE\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -37155,89 +37155,89 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::Traveler >::persist_statement[] =
-  "INSERT INTO \"Traveler\" ("
+  "INSERT INTO \"TRAVELER\" ("
   "\"auto_id\","
-  "\"hhold\","
-  "\"person\","
-  "\"tour\","
-  "\"trip\","
-  "\"mode\","
-  "\"time\","
-  "\"distance\","
-  "\"speed\","
-  "\"link\","
-  "\"dir\","
-  "\"lane\","
-  "\"offset\","
-  "\"route\")"
+  "\"HHOLD\","
+  "\"PERSON\","
+  "\"TOUR\","
+  "\"TRIP\","
+  "\"MODE\","
+  "\"TIME\","
+  "\"DISTANCE\","
+  "\"SPEED\","
+  "\"LINK\","
+  "\"DIR\","
+  "\"LANE\","
+  "\"OFFSET\","
+  "\"ROUTE\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Traveler >::find_statement[] =
   "SELECT "
-  "\"Traveler\".\"auto_id\","
-  "\"Traveler\".\"hhold\","
-  "\"Traveler\".\"person\","
-  "\"Traveler\".\"tour\","
-  "\"Traveler\".\"trip\","
-  "\"Traveler\".\"mode\","
-  "\"Traveler\".\"time\","
-  "\"Traveler\".\"distance\","
-  "\"Traveler\".\"speed\","
-  "\"Traveler\".\"link\","
-  "\"Traveler\".\"dir\","
-  "\"Traveler\".\"lane\","
-  "\"Traveler\".\"offset\","
-  "\"Traveler\".\"route\""
-  " FROM \"Traveler\""
-  " WHERE \"Traveler\".\"auto_id\"=?";
+  "\"TRAVELER\".\"auto_id\","
+  "\"TRAVELER\".\"HHOLD\","
+  "\"TRAVELER\".\"PERSON\","
+  "\"TRAVELER\".\"TOUR\","
+  "\"TRAVELER\".\"TRIP\","
+  "\"TRAVELER\".\"MODE\","
+  "\"TRAVELER\".\"TIME\","
+  "\"TRAVELER\".\"DISTANCE\","
+  "\"TRAVELER\".\"SPEED\","
+  "\"TRAVELER\".\"LINK\","
+  "\"TRAVELER\".\"DIR\","
+  "\"TRAVELER\".\"LANE\","
+  "\"TRAVELER\".\"OFFSET\","
+  "\"TRAVELER\".\"ROUTE\""
+  " FROM \"TRAVELER\""
+  " WHERE \"TRAVELER\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::Traveler >::update_statement[] =
-  "UPDATE \"Traveler\" SET "
-  "\"hhold\"=?,"
-  "\"person\"=?,"
-  "\"tour\"=?,"
-  "\"trip\"=?,"
-  "\"mode\"=?,"
-  "\"time\"=?,"
-  "\"distance\"=?,"
-  "\"speed\"=?,"
-  "\"link\"=?,"
-  "\"dir\"=?,"
-  "\"lane\"=?,"
-  "\"offset\"=?,"
-  "\"route\"=?"
+  "UPDATE \"TRAVELER\" SET "
+  "\"HHOLD\"=?,"
+  "\"PERSON\"=?,"
+  "\"TOUR\"=?,"
+  "\"TRIP\"=?,"
+  "\"MODE\"=?,"
+  "\"TIME\"=?,"
+  "\"DISTANCE\"=?,"
+  "\"SPEED\"=?,"
+  "\"LINK\"=?,"
+  "\"DIR\"=?,"
+  "\"LANE\"=?,"
+  "\"OFFSET\"=?,"
+  "\"ROUTE\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Traveler >::erase_statement[] =
-  "DELETE FROM \"Traveler\""
+  "DELETE FROM \"TRAVELER\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::Traveler >::query_statement[] =
   "SELECT "
-  "\"Traveler\".\"auto_id\","
-  "\"Traveler\".\"hhold\","
-  "\"Traveler\".\"person\","
-  "\"Traveler\".\"tour\","
-  "\"Traveler\".\"trip\","
-  "\"Traveler\".\"mode\","
-  "\"Traveler\".\"time\","
-  "\"Traveler\".\"distance\","
-  "\"Traveler\".\"speed\","
-  "\"Traveler\".\"link\","
-  "\"Traveler\".\"dir\","
-  "\"Traveler\".\"lane\","
-  "\"Traveler\".\"offset\","
-  "\"Traveler\".\"route\""
-  " FROM \"Traveler\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Traveler\".\"link\""
+  "\"TRAVELER\".\"auto_id\","
+  "\"TRAVELER\".\"HHOLD\","
+  "\"TRAVELER\".\"PERSON\","
+  "\"TRAVELER\".\"TOUR\","
+  "\"TRAVELER\".\"TRIP\","
+  "\"TRAVELER\".\"MODE\","
+  "\"TRAVELER\".\"TIME\","
+  "\"TRAVELER\".\"DISTANCE\","
+  "\"TRAVELER\".\"SPEED\","
+  "\"TRAVELER\".\"LINK\","
+  "\"TRAVELER\".\"DIR\","
+  "\"TRAVELER\".\"LANE\","
+  "\"TRAVELER\".\"OFFSET\","
+  "\"TRAVELER\".\"ROUTE\""
+  " FROM \"TRAVELER\""
+  " LEFT JOIN \"LINK\" AS \"LINK\" ON \"LINK\".\"LINK\"=\"TRAVELER\".\"LINK\""
   " ";
 
   const char access::object_traits< ::pio::Traveler >::erase_query_statement[] =
-  "DELETE FROM \"Traveler\""
+  "DELETE FROM \"TRAVELER\""
   " ";
 
   const char access::object_traits< ::pio::Traveler >::table_name[] =
-  "\"Traveler\"";
+  "\"TRAVELER\"";
 
   void access::object_traits< ::pio::Traveler >::
   persist (database& db, object_type& obj)
@@ -37588,7 +37588,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Traveler\"");
+          db.execute ("DROP TABLE IF EXISTS \"TRAVELER\"");
           return false;
         }
       }
@@ -37599,24 +37599,24 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Traveler\" (\n"
+          db.execute ("CREATE TABLE \"TRAVELER\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"hhold\" INTEGER NOT NULL,\n"
-                      "  \"person\" INTEGER NOT NULL,\n"
-                      "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER NOT NULL,\n"
-                      "  \"mode\" INTEGER NOT NULL,\n"
-                      "  \"time\" REAL,\n"
-                      "  \"distance\" REAL,\n"
-                      "  \"speed\" REAL,\n"
-                      "  \"link\" INTEGER,\n"
-                      "  \"dir\" INTEGER NOT NULL,\n"
-                      "  \"lane\" INTEGER NOT NULL,\n"
-                      "  \"offset\" REAL,\n"
-                      "  \"route\" INTEGER NOT NULL,\n"
-                      "  CONSTRAINT \"link_fk\"\n"
-                      "    FOREIGN KEY (\"link\")\n"
-                      "    REFERENCES \"Link\" (\"link\")\n"
+                      "  \"HHOLD\" INTEGER NOT NULL,\n"
+                      "  \"PERSON\" INTEGER NOT NULL,\n"
+                      "  \"TOUR\" INTEGER NOT NULL,\n"
+                      "  \"TRIP\" INTEGER NOT NULL,\n"
+                      "  \"MODE\" INTEGER NOT NULL,\n"
+                      "  \"TIME\" REAL,\n"
+                      "  \"DISTANCE\" REAL,\n"
+                      "  \"SPEED\" REAL,\n"
+                      "  \"LINK\" INTEGER,\n"
+                      "  \"DIR\" INTEGER NOT NULL,\n"
+                      "  \"LANE\" INTEGER NOT NULL,\n"
+                      "  \"OFFSET\" REAL,\n"
+                      "  \"ROUTE\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"LINK_fk\"\n"
+                      "    FOREIGN KEY (\"LINK\")\n"
+                      "    REFERENCES \"LINK\" (\"LINK\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           return false;
         }
@@ -38473,104 +38473,104 @@ namespace odb
   };
 
   const char access::object_traits< ::pio::TripNoRef >::persist_statement[] =
-  "INSERT INTO \"TripNoRef\" ("
+  "INSERT INTO \"TRIPNOREF\" ("
   "\"auto_id\","
-  "\"hhold\","
-  "\"person\","
-  "\"tour\","
-  "\"trip\","
-  "\"start\","
-  "\"end\","
-  "\"duration\","
-  "\"origin\","
-  "\"destination\","
-  "\"purpose\","
-  "\"mode\","
-  "\"constraint\","
-  "\"priority\","
-  "\"vehicle\","
-  "\"passengers\","
-  "\"type\","
-  "\"partition\")"
+  "\"HHOLD\","
+  "\"PERSON\","
+  "\"TOUR\","
+  "\"TRIP\","
+  "\"START\","
+  "\"END\","
+  "\"DURATION\","
+  "\"ORIGIN\","
+  "\"DESTINATION\","
+  "\"PURPOSE\","
+  "\"MODE\","
+  "\"CONSTRAINT\","
+  "\"PRIORITY\","
+  "\"VEHICLE\","
+  "\"PASSENGERS\","
+  "\"TYPE\","
+  "\"PARTITION\")"
   " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::TripNoRef >::find_statement[] =
   "SELECT "
-  "\"TripNoRef\".\"auto_id\","
-  "\"TripNoRef\".\"hhold\","
-  "\"TripNoRef\".\"person\","
-  "\"TripNoRef\".\"tour\","
-  "\"TripNoRef\".\"trip\","
-  "\"TripNoRef\".\"start\","
-  "\"TripNoRef\".\"end\","
-  "\"TripNoRef\".\"duration\","
-  "\"TripNoRef\".\"origin\","
-  "\"TripNoRef\".\"destination\","
-  "\"TripNoRef\".\"purpose\","
-  "\"TripNoRef\".\"mode\","
-  "\"TripNoRef\".\"constraint\","
-  "\"TripNoRef\".\"priority\","
-  "\"TripNoRef\".\"vehicle\","
-  "\"TripNoRef\".\"passengers\","
-  "\"TripNoRef\".\"type\","
-  "\"TripNoRef\".\"partition\""
-  " FROM \"TripNoRef\""
-  " WHERE \"TripNoRef\".\"auto_id\"=?";
+  "\"TRIPNOREF\".\"auto_id\","
+  "\"TRIPNOREF\".\"HHOLD\","
+  "\"TRIPNOREF\".\"PERSON\","
+  "\"TRIPNOREF\".\"TOUR\","
+  "\"TRIPNOREF\".\"TRIP\","
+  "\"TRIPNOREF\".\"START\","
+  "\"TRIPNOREF\".\"END\","
+  "\"TRIPNOREF\".\"DURATION\","
+  "\"TRIPNOREF\".\"ORIGIN\","
+  "\"TRIPNOREF\".\"DESTINATION\","
+  "\"TRIPNOREF\".\"PURPOSE\","
+  "\"TRIPNOREF\".\"MODE\","
+  "\"TRIPNOREF\".\"CONSTRAINT\","
+  "\"TRIPNOREF\".\"PRIORITY\","
+  "\"TRIPNOREF\".\"VEHICLE\","
+  "\"TRIPNOREF\".\"PASSENGERS\","
+  "\"TRIPNOREF\".\"TYPE\","
+  "\"TRIPNOREF\".\"PARTITION\""
+  " FROM \"TRIPNOREF\""
+  " WHERE \"TRIPNOREF\".\"auto_id\"=?";
 
   const char access::object_traits< ::pio::TripNoRef >::update_statement[] =
-  "UPDATE \"TripNoRef\" SET "
-  "\"hhold\"=?,"
-  "\"person\"=?,"
-  "\"tour\"=?,"
-  "\"trip\"=?,"
-  "\"start\"=?,"
-  "\"end\"=?,"
-  "\"duration\"=?,"
-  "\"origin\"=?,"
-  "\"destination\"=?,"
-  "\"purpose\"=?,"
-  "\"mode\"=?,"
-  "\"constraint\"=?,"
-  "\"priority\"=?,"
-  "\"vehicle\"=?,"
-  "\"passengers\"=?,"
-  "\"type\"=?,"
-  "\"partition\"=?"
+  "UPDATE \"TRIPNOREF\" SET "
+  "\"HHOLD\"=?,"
+  "\"PERSON\"=?,"
+  "\"TOUR\"=?,"
+  "\"TRIP\"=?,"
+  "\"START\"=?,"
+  "\"END\"=?,"
+  "\"DURATION\"=?,"
+  "\"ORIGIN\"=?,"
+  "\"DESTINATION\"=?,"
+  "\"PURPOSE\"=?,"
+  "\"MODE\"=?,"
+  "\"CONSTRAINT\"=?,"
+  "\"PRIORITY\"=?,"
+  "\"VEHICLE\"=?,"
+  "\"PASSENGERS\"=?,"
+  "\"TYPE\"=?,"
+  "\"PARTITION\"=?"
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::TripNoRef >::erase_statement[] =
-  "DELETE FROM \"TripNoRef\""
+  "DELETE FROM \"TRIPNOREF\""
   " WHERE \"auto_id\"=?";
 
   const char access::object_traits< ::pio::TripNoRef >::query_statement[] =
   "SELECT "
-  "\"TripNoRef\".\"auto_id\","
-  "\"TripNoRef\".\"hhold\","
-  "\"TripNoRef\".\"person\","
-  "\"TripNoRef\".\"tour\","
-  "\"TripNoRef\".\"trip\","
-  "\"TripNoRef\".\"start\","
-  "\"TripNoRef\".\"end\","
-  "\"TripNoRef\".\"duration\","
-  "\"TripNoRef\".\"origin\","
-  "\"TripNoRef\".\"destination\","
-  "\"TripNoRef\".\"purpose\","
-  "\"TripNoRef\".\"mode\","
-  "\"TripNoRef\".\"constraint\","
-  "\"TripNoRef\".\"priority\","
-  "\"TripNoRef\".\"vehicle\","
-  "\"TripNoRef\".\"passengers\","
-  "\"TripNoRef\".\"type\","
-  "\"TripNoRef\".\"partition\""
-  " FROM \"TripNoRef\""
+  "\"TRIPNOREF\".\"auto_id\","
+  "\"TRIPNOREF\".\"HHOLD\","
+  "\"TRIPNOREF\".\"PERSON\","
+  "\"TRIPNOREF\".\"TOUR\","
+  "\"TRIPNOREF\".\"TRIP\","
+  "\"TRIPNOREF\".\"START\","
+  "\"TRIPNOREF\".\"END\","
+  "\"TRIPNOREF\".\"DURATION\","
+  "\"TRIPNOREF\".\"ORIGIN\","
+  "\"TRIPNOREF\".\"DESTINATION\","
+  "\"TRIPNOREF\".\"PURPOSE\","
+  "\"TRIPNOREF\".\"MODE\","
+  "\"TRIPNOREF\".\"CONSTRAINT\","
+  "\"TRIPNOREF\".\"PRIORITY\","
+  "\"TRIPNOREF\".\"VEHICLE\","
+  "\"TRIPNOREF\".\"PASSENGERS\","
+  "\"TRIPNOREF\".\"TYPE\","
+  "\"TRIPNOREF\".\"PARTITION\""
+  " FROM \"TRIPNOREF\""
   " ";
 
   const char access::object_traits< ::pio::TripNoRef >::erase_query_statement[] =
-  "DELETE FROM \"TripNoRef\""
+  "DELETE FROM \"TRIPNOREF\""
   " ";
 
   const char access::object_traits< ::pio::TripNoRef >::table_name[] =
-  "\"TripNoRef\"";
+  "\"TRIPNOREF\"";
 
   void access::object_traits< ::pio::TripNoRef >::
   persist (database& db, object_type& obj)
@@ -38921,7 +38921,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"TripNoRef\"");
+          db.execute ("DROP TABLE IF EXISTS \"TRIPNOREF\"");
           return false;
         }
       }
@@ -38932,25 +38932,25 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"TripNoRef\" (\n"
+          db.execute ("CREATE TABLE \"TRIPNOREF\" (\n"
                       "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
-                      "  \"hhold\" INTEGER NOT NULL,\n"
-                      "  \"person\" INTEGER NOT NULL,\n"
-                      "  \"tour\" INTEGER NOT NULL,\n"
-                      "  \"trip\" INTEGER NOT NULL,\n"
-                      "  \"start\" REAL,\n"
-                      "  \"end\" REAL,\n"
-                      "  \"duration\" REAL,\n"
-                      "  \"origin\" INTEGER NOT NULL,\n"
-                      "  \"destination\" INTEGER NOT NULL,\n"
-                      "  \"purpose\" INTEGER NOT NULL,\n"
-                      "  \"mode\" INTEGER NOT NULL,\n"
-                      "  \"constraint\" INTEGER NOT NULL,\n"
-                      "  \"priority\" INTEGER NOT NULL,\n"
-                      "  \"vehicle\" INTEGER NOT NULL,\n"
-                      "  \"passengers\" INTEGER NOT NULL,\n"
-                      "  \"type\" INTEGER NOT NULL,\n"
-                      "  \"partition\" INTEGER NOT NULL)");
+                      "  \"HHOLD\" INTEGER NOT NULL,\n"
+                      "  \"PERSON\" INTEGER NOT NULL,\n"
+                      "  \"TOUR\" INTEGER NOT NULL,\n"
+                      "  \"TRIP\" INTEGER NOT NULL,\n"
+                      "  \"START\" REAL,\n"
+                      "  \"END\" REAL,\n"
+                      "  \"DURATION\" REAL,\n"
+                      "  \"ORIGIN\" INTEGER NOT NULL,\n"
+                      "  \"DESTINATION\" INTEGER NOT NULL,\n"
+                      "  \"PURPOSE\" INTEGER NOT NULL,\n"
+                      "  \"MODE\" INTEGER NOT NULL,\n"
+                      "  \"CONSTRAINT\" INTEGER NOT NULL,\n"
+                      "  \"PRIORITY\" INTEGER NOT NULL,\n"
+                      "  \"VEHICLE\" INTEGER NOT NULL,\n"
+                      "  \"PASSENGERS\" INTEGER NOT NULL,\n"
+                      "  \"TYPE\" INTEGER NOT NULL,\n"
+                      "  \"PARTITION\" INTEGER NOT NULL)");
           return false;
         }
       }

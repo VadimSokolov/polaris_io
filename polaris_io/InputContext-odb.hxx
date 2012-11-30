@@ -241,32 +241,32 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Node, A >::node_type_
   query_columns< ::pio::Node, A >::
-  node (A::table_name, "\"node\"", 0);
+  node (A::table_name, "\"NODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Node, A >::x_type_
   query_columns< ::pio::Node, A >::
-  x (A::table_name, "\"x\"", 0);
+  x (A::table_name, "\"X\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Node, A >::y_type_
   query_columns< ::pio::Node, A >::
-  y (A::table_name, "\"y\"", 0);
+  y (A::table_name, "\"Y\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Node, A >::z_type_
   query_columns< ::pio::Node, A >::
-  z (A::table_name, "\"z\"", 0);
+  z (A::table_name, "\"Z\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Node, A >::subarea_type_
   query_columns< ::pio::Node, A >::
-  subarea (A::table_name, "\"subarea\"", 0);
+  subarea (A::table_name, "\"SUBAREA\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Node, A >::part_type_
   query_columns< ::pio::Node, A >::
-  part (A::table_name, "\"part\"", 0);
+  part (A::table_name, "\"PART\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::Node, A >:
@@ -553,47 +553,47 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::zone_type_
   query_columns< ::pio::Zone, A >::
-  zone (A::table_name, "\"zone\"", 0);
+  zone (A::table_name, "\"ZONE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::x_type_
   query_columns< ::pio::Zone, A >::
-  x (A::table_name, "\"x\"", 0);
+  x (A::table_name, "\"X\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::y_type_
   query_columns< ::pio::Zone, A >::
-  y (A::table_name, "\"y\"", 0);
+  y (A::table_name, "\"Y\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::z_type_
   query_columns< ::pio::Zone, A >::
-  z (A::table_name, "\"z\"", 0);
+  z (A::table_name, "\"Z\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::area_type_
   query_columns< ::pio::Zone, A >::
-  area (A::table_name, "\"area\"", 0);
+  area (A::table_name, "\"AREA\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::min_x_type_
   query_columns< ::pio::Zone, A >::
-  min_x (A::table_name, "\"min_x\"", 0);
+  min_x (A::table_name, "\"MIN_X\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::min_y_type_
   query_columns< ::pio::Zone, A >::
-  min_y (A::table_name, "\"min_y\"", 0);
+  min_y (A::table_name, "\"MIN_Y\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::max_x_type_
   query_columns< ::pio::Zone, A >::
-  max_x (A::table_name, "\"max_x\"", 0);
+  max_x (A::table_name, "\"MAX_X\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Zone, A >::max_y_type_
   query_columns< ::pio::Zone, A >::
-  max_y (A::table_name, "\"max_y\"", 0);
+  max_y (A::table_name, "\"MAX_Y\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::Zone, A >:
@@ -828,12 +828,12 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Shape, A >::link_type_
   pointer_query_columns< ::pio::Shape, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Shape, A >::points_type_
   pointer_query_columns< ::pio::Shape, A >::
-  points (A::table_name, "\"points\"", 0);
+  points (A::table_name, "\"POINTS\"", 0);
 
   template <>
   class access::object_traits< ::pio::Shape >
@@ -1398,132 +1398,132 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::link_type_
   pointer_query_columns< ::pio::Link, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::name_type_
   pointer_query_columns< ::pio::Link, A >::
-  name (A::table_name, "\"name\"", 0);
+  name (A::table_name, "\"NAME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::node_a_type_
   pointer_query_columns< ::pio::Link, A >::
-  node_a (A::table_name, "\"node_a\"", 0);
+  node_a (A::table_name, "\"NODE_A\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::node_b_type_
   pointer_query_columns< ::pio::Link, A >::
-  node_b (A::table_name, "\"node_b\"", 0);
+  node_b (A::table_name, "\"NODE_B\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::length_type_
   pointer_query_columns< ::pio::Link, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::setback_a_type_
   pointer_query_columns< ::pio::Link, A >::
-  setback_a (A::table_name, "\"setback_a\"", 0);
+  setback_a (A::table_name, "\"SETBACK_A\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::setback_b_type_
   pointer_query_columns< ::pio::Link, A >::
-  setback_b (A::table_name, "\"setback_b\"", 0);
+  setback_b (A::table_name, "\"SETBACK_B\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::bearing_a_type_
   pointer_query_columns< ::pio::Link, A >::
-  bearing_a (A::table_name, "\"bearing_a\"", 0);
+  bearing_a (A::table_name, "\"BEARING_A\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::bearing_b_type_
   pointer_query_columns< ::pio::Link, A >::
-  bearing_b (A::table_name, "\"bearing_b\"", 0);
+  bearing_b (A::table_name, "\"BEARING_B\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::type_type_
   pointer_query_columns< ::pio::Link, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::divided_type_
   pointer_query_columns< ::pio::Link, A >::
-  divided (A::table_name, "\"divided\"", 0);
+  divided (A::table_name, "\"DIVIDED\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::area_type_type_
   pointer_query_columns< ::pio::Link, A >::
-  area_type (A::table_name, "\"area_type\"", 0);
+  area_type (A::table_name, "\"AREA_TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::use_type_
   pointer_query_columns< ::pio::Link, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::grade_type_
   pointer_query_columns< ::pio::Link, A >::
-  grade (A::table_name, "\"grade\"", 0);
+  grade (A::table_name, "\"GRADE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::lanes_ab_type_
   pointer_query_columns< ::pio::Link, A >::
-  lanes_ab (A::table_name, "\"lanes_ab\"", 0);
+  lanes_ab (A::table_name, "\"LANES_AB\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::speed_ab_type_
   pointer_query_columns< ::pio::Link, A >::
-  speed_ab (A::table_name, "\"speed_ab\"", 0);
+  speed_ab (A::table_name, "\"SPEED_AB\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::fspd_ab_type_
   pointer_query_columns< ::pio::Link, A >::
-  fspd_ab (A::table_name, "\"fspd_ab\"", 0);
+  fspd_ab (A::table_name, "\"FSPD_AB\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::cap_ab_type_
   pointer_query_columns< ::pio::Link, A >::
-  cap_ab (A::table_name, "\"cap_ab\"", 0);
+  cap_ab (A::table_name, "\"CAP_AB\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::lanes_ba_type_
   pointer_query_columns< ::pio::Link, A >::
-  lanes_ba (A::table_name, "\"lanes_ba\"", 0);
+  lanes_ba (A::table_name, "\"LANES_BA\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::speed_ba_type_
   pointer_query_columns< ::pio::Link, A >::
-  speed_ba (A::table_name, "\"speed_ba\"", 0);
+  speed_ba (A::table_name, "\"SPEED_BA\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::fspd_ba_type_
   pointer_query_columns< ::pio::Link, A >::
-  fspd_ba (A::table_name, "\"fspd_ba\"", 0);
+  fspd_ba (A::table_name, "\"FSPD_BA\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::cap_ba_type_
   pointer_query_columns< ::pio::Link, A >::
-  cap_ba (A::table_name, "\"cap_ba\"", 0);
+  cap_ba (A::table_name, "\"CAP_BA\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::left_ab_type_
   pointer_query_columns< ::pio::Link, A >::
-  left_ab (A::table_name, "\"left_ab\"", 0);
+  left_ab (A::table_name, "\"LEFT_AB\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::right_ab_type_
   pointer_query_columns< ::pio::Link, A >::
-  right_ab (A::table_name, "\"right_ab\"", 0);
+  right_ab (A::table_name, "\"RIGHT_AB\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::left_ba_type_
   pointer_query_columns< ::pio::Link, A >::
-  left_ba (A::table_name, "\"left_ba\"", 0);
+  left_ba (A::table_name, "\"LEFT_BA\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link, A >::right_ba_type_
   pointer_query_columns< ::pio::Link, A >::
-  right_ba (A::table_name, "\"right_ba\"", 0);
+  right_ba (A::table_name, "\"RIGHT_BA\"", 0);
 
   template <>
   class access::object_traits< ::pio::Link >
@@ -1887,32 +1887,32 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Pocket, A >::link_type_
   pointer_query_columns< ::pio::Pocket, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Pocket, A >::dir_type_
   pointer_query_columns< ::pio::Pocket, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Pocket, A >::type_type_
   pointer_query_columns< ::pio::Pocket, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Pocket, A >::lanes_type_
   pointer_query_columns< ::pio::Pocket, A >::
-  lanes (A::table_name, "\"lanes\"", 0);
+  lanes (A::table_name, "\"LANES\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Pocket, A >::length_type_
   pointer_query_columns< ::pio::Pocket, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Pocket, A >::offset_type_
   pointer_query_columns< ::pio::Pocket, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <>
   class access::object_traits< ::pio::Pocket >
@@ -2312,87 +2312,87 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::link_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::dir_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::lanes_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  lanes (A::table_name, "\"lanes\"", 0);
+  lanes (A::table_name, "\"LANES\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::use_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::type_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::min_type_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  min_type (A::table_name, "\"min_type\"", 0);
+  min_type (A::table_name, "\"MIN_TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::max_type_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  max_type (A::table_name, "\"max_type\"", 0);
+  max_type (A::table_name, "\"MAX_TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::min_trav_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  min_trav (A::table_name, "\"min_trav\"", 0);
+  min_trav (A::table_name, "\"MIN_TRAV\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::max_trav_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  max_trav (A::table_name, "\"max_trav\"", 0);
+  max_trav (A::table_name, "\"MAX_TRAV\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::start_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::end_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::offset_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::length_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::toll_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  toll (A::table_name, "\"toll\"", 0);
+  toll (A::table_name, "\"TOLL\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::rate_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  rate (A::table_name, "\"rate\"", 0);
+  rate (A::table_name, "\"RATE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::min_delay_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  min_delay (A::table_name, "\"min_delay\"", 0);
+  min_delay (A::table_name, "\"MIN_DELAY\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Lane_Use, A >::max_delay_type_
   pointer_query_columns< ::pio::Lane_Use, A >::
-  max_delay (A::table_name, "\"max_delay\"", 0);
+  max_delay (A::table_name, "\"MAX_DELAY\"", 0);
 
   template <>
   class access::object_traits< ::pio::Lane_Use >
@@ -2774,57 +2774,57 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::link_type_
   pointer_query_columns< ::pio::Connect, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::dir_type_
   pointer_query_columns< ::pio::Connect, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::to_link_type_
   pointer_query_columns< ::pio::Connect, A >::
-  to_link (A::table_name, "\"to_link\"", 0);
+  to_link (A::table_name, "\"TO_LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::lanes_type_
   pointer_query_columns< ::pio::Connect, A >::
-  lanes (A::table_name, "\"lanes\"", 0);
+  lanes (A::table_name, "\"LANES\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::to_lanes_type_
   pointer_query_columns< ::pio::Connect, A >::
-  to_lanes (A::table_name, "\"to_lanes\"", 0);
+  to_lanes (A::table_name, "\"TO_LANES\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::type_type_
   pointer_query_columns< ::pio::Connect, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::penalty_type_
   pointer_query_columns< ::pio::Connect, A >::
-  penalty (A::table_name, "\"penalty\"", 0);
+  penalty (A::table_name, "\"PENALTY\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::speed_type_
   pointer_query_columns< ::pio::Connect, A >::
-  speed (A::table_name, "\"speed\"", 0);
+  speed (A::table_name, "\"SPEED\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::capacity_type_
   pointer_query_columns< ::pio::Connect, A >::
-  capacity (A::table_name, "\"capacity\"", 0);
+  capacity (A::table_name, "\"CAPACITY\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::in_high_type_
   pointer_query_columns< ::pio::Connect, A >::
-  in_high (A::table_name, "\"in_high\"", 0);
+  in_high (A::table_name, "\"IN_HIGH\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Connect, A >::out_high_type_
   pointer_query_columns< ::pio::Connect, A >::
-  out_high (A::table_name, "\"out_high\"", 0);
+  out_high (A::table_name, "\"OUT_HIGH\"", 0);
 
   template <>
   class access::object_traits< ::pio::Connect >
@@ -3179,57 +3179,57 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::link_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::dir_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::to_link_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  to_link (A::table_name, "\"to_link\"", 0);
+  to_link (A::table_name, "\"TO_LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::start_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::end_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::use_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::min_type_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  min_type (A::table_name, "\"min_type\"", 0);
+  min_type (A::table_name, "\"MIN_TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::max_type_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  max_type (A::table_name, "\"max_type\"", 0);
+  max_type (A::table_name, "\"MAX_TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::penalty_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  penalty (A::table_name, "\"penalty\"", 0);
+  penalty (A::table_name, "\"PENALTY\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::in_node_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  in_node (A::table_name, "\"in_node\"", 0);
+  in_node (A::table_name, "\"IN_NODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Turn_Pen, A >::out_node_type_
   pointer_query_columns< ::pio::Turn_Pen, A >::
-  out_node (A::table_name, "\"out_node\"", 0);
+  out_node (A::table_name, "\"OUT_NODE\"", 0);
 
   template <>
   class access::object_traits< ::pio::Turn_Pen >
@@ -3588,67 +3588,67 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::parking_type_
   pointer_query_columns< ::pio::Parking, A >::
-  parking (A::table_name, "\"parking\"", 0);
+  parking (A::table_name, "\"PARKING\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::link_type_
   pointer_query_columns< ::pio::Parking, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::dir_type_
   pointer_query_columns< ::pio::Parking, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::offset_type_
   pointer_query_columns< ::pio::Parking, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::type_type_
   pointer_query_columns< ::pio::Parking, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::use_type_
   pointer_query_columns< ::pio::Parking, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::start_type_
   pointer_query_columns< ::pio::Parking, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::end_type_
   pointer_query_columns< ::pio::Parking, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::space_type_
   pointer_query_columns< ::pio::Parking, A >::
-  space (A::table_name, "\"space\"", 0);
+  space (A::table_name, "\"SPACE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::time_in_type_
   pointer_query_columns< ::pio::Parking, A >::
-  time_in (A::table_name, "\"time_in\"", 0);
+  time_in (A::table_name, "\"TIME_IN\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::time_out_type_
   pointer_query_columns< ::pio::Parking, A >::
-  time_out (A::table_name, "\"time_out\"", 0);
+  time_out (A::table_name, "\"TIME_OUT\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::hourly_type_
   pointer_query_columns< ::pio::Parking, A >::
-  hourly (A::table_name, "\"hourly\"", 0);
+  hourly (A::table_name, "\"HOURLY\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Parking, A >::daily_type_
   pointer_query_columns< ::pio::Parking, A >::
-  daily (A::table_name, "\"daily\"", 0);
+  daily (A::table_name, "\"DAILY\"", 0);
 
   template <>
   class access::object_traits< ::pio::Parking >
@@ -3928,32 +3928,32 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Location, A >::location_type_
   pointer_query_columns< ::pio::Location, A >::
-  location (A::table_name, "\"location\"", 0);
+  location (A::table_name, "\"LOCATION\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Location, A >::link_type_
   pointer_query_columns< ::pio::Location, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Location, A >::dir_type_
   pointer_query_columns< ::pio::Location, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Location, A >::offset_type_
   pointer_query_columns< ::pio::Location, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Location, A >::setback_type_
   pointer_query_columns< ::pio::Location, A >::
-  setback (A::table_name, "\"setback\"", 0);
+  setback (A::table_name, "\"SETBACK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Location, A >::zone_type_
   pointer_query_columns< ::pio::Location, A >::
-  zone (A::table_name, "\"zone\"", 0);
+  zone (A::table_name, "\"ZONE\"", 0);
 
   template <>
   class access::object_traits< ::pio::Location >
@@ -4239,42 +4239,42 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Access, A >::link_type_
   pointer_query_columns< ::pio::Access, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Access, A >::from_id_type_
   pointer_query_columns< ::pio::Access, A >::
-  from_id (A::table_name, "\"from_id\"", 0);
+  from_id (A::table_name, "\"FROM_ID\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Access, A >::from_type_type_
   pointer_query_columns< ::pio::Access, A >::
-  from_type (A::table_name, "\"from_type\"", 0);
+  from_type (A::table_name, "\"FROM_TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Access, A >::to_id_type_
   pointer_query_columns< ::pio::Access, A >::
-  to_id (A::table_name, "\"to_id\"", 0);
+  to_id (A::table_name, "\"TO_ID\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Access, A >::to_type_type_
   pointer_query_columns< ::pio::Access, A >::
-  to_type (A::table_name, "\"to_type\"", 0);
+  to_type (A::table_name, "\"TO_TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Access, A >::dir_type_
   pointer_query_columns< ::pio::Access, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Access, A >::time_type_
   pointer_query_columns< ::pio::Access, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Access, A >::cost_type_
   pointer_query_columns< ::pio::Access, A >::
-  cost (A::table_name, "\"cost\"", 0);
+  cost (A::table_name, "\"COST\"", 0);
 
   template <>
   class access::object_traits< ::pio::Access >
@@ -4515,17 +4515,17 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Sign, A >::link_type_
   pointer_query_columns< ::pio::Sign, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Sign, A >::dir_type_
   pointer_query_columns< ::pio::Sign, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Sign, A >::sign_type_
   pointer_query_columns< ::pio::Sign, A >::
-  sign (A::table_name, "\"sign\"", 0);
+  sign (A::table_name, "\"SIGN\"", 0);
 
   template <>
   class access::object_traits< ::pio::Sign >
@@ -4749,27 +4749,27 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Signal, A >::signal_type_
   query_columns< ::pio::Signal, A >::
-  signal (A::table_name, "\"signal\"", 0);
+  signal (A::table_name, "\"SIGNAL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Signal, A >::group_type_
   query_columns< ::pio::Signal, A >::
-  group (A::table_name, "\"group\"", 0);
+  group (A::table_name, "\"GROUP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Signal, A >::times_type_
   query_columns< ::pio::Signal, A >::
-  times (A::table_name, "\"times\"", 0);
+  times (A::table_name, "\"TIMES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Signal, A >::type_type_
   query_columns< ::pio::Signal, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Signal, A >::offset_type_
   query_columns< ::pio::Signal, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::Signal, A >:
@@ -5236,77 +5236,77 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::signal_type_
   pointer_query_columns< ::pio::Timing, A >::
-  signal (A::table_name, "\"signal\"", 0);
+  signal (A::table_name, "\"SIGNAL\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::timing_type_
   pointer_query_columns< ::pio::Timing, A >::
-  timing (A::table_name, "\"timing\"", 0);
+  timing (A::table_name, "\"TIMING\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::type_type_
   pointer_query_columns< ::pio::Timing, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::cycle_type_
   pointer_query_columns< ::pio::Timing, A >::
-  cycle (A::table_name, "\"cycle\"", 0);
+  cycle (A::table_name, "\"CYCLE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::offset_type_
   pointer_query_columns< ::pio::Timing, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::phases_type_
   pointer_query_columns< ::pio::Timing, A >::
-  phases (A::table_name, "\"phases\"", 0);
+  phases (A::table_name, "\"PHASES\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::phase_type_
   pointer_query_columns< ::pio::Timing, A >::
-  phase (A::table_name, "\"phase\"", 0);
+  phase (A::table_name, "\"PHASE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::barrier_type_
   pointer_query_columns< ::pio::Timing, A >::
-  barrier (A::table_name, "\"barrier\"", 0);
+  barrier (A::table_name, "\"BARRIER\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::ring_type_
   pointer_query_columns< ::pio::Timing, A >::
-  ring (A::table_name, "\"ring\"", 0);
+  ring (A::table_name, "\"RING\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::position_type_
   pointer_query_columns< ::pio::Timing, A >::
-  position (A::table_name, "\"position\"", 0);
+  position (A::table_name, "\"POSITION\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::minimum_type_
   pointer_query_columns< ::pio::Timing, A >::
-  minimum (A::table_name, "\"minimum\"", 0);
+  minimum (A::table_name, "\"MINIMUM\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::maximum_type_
   pointer_query_columns< ::pio::Timing, A >::
-  maximum (A::table_name, "\"maximum\"", 0);
+  maximum (A::table_name, "\"MAXIMUM\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::extend_type_
   pointer_query_columns< ::pio::Timing, A >::
-  extend (A::table_name, "\"extend\"", 0);
+  extend (A::table_name, "\"EXTEND\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::yellow_type_
   pointer_query_columns< ::pio::Timing, A >::
-  yellow (A::table_name, "\"yellow\"", 0);
+  yellow (A::table_name, "\"YELLOW\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Timing, A >::red_type_
   pointer_query_columns< ::pio::Timing, A >::
-  red (A::table_name, "\"red\"", 0);
+  red (A::table_name, "\"RED\"", 0);
 
   template <>
   class access::object_traits< ::pio::Timing >
@@ -5666,52 +5666,52 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::signal_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  signal (A::table_name, "\"signal\"", 0);
+  signal (A::table_name, "\"SIGNAL\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::phasing_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  phasing (A::table_name, "\"phasing\"", 0);
+  phasing (A::table_name, "\"PHASING\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::phase_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  phase (A::table_name, "\"phase\"", 0);
+  phase (A::table_name, "\"PHASE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::detectors_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  detectors (A::table_name, "\"detectors\"", 0);
+  detectors (A::table_name, "\"DETECTORS\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::movements_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  movements (A::table_name, "\"movements\"", 0);
+  movements (A::table_name, "\"MOVEMENTS\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::movement_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  movement (A::table_name, "\"movement\"", 0);
+  movement (A::table_name, "\"MOVEMENT\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::link_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::dir_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::to_link_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  to_link (A::table_name, "\"to_link\"", 0);
+  to_link (A::table_name, "\"TO_LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Phasing, A >::protect_type_
   pointer_query_columns< ::pio::Phasing, A >::
-  protect (A::table_name, "\"protect\"", 0);
+  protect (A::table_name, "\"PROTECT\"", 0);
 
   template <>
   class access::object_traits< ::pio::Phasing >
@@ -6031,52 +6031,52 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::detector_type_
   pointer_query_columns< ::pio::Detector, A >::
-  detector (A::table_name, "\"detector\"", 0);
+  detector (A::table_name, "\"DETECTOR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::link_type_
   pointer_query_columns< ::pio::Detector, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::dir_type_
   pointer_query_columns< ::pio::Detector, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::offset_type_
   pointer_query_columns< ::pio::Detector, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::length_type_
   pointer_query_columns< ::pio::Detector, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::lanes_type_
   pointer_query_columns< ::pio::Detector, A >::
-  lanes (A::table_name, "\"lanes\"", 0);
+  lanes (A::table_name, "\"LANES\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::type_type_
   pointer_query_columns< ::pio::Detector, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::use_type_
   pointer_query_columns< ::pio::Detector, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::low_type_
   pointer_query_columns< ::pio::Detector, A >::
-  low (A::table_name, "\"low\"", 0);
+  low (A::table_name, "\"LOW\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Detector, A >::high_type_
   pointer_query_columns< ::pio::Detector, A >::
-  high (A::table_name, "\"high\"", 0);
+  high (A::table_name, "\"HIGH\"", 0);
 
   template <>
   class access::object_traits< ::pio::Detector >
@@ -6365,42 +6365,42 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Stop, A >::stop_type_
   pointer_query_columns< ::pio::Stop, A >::
-  stop (A::table_name, "\"stop\"", 0);
+  stop (A::table_name, "\"STOP\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Stop, A >::name_type_
   pointer_query_columns< ::pio::Stop, A >::
-  name (A::table_name, "\"name\"", 0);
+  name (A::table_name, "\"NAME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Stop, A >::link_type_
   pointer_query_columns< ::pio::Stop, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Stop, A >::dir_type_
   pointer_query_columns< ::pio::Stop, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Stop, A >::offset_type_
   pointer_query_columns< ::pio::Stop, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Stop, A >::use_type_
   pointer_query_columns< ::pio::Stop, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Stop, A >::type_type_
   pointer_query_columns< ::pio::Stop, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Stop, A >::space_type_
   pointer_query_columns< ::pio::Stop, A >::
-  space (A::table_name, "\"space\"", 0);
+  space (A::table_name, "\"SPACE\"", 0);
 
   template <>
   class access::object_traits< ::pio::Stop >
@@ -6668,37 +6668,37 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Fare, A >::from_zone_type_
   pointer_query_columns< ::pio::Fare, A >::
-  from_zone (A::table_name, "\"from_zone\"", 0);
+  from_zone (A::table_name, "\"FROM_ZONE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Fare, A >::to_zone_type_
   pointer_query_columns< ::pio::Fare, A >::
-  to_zone (A::table_name, "\"to_zone\"", 0);
+  to_zone (A::table_name, "\"TO_ZONE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Fare, A >::from_mode_type_
   pointer_query_columns< ::pio::Fare, A >::
-  from_mode (A::table_name, "\"from_mode\"", 0);
+  from_mode (A::table_name, "\"FROM_MODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Fare, A >::to_mode_type_
   pointer_query_columns< ::pio::Fare, A >::
-  to_mode (A::table_name, "\"to_mode\"", 0);
+  to_mode (A::table_name, "\"TO_MODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Fare, A >::period_type_
   pointer_query_columns< ::pio::Fare, A >::
-  period (A::table_name, "\"period\"", 0);
+  period (A::table_name, "\"PERIOD\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Fare, A >::type_type_
   pointer_query_columns< ::pio::Fare, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Fare, A >::fare_type_
   pointer_query_columns< ::pio::Fare, A >::
-  fare (A::table_name, "\"fare\"", 0);
+  fare (A::table_name, "\"FARE\"", 0);
 
   template <>
   class access::object_traits< ::pio::Fare >
@@ -6989,42 +6989,42 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Line, A >::route_type_
   pointer_query_columns< ::pio::Line, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Line, A >::stops_type_
   pointer_query_columns< ::pio::Line, A >::
-  stops (A::table_name, "\"stops\"", 0);
+  stops (A::table_name, "\"STOPS\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Line, A >::mode_type_
   pointer_query_columns< ::pio::Line, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Line, A >::type_type_
   pointer_query_columns< ::pio::Line, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Line, A >::name_type_
   pointer_query_columns< ::pio::Line, A >::
-  name (A::table_name, "\"name\"", 0);
+  name (A::table_name, "\"NAME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Line, A >::stop_type_
   pointer_query_columns< ::pio::Line, A >::
-  stop (A::table_name, "\"stop\"", 0);
+  stop (A::table_name, "\"STOP\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Line, A >::zone_type_
   pointer_query_columns< ::pio::Line, A >::
-  zone (A::table_name, "\"zone\"", 0);
+  zone (A::table_name, "\"ZONE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Line, A >::flag_type_
   pointer_query_columns< ::pio::Line, A >::
-  flag (A::table_name, "\"flag\"", 0);
+  flag (A::table_name, "\"FLAG\"", 0);
 
   template <>
   class access::object_traits< ::pio::Line >
@@ -7266,17 +7266,17 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Schedule, A >::route_type_
   pointer_query_columns< ::pio::Schedule, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Schedule, A >::stops_type_
   pointer_query_columns< ::pio::Schedule, A >::
-  stops (A::table_name, "\"stops\"", 0);
+  stops (A::table_name, "\"STOPS\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Schedule, A >::stop_type_
   pointer_query_columns< ::pio::Schedule, A >::
-  stop (A::table_name, "\"stop\"", 0);
+  stop (A::table_name, "\"STOP\"", 0);
 
   template <>
   class access::object_traits< ::pio::Schedule >
@@ -7528,32 +7528,32 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Driver, A >::route_type_
   pointer_query_columns< ::pio::Driver, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Driver, A >::links_type_
   pointer_query_columns< ::pio::Driver, A >::
-  links (A::table_name, "\"links\"", 0);
+  links (A::table_name, "\"LINKS\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Driver, A >::type_type_
   pointer_query_columns< ::pio::Driver, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Driver, A >::subtype_type_
   pointer_query_columns< ::pio::Driver, A >::
-  subtype (A::table_name, "\"subtype\"", 0);
+  subtype (A::table_name, "\"SUBTYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Driver, A >::link_type_
   pointer_query_columns< ::pio::Driver, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Driver, A >::dir_type_
   pointer_query_columns< ::pio::Driver, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <>
   class access::object_traits< ::pio::Driver >
@@ -7868,52 +7868,52 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::route_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::mode_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::veh_type_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  veh_type (A::table_name, "\"veh_type\"", 0);
+  veh_type (A::table_name, "\"VEH_TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::nodes_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  nodes (A::table_name, "\"nodes\"", 0);
+  nodes (A::table_name, "\"NODES\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::name_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  name (A::table_name, "\"name\"", 0);
+  name (A::table_name, "\"NAME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::node_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  node (A::table_name, "\"node\"", 0);
+  node (A::table_name, "\"NODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::type_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::dwell_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  dwell (A::table_name, "\"dwell\"", 0);
+  dwell (A::table_name, "\"DWELL\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::time_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Route_Nodes, A >::speed_type_
   pointer_query_columns< ::pio::Route_Nodes, A >::
-  speed (A::table_name, "\"speed\"", 0);
+  speed (A::table_name, "\"SPEED\"", 0);
 
   template <>
   class access::object_traits< ::pio::Route_Nodes >
@@ -8201,32 +8201,32 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Selection, A >::hhold_type_
   query_columns< ::pio::Selection, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Selection, A >::person_type_
   query_columns< ::pio::Selection, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Selection, A >::tour_type_
   query_columns< ::pio::Selection, A >::
-  tour (A::table_name, "\"tour\"", 0);
+  tour (A::table_name, "\"TOUR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Selection, A >::trip_type_
   query_columns< ::pio::Selection, A >::
-  trip (A::table_name, "\"trip\"", 0);
+  trip (A::table_name, "\"TRIP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Selection, A >::type_type_
   query_columns< ::pio::Selection, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Selection, A >::partition_type_
   query_columns< ::pio::Selection, A >::
-  partition (A::table_name, "\"partition\"", 0);
+  partition (A::table_name, "\"PARTITION\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::Selection, A >:
@@ -8583,67 +8583,67 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::hhold_type_
   pointer_query_columns< ::pio::Household, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::location_type_
   pointer_query_columns< ::pio::Household, A >::
-  location (A::table_name, "\"location\"", 0);
+  location (A::table_name, "\"LOCATION\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::persons_type_
   pointer_query_columns< ::pio::Household, A >::
-  persons (A::table_name, "\"persons\"", 0);
+  persons (A::table_name, "\"PERSONS\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::workers_type_
   pointer_query_columns< ::pio::Household, A >::
-  workers (A::table_name, "\"workers\"", 0);
+  workers (A::table_name, "\"WORKERS\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::vehicles_type_
   pointer_query_columns< ::pio::Household, A >::
-  vehicles (A::table_name, "\"vehicles\"", 0);
+  vehicles (A::table_name, "\"VEHICLES\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::type_type_
   pointer_query_columns< ::pio::Household, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::partition_type_
   pointer_query_columns< ::pio::Household, A >::
-  partition (A::table_name, "\"partition\"", 0);
+  partition (A::table_name, "\"PARTITION\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::person_type_
   pointer_query_columns< ::pio::Household, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::age_type_
   pointer_query_columns< ::pio::Household, A >::
-  age (A::table_name, "\"age\"", 0);
+  age (A::table_name, "\"AGE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::relate_type_
   pointer_query_columns< ::pio::Household, A >::
-  relate (A::table_name, "\"relate\"", 0);
+  relate (A::table_name, "\"RELATE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::gender_type_
   pointer_query_columns< ::pio::Household, A >::
-  gender (A::table_name, "\"gender\"", 0);
+  gender (A::table_name, "\"GENDER\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::work_type_
   pointer_query_columns< ::pio::Household, A >::
-  work (A::table_name, "\"work\"", 0);
+  work (A::table_name, "\"WORK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Household, A >::drive_type_
   pointer_query_columns< ::pio::Household, A >::
-  drive (A::table_name, "\"drive\"", 0);
+  drive (A::table_name, "\"DRIVE\"", 0);
 
   template <>
   class access::object_traits< ::pio::Household >
@@ -8993,52 +8993,52 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::link_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::dir_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::type_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::start_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::end_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::flow_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  flow (A::table_name, "\"flow\"", 0);
+  flow (A::table_name, "\"FLOW\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::time_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::out_link_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  out_link (A::table_name, "\"out_link\"", 0);
+  out_link (A::table_name, "\"OUT_LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::out_flow_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  out_flow (A::table_name, "\"out_flow\"", 0);
+  out_flow (A::table_name, "\"OUT_FLOW\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Link_Delay, A >::out_time_type_
   pointer_query_columns< ::pio::Link_Delay, A >::
-  out_time (A::table_name, "\"out_time\"", 0);
+  out_time (A::table_name, "\"OUT_TIME\"", 0);
 
   template <>
   class access::object_traits< ::pio::Link_Delay >
@@ -9349,42 +9349,42 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Performance, A >::speed_type_
   query_columns< ::pio::Performance, A >::
-  speed (A::table_name, "\"speed\"", 0);
+  speed (A::table_name, "\"SPEED\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Performance, A >::delay_type_
   query_columns< ::pio::Performance, A >::
-  delay (A::table_name, "\"delay\"", 0);
+  delay (A::table_name, "\"DELAY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Performance, A >::density_type_
   query_columns< ::pio::Performance, A >::
-  density (A::table_name, "\"density\"", 0);
+  density (A::table_name, "\"DENSITY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Performance, A >::max_den_type_
   query_columns< ::pio::Performance, A >::
-  max_den (A::table_name, "\"max_den\"", 0);
+  max_den (A::table_name, "\"MAX_DEN\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Performance, A >::ratio_type_
   query_columns< ::pio::Performance, A >::
-  ratio (A::table_name, "\"ratio\"", 0);
+  ratio (A::table_name, "\"RATIO\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Performance, A >::queue_type_
   query_columns< ::pio::Performance, A >::
-  queue (A::table_name, "\"queue\"", 0);
+  queue (A::table_name, "\"QUEUE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Performance, A >::max_que_type_
   query_columns< ::pio::Performance, A >::
-  max_que (A::table_name, "\"max_que\"", 0);
+  max_que (A::table_name, "\"MAX_QUE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Performance, A >::fail_type_
   query_columns< ::pio::Performance, A >::
-  fail (A::table_name, "\"fail\"", 0);
+  fail (A::table_name, "\"FAIL\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::Performance, A >:
@@ -9715,52 +9715,52 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::mode_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::route_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::run_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  run (A::table_name, "\"run\"", 0);
+  run (A::table_name, "\"RUN\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::stop_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  stop (A::table_name, "\"stop\"", 0);
+  stop (A::table_name, "\"STOP\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::schedule_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  schedule (A::table_name, "\"schedule\"", 0);
+  schedule (A::table_name, "\"SCHEDULE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::time_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::board_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  board (A::table_name, "\"board\"", 0);
+  board (A::table_name, "\"BOARD\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::alight_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  alight (A::table_name, "\"alight\"", 0);
+  alight (A::table_name, "\"ALIGHT\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::load_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  load (A::table_name, "\"load\"", 0);
+  load (A::table_name, "\"LOAD\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Ridership, A >::factor_type_
   pointer_query_columns< ::pio::Ridership, A >::
-  factor (A::table_name, "\"factor\"", 0);
+  factor (A::table_name, "\"FACTOR\"", 0);
 
   template <>
   class access::object_traits< ::pio::Ridership >
@@ -10126,72 +10126,72 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::type_type_
   query_columns< ::pio::Veh_Type, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::length_type_
   query_columns< ::pio::Veh_Type, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::max_speed_type_
   query_columns< ::pio::Veh_Type, A >::
-  max_speed (A::table_name, "\"max_speed\"", 0);
+  max_speed (A::table_name, "\"MAX_SPEED\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::max_accel_type_
   query_columns< ::pio::Veh_Type, A >::
-  max_accel (A::table_name, "\"max_accel\"", 0);
+  max_accel (A::table_name, "\"MAX_ACCEL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::max_decel_type_
   query_columns< ::pio::Veh_Type, A >::
-  max_decel (A::table_name, "\"max_decel\"", 0);
+  max_decel (A::table_name, "\"MAX_DECEL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::op_cost_type_
   query_columns< ::pio::Veh_Type, A >::
-  op_cost (A::table_name, "\"op_cost\"", 0);
+  op_cost (A::table_name, "\"OP_COST\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::use_type_
   query_columns< ::pio::Veh_Type, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::capacity_type_
   query_columns< ::pio::Veh_Type, A >::
-  capacity (A::table_name, "\"capacity\"", 0);
+  capacity (A::table_name, "\"CAPACITY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::load_type_
   query_columns< ::pio::Veh_Type, A >::
-  load (A::table_name, "\"load\"", 0);
+  load (A::table_name, "\"LOAD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::unload_type_
   query_columns< ::pio::Veh_Type, A >::
-  unload (A::table_name, "\"unload\"", 0);
+  unload (A::table_name, "\"UNLOAD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::method_type_
   query_columns< ::pio::Veh_Type, A >::
-  method (A::table_name, "\"method\"", 0);
+  method (A::table_name, "\"METHOD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::min_dwell_type_
   query_columns< ::pio::Veh_Type, A >::
-  min_dwell (A::table_name, "\"min_dwell\"", 0);
+  min_dwell (A::table_name, "\"MIN_DWELL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::max_dwell_type_
   query_columns< ::pio::Veh_Type, A >::
-  max_dwell (A::table_name, "\"max_dwell\"", 0);
+  max_dwell (A::table_name, "\"MAX_DWELL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Veh_Type, A >::subtype_type_
   query_columns< ::pio::Veh_Type, A >::
-  subtype (A::table_name, "\"subtype\"", 0);
+  subtype (A::table_name, "\"SUBTYPE\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::Veh_Type, A >:
@@ -10499,32 +10499,32 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Vehicle, A >::hhold_type_
   pointer_query_columns< ::pio::Vehicle, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Vehicle, A >::vehicle_type_
   pointer_query_columns< ::pio::Vehicle, A >::
-  vehicle (A::table_name, "\"vehicle\"", 0);
+  vehicle (A::table_name, "\"VEHICLE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Vehicle, A >::parking_type_
   pointer_query_columns< ::pio::Vehicle, A >::
-  parking (A::table_name, "\"parking\"", 0);
+  parking (A::table_name, "\"PARKING\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Vehicle, A >::type_type_
   pointer_query_columns< ::pio::Vehicle, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Vehicle, A >::subtype_type_
   pointer_query_columns< ::pio::Vehicle, A >::
-  subtype (A::table_name, "\"subtype\"", 0);
+  subtype (A::table_name, "\"SUBTYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Vehicle, A >::partition_type_
   pointer_query_columns< ::pio::Vehicle, A >::
-  partition (A::table_name, "\"partition\"", 0);
+  partition (A::table_name, "\"PARTITION\"", 0);
 
   template <>
   class access::object_traits< ::pio::Vehicle >
@@ -10923,87 +10923,87 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::hhold_type_
   pointer_query_columns< ::pio::Trip, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::person_type_
   pointer_query_columns< ::pio::Trip, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::tour_type_
   pointer_query_columns< ::pio::Trip, A >::
-  tour (A::table_name, "\"tour\"", 0);
+  tour (A::table_name, "\"TOUR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::trip_type_
   pointer_query_columns< ::pio::Trip, A >::
-  trip (A::table_name, "\"trip\"", 0);
+  trip (A::table_name, "\"TRIP\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::start_type_
   pointer_query_columns< ::pio::Trip, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::end_type_
   pointer_query_columns< ::pio::Trip, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::duration_type_
   pointer_query_columns< ::pio::Trip, A >::
-  duration (A::table_name, "\"duration\"", 0);
+  duration (A::table_name, "\"DURATION\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::origin_type_
   pointer_query_columns< ::pio::Trip, A >::
-  origin (A::table_name, "\"origin\"", 0);
+  origin (A::table_name, "\"ORIGIN\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::destination_type_
   pointer_query_columns< ::pio::Trip, A >::
-  destination (A::table_name, "\"destination\"", 0);
+  destination (A::table_name, "\"DESTINATION\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::purpose_type_
   pointer_query_columns< ::pio::Trip, A >::
-  purpose (A::table_name, "\"purpose\"", 0);
+  purpose (A::table_name, "\"PURPOSE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::mode_type_
   pointer_query_columns< ::pio::Trip, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::constraint_type_
   pointer_query_columns< ::pio::Trip, A >::
-  constraint (A::table_name, "\"constraint\"", 0);
+  constraint (A::table_name, "\"CONSTRAINT\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::priority_type_
   pointer_query_columns< ::pio::Trip, A >::
-  priority (A::table_name, "\"priority\"", 0);
+  priority (A::table_name, "\"PRIORITY\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::vehicle_type_
   pointer_query_columns< ::pio::Trip, A >::
-  vehicle (A::table_name, "\"vehicle\"", 0);
+  vehicle (A::table_name, "\"VEHICLE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::passengers_type_
   pointer_query_columns< ::pio::Trip, A >::
-  passengers (A::table_name, "\"passengers\"", 0);
+  passengers (A::table_name, "\"PASSENGERS\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::type_type_
   pointer_query_columns< ::pio::Trip, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Trip, A >::partition_type_
   pointer_query_columns< ::pio::Trip, A >::
-  partition (A::table_name, "\"partition\"", 0);
+  partition (A::table_name, "\"PARTITION\"", 0);
 
   template <>
   class access::object_traits< ::pio::Trip >
@@ -11332,42 +11332,42 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Problem, A >::problem_type_
   pointer_query_columns< ::pio::Problem, A >::
-  problem (A::table_name, "\"problem\"", 0);
+  problem (A::table_name, "\"PROBLEM\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Problem, A >::time_type_
   pointer_query_columns< ::pio::Problem, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Problem, A >::link_type_
   pointer_query_columns< ::pio::Problem, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Problem, A >::dir_type_
   pointer_query_columns< ::pio::Problem, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Problem, A >::lane_type_
   pointer_query_columns< ::pio::Problem, A >::
-  lane (A::table_name, "\"lane\"", 0);
+  lane (A::table_name, "\"LANE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Problem, A >::offset_type_
   pointer_query_columns< ::pio::Problem, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Problem, A >::route_type_
   pointer_query_columns< ::pio::Problem, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Problem, A >::survey_type_
   pointer_query_columns< ::pio::Problem, A >::
-  survey (A::table_name, "\"survey\"", 0);
+  survey (A::table_name, "\"SURVEY\"", 0);
 
   template <>
   class access::object_traits< ::pio::Problem >
@@ -11783,92 +11783,92 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::depart_type_
   query_columns< ::pio::Plan, A >::
-  depart (A::table_name, "\"depart\"", 0);
+  depart (A::table_name, "\"DEPART\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::arrive_type_
   query_columns< ::pio::Plan, A >::
-  arrive (A::table_name, "\"arrive\"", 0);
+  arrive (A::table_name, "\"ARRIVE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::activity_type_
   query_columns< ::pio::Plan, A >::
-  activity (A::table_name, "\"activity\"", 0);
+  activity (A::table_name, "\"ACTIVITY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::walk_type_
   query_columns< ::pio::Plan, A >::
-  walk (A::table_name, "\"walk\"", 0);
+  walk (A::table_name, "\"WALK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::drive_type_
   query_columns< ::pio::Plan, A >::
-  drive (A::table_name, "\"drive\"", 0);
+  drive (A::table_name, "\"DRIVE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::transit_type_
   query_columns< ::pio::Plan, A >::
-  transit (A::table_name, "\"transit\"", 0);
+  transit (A::table_name, "\"TRANSIT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::wait_type_
   query_columns< ::pio::Plan, A >::
-  wait (A::table_name, "\"wait\"", 0);
+  wait (A::table_name, "\"WAIT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::other_type_
   query_columns< ::pio::Plan, A >::
-  other (A::table_name, "\"other\"", 0);
+  other (A::table_name, "\"OTHER\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::length_type_
   query_columns< ::pio::Plan, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::cost_type_
   query_columns< ::pio::Plan, A >::
-  cost (A::table_name, "\"cost\"", 0);
+  cost (A::table_name, "\"COST\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::impedance_type_
   query_columns< ::pio::Plan, A >::
-  impedance (A::table_name, "\"impedance\"", 0);
+  impedance (A::table_name, "\"IMPEDANCE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::leg_mode_type_
   query_columns< ::pio::Plan, A >::
-  leg_mode (A::table_name, "\"leg_mode\"", 0);
+  leg_mode (A::table_name, "\"LEG_MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::leg_type_type_
   query_columns< ::pio::Plan, A >::
-  leg_type (A::table_name, "\"leg_type\"", 0);
+  leg_type (A::table_name, "\"LEG_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::leg_id_type_
   query_columns< ::pio::Plan, A >::
-  leg_id (A::table_name, "\"leg_id\"", 0);
+  leg_id (A::table_name, "\"LEG_ID\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::leg_time_type_
   query_columns< ::pio::Plan, A >::
-  leg_time (A::table_name, "\"leg_time\"", 0);
+  leg_time (A::table_name, "\"LEG_TIME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::leg_length_type_
   query_columns< ::pio::Plan, A >::
-  leg_length (A::table_name, "\"leg_length\"", 0);
+  leg_length (A::table_name, "\"LEG_LENGTH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::leg_cost_type_
   query_columns< ::pio::Plan, A >::
-  leg_cost (A::table_name, "\"leg_cost\"", 0);
+  leg_cost (A::table_name, "\"LEG_COST\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Plan, A >::leg_imp_type_
   query_columns< ::pio::Plan, A >::
-  leg_imp (A::table_name, "\"leg_imp\"", 0);
+  leg_imp (A::table_name, "\"LEG_IMP\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::Plan, A >:
@@ -12237,47 +12237,47 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::time_type_
   query_columns< ::pio::Skim, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::walk_type_
   query_columns< ::pio::Skim, A >::
-  walk (A::table_name, "\"walk\"", 0);
+  walk (A::table_name, "\"WALK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::drive_type_
   query_columns< ::pio::Skim, A >::
-  drive (A::table_name, "\"drive\"", 0);
+  drive (A::table_name, "\"DRIVE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::transit_type_
   query_columns< ::pio::Skim, A >::
-  transit (A::table_name, "\"transit\"", 0);
+  transit (A::table_name, "\"TRANSIT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::wait_type_
   query_columns< ::pio::Skim, A >::
-  wait (A::table_name, "\"wait\"", 0);
+  wait (A::table_name, "\"WAIT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::other_type_
   query_columns< ::pio::Skim, A >::
-  other (A::table_name, "\"other\"", 0);
+  other (A::table_name, "\"OTHER\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::length_type_
   query_columns< ::pio::Skim, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::cost_type_
   query_columns< ::pio::Skim, A >::
-  cost (A::table_name, "\"cost\"", 0);
+  cost (A::table_name, "\"COST\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Skim, A >::impedance_type_
   query_columns< ::pio::Skim, A >::
-  impedance (A::table_name, "\"impedance\"", 0);
+  impedance (A::table_name, "\"IMPEDANCE\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::Skim, A >:
@@ -12649,67 +12649,67 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::hhold_type_
   pointer_query_columns< ::pio::Event, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::person_type_
   pointer_query_columns< ::pio::Event, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::tour_type_
   pointer_query_columns< ::pio::Event, A >::
-  tour (A::table_name, "\"tour\"", 0);
+  tour (A::table_name, "\"TOUR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::trip_type_
   pointer_query_columns< ::pio::Event, A >::
-  trip (A::table_name, "\"trip\"", 0);
+  trip (A::table_name, "\"TRIP\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::mode_type_
   pointer_query_columns< ::pio::Event, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::type_type_
   pointer_query_columns< ::pio::Event, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::schedule_type_
   pointer_query_columns< ::pio::Event, A >::
-  schedule (A::table_name, "\"schedule\"", 0);
+  schedule (A::table_name, "\"SCHEDULE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::actual_type_
   pointer_query_columns< ::pio::Event, A >::
-  actual (A::table_name, "\"actual\"", 0);
+  actual (A::table_name, "\"ACTUAL\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::link_type_
   pointer_query_columns< ::pio::Event, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::dir_type_
   pointer_query_columns< ::pio::Event, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::lane_type_
   pointer_query_columns< ::pio::Event, A >::
-  lane (A::table_name, "\"lane\"", 0);
+  lane (A::table_name, "\"LANE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::offset_type_
   pointer_query_columns< ::pio::Event, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Event, A >::route_type_
   pointer_query_columns< ::pio::Event, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <>
   class access::object_traits< ::pio::Event >
@@ -13095,67 +13095,67 @@ namespace odb
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::hhold_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::person_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::tour_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  tour (A::table_name, "\"tour\"", 0);
+  tour (A::table_name, "\"TOUR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::trip_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  trip (A::table_name, "\"trip\"", 0);
+  trip (A::table_name, "\"TRIP\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::mode_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::time_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::distance_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  distance (A::table_name, "\"distance\"", 0);
+  distance (A::table_name, "\"DISTANCE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::speed_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  speed (A::table_name, "\"speed\"", 0);
+  speed (A::table_name, "\"SPEED\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::link_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::dir_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::lane_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  lane (A::table_name, "\"lane\"", 0);
+  lane (A::table_name, "\"LANE\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::offset_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::pio::Traveler, A >::route_type_
   pointer_query_columns< ::pio::Traveler, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <>
   class access::object_traits< ::pio::Traveler >
@@ -13589,87 +13589,87 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::hhold_type_
   query_columns< ::pio::TripNoRef, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::person_type_
   query_columns< ::pio::TripNoRef, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::tour_type_
   query_columns< ::pio::TripNoRef, A >::
-  tour (A::table_name, "\"tour\"", 0);
+  tour (A::table_name, "\"TOUR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::trip_type_
   query_columns< ::pio::TripNoRef, A >::
-  trip (A::table_name, "\"trip\"", 0);
+  trip (A::table_name, "\"TRIP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::start_type_
   query_columns< ::pio::TripNoRef, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::end_type_
   query_columns< ::pio::TripNoRef, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::duration_type_
   query_columns< ::pio::TripNoRef, A >::
-  duration (A::table_name, "\"duration\"", 0);
+  duration (A::table_name, "\"DURATION\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::origin_type_
   query_columns< ::pio::TripNoRef, A >::
-  origin (A::table_name, "\"origin\"", 0);
+  origin (A::table_name, "\"ORIGIN\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::destination_type_
   query_columns< ::pio::TripNoRef, A >::
-  destination (A::table_name, "\"destination\"", 0);
+  destination (A::table_name, "\"DESTINATION\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::purpose_type_
   query_columns< ::pio::TripNoRef, A >::
-  purpose (A::table_name, "\"purpose\"", 0);
+  purpose (A::table_name, "\"PURPOSE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::mode_type_
   query_columns< ::pio::TripNoRef, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::constraint_type_
   query_columns< ::pio::TripNoRef, A >::
-  constraint (A::table_name, "\"constraint\"", 0);
+  constraint (A::table_name, "\"CONSTRAINT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::priority_type_
   query_columns< ::pio::TripNoRef, A >::
-  priority (A::table_name, "\"priority\"", 0);
+  priority (A::table_name, "\"PRIORITY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::vehicle_type_
   query_columns< ::pio::TripNoRef, A >::
-  vehicle (A::table_name, "\"vehicle\"", 0);
+  vehicle (A::table_name, "\"VEHICLE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::passengers_type_
   query_columns< ::pio::TripNoRef, A >::
-  passengers (A::table_name, "\"passengers\"", 0);
+  passengers (A::table_name, "\"PASSENGERS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::type_type_
   query_columns< ::pio::TripNoRef, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::TripNoRef, A >::partition_type_
   query_columns< ::pio::TripNoRef, A >::
-  partition (A::table_name, "\"partition\"", 0);
+  partition (A::table_name, "\"PARTITION\"", 0);
 
   template <typename A>
   struct pointer_query_columns< ::pio::TripNoRef, A >:
@@ -13895,19 +13895,19 @@ namespace odb
 
   // Shape
   //
-  class link_alias_tag;
+  class LINK_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_LINK_FOR_PIO_LINK
 #define ODB_ALIAS_TRAITS_LINK_FOR_PIO_LINK
   template <bool d>
-  struct alias_traits< ::pio::Link, link_alias_tag, d >
+  struct alias_traits< ::pio::Link, LINK_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Link, link_alias_tag, d >::
-  table_name[] = "\"link\"";
+  const char alias_traits< ::pio::Link, LINK_alias_tag, d >::
+  table_name[] = "\"LINK\"";
 #endif // ODB_ALIAS_TRAITS_LINK_FOR_PIO_LINK
 
   template <>
@@ -13916,7 +13916,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -13988,43 +13988,43 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Shape, A >::link_type_
   query_columns< ::pio::Shape, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Shape, A >::points_type_
   query_columns< ::pio::Shape, A >::
-  points (A::table_name, "\"points\"", 0);
+  points (A::table_name, "\"POINTS\"", 0);
 
   // Link
   //
-  class node_a_alias_tag;
+  class NODE_A_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_NODE_A_FOR_PIO_NODE
 #define ODB_ALIAS_TRAITS_NODE_A_FOR_PIO_NODE
   template <bool d>
-  struct alias_traits< ::pio::Node, node_a_alias_tag, d >
+  struct alias_traits< ::pio::Node, NODE_A_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Node, node_a_alias_tag, d >::
-  table_name[] = "\"node_a\"";
+  const char alias_traits< ::pio::Node, NODE_A_alias_tag, d >::
+  table_name[] = "\"NODE_A\"";
 #endif // ODB_ALIAS_TRAITS_NODE_A_FOR_PIO_NODE
 
-  class node_b_alias_tag;
+  class NODE_B_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_NODE_B_FOR_PIO_NODE
 #define ODB_ALIAS_TRAITS_NODE_B_FOR_PIO_NODE
   template <bool d>
-  struct alias_traits< ::pio::Node, node_b_alias_tag, d >
+  struct alias_traits< ::pio::Node, NODE_B_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Node, node_b_alias_tag, d >::
-  table_name[] = "\"node_b\"";
+  const char alias_traits< ::pio::Node, NODE_B_alias_tag, d >::
+  table_name[] = "\"NODE_B\"";
 #endif // ODB_ALIAS_TRAITS_NODE_B_FOR_PIO_NODE
 
   template <>
@@ -14033,13 +14033,13 @@ namespace odb
     // node_a
     //
     typedef
-    odb::alias_traits< ::pio::Node, node_a_alias_tag >
+    odb::alias_traits< ::pio::Node, NODE_A_alias_tag >
     node_a_alias_;
 
     // node_b
     //
     typedef
-    odb::alias_traits< ::pio::Node, node_b_alias_tag >
+    odb::alias_traits< ::pio::Node, NODE_B_alias_tag >
     node_b_alias_;
   };
 
@@ -14401,132 +14401,132 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Link, A >::link_type_
   query_columns< ::pio::Link, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::name_type_
   query_columns< ::pio::Link, A >::
-  name (A::table_name, "\"name\"", 0);
+  name (A::table_name, "\"NAME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::node_a_type_
   query_columns< ::pio::Link, A >::
-  node_a (A::table_name, "\"node_a\"", 0);
+  node_a (A::table_name, "\"NODE_A\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::node_b_type_
   query_columns< ::pio::Link, A >::
-  node_b (A::table_name, "\"node_b\"", 0);
+  node_b (A::table_name, "\"NODE_B\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::length_type_
   query_columns< ::pio::Link, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::setback_a_type_
   query_columns< ::pio::Link, A >::
-  setback_a (A::table_name, "\"setback_a\"", 0);
+  setback_a (A::table_name, "\"SETBACK_A\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::setback_b_type_
   query_columns< ::pio::Link, A >::
-  setback_b (A::table_name, "\"setback_b\"", 0);
+  setback_b (A::table_name, "\"SETBACK_B\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::bearing_a_type_
   query_columns< ::pio::Link, A >::
-  bearing_a (A::table_name, "\"bearing_a\"", 0);
+  bearing_a (A::table_name, "\"BEARING_A\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::bearing_b_type_
   query_columns< ::pio::Link, A >::
-  bearing_b (A::table_name, "\"bearing_b\"", 0);
+  bearing_b (A::table_name, "\"BEARING_B\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::type_type_
   query_columns< ::pio::Link, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::divided_type_
   query_columns< ::pio::Link, A >::
-  divided (A::table_name, "\"divided\"", 0);
+  divided (A::table_name, "\"DIVIDED\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::area_type_type_
   query_columns< ::pio::Link, A >::
-  area_type (A::table_name, "\"area_type\"", 0);
+  area_type (A::table_name, "\"AREA_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::use_type_
   query_columns< ::pio::Link, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::grade_type_
   query_columns< ::pio::Link, A >::
-  grade (A::table_name, "\"grade\"", 0);
+  grade (A::table_name, "\"GRADE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::lanes_ab_type_
   query_columns< ::pio::Link, A >::
-  lanes_ab (A::table_name, "\"lanes_ab\"", 0);
+  lanes_ab (A::table_name, "\"LANES_AB\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::speed_ab_type_
   query_columns< ::pio::Link, A >::
-  speed_ab (A::table_name, "\"speed_ab\"", 0);
+  speed_ab (A::table_name, "\"SPEED_AB\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::fspd_ab_type_
   query_columns< ::pio::Link, A >::
-  fspd_ab (A::table_name, "\"fspd_ab\"", 0);
+  fspd_ab (A::table_name, "\"FSPD_AB\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::cap_ab_type_
   query_columns< ::pio::Link, A >::
-  cap_ab (A::table_name, "\"cap_ab\"", 0);
+  cap_ab (A::table_name, "\"CAP_AB\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::lanes_ba_type_
   query_columns< ::pio::Link, A >::
-  lanes_ba (A::table_name, "\"lanes_ba\"", 0);
+  lanes_ba (A::table_name, "\"LANES_BA\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::speed_ba_type_
   query_columns< ::pio::Link, A >::
-  speed_ba (A::table_name, "\"speed_ba\"", 0);
+  speed_ba (A::table_name, "\"SPEED_BA\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::fspd_ba_type_
   query_columns< ::pio::Link, A >::
-  fspd_ba (A::table_name, "\"fspd_ba\"", 0);
+  fspd_ba (A::table_name, "\"FSPD_BA\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::cap_ba_type_
   query_columns< ::pio::Link, A >::
-  cap_ba (A::table_name, "\"cap_ba\"", 0);
+  cap_ba (A::table_name, "\"CAP_BA\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::left_ab_type_
   query_columns< ::pio::Link, A >::
-  left_ab (A::table_name, "\"left_ab\"", 0);
+  left_ab (A::table_name, "\"LEFT_AB\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::right_ab_type_
   query_columns< ::pio::Link, A >::
-  right_ab (A::table_name, "\"right_ab\"", 0);
+  right_ab (A::table_name, "\"RIGHT_AB\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::left_ba_type_
   query_columns< ::pio::Link, A >::
-  left_ba (A::table_name, "\"left_ba\"", 0);
+  left_ba (A::table_name, "\"LEFT_BA\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link, A >::right_ba_type_
   query_columns< ::pio::Link, A >::
-  right_ba (A::table_name, "\"right_ba\"", 0);
+  right_ba (A::table_name, "\"RIGHT_BA\"", 0);
 
   // Pocket
   //
@@ -14536,7 +14536,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -14656,32 +14656,32 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Pocket, A >::link_type_
   query_columns< ::pio::Pocket, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Pocket, A >::dir_type_
   query_columns< ::pio::Pocket, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Pocket, A >::type_type_
   query_columns< ::pio::Pocket, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Pocket, A >::lanes_type_
   query_columns< ::pio::Pocket, A >::
-  lanes (A::table_name, "\"lanes\"", 0);
+  lanes (A::table_name, "\"LANES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Pocket, A >::length_type_
   query_columns< ::pio::Pocket, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Pocket, A >::offset_type_
   query_columns< ::pio::Pocket, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   // Lane_Use
   //
@@ -14691,7 +14691,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -14943,103 +14943,103 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::link_type_
   query_columns< ::pio::Lane_Use, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::dir_type_
   query_columns< ::pio::Lane_Use, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::lanes_type_
   query_columns< ::pio::Lane_Use, A >::
-  lanes (A::table_name, "\"lanes\"", 0);
+  lanes (A::table_name, "\"LANES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::use_type_
   query_columns< ::pio::Lane_Use, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::type_type_
   query_columns< ::pio::Lane_Use, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::min_type_type_
   query_columns< ::pio::Lane_Use, A >::
-  min_type (A::table_name, "\"min_type\"", 0);
+  min_type (A::table_name, "\"MIN_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::max_type_type_
   query_columns< ::pio::Lane_Use, A >::
-  max_type (A::table_name, "\"max_type\"", 0);
+  max_type (A::table_name, "\"MAX_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::min_trav_type_
   query_columns< ::pio::Lane_Use, A >::
-  min_trav (A::table_name, "\"min_trav\"", 0);
+  min_trav (A::table_name, "\"MIN_TRAV\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::max_trav_type_
   query_columns< ::pio::Lane_Use, A >::
-  max_trav (A::table_name, "\"max_trav\"", 0);
+  max_trav (A::table_name, "\"MAX_TRAV\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::start_type_
   query_columns< ::pio::Lane_Use, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::end_type_
   query_columns< ::pio::Lane_Use, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::offset_type_
   query_columns< ::pio::Lane_Use, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::length_type_
   query_columns< ::pio::Lane_Use, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::toll_type_
   query_columns< ::pio::Lane_Use, A >::
-  toll (A::table_name, "\"toll\"", 0);
+  toll (A::table_name, "\"TOLL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::rate_type_
   query_columns< ::pio::Lane_Use, A >::
-  rate (A::table_name, "\"rate\"", 0);
+  rate (A::table_name, "\"RATE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::min_delay_type_
   query_columns< ::pio::Lane_Use, A >::
-  min_delay (A::table_name, "\"min_delay\"", 0);
+  min_delay (A::table_name, "\"MIN_DELAY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Lane_Use, A >::max_delay_type_
   query_columns< ::pio::Lane_Use, A >::
-  max_delay (A::table_name, "\"max_delay\"", 0);
+  max_delay (A::table_name, "\"MAX_DELAY\"", 0);
 
   // Connect
   //
-  class to_link_alias_tag;
+  class TO_LINK_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_TO_LINK_FOR_PIO_LINK
 #define ODB_ALIAS_TRAITS_TO_LINK_FOR_PIO_LINK
   template <bool d>
-  struct alias_traits< ::pio::Link, to_link_alias_tag, d >
+  struct alias_traits< ::pio::Link, TO_LINK_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Link, to_link_alias_tag, d >::
-  table_name[] = "\"to_link\"";
+  const char alias_traits< ::pio::Link, TO_LINK_alias_tag, d >::
+  table_name[] = "\"TO_LINK\"";
 #endif // ODB_ALIAS_TRAITS_TO_LINK_FOR_PIO_LINK
 
   template <>
@@ -15048,13 +15048,13 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
 
     // to_link
     //
     typedef
-    odb::alias_traits< ::pio::Link, to_link_alias_tag >
+    odb::alias_traits< ::pio::Link, TO_LINK_alias_tag >
     to_link_alias_;
   };
 
@@ -15253,88 +15253,88 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::link_type_
   query_columns< ::pio::Connect, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::dir_type_
   query_columns< ::pio::Connect, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::to_link_type_
   query_columns< ::pio::Connect, A >::
-  to_link (A::table_name, "\"to_link\"", 0);
+  to_link (A::table_name, "\"TO_LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::lanes_type_
   query_columns< ::pio::Connect, A >::
-  lanes (A::table_name, "\"lanes\"", 0);
+  lanes (A::table_name, "\"LANES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::to_lanes_type_
   query_columns< ::pio::Connect, A >::
-  to_lanes (A::table_name, "\"to_lanes\"", 0);
+  to_lanes (A::table_name, "\"TO_LANES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::type_type_
   query_columns< ::pio::Connect, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::penalty_type_
   query_columns< ::pio::Connect, A >::
-  penalty (A::table_name, "\"penalty\"", 0);
+  penalty (A::table_name, "\"PENALTY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::speed_type_
   query_columns< ::pio::Connect, A >::
-  speed (A::table_name, "\"speed\"", 0);
+  speed (A::table_name, "\"SPEED\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::capacity_type_
   query_columns< ::pio::Connect, A >::
-  capacity (A::table_name, "\"capacity\"", 0);
+  capacity (A::table_name, "\"CAPACITY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::in_high_type_
   query_columns< ::pio::Connect, A >::
-  in_high (A::table_name, "\"in_high\"", 0);
+  in_high (A::table_name, "\"IN_HIGH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Connect, A >::out_high_type_
   query_columns< ::pio::Connect, A >::
-  out_high (A::table_name, "\"out_high\"", 0);
+  out_high (A::table_name, "\"OUT_HIGH\"", 0);
 
   // Turn_Pen
   //
-  class in_node_alias_tag;
+  class IN_NODE_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_IN_NODE_FOR_PIO_NODE
 #define ODB_ALIAS_TRAITS_IN_NODE_FOR_PIO_NODE
   template <bool d>
-  struct alias_traits< ::pio::Node, in_node_alias_tag, d >
+  struct alias_traits< ::pio::Node, IN_NODE_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Node, in_node_alias_tag, d >::
-  table_name[] = "\"in_node\"";
+  const char alias_traits< ::pio::Node, IN_NODE_alias_tag, d >::
+  table_name[] = "\"IN_NODE\"";
 #endif // ODB_ALIAS_TRAITS_IN_NODE_FOR_PIO_NODE
 
-  class out_node_alias_tag;
+  class OUT_NODE_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_OUT_NODE_FOR_PIO_NODE
 #define ODB_ALIAS_TRAITS_OUT_NODE_FOR_PIO_NODE
   template <bool d>
-  struct alias_traits< ::pio::Node, out_node_alias_tag, d >
+  struct alias_traits< ::pio::Node, OUT_NODE_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Node, out_node_alias_tag, d >::
-  table_name[] = "\"out_node\"";
+  const char alias_traits< ::pio::Node, OUT_NODE_alias_tag, d >::
+  table_name[] = "\"OUT_NODE\"";
 #endif // ODB_ALIAS_TRAITS_OUT_NODE_FOR_PIO_NODE
 
   template <>
@@ -15343,25 +15343,25 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
 
     // to_link
     //
     typedef
-    odb::alias_traits< ::pio::Link, to_link_alias_tag >
+    odb::alias_traits< ::pio::Link, TO_LINK_alias_tag >
     to_link_alias_;
 
     // in_node
     //
     typedef
-    odb::alias_traits< ::pio::Node, in_node_alias_tag >
+    odb::alias_traits< ::pio::Node, IN_NODE_alias_tag >
     in_node_alias_;
 
     // out_node
     //
     typedef
-    odb::alias_traits< ::pio::Node, out_node_alias_tag >
+    odb::alias_traits< ::pio::Node, OUT_NODE_alias_tag >
     out_node_alias_;
   };
 
@@ -15598,57 +15598,57 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::link_type_
   query_columns< ::pio::Turn_Pen, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::dir_type_
   query_columns< ::pio::Turn_Pen, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::to_link_type_
   query_columns< ::pio::Turn_Pen, A >::
-  to_link (A::table_name, "\"to_link\"", 0);
+  to_link (A::table_name, "\"TO_LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::start_type_
   query_columns< ::pio::Turn_Pen, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::end_type_
   query_columns< ::pio::Turn_Pen, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::use_type_
   query_columns< ::pio::Turn_Pen, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::min_type_type_
   query_columns< ::pio::Turn_Pen, A >::
-  min_type (A::table_name, "\"min_type\"", 0);
+  min_type (A::table_name, "\"MIN_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::max_type_type_
   query_columns< ::pio::Turn_Pen, A >::
-  max_type (A::table_name, "\"max_type\"", 0);
+  max_type (A::table_name, "\"MAX_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::penalty_type_
   query_columns< ::pio::Turn_Pen, A >::
-  penalty (A::table_name, "\"penalty\"", 0);
+  penalty (A::table_name, "\"PENALTY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::in_node_type_
   query_columns< ::pio::Turn_Pen, A >::
-  in_node (A::table_name, "\"in_node\"", 0);
+  in_node (A::table_name, "\"IN_NODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Turn_Pen, A >::out_node_type_
   query_columns< ::pio::Turn_Pen, A >::
-  out_node (A::table_name, "\"out_node\"", 0);
+  out_node (A::table_name, "\"OUT_NODE\"", 0);
 
   // Parking
   //
@@ -15658,7 +15658,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -15845,83 +15845,83 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::parking_type_
   query_columns< ::pio::Parking, A >::
-  parking (A::table_name, "\"parking\"", 0);
+  parking (A::table_name, "\"PARKING\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::link_type_
   query_columns< ::pio::Parking, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::dir_type_
   query_columns< ::pio::Parking, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::offset_type_
   query_columns< ::pio::Parking, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::type_type_
   query_columns< ::pio::Parking, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::use_type_
   query_columns< ::pio::Parking, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::start_type_
   query_columns< ::pio::Parking, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::end_type_
   query_columns< ::pio::Parking, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::space_type_
   query_columns< ::pio::Parking, A >::
-  space (A::table_name, "\"space\"", 0);
+  space (A::table_name, "\"SPACE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::time_in_type_
   query_columns< ::pio::Parking, A >::
-  time_in (A::table_name, "\"time_in\"", 0);
+  time_in (A::table_name, "\"TIME_IN\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::time_out_type_
   query_columns< ::pio::Parking, A >::
-  time_out (A::table_name, "\"time_out\"", 0);
+  time_out (A::table_name, "\"TIME_OUT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::hourly_type_
   query_columns< ::pio::Parking, A >::
-  hourly (A::table_name, "\"hourly\"", 0);
+  hourly (A::table_name, "\"HOURLY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Parking, A >::daily_type_
   query_columns< ::pio::Parking, A >::
-  daily (A::table_name, "\"daily\"", 0);
+  daily (A::table_name, "\"DAILY\"", 0);
 
   // Location
   //
-  class zone_alias_tag;
+  class ZONE_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_ZONE_FOR_PIO_ZONE
 #define ODB_ALIAS_TRAITS_ZONE_FOR_PIO_ZONE
   template <bool d>
-  struct alias_traits< ::pio::Zone, zone_alias_tag, d >
+  struct alias_traits< ::pio::Zone, ZONE_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Zone, zone_alias_tag, d >::
-  table_name[] = "\"zone\"";
+  const char alias_traits< ::pio::Zone, ZONE_alias_tag, d >::
+  table_name[] = "\"ZONE\"";
 #endif // ODB_ALIAS_TRAITS_ZONE_FOR_PIO_ZONE
 
   template <>
@@ -15930,13 +15930,13 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
 
     // zone
     //
     typedef
-    odb::alias_traits< ::pio::Zone, zone_alias_tag >
+    odb::alias_traits< ::pio::Zone, ZONE_alias_tag >
     zone_alias_;
   };
 
@@ -16058,32 +16058,32 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Location, A >::location_type_
   query_columns< ::pio::Location, A >::
-  location (A::table_name, "\"location\"", 0);
+  location (A::table_name, "\"LOCATION\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Location, A >::link_type_
   query_columns< ::pio::Location, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Location, A >::dir_type_
   query_columns< ::pio::Location, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Location, A >::offset_type_
   query_columns< ::pio::Location, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Location, A >::setback_type_
   query_columns< ::pio::Location, A >::
-  setback (A::table_name, "\"setback\"", 0);
+  setback (A::table_name, "\"SETBACK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Location, A >::zone_type_
   query_columns< ::pio::Location, A >::
-  zone (A::table_name, "\"zone\"", 0);
+  zone (A::table_name, "\"ZONE\"", 0);
 
   // Access
   //
@@ -16093,7 +16093,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -16237,42 +16237,42 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Access, A >::link_type_
   query_columns< ::pio::Access, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Access, A >::from_id_type_
   query_columns< ::pio::Access, A >::
-  from_id (A::table_name, "\"from_id\"", 0);
+  from_id (A::table_name, "\"FROM_ID\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Access, A >::from_type_type_
   query_columns< ::pio::Access, A >::
-  from_type (A::table_name, "\"from_type\"", 0);
+  from_type (A::table_name, "\"FROM_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Access, A >::to_id_type_
   query_columns< ::pio::Access, A >::
-  to_id (A::table_name, "\"to_id\"", 0);
+  to_id (A::table_name, "\"TO_ID\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Access, A >::to_type_type_
   query_columns< ::pio::Access, A >::
-  to_type (A::table_name, "\"to_type\"", 0);
+  to_type (A::table_name, "\"TO_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Access, A >::dir_type_
   query_columns< ::pio::Access, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Access, A >::time_type_
   query_columns< ::pio::Access, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Access, A >::cost_type_
   query_columns< ::pio::Access, A >::
-  cost (A::table_name, "\"cost\"", 0);
+  cost (A::table_name, "\"COST\"", 0);
 
   // Sign
   //
@@ -16282,7 +16282,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -16366,33 +16366,33 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Sign, A >::link_type_
   query_columns< ::pio::Sign, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Sign, A >::dir_type_
   query_columns< ::pio::Sign, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Sign, A >::sign_type_
   query_columns< ::pio::Sign, A >::
-  sign (A::table_name, "\"sign\"", 0);
+  sign (A::table_name, "\"SIGN\"", 0);
 
   // Timing
   //
-  class signal_alias_tag;
+  class SIGNAL_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_SIGNAL_FOR_PIO_SIGNAL
 #define ODB_ALIAS_TRAITS_SIGNAL_FOR_PIO_SIGNAL
   template <bool d>
-  struct alias_traits< ::pio::Signal, signal_alias_tag, d >
+  struct alias_traits< ::pio::Signal, SIGNAL_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Signal, signal_alias_tag, d >::
-  table_name[] = "\"signal\"";
+  const char alias_traits< ::pio::Signal, SIGNAL_alias_tag, d >::
+  table_name[] = "\"SIGNAL\"";
 #endif // ODB_ALIAS_TRAITS_SIGNAL_FOR_PIO_SIGNAL
 
   template <>
@@ -16401,7 +16401,7 @@ namespace odb
     // signal
     //
     typedef
-    odb::alias_traits< ::pio::Signal, signal_alias_tag >
+    odb::alias_traits< ::pio::Signal, SIGNAL_alias_tag >
     signal_alias_;
   };
 
@@ -16629,77 +16629,77 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::signal_type_
   query_columns< ::pio::Timing, A >::
-  signal (A::table_name, "\"signal\"", 0);
+  signal (A::table_name, "\"SIGNAL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::timing_type_
   query_columns< ::pio::Timing, A >::
-  timing (A::table_name, "\"timing\"", 0);
+  timing (A::table_name, "\"TIMING\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::type_type_
   query_columns< ::pio::Timing, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::cycle_type_
   query_columns< ::pio::Timing, A >::
-  cycle (A::table_name, "\"cycle\"", 0);
+  cycle (A::table_name, "\"CYCLE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::offset_type_
   query_columns< ::pio::Timing, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::phases_type_
   query_columns< ::pio::Timing, A >::
-  phases (A::table_name, "\"phases\"", 0);
+  phases (A::table_name, "\"PHASES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::phase_type_
   query_columns< ::pio::Timing, A >::
-  phase (A::table_name, "\"phase\"", 0);
+  phase (A::table_name, "\"PHASE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::barrier_type_
   query_columns< ::pio::Timing, A >::
-  barrier (A::table_name, "\"barrier\"", 0);
+  barrier (A::table_name, "\"BARRIER\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::ring_type_
   query_columns< ::pio::Timing, A >::
-  ring (A::table_name, "\"ring\"", 0);
+  ring (A::table_name, "\"RING\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::position_type_
   query_columns< ::pio::Timing, A >::
-  position (A::table_name, "\"position\"", 0);
+  position (A::table_name, "\"POSITION\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::minimum_type_
   query_columns< ::pio::Timing, A >::
-  minimum (A::table_name, "\"minimum\"", 0);
+  minimum (A::table_name, "\"MINIMUM\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::maximum_type_
   query_columns< ::pio::Timing, A >::
-  maximum (A::table_name, "\"maximum\"", 0);
+  maximum (A::table_name, "\"MAXIMUM\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::extend_type_
   query_columns< ::pio::Timing, A >::
-  extend (A::table_name, "\"extend\"", 0);
+  extend (A::table_name, "\"EXTEND\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::yellow_type_
   query_columns< ::pio::Timing, A >::
-  yellow (A::table_name, "\"yellow\"", 0);
+  yellow (A::table_name, "\"YELLOW\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Timing, A >::red_type_
   query_columns< ::pio::Timing, A >::
-  red (A::table_name, "\"red\"", 0);
+  red (A::table_name, "\"RED\"", 0);
 
   // Phasing
   //
@@ -16709,19 +16709,19 @@ namespace odb
     // signal
     //
     typedef
-    odb::alias_traits< ::pio::Signal, signal_alias_tag >
+    odb::alias_traits< ::pio::Signal, SIGNAL_alias_tag >
     signal_alias_;
 
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
 
     // to_link
     //
     typedef
-    odb::alias_traits< ::pio::Link, to_link_alias_tag >
+    odb::alias_traits< ::pio::Link, TO_LINK_alias_tag >
     to_link_alias_;
   };
 
@@ -16927,52 +16927,52 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::signal_type_
   query_columns< ::pio::Phasing, A >::
-  signal (A::table_name, "\"signal\"", 0);
+  signal (A::table_name, "\"SIGNAL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::phasing_type_
   query_columns< ::pio::Phasing, A >::
-  phasing (A::table_name, "\"phasing\"", 0);
+  phasing (A::table_name, "\"PHASING\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::phase_type_
   query_columns< ::pio::Phasing, A >::
-  phase (A::table_name, "\"phase\"", 0);
+  phase (A::table_name, "\"PHASE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::detectors_type_
   query_columns< ::pio::Phasing, A >::
-  detectors (A::table_name, "\"detectors\"", 0);
+  detectors (A::table_name, "\"DETECTORS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::movements_type_
   query_columns< ::pio::Phasing, A >::
-  movements (A::table_name, "\"movements\"", 0);
+  movements (A::table_name, "\"MOVEMENTS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::movement_type_
   query_columns< ::pio::Phasing, A >::
-  movement (A::table_name, "\"movement\"", 0);
+  movement (A::table_name, "\"MOVEMENT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::link_type_
   query_columns< ::pio::Phasing, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::dir_type_
   query_columns< ::pio::Phasing, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::to_link_type_
   query_columns< ::pio::Phasing, A >::
-  to_link (A::table_name, "\"to_link\"", 0);
+  to_link (A::table_name, "\"TO_LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Phasing, A >::protect_type_
   query_columns< ::pio::Phasing, A >::
-  protect (A::table_name, "\"protect\"", 0);
+  protect (A::table_name, "\"PROTECT\"", 0);
 
   // Detector
   //
@@ -16982,7 +16982,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -17133,52 +17133,52 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::detector_type_
   query_columns< ::pio::Detector, A >::
-  detector (A::table_name, "\"detector\"", 0);
+  detector (A::table_name, "\"DETECTOR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::link_type_
   query_columns< ::pio::Detector, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::dir_type_
   query_columns< ::pio::Detector, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::offset_type_
   query_columns< ::pio::Detector, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::length_type_
   query_columns< ::pio::Detector, A >::
-  length (A::table_name, "\"length\"", 0);
+  length (A::table_name, "\"LENGTH\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::lanes_type_
   query_columns< ::pio::Detector, A >::
-  lanes (A::table_name, "\"lanes\"", 0);
+  lanes (A::table_name, "\"LANES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::type_type_
   query_columns< ::pio::Detector, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::use_type_
   query_columns< ::pio::Detector, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::low_type_
   query_columns< ::pio::Detector, A >::
-  low (A::table_name, "\"low\"", 0);
+  low (A::table_name, "\"LOW\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Detector, A >::high_type_
   query_columns< ::pio::Detector, A >::
-  high (A::table_name, "\"high\"", 0);
+  high (A::table_name, "\"HIGH\"", 0);
 
   // Stop
   //
@@ -17188,7 +17188,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -17315,73 +17315,73 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Stop, A >::stop_type_
   query_columns< ::pio::Stop, A >::
-  stop (A::table_name, "\"stop\"", 0);
+  stop (A::table_name, "\"STOP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Stop, A >::name_type_
   query_columns< ::pio::Stop, A >::
-  name (A::table_name, "\"name\"", 0);
+  name (A::table_name, "\"NAME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Stop, A >::link_type_
   query_columns< ::pio::Stop, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Stop, A >::dir_type_
   query_columns< ::pio::Stop, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Stop, A >::offset_type_
   query_columns< ::pio::Stop, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Stop, A >::use_type_
   query_columns< ::pio::Stop, A >::
-  use (A::table_name, "\"use\"", 0);
+  use (A::table_name, "\"USE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Stop, A >::type_type_
   query_columns< ::pio::Stop, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Stop, A >::space_type_
   query_columns< ::pio::Stop, A >::
-  space (A::table_name, "\"space\"", 0);
+  space (A::table_name, "\"SPACE\"", 0);
 
   // Fare
   //
-  class from_zone_alias_tag;
+  class FROM_ZONE_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_FROM_ZONE_FOR_PIO_ZONE
 #define ODB_ALIAS_TRAITS_FROM_ZONE_FOR_PIO_ZONE
   template <bool d>
-  struct alias_traits< ::pio::Zone, from_zone_alias_tag, d >
+  struct alias_traits< ::pio::Zone, FROM_ZONE_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Zone, from_zone_alias_tag, d >::
-  table_name[] = "\"from_zone\"";
+  const char alias_traits< ::pio::Zone, FROM_ZONE_alias_tag, d >::
+  table_name[] = "\"FROM_ZONE\"";
 #endif // ODB_ALIAS_TRAITS_FROM_ZONE_FOR_PIO_ZONE
 
-  class to_zone_alias_tag;
+  class TO_ZONE_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_TO_ZONE_FOR_PIO_ZONE
 #define ODB_ALIAS_TRAITS_TO_ZONE_FOR_PIO_ZONE
   template <bool d>
-  struct alias_traits< ::pio::Zone, to_zone_alias_tag, d >
+  struct alias_traits< ::pio::Zone, TO_ZONE_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Zone, to_zone_alias_tag, d >::
-  table_name[] = "\"to_zone\"";
+  const char alias_traits< ::pio::Zone, TO_ZONE_alias_tag, d >::
+  table_name[] = "\"TO_ZONE\"";
 #endif // ODB_ALIAS_TRAITS_TO_ZONE_FOR_PIO_ZONE
 
   template <>
@@ -17390,13 +17390,13 @@ namespace odb
     // from_zone
     //
     typedef
-    odb::alias_traits< ::pio::Zone, from_zone_alias_tag >
+    odb::alias_traits< ::pio::Zone, FROM_ZONE_alias_tag >
     from_zone_alias_;
 
     // to_zone
     //
     typedef
-    odb::alias_traits< ::pio::Zone, to_zone_alias_tag >
+    odb::alias_traits< ::pio::Zone, TO_ZONE_alias_tag >
     to_zone_alias_;
   };
 
@@ -17530,68 +17530,68 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Fare, A >::from_zone_type_
   query_columns< ::pio::Fare, A >::
-  from_zone (A::table_name, "\"from_zone\"", 0);
+  from_zone (A::table_name, "\"FROM_ZONE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Fare, A >::to_zone_type_
   query_columns< ::pio::Fare, A >::
-  to_zone (A::table_name, "\"to_zone\"", 0);
+  to_zone (A::table_name, "\"TO_ZONE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Fare, A >::from_mode_type_
   query_columns< ::pio::Fare, A >::
-  from_mode (A::table_name, "\"from_mode\"", 0);
+  from_mode (A::table_name, "\"FROM_MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Fare, A >::to_mode_type_
   query_columns< ::pio::Fare, A >::
-  to_mode (A::table_name, "\"to_mode\"", 0);
+  to_mode (A::table_name, "\"TO_MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Fare, A >::period_type_
   query_columns< ::pio::Fare, A >::
-  period (A::table_name, "\"period\"", 0);
+  period (A::table_name, "\"PERIOD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Fare, A >::type_type_
   query_columns< ::pio::Fare, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Fare, A >::fare_type_
   query_columns< ::pio::Fare, A >::
-  fare (A::table_name, "\"fare\"", 0);
+  fare (A::table_name, "\"FARE\"", 0);
 
   // Line
   //
-  class stops_alias_tag;
+  class STOPS_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_STOPS_FOR_PIO_STOP
 #define ODB_ALIAS_TRAITS_STOPS_FOR_PIO_STOP
   template <bool d>
-  struct alias_traits< ::pio::Stop, stops_alias_tag, d >
+  struct alias_traits< ::pio::Stop, STOPS_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Stop, stops_alias_tag, d >::
-  table_name[] = "\"stops\"";
+  const char alias_traits< ::pio::Stop, STOPS_alias_tag, d >::
+  table_name[] = "\"STOPS\"";
 #endif // ODB_ALIAS_TRAITS_STOPS_FOR_PIO_STOP
 
-  class stop_alias_tag;
+  class STOP_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_STOP_FOR_PIO_STOP
 #define ODB_ALIAS_TRAITS_STOP_FOR_PIO_STOP
   template <bool d>
-  struct alias_traits< ::pio::Stop, stop_alias_tag, d >
+  struct alias_traits< ::pio::Stop, STOP_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Stop, stop_alias_tag, d >::
-  table_name[] = "\"stop\"";
+  const char alias_traits< ::pio::Stop, STOP_alias_tag, d >::
+  table_name[] = "\"STOP\"";
 #endif // ODB_ALIAS_TRAITS_STOP_FOR_PIO_STOP
 
   template <>
@@ -17600,19 +17600,19 @@ namespace odb
     // stops
     //
     typedef
-    odb::alias_traits< ::pio::Stop, stops_alias_tag >
+    odb::alias_traits< ::pio::Stop, STOPS_alias_tag >
     stops_alias_;
 
     // stop
     //
     typedef
-    odb::alias_traits< ::pio::Stop, stop_alias_tag >
+    odb::alias_traits< ::pio::Stop, STOP_alias_tag >
     stop_alias_;
 
     // zone
     //
     typedef
-    odb::alias_traits< ::pio::Zone, zone_alias_tag >
+    odb::alias_traits< ::pio::Zone, ZONE_alias_tag >
     zone_alias_;
   };
 
@@ -17794,42 +17794,42 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Line, A >::route_type_
   query_columns< ::pio::Line, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Line, A >::stops_type_
   query_columns< ::pio::Line, A >::
-  stops (A::table_name, "\"stops\"", 0);
+  stops (A::table_name, "\"STOPS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Line, A >::mode_type_
   query_columns< ::pio::Line, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Line, A >::type_type_
   query_columns< ::pio::Line, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Line, A >::name_type_
   query_columns< ::pio::Line, A >::
-  name (A::table_name, "\"name\"", 0);
+  name (A::table_name, "\"NAME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Line, A >::stop_type_
   query_columns< ::pio::Line, A >::
-  stop (A::table_name, "\"stop\"", 0);
+  stop (A::table_name, "\"STOP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Line, A >::zone_type_
   query_columns< ::pio::Line, A >::
-  zone (A::table_name, "\"zone\"", 0);
+  zone (A::table_name, "\"ZONE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Line, A >::flag_type_
   query_columns< ::pio::Line, A >::
-  flag (A::table_name, "\"flag\"", 0);
+  flag (A::table_name, "\"FLAG\"", 0);
 
   // Schedule
   //
@@ -17839,13 +17839,13 @@ namespace odb
     // stops
     //
     typedef
-    odb::alias_traits< ::pio::Stop, stops_alias_tag >
+    odb::alias_traits< ::pio::Stop, STOPS_alias_tag >
     stops_alias_;
 
     // stop
     //
     typedef
-    odb::alias_traits< ::pio::Stop, stop_alias_tag >
+    odb::alias_traits< ::pio::Stop, STOP_alias_tag >
     stop_alias_;
   };
 
@@ -17948,33 +17948,33 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Schedule, A >::route_type_
   query_columns< ::pio::Schedule, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Schedule, A >::stops_type_
   query_columns< ::pio::Schedule, A >::
-  stops (A::table_name, "\"stops\"", 0);
+  stops (A::table_name, "\"STOPS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Schedule, A >::stop_type_
   query_columns< ::pio::Schedule, A >::
-  stop (A::table_name, "\"stop\"", 0);
+  stop (A::table_name, "\"STOP\"", 0);
 
   // Driver
   //
-  class links_alias_tag;
+  class LINKS_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_LINKS_FOR_PIO_LINK
 #define ODB_ALIAS_TRAITS_LINKS_FOR_PIO_LINK
   template <bool d>
-  struct alias_traits< ::pio::Link, links_alias_tag, d >
+  struct alias_traits< ::pio::Link, LINKS_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Link, links_alias_tag, d >::
-  table_name[] = "\"links\"";
+  const char alias_traits< ::pio::Link, LINKS_alias_tag, d >::
+  table_name[] = "\"LINKS\"";
 #endif // ODB_ALIAS_TRAITS_LINKS_FOR_PIO_LINK
 
   template <>
@@ -17983,13 +17983,13 @@ namespace odb
     // links
     //
     typedef
-    odb::alias_traits< ::pio::Link, links_alias_tag >
+    odb::alias_traits< ::pio::Link, LINKS_alias_tag >
     links_alias_;
 
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -18128,78 +18128,78 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Driver, A >::route_type_
   query_columns< ::pio::Driver, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Driver, A >::links_type_
   query_columns< ::pio::Driver, A >::
-  links (A::table_name, "\"links\"", 0);
+  links (A::table_name, "\"LINKS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Driver, A >::type_type_
   query_columns< ::pio::Driver, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Driver, A >::subtype_type_
   query_columns< ::pio::Driver, A >::
-  subtype (A::table_name, "\"subtype\"", 0);
+  subtype (A::table_name, "\"SUBTYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Driver, A >::link_type_
   query_columns< ::pio::Driver, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Driver, A >::dir_type_
   query_columns< ::pio::Driver, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   // Route_Nodes
   //
-  class veh_type_alias_tag;
+  class VEH_TYPE_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_VEH_TYPE_FOR_PIO_VEH_TYPE
 #define ODB_ALIAS_TRAITS_VEH_TYPE_FOR_PIO_VEH_TYPE
   template <bool d>
-  struct alias_traits< ::pio::Veh_Type, veh_type_alias_tag, d >
+  struct alias_traits< ::pio::Veh_Type, VEH_TYPE_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Veh_Type, veh_type_alias_tag, d >::
-  table_name[] = "\"veh_type\"";
+  const char alias_traits< ::pio::Veh_Type, VEH_TYPE_alias_tag, d >::
+  table_name[] = "\"VEH_TYPE\"";
 #endif // ODB_ALIAS_TRAITS_VEH_TYPE_FOR_PIO_VEH_TYPE
 
-  class nodes_alias_tag;
+  class NODES_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
 #define ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
   template <bool d>
-  struct alias_traits< ::pio::Node, nodes_alias_tag, d >
+  struct alias_traits< ::pio::Node, NODES_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Node, nodes_alias_tag, d >::
-  table_name[] = "\"nodes\"";
+  const char alias_traits< ::pio::Node, NODES_alias_tag, d >::
+  table_name[] = "\"NODES\"";
 #endif // ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
 
-  class node_alias_tag;
+  class NODE_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_NODE_FOR_PIO_NODE
 #define ODB_ALIAS_TRAITS_NODE_FOR_PIO_NODE
   template <bool d>
-  struct alias_traits< ::pio::Node, node_alias_tag, d >
+  struct alias_traits< ::pio::Node, NODE_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Node, node_alias_tag, d >::
-  table_name[] = "\"node\"";
+  const char alias_traits< ::pio::Node, NODE_alias_tag, d >::
+  table_name[] = "\"NODE\"";
 #endif // ODB_ALIAS_TRAITS_NODE_FOR_PIO_NODE
 
   template <>
@@ -18208,19 +18208,19 @@ namespace odb
     // veh_type
     //
     typedef
-    odb::alias_traits< ::pio::Veh_Type, veh_type_alias_tag >
+    odb::alias_traits< ::pio::Veh_Type, VEH_TYPE_alias_tag >
     veh_type_alias_;
 
     // nodes
     //
     typedef
-    odb::alias_traits< ::pio::Node, nodes_alias_tag >
+    odb::alias_traits< ::pio::Node, NODES_alias_tag >
     nodes_alias_;
 
     // node
     //
     typedef
-    odb::alias_traits< ::pio::Node, node_alias_tag >
+    odb::alias_traits< ::pio::Node, NODE_alias_tag >
     node_alias_;
   };
 
@@ -18426,68 +18426,68 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::route_type_
   query_columns< ::pio::Route_Nodes, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::mode_type_
   query_columns< ::pio::Route_Nodes, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::veh_type_type_
   query_columns< ::pio::Route_Nodes, A >::
-  veh_type (A::table_name, "\"veh_type\"", 0);
+  veh_type (A::table_name, "\"VEH_TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::nodes_type_
   query_columns< ::pio::Route_Nodes, A >::
-  nodes (A::table_name, "\"nodes\"", 0);
+  nodes (A::table_name, "\"NODES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::name_type_
   query_columns< ::pio::Route_Nodes, A >::
-  name (A::table_name, "\"name\"", 0);
+  name (A::table_name, "\"NAME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::node_type_
   query_columns< ::pio::Route_Nodes, A >::
-  node (A::table_name, "\"node\"", 0);
+  node (A::table_name, "\"NODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::type_type_
   query_columns< ::pio::Route_Nodes, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::dwell_type_
   query_columns< ::pio::Route_Nodes, A >::
-  dwell (A::table_name, "\"dwell\"", 0);
+  dwell (A::table_name, "\"DWELL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::time_type_
   query_columns< ::pio::Route_Nodes, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Route_Nodes, A >::speed_type_
   query_columns< ::pio::Route_Nodes, A >::
-  speed (A::table_name, "\"speed\"", 0);
+  speed (A::table_name, "\"SPEED\"", 0);
 
   // Household
   //
-  class location_alias_tag;
+  class LOCATION_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_LOCATION_FOR_PIO_LOCATION
 #define ODB_ALIAS_TRAITS_LOCATION_FOR_PIO_LOCATION
   template <bool d>
-  struct alias_traits< ::pio::Location, location_alias_tag, d >
+  struct alias_traits< ::pio::Location, LOCATION_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Location, location_alias_tag, d >::
-  table_name[] = "\"location\"";
+  const char alias_traits< ::pio::Location, LOCATION_alias_tag, d >::
+  table_name[] = "\"LOCATION\"";
 #endif // ODB_ALIAS_TRAITS_LOCATION_FOR_PIO_LOCATION
 
   template <>
@@ -18496,7 +18496,7 @@ namespace odb
     // location
     //
     typedef
-    odb::alias_traits< ::pio::Location, location_alias_tag >
+    odb::alias_traits< ::pio::Location, LOCATION_alias_tag >
     location_alias_;
   };
 
@@ -18700,83 +18700,83 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Household, A >::hhold_type_
   query_columns< ::pio::Household, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::location_type_
   query_columns< ::pio::Household, A >::
-  location (A::table_name, "\"location\"", 0);
+  location (A::table_name, "\"LOCATION\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::persons_type_
   query_columns< ::pio::Household, A >::
-  persons (A::table_name, "\"persons\"", 0);
+  persons (A::table_name, "\"PERSONS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::workers_type_
   query_columns< ::pio::Household, A >::
-  workers (A::table_name, "\"workers\"", 0);
+  workers (A::table_name, "\"WORKERS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::vehicles_type_
   query_columns< ::pio::Household, A >::
-  vehicles (A::table_name, "\"vehicles\"", 0);
+  vehicles (A::table_name, "\"VEHICLES\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::type_type_
   query_columns< ::pio::Household, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::partition_type_
   query_columns< ::pio::Household, A >::
-  partition (A::table_name, "\"partition\"", 0);
+  partition (A::table_name, "\"PARTITION\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::person_type_
   query_columns< ::pio::Household, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::age_type_
   query_columns< ::pio::Household, A >::
-  age (A::table_name, "\"age\"", 0);
+  age (A::table_name, "\"AGE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::relate_type_
   query_columns< ::pio::Household, A >::
-  relate (A::table_name, "\"relate\"", 0);
+  relate (A::table_name, "\"RELATE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::gender_type_
   query_columns< ::pio::Household, A >::
-  gender (A::table_name, "\"gender\"", 0);
+  gender (A::table_name, "\"GENDER\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::work_type_
   query_columns< ::pio::Household, A >::
-  work (A::table_name, "\"work\"", 0);
+  work (A::table_name, "\"WORK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Household, A >::drive_type_
   query_columns< ::pio::Household, A >::
-  drive (A::table_name, "\"drive\"", 0);
+  drive (A::table_name, "\"DRIVE\"", 0);
 
   // Link_Delay
   //
-  class out_link_alias_tag;
+  class OUT_LINK_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_OUT_LINK_FOR_PIO_LINK
 #define ODB_ALIAS_TRAITS_OUT_LINK_FOR_PIO_LINK
   template <bool d>
-  struct alias_traits< ::pio::Link, out_link_alias_tag, d >
+  struct alias_traits< ::pio::Link, OUT_LINK_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Link, out_link_alias_tag, d >::
-  table_name[] = "\"out_link\"";
+  const char alias_traits< ::pio::Link, OUT_LINK_alias_tag, d >::
+  table_name[] = "\"OUT_LINK\"";
 #endif // ODB_ALIAS_TRAITS_OUT_LINK_FOR_PIO_LINK
 
   template <>
@@ -18785,13 +18785,13 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
 
     // out_link
     //
     typedef
-    odb::alias_traits< ::pio::Link, out_link_alias_tag >
+    odb::alias_traits< ::pio::Link, OUT_LINK_alias_tag >
     out_link_alias_;
   };
 
@@ -18978,52 +18978,52 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::link_type_
   query_columns< ::pio::Link_Delay, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::dir_type_
   query_columns< ::pio::Link_Delay, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::type_type_
   query_columns< ::pio::Link_Delay, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::start_type_
   query_columns< ::pio::Link_Delay, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::end_type_
   query_columns< ::pio::Link_Delay, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::flow_type_
   query_columns< ::pio::Link_Delay, A >::
-  flow (A::table_name, "\"flow\"", 0);
+  flow (A::table_name, "\"FLOW\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::time_type_
   query_columns< ::pio::Link_Delay, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::out_link_type_
   query_columns< ::pio::Link_Delay, A >::
-  out_link (A::table_name, "\"out_link\"", 0);
+  out_link (A::table_name, "\"OUT_LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::out_flow_type_
   query_columns< ::pio::Link_Delay, A >::
-  out_flow (A::table_name, "\"out_flow\"", 0);
+  out_flow (A::table_name, "\"OUT_FLOW\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Link_Delay, A >::out_time_type_
   query_columns< ::pio::Link_Delay, A >::
-  out_time (A::table_name, "\"out_time\"", 0);
+  out_time (A::table_name, "\"OUT_TIME\"", 0);
 
   // Ridership
   //
@@ -19033,7 +19033,7 @@ namespace odb
     // stop
     //
     typedef
-    odb::alias_traits< ::pio::Stop, stop_alias_tag >
+    odb::alias_traits< ::pio::Stop, STOP_alias_tag >
     stop_alias_;
   };
 
@@ -19201,83 +19201,83 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::mode_type_
   query_columns< ::pio::Ridership, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::route_type_
   query_columns< ::pio::Ridership, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::run_type_
   query_columns< ::pio::Ridership, A >::
-  run (A::table_name, "\"run\"", 0);
+  run (A::table_name, "\"RUN\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::stop_type_
   query_columns< ::pio::Ridership, A >::
-  stop (A::table_name, "\"stop\"", 0);
+  stop (A::table_name, "\"STOP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::schedule_type_
   query_columns< ::pio::Ridership, A >::
-  schedule (A::table_name, "\"schedule\"", 0);
+  schedule (A::table_name, "\"SCHEDULE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::time_type_
   query_columns< ::pio::Ridership, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::board_type_
   query_columns< ::pio::Ridership, A >::
-  board (A::table_name, "\"board\"", 0);
+  board (A::table_name, "\"BOARD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::alight_type_
   query_columns< ::pio::Ridership, A >::
-  alight (A::table_name, "\"alight\"", 0);
+  alight (A::table_name, "\"ALIGHT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::load_type_
   query_columns< ::pio::Ridership, A >::
-  load (A::table_name, "\"load\"", 0);
+  load (A::table_name, "\"LOAD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Ridership, A >::factor_type_
   query_columns< ::pio::Ridership, A >::
-  factor (A::table_name, "\"factor\"", 0);
+  factor (A::table_name, "\"FACTOR\"", 0);
 
   // Vehicle
   //
-  class parking_alias_tag;
+  class PARKING_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_PARKING_FOR_PIO_PARKING
 #define ODB_ALIAS_TRAITS_PARKING_FOR_PIO_PARKING
   template <bool d>
-  struct alias_traits< ::pio::Parking, parking_alias_tag, d >
+  struct alias_traits< ::pio::Parking, PARKING_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Parking, parking_alias_tag, d >::
-  table_name[] = "\"parking\"";
+  const char alias_traits< ::pio::Parking, PARKING_alias_tag, d >::
+  table_name[] = "\"PARKING\"";
 #endif // ODB_ALIAS_TRAITS_PARKING_FOR_PIO_PARKING
 
-  class type_alias_tag;
+  class TYPE_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_TYPE_FOR_PIO_VEH_TYPE
 #define ODB_ALIAS_TRAITS_TYPE_FOR_PIO_VEH_TYPE
   template <bool d>
-  struct alias_traits< ::pio::Veh_Type, type_alias_tag, d >
+  struct alias_traits< ::pio::Veh_Type, TYPE_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Veh_Type, type_alias_tag, d >::
-  table_name[] = "\"type\"";
+  const char alias_traits< ::pio::Veh_Type, TYPE_alias_tag, d >::
+  table_name[] = "\"TYPE\"";
 #endif // ODB_ALIAS_TRAITS_TYPE_FOR_PIO_VEH_TYPE
 
   template <>
@@ -19286,13 +19286,13 @@ namespace odb
     // parking
     //
     typedef
-    odb::alias_traits< ::pio::Parking, parking_alias_tag >
+    odb::alias_traits< ::pio::Parking, PARKING_alias_tag >
     parking_alias_;
 
     // type
     //
     typedef
-    odb::alias_traits< ::pio::Veh_Type, type_alias_tag >
+    odb::alias_traits< ::pio::Veh_Type, TYPE_alias_tag >
     type_alias_;
   };
 
@@ -19431,63 +19431,63 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Vehicle, A >::hhold_type_
   query_columns< ::pio::Vehicle, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Vehicle, A >::vehicle_type_
   query_columns< ::pio::Vehicle, A >::
-  vehicle (A::table_name, "\"vehicle\"", 0);
+  vehicle (A::table_name, "\"VEHICLE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Vehicle, A >::parking_type_
   query_columns< ::pio::Vehicle, A >::
-  parking (A::table_name, "\"parking\"", 0);
+  parking (A::table_name, "\"PARKING\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Vehicle, A >::type_type_
   query_columns< ::pio::Vehicle, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Vehicle, A >::subtype_type_
   query_columns< ::pio::Vehicle, A >::
-  subtype (A::table_name, "\"subtype\"", 0);
+  subtype (A::table_name, "\"SUBTYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Vehicle, A >::partition_type_
   query_columns< ::pio::Vehicle, A >::
-  partition (A::table_name, "\"partition\"", 0);
+  partition (A::table_name, "\"PARTITION\"", 0);
 
   // Trip
   //
-  class origin_alias_tag;
+  class ORIGIN_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_ORIGIN_FOR_PIO_LOCATION
 #define ODB_ALIAS_TRAITS_ORIGIN_FOR_PIO_LOCATION
   template <bool d>
-  struct alias_traits< ::pio::Location, origin_alias_tag, d >
+  struct alias_traits< ::pio::Location, ORIGIN_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Location, origin_alias_tag, d >::
-  table_name[] = "\"origin\"";
+  const char alias_traits< ::pio::Location, ORIGIN_alias_tag, d >::
+  table_name[] = "\"ORIGIN\"";
 #endif // ODB_ALIAS_TRAITS_ORIGIN_FOR_PIO_LOCATION
 
-  class destination_alias_tag;
+  class DESTINATION_alias_tag;
 
 #ifndef ODB_ALIAS_TRAITS_DESTINATION_FOR_PIO_LOCATION
 #define ODB_ALIAS_TRAITS_DESTINATION_FOR_PIO_LOCATION
   template <bool d>
-  struct alias_traits< ::pio::Location, destination_alias_tag, d >
+  struct alias_traits< ::pio::Location, DESTINATION_alias_tag, d >
   {
     static const char table_name[];
   };
 
   template <bool d>
-  const char alias_traits< ::pio::Location, destination_alias_tag, d >::
-  table_name[] = "\"destination\"";
+  const char alias_traits< ::pio::Location, DESTINATION_alias_tag, d >::
+  table_name[] = "\"DESTINATION\"";
 #endif // ODB_ALIAS_TRAITS_DESTINATION_FOR_PIO_LOCATION
 
   template <>
@@ -19496,13 +19496,13 @@ namespace odb
     // origin
     //
     typedef
-    odb::alias_traits< ::pio::Location, origin_alias_tag >
+    odb::alias_traits< ::pio::Location, ORIGIN_alias_tag >
     origin_alias_;
 
     // destination
     //
     typedef
-    odb::alias_traits< ::pio::Location, destination_alias_tag >
+    odb::alias_traits< ::pio::Location, DESTINATION_alias_tag >
     destination_alias_;
   };
 
@@ -19773,87 +19773,87 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::hhold_type_
   query_columns< ::pio::Trip, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::person_type_
   query_columns< ::pio::Trip, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::tour_type_
   query_columns< ::pio::Trip, A >::
-  tour (A::table_name, "\"tour\"", 0);
+  tour (A::table_name, "\"TOUR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::trip_type_
   query_columns< ::pio::Trip, A >::
-  trip (A::table_name, "\"trip\"", 0);
+  trip (A::table_name, "\"TRIP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::start_type_
   query_columns< ::pio::Trip, A >::
-  start (A::table_name, "\"start\"", 0);
+  start (A::table_name, "\"START\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::end_type_
   query_columns< ::pio::Trip, A >::
-  end (A::table_name, "\"end\"", 0);
+  end (A::table_name, "\"END\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::duration_type_
   query_columns< ::pio::Trip, A >::
-  duration (A::table_name, "\"duration\"", 0);
+  duration (A::table_name, "\"DURATION\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::origin_type_
   query_columns< ::pio::Trip, A >::
-  origin (A::table_name, "\"origin\"", 0);
+  origin (A::table_name, "\"ORIGIN\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::destination_type_
   query_columns< ::pio::Trip, A >::
-  destination (A::table_name, "\"destination\"", 0);
+  destination (A::table_name, "\"DESTINATION\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::purpose_type_
   query_columns< ::pio::Trip, A >::
-  purpose (A::table_name, "\"purpose\"", 0);
+  purpose (A::table_name, "\"PURPOSE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::mode_type_
   query_columns< ::pio::Trip, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::constraint_type_
   query_columns< ::pio::Trip, A >::
-  constraint (A::table_name, "\"constraint\"", 0);
+  constraint (A::table_name, "\"CONSTRAINT\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::priority_type_
   query_columns< ::pio::Trip, A >::
-  priority (A::table_name, "\"priority\"", 0);
+  priority (A::table_name, "\"PRIORITY\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::vehicle_type_
   query_columns< ::pio::Trip, A >::
-  vehicle (A::table_name, "\"vehicle\"", 0);
+  vehicle (A::table_name, "\"VEHICLE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::passengers_type_
   query_columns< ::pio::Trip, A >::
-  passengers (A::table_name, "\"passengers\"", 0);
+  passengers (A::table_name, "\"PASSENGERS\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::type_type_
   query_columns< ::pio::Trip, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Trip, A >::partition_type_
   query_columns< ::pio::Trip, A >::
-  partition (A::table_name, "\"partition\"", 0);
+  partition (A::table_name, "\"PARTITION\"", 0);
 
   // Problem
   //
@@ -19863,7 +19863,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -19990,42 +19990,42 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Problem, A >::problem_type_
   query_columns< ::pio::Problem, A >::
-  problem (A::table_name, "\"problem\"", 0);
+  problem (A::table_name, "\"PROBLEM\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Problem, A >::time_type_
   query_columns< ::pio::Problem, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Problem, A >::link_type_
   query_columns< ::pio::Problem, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Problem, A >::dir_type_
   query_columns< ::pio::Problem, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Problem, A >::lane_type_
   query_columns< ::pio::Problem, A >::
-  lane (A::table_name, "\"lane\"", 0);
+  lane (A::table_name, "\"LANE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Problem, A >::offset_type_
   query_columns< ::pio::Problem, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Problem, A >::route_type_
   query_columns< ::pio::Problem, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Problem, A >::survey_type_
   query_columns< ::pio::Problem, A >::
-  survey (A::table_name, "\"survey\"", 0);
+  survey (A::table_name, "\"SURVEY\"", 0);
 
   // Event
   //
@@ -20035,7 +20035,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -20239,67 +20239,67 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Event, A >::hhold_type_
   query_columns< ::pio::Event, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::person_type_
   query_columns< ::pio::Event, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::tour_type_
   query_columns< ::pio::Event, A >::
-  tour (A::table_name, "\"tour\"", 0);
+  tour (A::table_name, "\"TOUR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::trip_type_
   query_columns< ::pio::Event, A >::
-  trip (A::table_name, "\"trip\"", 0);
+  trip (A::table_name, "\"TRIP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::mode_type_
   query_columns< ::pio::Event, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::type_type_
   query_columns< ::pio::Event, A >::
-  type (A::table_name, "\"type\"", 0);
+  type (A::table_name, "\"TYPE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::schedule_type_
   query_columns< ::pio::Event, A >::
-  schedule (A::table_name, "\"schedule\"", 0);
+  schedule (A::table_name, "\"SCHEDULE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::actual_type_
   query_columns< ::pio::Event, A >::
-  actual (A::table_name, "\"actual\"", 0);
+  actual (A::table_name, "\"ACTUAL\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::link_type_
   query_columns< ::pio::Event, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::dir_type_
   query_columns< ::pio::Event, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::lane_type_
   query_columns< ::pio::Event, A >::
-  lane (A::table_name, "\"lane\"", 0);
+  lane (A::table_name, "\"LANE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::offset_type_
   query_columns< ::pio::Event, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Event, A >::route_type_
   query_columns< ::pio::Event, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 
   // Traveler
   //
@@ -20309,7 +20309,7 @@ namespace odb
     // link
     //
     typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
+    odb::alias_traits< ::pio::Link, LINK_alias_tag >
     link_alias_;
   };
 
@@ -20513,67 +20513,67 @@ namespace odb
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::hhold_type_
   query_columns< ::pio::Traveler, A >::
-  hhold (A::table_name, "\"hhold\"", 0);
+  hhold (A::table_name, "\"HHOLD\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::person_type_
   query_columns< ::pio::Traveler, A >::
-  person (A::table_name, "\"person\"", 0);
+  person (A::table_name, "\"PERSON\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::tour_type_
   query_columns< ::pio::Traveler, A >::
-  tour (A::table_name, "\"tour\"", 0);
+  tour (A::table_name, "\"TOUR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::trip_type_
   query_columns< ::pio::Traveler, A >::
-  trip (A::table_name, "\"trip\"", 0);
+  trip (A::table_name, "\"TRIP\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::mode_type_
   query_columns< ::pio::Traveler, A >::
-  mode (A::table_name, "\"mode\"", 0);
+  mode (A::table_name, "\"MODE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::time_type_
   query_columns< ::pio::Traveler, A >::
-  time (A::table_name, "\"time\"", 0);
+  time (A::table_name, "\"TIME\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::distance_type_
   query_columns< ::pio::Traveler, A >::
-  distance (A::table_name, "\"distance\"", 0);
+  distance (A::table_name, "\"DISTANCE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::speed_type_
   query_columns< ::pio::Traveler, A >::
-  speed (A::table_name, "\"speed\"", 0);
+  speed (A::table_name, "\"SPEED\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::link_type_
   query_columns< ::pio::Traveler, A >::
-  link (A::table_name, "\"link\"", 0);
+  link (A::table_name, "\"LINK\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::dir_type_
   query_columns< ::pio::Traveler, A >::
-  dir (A::table_name, "\"dir\"", 0);
+  dir (A::table_name, "\"DIR\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::lane_type_
   query_columns< ::pio::Traveler, A >::
-  lane (A::table_name, "\"lane\"", 0);
+  lane (A::table_name, "\"LANE\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::offset_type_
   query_columns< ::pio::Traveler, A >::
-  offset (A::table_name, "\"offset\"", 0);
+  offset (A::table_name, "\"OFFSET\"", 0);
 
   template <typename A>
   const typename query_columns< ::pio::Traveler, A >::route_type_
   query_columns< ::pio::Traveler, A >::
-  route (A::table_name, "\"route\"", 0);
+  route (A::table_name, "\"ROUTE\"", 0);
 }
 
 #include "InputContext-odb.ixx"

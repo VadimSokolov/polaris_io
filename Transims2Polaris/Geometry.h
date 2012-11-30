@@ -1,4 +1,4 @@
 #include <sqlite3.h>
 #include <string>
 
-sqlite3* AddGeometryTables(const std::string& name);
+int AddGeometryTables(sqlite3* db_handle);

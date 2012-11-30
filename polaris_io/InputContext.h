@@ -87,7 +87,7 @@ public:
 	std::map<int,shared_ptr<Veh_Type>> Veh_Types;
 };
 
-#pragma db object
+#pragma db object table("NODE")
 class Node
 {
 public:
@@ -117,17 +117,23 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("NODE")
 	int node;
+	#pragma db column("X")
 	double x;
+	#pragma db column("Y")
 	double y;
+	#pragma db column("Z")
 	double z;
+	#pragma db column("SUBAREA")
 	int subarea;
+	#pragma db column("PART")
 	int part;
 	#pragma db index member(node)
 
 };
 
-#pragma db object
+#pragma db object table("ZONE")
 class Zone
 {
 public:
@@ -163,20 +169,29 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("ZONE")
 	int zone;
+	#pragma db column("X")
 	double x;
+	#pragma db column("Y")
 	double y;
+	#pragma db column("Z")
 	double z;
+	#pragma db column("AREA")
 	int area;
+	#pragma db column("MIN_X")
 	double min_x;
+	#pragma db column("MIN_Y")
 	double min_y;
+	#pragma db column("MAX_X")
 	double max_x;
+	#pragma db column("MAX_Y")
 	double max_y;
 	#pragma db index member(zone)
 
 };
 
-#pragma db object
+#pragma db object table("SHAPE")
 class Shape
 {
 public:
@@ -205,12 +220,14 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("POINTS")
 	int points;
 
 };
 
-#pragma db object
+#pragma db object table("LINK")
 class Link
 {
 public:
@@ -282,37 +299,63 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("LINK")
 	int link;
+	#pragma db column("NAME")
 	std::string name;
+	#pragma db column("NODE_A")
 	shared_ptr<Node> node_a;
+	#pragma db column("NODE_B")
 	shared_ptr<Node> node_b;
+	#pragma db column("LENGTH")
 	double length;
+	#pragma db column("SETBACK_A")
 	double setback_a;
+	#pragma db column("SETBACK_B")
 	double setback_b;
+	#pragma db column("BEARING_A")
 	int bearing_a;
+	#pragma db column("BEARING_B")
 	int bearing_b;
+	#pragma db column("TYPE")
 	std::string type;
+	#pragma db column("DIVIDED")
 	int divided;
+	#pragma db column("AREA_TYPE")
 	int area_type;
+	#pragma db column("USE")
 	int use;
+	#pragma db column("GRADE")
 	double grade;
+	#pragma db column("LANES_AB")
 	int lanes_ab;
+	#pragma db column("SPEED_AB")
 	double speed_ab;
+	#pragma db column("FSPD_AB")
 	double fspd_ab;
+	#pragma db column("CAP_AB")
 	int cap_ab;
+	#pragma db column("LANES_BA")
 	int lanes_ba;
+	#pragma db column("SPEED_BA")
 	double speed_ba;
+	#pragma db column("FSPD_BA")
 	double fspd_ba;
+	#pragma db column("CAP_BA")
 	int cap_ba;
+	#pragma db column("LEFT_AB")
 	int left_ab;
+	#pragma db column("RIGHT_AB")
 	int right_ab;
+	#pragma db column("LEFT_BA")
 	int left_ba;
+	#pragma db column("RIGHT_BA")
 	int right_ba;
 	#pragma db index member(link)
 
 };
 
-#pragma db object
+#pragma db object table("POCKET")
 class Pocket
 {
 public:
@@ -345,16 +388,22 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("TYPE")
 	std::string type;
+	#pragma db column("LANES")
 	int lanes;
+	#pragma db column("LENGTH")
 	double length;
+	#pragma db column("OFFSET")
 	double offset;
 
 };
 
-#pragma db object
+#pragma db object table("LANE_USE")
 class Lane_Use
 {
 public:
@@ -409,27 +458,44 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("LANES")
 	int lanes;
+	#pragma db column("USE")
 	int use;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("MIN_TYPE")
 	int min_type;
+	#pragma db column("MAX_TYPE")
 	int max_type;
+	#pragma db column("MIN_TRAV")
 	int min_trav;
+	#pragma db column("MAX_TRAV")
 	int max_trav;
+	#pragma db column("START")
 	double start;
+	#pragma db column("END")
 	double end;
+	#pragma db column("OFFSET")
 	double offset;
+	#pragma db column("LENGTH")
 	double length;
+	#pragma db column("TOLL")
 	int toll;
+	#pragma db column("RATE")
 	double rate;
+	#pragma db column("MIN_DELAY")
 	double min_delay;
+	#pragma db column("MAX_DELAY")
 	double max_delay;
 
 };
 
-#pragma db object
+#pragma db object table("CONNECT")
 class Connect
 {
 public:
@@ -473,21 +539,32 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("TO_LINK")
 	shared_ptr<Link> to_link;
+	#pragma db column("LANES")
 	std::string lanes;
+	#pragma db column("TO_LANES")
 	std::string to_lanes;
+	#pragma db column("TYPE")
 	std::string type;
+	#pragma db column("PENALTY")
 	int penalty;
+	#pragma db column("SPEED")
 	double speed;
+	#pragma db column("CAPACITY")
 	int capacity;
+	#pragma db column("IN_HIGH")
 	int in_high;
+	#pragma db column("OUT_HIGH")
 	int out_high;
 
 };
 
-#pragma db object
+#pragma db object table("TURN_PEN")
 class Turn_Pen
 {
 public:
@@ -533,21 +610,32 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("TO_LINK")
 	shared_ptr<Link> to_link;
+	#pragma db column("START")
 	double start;
+	#pragma db column("END")
 	double end;
+	#pragma db column("USE")
 	int use;
+	#pragma db column("MIN_TYPE")
 	int min_type;
+	#pragma db column("MAX_TYPE")
 	int max_type;
+	#pragma db column("PENALTY")
 	int penalty;
+	#pragma db column("IN_NODE")
 	shared_ptr<Node> in_node;
+	#pragma db column("OUT_NODE")
 	shared_ptr<Node> out_node;
 
 };
 
-#pragma db object
+#pragma db object table("PARKING")
 class Parking
 {
 public:
@@ -592,24 +680,37 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("PARKING")
 	int parking;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("OFFSET")
 	double offset;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("USE")
 	int use;
+	#pragma db column("START")
 	double start;
+	#pragma db column("END")
 	double end;
+	#pragma db column("SPACE")
 	int space;
+	#pragma db column("TIME_IN")
 	double time_in;
+	#pragma db column("TIME_OUT")
 	double time_out;
+	#pragma db column("HOURLY")
 	int hourly;
+	#pragma db column("DAILY")
 	int daily;
 	#pragma db index member(parking)
 
 };
 
-#pragma db object
+#pragma db object table("LOCATION")
 class Location
 {
 public:
@@ -641,17 +742,23 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("LOCATION")
 	int location;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("OFFSET")
 	double offset;
+	#pragma db column("SETBACK")
 	double setback;
+	#pragma db column("ZONE")
 	shared_ptr<Zone> zone;
 	#pragma db index member(location)
 
 };
 
-#pragma db object
+#pragma db object table("ACCESS")
 class Access
 {
 public:
@@ -688,18 +795,26 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("FROM_ID")
 	int from_id;
+	#pragma db column("FROM_TYPE")
 	int from_type;
+	#pragma db column("TO_ID")
 	int to_id;
+	#pragma db column("TO_TYPE")
 	int to_type;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("TIME")
 	double time;
+	#pragma db column("COST")
 	int cost;
 
 };
 
-#pragma db object
+#pragma db object table("SIGN")
 class Sign
 {
 public:
@@ -726,13 +841,16 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("SIGN")
 	std::string sign;
 
 };
 
-#pragma db object
+#pragma db object table("SIGNAL")
 class Signal
 {
 public:
@@ -764,16 +882,21 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("SIGNAL")
 	int signal;
+	#pragma db column("GROUP")
 	int group;
+	#pragma db column("TIMES")
 	int times;
+	#pragma db column("TYPE")
 	std::string type;
+	#pragma db column("OFFSET")
 	int offset;
 	#pragma db index member(signal)
 
 };
 
-#pragma db object
+#pragma db object table("TIMING")
 class Timing
 {
 public:
@@ -824,25 +947,40 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("SIGNAL")
 	shared_ptr<Signal> signal;
+	#pragma db column("TIMING")
 	int timing;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("CYCLE")
 	int cycle;
+	#pragma db column("OFFSET")
 	int offset;
+	#pragma db column("PHASES")
 	int phases;
+	#pragma db column("PHASE")
 	int phase;
+	#pragma db column("BARRIER")
 	int barrier;
+	#pragma db column("RING")
 	int ring;
+	#pragma db column("POSITION")
 	int position;
+	#pragma db column("MINIMUM")
 	int minimum;
+	#pragma db column("MAXIMUM")
 	int maximum;
+	#pragma db column("EXTEND")
 	int extend;
+	#pragma db column("YELLOW")
 	int yellow;
+	#pragma db column("RED")
 	int red;
 
 };
 
-#pragma db object
+#pragma db object table("PHASING")
 class Phasing
 {
 public:
@@ -885,20 +1023,30 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("SIGNAL")
 	shared_ptr<Signal> signal;
+	#pragma db column("PHASING")
 	int phasing;
+	#pragma db column("PHASE")
 	int phase;
+	#pragma db column("DETECTORS")
 	std::string detectors;
+	#pragma db column("MOVEMENTS")
 	int movements;
+	#pragma db column("MOVEMENT")
 	std::string movement;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("TO_LINK")
 	shared_ptr<Link> to_link;
+	#pragma db column("PROTECT")
 	int protect;
 
 };
 
-#pragma db object
+#pragma db object table("DETECTOR")
 class Detector
 {
 public:
@@ -937,21 +1085,31 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("DETECTOR")
 	int detector;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("OFFSET")
 	double offset;
+	#pragma db column("LENGTH")
 	double length;
+	#pragma db column("LANES")
 	int lanes;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("USE")
 	int use;
+	#pragma db column("LOW")
 	int low;
+	#pragma db column("HIGH")
 	int high;
 	#pragma db index member(detector)
 
 };
 
-#pragma db object
+#pragma db object table("STOP")
 class Stop
 {
 public:
@@ -986,19 +1144,27 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("STOP")
 	int stop;
+	#pragma db column("NAME")
 	std::string name;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("OFFSET")
 	double offset;
+	#pragma db column("USE")
 	int use;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("SPACE")
 	int space;
 	#pragma db index member(stop)
 
 };
 
-#pragma db object
+#pragma db object table("FARE")
 class Fare
 {
 public:
@@ -1031,19 +1197,26 @@ public:
 //Data Fields
 private:
 	friend class odb::access;
+	#pragma db column("FROM_ZONE")
 	shared_ptr<Zone> from_zone;
+	#pragma db column("TO_ZONE")
 	shared_ptr<Zone> to_zone;
+	#pragma db column("FROM_MODE")
 	int from_mode;
+	#pragma db column("TO_MODE")
 	int to_mode;
+	#pragma db column("PERIOD")
 	int period;
+	#pragma db column("TYPE")
 	int type;
 	#pragma db id
+	#pragma db column("FARE")
 	int fare;
 	#pragma db index member(fare)
 
 };
 
-#pragma db object
+#pragma db object table("LINE")
 class Line
 {
 public:
@@ -1082,18 +1255,26 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("ROUTE")
 	int route;
+	#pragma db column("STOPS")
 	shared_ptr<Stop> stops;
+	#pragma db column("MODE")
 	int mode;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("NAME")
 	std::string name;
+	#pragma db column("STOP")
 	shared_ptr<Stop> stop;
+	#pragma db column("ZONE")
 	shared_ptr<Zone> zone;
+	#pragma db column("FLAG")
 	int flag;
 
 };
 
-#pragma db object
+#pragma db object table("SCHEDULE")
 class Schedule
 {
 public:
@@ -1121,13 +1302,16 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("ROUTE")
 	int route;
+	#pragma db column("STOPS")
 	shared_ptr<Stop> stops;
+	#pragma db column("STOP")
 	shared_ptr<Stop> stop;
 
 };
 
-#pragma db object
+#pragma db object table("DRIVER")
 class Driver
 {
 public:
@@ -1161,16 +1345,22 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("ROUTE")
 	int route;
+	#pragma db column("LINKS")
 	shared_ptr<Link> links;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("SUBTYPE")
 	int subtype;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
 
 };
 
-#pragma db object
+#pragma db object table("ROUTE_NODES")
 class Route_Nodes
 {
 public:
@@ -1213,20 +1403,30 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("ROUTE")
 	int route;
+	#pragma db column("MODE")
 	int mode;
+	#pragma db column("VEH_TYPE")
 	shared_ptr<Veh_Type> veh_type;
+	#pragma db column("NODES")
 	shared_ptr<Node> nodes;
+	#pragma db column("NAME")
 	std::string name;
+	#pragma db column("NODE")
 	shared_ptr<Node> node;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("DWELL")
 	double dwell;
+	#pragma db column("TIME")
 	double time;
+	#pragma db column("SPEED")
 	double speed;
 
 };
 
-#pragma db object
+#pragma db object table("SELECTION")
 class Selection
 {
 public:
@@ -1258,16 +1458,22 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("HHOLD")
 	int hhold;
+	#pragma db column("PERSON")
 	int person;
+	#pragma db column("TOUR")
 	int tour;
+	#pragma db column("TRIP")
 	int trip;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("PARTITION")
 	int partition;
 
 };
 
-#pragma db object
+#pragma db object table("HOUSEHOLD")
 class Household
 {
 public:
@@ -1314,23 +1520,36 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("HHOLD")
 	int hhold;
+	#pragma db column("LOCATION")
 	shared_ptr<Location> location;
+	#pragma db column("PERSONS")
 	int persons;
+	#pragma db column("WORKERS")
 	int workers;
+	#pragma db column("VEHICLES")
 	int vehicles;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("PARTITION")
 	int partition;
+	#pragma db column("PERSON")
 	int person;
+	#pragma db column("AGE")
 	int age;
+	#pragma db column("RELATE")
 	int relate;
+	#pragma db column("GENDER")
 	int gender;
+	#pragma db column("WORK")
 	int work;
+	#pragma db column("DRIVE")
 	int drive;
 
 };
 
-#pragma db object
+#pragma db object table("LINK_DELAY")
 class Link_Delay
 {
 public:
@@ -1372,20 +1591,30 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("START")
 	double start;
+	#pragma db column("END")
 	double end;
+	#pragma db column("FLOW")
 	double flow;
+	#pragma db column("TIME")
 	double time;
+	#pragma db column("OUT_LINK")
 	shared_ptr<Link> out_link;
+	#pragma db column("OUT_FLOW")
 	double out_flow;
+	#pragma db column("OUT_TIME")
 	double out_time;
 
 };
 
-#pragma db object
+#pragma db object table("PERFORMANCE")
 class Performance
 {
 public:
@@ -1421,18 +1650,26 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("SPEED")
 	double speed;
+	#pragma db column("DELAY")
 	double delay;
+	#pragma db column("DENSITY")
 	double density;
+	#pragma db column("MAX_DEN")
 	double max_den;
+	#pragma db column("RATIO")
 	double ratio;
+	#pragma db column("QUEUE")
 	double queue;
+	#pragma db column("MAX_QUE")
 	int max_que;
+	#pragma db column("FAIL")
 	int fail;
 
 };
 
-#pragma db object
+#pragma db object table("RIDERSHIP")
 class Ridership
 {
 public:
@@ -1473,20 +1710,30 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("MODE")
 	int mode;
+	#pragma db column("ROUTE")
 	int route;
+	#pragma db column("RUN")
 	int run;
+	#pragma db column("STOP")
 	shared_ptr<Stop> stop;
+	#pragma db column("SCHEDULE")
 	double schedule;
+	#pragma db column("TIME")
 	double time;
+	#pragma db column("BOARD")
 	int board;
+	#pragma db column("ALIGHT")
 	int alight;
+	#pragma db column("LOAD")
 	int load;
+	#pragma db column("FACTOR")
 	double factor;
 
 };
 
-#pragma db object
+#pragma db object table("VEH_TYPE")
 class Veh_Type
 {
 public:
@@ -1532,25 +1779,39 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("LENGTH")
 	double length;
+	#pragma db column("MAX_SPEED")
 	double max_speed;
+	#pragma db column("MAX_ACCEL")
 	double max_accel;
+	#pragma db column("MAX_DECEL")
 	double max_decel;
+	#pragma db column("OP_COST")
 	double op_cost;
+	#pragma db column("USE")
 	int use;
+	#pragma db column("CAPACITY")
 	int capacity;
+	#pragma db column("LOAD")
 	double load;
+	#pragma db column("UNLOAD")
 	double unload;
+	#pragma db column("METHOD")
 	int method;
+	#pragma db column("MIN_DWELL")
 	double min_dwell;
+	#pragma db column("MAX_DWELL")
 	double max_dwell;
+	#pragma db column("SUBTYPE")
 	int subtype;
 	#pragma db index member(type)
 
 };
 
-#pragma db object
+#pragma db object table("VEHICLE")
 class Vehicle
 {
 public:
@@ -1584,16 +1845,22 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("HHOLD")
 	int hhold;
+	#pragma db column("VEHICLE")
 	int vehicle;
+	#pragma db column("PARKING")
 	shared_ptr<Parking> parking;
+	#pragma db column("TYPE")
 	shared_ptr<Veh_Type> type;
+	#pragma db column("SUBTYPE")
 	int subtype;
+	#pragma db column("PARTITION")
 	int partition;
 
 };
 
-#pragma db object
+#pragma db object table("TRIP")
 class Trip
 {
 public:
@@ -1649,27 +1916,44 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("HHOLD")
 	int hhold;
+	#pragma db column("PERSON")
 	int person;
+	#pragma db column("TOUR")
 	int tour;
+	#pragma db column("TRIP")
 	int trip;
+	#pragma db column("START")
 	double start;
+	#pragma db column("END")
 	double end;
+	#pragma db column("DURATION")
 	double duration;
+	#pragma db column("ORIGIN")
 	shared_ptr<Location> origin;
+	#pragma db column("DESTINATION")
 	shared_ptr<Location> destination;
+	#pragma db column("PURPOSE")
 	int purpose;
+	#pragma db column("MODE")
 	int mode;
+	#pragma db column("CONSTRAINT")
 	int constraint;
+	#pragma db column("PRIORITY")
 	int priority;
+	#pragma db column("VEHICLE")
 	int vehicle;
+	#pragma db column("PASSENGERS")
 	int passengers;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("PARTITION")
 	int partition;
 
 };
 
-#pragma db object
+#pragma db object table("PROBLEM")
 class Problem
 {
 public:
@@ -1704,19 +1988,27 @@ public:
 private:
 	friend class odb::access;
 	#pragma db id
+	#pragma db column("PROBLEM")
 	int problem;
+	#pragma db column("TIME")
 	double time;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("LANE")
 	int lane;
+	#pragma db column("OFFSET")
 	double offset;
+	#pragma db column("ROUTE")
 	int route;
+	#pragma db column("SURVEY")
 	int survey;
 	#pragma db index member(problem)
 
 };
 
-#pragma db object
+#pragma db object table("PLAN")
 class Plan
 {
 public:
@@ -1772,28 +2064,46 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("DEPART")
 	double depart;
+	#pragma db column("ARRIVE")
 	double arrive;
+	#pragma db column("ACTIVITY")
 	double activity;
+	#pragma db column("WALK")
 	double walk;
+	#pragma db column("DRIVE")
 	double drive;
+	#pragma db column("TRANSIT")
 	double transit;
+	#pragma db column("WAIT")
 	double wait;
+	#pragma db column("OTHER")
 	double other;
+	#pragma db column("LENGTH")
 	double length;
+	#pragma db column("COST")
 	double cost;
+	#pragma db column("IMPEDANCE")
 	int impedance;
+	#pragma db column("LEG_MODE")
 	int leg_mode;
+	#pragma db column("LEG_TYPE")
 	int leg_type;
+	#pragma db column("LEG_ID")
 	int leg_id;
+	#pragma db column("LEG_TIME")
 	double leg_time;
+	#pragma db column("LEG_LENGTH")
 	double leg_length;
+	#pragma db column("LEG_COST")
 	double leg_cost;
+	#pragma db column("LEG_IMP")
 	int leg_imp;
 
 };
 
-#pragma db object
+#pragma db object table("SKIM")
 class Skim
 {
 public:
@@ -1831,19 +2141,28 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("TIME")
 	double time;
+	#pragma db column("WALK")
 	double walk;
+	#pragma db column("DRIVE")
 	double drive;
+	#pragma db column("TRANSIT")
 	double transit;
+	#pragma db column("WAIT")
 	double wait;
+	#pragma db column("OTHER")
 	double other;
+	#pragma db column("LENGTH")
 	double length;
+	#pragma db column("COST")
 	double cost;
+	#pragma db column("IMPEDANCE")
 	int impedance;
 
 };
 
-#pragma db object
+#pragma db object table("EVENT")
 class Event
 {
 public:
@@ -1890,23 +2209,36 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("HHOLD")
 	int hhold;
+	#pragma db column("PERSON")
 	int person;
+	#pragma db column("TOUR")
 	int tour;
+	#pragma db column("TRIP")
 	int trip;
+	#pragma db column("MODE")
 	int mode;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("SCHEDULE")
 	double schedule;
+	#pragma db column("ACTUAL")
 	double actual;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("LANE")
 	int lane;
+	#pragma db column("OFFSET")
 	double offset;
+	#pragma db column("ROUTE")
 	int route;
 
 };
 
-#pragma db object
+#pragma db object table("TRAVELER")
 class Traveler
 {
 public:
@@ -1953,23 +2285,36 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("HHOLD")
 	int hhold;
+	#pragma db column("PERSON")
 	int person;
+	#pragma db column("TOUR")
 	int tour;
+	#pragma db column("TRIP")
 	int trip;
+	#pragma db column("MODE")
 	int mode;
+	#pragma db column("TIME")
 	double time;
+	#pragma db column("DISTANCE")
 	double distance;
+	#pragma db column("SPEED")
 	double speed;
+	#pragma db column("LINK")
 	shared_ptr<Link> link;
+	#pragma db column("DIR")
 	int dir;
+	#pragma db column("LANE")
 	int lane;
+	#pragma db column("OFFSET")
 	double offset;
+	#pragma db column("ROUTE")
 	int route;
 
 };
 
-#pragma db object
+#pragma db object table("TRIPNOREF")
 class TripNoRef
 {
 public:
@@ -2023,22 +2368,39 @@ private:
 	friend class odb::access;
 	#pragma db id auto
 	unsigned long auto_id;
+	#pragma db column("HHOLD")
 	int hhold;
+	#pragma db column("PERSON")
 	int person;
+	#pragma db column("TOUR")
 	int tour;
+	#pragma db column("TRIP")
 	int trip;
+	#pragma db column("START")
 	double start;
+	#pragma db column("END")
 	double end;
+	#pragma db column("DURATION")
 	double duration;
+	#pragma db column("ORIGIN")
 	int origin;
+	#pragma db column("DESTINATION")
 	int destination;
+	#pragma db column("PURPOSE")
 	int purpose;
+	#pragma db column("MODE")
 	int mode;
+	#pragma db column("CONSTRAINT")
 	int constraint;
+	#pragma db column("PRIORITY")
 	int priority;
+	#pragma db column("VEHICLE")
 	int vehicle;
+	#pragma db column("PASSENGERS")
 	int passengers;
+	#pragma db column("TYPE")
 	int type;
+	#pragma db column("PARTITION")
 	int partition;
 
 };

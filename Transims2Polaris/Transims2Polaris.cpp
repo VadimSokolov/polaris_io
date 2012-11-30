@@ -75,7 +75,6 @@ int main(int argc, char* argv[])
 	Convert<Link_File,Link, int>(net,container, LINK, "LINK", &container.Links);
 	ConvertNested<Shape_File,Shape, int, shape_geometry>(net,container, SHAPE, "SHAPE");
 
-	//Convert<Signal_File,Signal, int>(net,container, SIGNAL, "SIGNAL", &container.Signals);
 	ConvertNested<Signal_File,Signal, int, signal_time>(net,container, SIGNAL, "SIGNAL", &container.Signals);
 	Convert<Location_File,Location, int>(net,container, LOCATION, "LOCATION", &container.Locations);
 	Convert<Parking_File,Parking, int>(net,container, PARKING, "PARKING", &container.Parkings);
@@ -91,7 +90,8 @@ int main(int argc, char* argv[])
 	Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE");
 	Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP");
 	ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef");
-	//ConvertShape(net);
+
+	AddSpatialiteGeometry(net);
 
 	cout << "Press any key...\n";
 	getchar();

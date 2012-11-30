@@ -2,13 +2,12 @@
 #include "adopter_methods.h"
 #include "database.h" // create_database
 #include <memory>   // std::auto_ptr
-#include <odb/database.hxx>
-#include <odb/transaction.hxx>
 #include "InputContext-odb.hxx"
 #include "transims_network.h"
 #include <time.h>
 #include <string>
 #include "Geometry.h"
+#include <map>
 using odb::database;
 using odb::transaction;
 using namespace pio;
@@ -175,114 +174,104 @@ void ConvertNested(TransimsNetwork *net, InputContainer &container, System_File_
 	}
 }
 
-//void ConvertShape(TransimsNetwork *net)
-//{
-//	ofstream fh, fh1;
-//	fh.open("sql_trace.txt");
-//	fh1.open("sql_profile.txt");
-//	char sql[2048];
-//	char buff[1024];
-//	string geometry;
-//    sqlite3 *db_handle;
-//    sqlite3_stmt *stmt;
-//    int ret;
-//	size_t pos;
-//    char *err_msg = NULL;
-//	int link_id;
-//	double x,y;
-//	if (!net->System_File_Flag(SHAPE))
-//		return;
-//
-//	typedef odb::query<Link> query;
-//	typedef odb::result<Link> result;
-//	cout << "Converting SHAPE" << "\n";
-//	Shape_File *file = (Shape_File *) net->System_File_Handle (SHAPE);
-//
-//	//add geometry column to links table
-//	db_handle = AddGeometryTables(net->path_to_database);
-//
-//	//open another connection to get node data
-//	auto_ptr<database> db (open_sqlite_database (net->path_to_database));
-//	//db_handle = ((odb::sqlite::database*)db.get())->connection()->handle();
-//	transaction t (db->begin ());
-//	#ifdef _DEBUG
-//		sqlite3_trace(db_handle,trace_callback, fh);
-//	#endif
-//	strcpy (sql, "UPDATE Link SET geom=GeomFromText(?, 26916) WHERE link=?");
-//    ret = sqlite3_prepare_v2 (db_handle, sql, strlen (sql), &stmt, NULL);
-//    if (ret != SQLITE_OK)
-//	{
-//		fprintf (stderr, "SQL error: %s\n%s\n", sql,
-//		sqlite3_errmsg (db_handle));
-//		goto stop;
-//	}
-//	ret = sqlite3_exec (db_handle, "BEGIN", NULL, NULL, &err_msg);
-//    if (ret != SQLITE_OK)
-//	{
-//		fprintf (stderr, "Error: %s\n", err_msg);
-//		sqlite3_free (err_msg);
-//		goto stop;
-//	}
-//	
-//	while (file->Read(false))
-//	{		
-//		
-//		//net->Show_Progress();
-//		link_id = file->Link();	
-//		if (link_id == 11216)
-//		{
-//			int a = 5;
-//		}
-//		cout << link_id << "\n";
-//		result r(db->query<Link> (query::link==link_id));
-//		bool empty_flag = r.empty();
-//		if (empty_flag)
-//			continue;
-//		x = r.begin()->getNode_A()->getX();
-//		y = r.begin()->getNode_A()->getY();
-//		t.commit();
-//		t.reset (db->begin ());
-//		sprintf (buff, "%1.6f %1.6f, ", x, y);
-//		geometry += buff;
-//		int num = file->Num_Nest ();
-//		geometry = "LINESTRING(";
-//		for (int i=1; i <= num; i++) {
-//			file->Read (true);
-//			//net->Show_Progress ();
-//			x = file->X();
-//			y = file->Y();			
-//			sprintf (buff, "%1.6f %1.6f, ", x, y);
-//			geometry += buff;
-//		}
-//		//pos = geometry.find_last_of(",");
-//		//geometry = geometry.substr(0, pos);
-//		x = r.begin()->getNode_B()->getX();
-//		y = r.begin()->getNode_B()->getY();
-//		sprintf (buff, "%1.6f %1.6f", x, y);
-//		geometry += buff;
-//		geometry += ")";
-//		sqlite3_reset (stmt);
-//		sqlite3_clear_bindings (stmt);
-//		sqlite3_bind_int (stmt, 2, link_id);
-//		sqlite3_bind_text (stmt, 1, geometry.c_str(), strlen (geometry.c_str()), SQLITE_STATIC);
-//		ret = sqlite3_step (stmt);
-//		if (ret == SQLITE_DONE || ret == SQLITE_ROW)
-//			continue;
-//		else
-//		{
-//			fprintf (stderr, "Error: %s\n", err_msg);
-//			sqlite3_free (err_msg);
-//			goto stop;
-//		}
-//	}
-//	t.commit();
-//	sqlite3_finalize (stmt);
-//	ret = sqlite3_exec (db_handle, "COMMIT", NULL, NULL, &err_msg);
-//	if (ret != SQLITE_OK)
-//	{
-//		fprintf (stderr, "Error: %s\n", err_msg);
-//		sqlite3_free (err_msg);
-//	}
-//	stop:
-//		sqlite3_close (db_handle);
-//}
+void AddSpatialiteGeometry(TransimsNetwork *net)
+{
+	ofstream fh, fh1;
+	fh.open("sql_trace.txt");
+	fh1.open("sql_profile.txt");
+	char sql[2048];
+	char buff[1024];
+	string geometry;
+    sqlite3 *db_handle;
+    sqlite3_stmt *stmt;
+    int ret;
+	size_t pos;
+    char *err_msg = NULL;
+	int link_id;
+	double x,y;
+	map<int, vector<pio::shape_geometry>> shapes;
+	map<int, vector<pio::shape_geometry>>::iterator it;
+	vector<pio::shape_geometry>::iterator pt_it;
+	typedef odb::query<Shape> query;
+	typedef odb::result<Shape> result;
+	auto_ptr<database> db (open_sqlite_database (net->path_to_database));
+	transaction t(db->begin());
+	result r(db->query<Shape> (query::true_expr));
+	for (result::iterator i (r.begin()); i!=r.end(); ++i)
+	{
+		pio::shape_geometry p;
+		vector<pio::shape_geometry> points;
+		shared_ptr<pio::Link> l = i->getLink();
+		shared_ptr<pio::Node> anode = l->getNode_A();
+		shared_ptr<pio::Node> bnode = l->getNode_B();
+		p.x = anode->getX(); p.y = anode->getY(); p.z = anode->getZ();
+		points.push_back(p);
+		points.insert(points.end(), i->nested_records.begin(), i->nested_records.end());
+		p.x = bnode->getX(); p.y = bnode->getY(); p.z = bnode->getZ();
+		points.push_back(p);
+		shapes[l->getLink()] = points;
+	}
+	t.commit();
+	if (shapes.size() == 0)
+		return;
+	cout << "Adding shapes as geometry column" << "\n";
+	ret = sqlite3_open_v2(net->path_to_database.c_str(), &db_handle, SQLITE_OPEN_READWRITE , NULL);
+	//add geometry column to links table
+	ret = AddGeometryTables(db_handle);
+	#ifdef _DEBUG
+		sqlite3_trace(db_handle,trace_callback, fh);
+	#endif
+	strcpy (sql, "UPDATE Link SET GEO=GeomFromText(?, 26916) WHERE link=?");
+    ret = sqlite3_prepare_v2 (db_handle, sql, strlen (sql), &stmt, NULL);
+    if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "SQL error: %s\n%s\n", sql,
+		sqlite3_errmsg (db_handle));
+		goto stop;
+	}
+	ret = sqlite3_exec (db_handle, "BEGIN", NULL, NULL, &err_msg);
+    if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "Error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+		goto stop;
+	}
+	for (it=shapes.begin(); it!=shapes.end(); it++)
+	{	
+		link_id = (*it).first;
+		//cout << link_id << "\n";
+		geometry = "LINESTRING(";
+		for (pt_it=it->second.begin(); pt_it!=it->second.end(); pt_it++) 
+		{
+			x = pt_it->x;
+			y = pt_it->y;			
+			sprintf (buff, "%1.6f %1.6f, ", x, y);
+			geometry += buff;
+		}
+		pos = geometry.find_last_of(",");
+		geometry = geometry.substr(0, pos);
+		geometry += ")";
+		sqlite3_reset (stmt);
+		sqlite3_clear_bindings (stmt);
+		sqlite3_bind_int (stmt, 2, link_id);
+		sqlite3_bind_text (stmt, 1, geometry.c_str(), strlen (geometry.c_str()), SQLITE_STATIC);
+		ret = sqlite3_step (stmt);
+		if (ret == SQLITE_DONE || ret == SQLITE_ROW)
+			continue;
+		else
+		{
+			fprintf (stderr, "Error: %s\n", err_msg);
+			sqlite3_free (err_msg);
+			goto stop;
+		}
+	}
+	sqlite3_finalize (stmt);
+	ret = sqlite3_exec (db_handle, "COMMIT", NULL, NULL, &err_msg);
+	if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "Error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+	}
+stop:
+		sqlite3_close (db_handle);
+}

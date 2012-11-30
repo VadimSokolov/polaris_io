@@ -23,6 +23,7 @@
 #  include <odb/mysql/database.hxx>
 #elif defined(DATABASE_SQLITE)
 #  include <odb/connection.hxx>
+#  include <odb/sqlite/connection.hxx>
 #  include <odb/transaction.hxx>
 #  include <odb/schema-catalog.hxx>
 #  include <odb/sqlite/database.hxx>
@@ -39,6 +40,16 @@
 
 using namespace std;
 using namespace odb::core;
+
+inline std::shared_ptr<odb::sqlite::database > open_sqlite_database_shared(const std::string& name)
+{
+	shared_ptr<odb::sqlite::database> db (new odb::sqlite::database (name, SQLITE_OPEN_READWRITE));
+	connection_ptr c (db->connection ());
+	//c->execute("PRAGMA synchronous = OFF");
+	//c->execute("PRAGMA journal_mode = MEMORY");
+	//sqlite3* dbh = ((odb::sqlite::connection_ptr)db->connection())->handle();
+	return db;
+}
 
 inline std::auto_ptr<odb::database> open_sqlite_database(const std::string& name)
 {
