@@ -83,7 +83,8 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 			key_field = field
 			auto_primary_key_member = ""
 			members += "\t#pragma db id\n"
-		members += "\t#pragma db column(\"%s\")\n"%field.upper()
+		#capitilized column name
+		#members += "\t#pragma db column(\"%s\")\n"%field.upper()
 		members += "\t%s %s;\n"%(type, field)
 		
 		odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
@@ -113,7 +114,7 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 		
 
 	odb_code = """
-#pragma db object table(\"%s\")
+#pragma db object //table(\"%s\")
 class %s
 {
 public:
