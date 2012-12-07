@@ -4821,7 +4821,7 @@ namespace odb
   };
 
   template <typename A>
-  struct query_columns< ::pio::Signal, A >
+  struct pointer_query_columns< ::pio::Signal, A >
   {
     // signal
     //
@@ -4859,6 +4859,18 @@ namespace odb
 
     static const times_type_ times;
 
+    // nodes
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    nodes_type_;
+
+    static const nodes_type_ nodes;
+
     // type
     //
     typedef
@@ -4885,35 +4897,34 @@ namespace odb
   };
 
   template <typename A>
-  const typename query_columns< ::pio::Signal, A >::signal_type_
-  query_columns< ::pio::Signal, A >::
+  const typename pointer_query_columns< ::pio::Signal, A >::signal_type_
+  pointer_query_columns< ::pio::Signal, A >::
   signal (A::table_name, "\"signal\"", 0);
 
   template <typename A>
-  const typename query_columns< ::pio::Signal, A >::group_type_
-  query_columns< ::pio::Signal, A >::
+  const typename pointer_query_columns< ::pio::Signal, A >::group_type_
+  pointer_query_columns< ::pio::Signal, A >::
   group (A::table_name, "\"group\"", 0);
 
   template <typename A>
-  const typename query_columns< ::pio::Signal, A >::times_type_
-  query_columns< ::pio::Signal, A >::
+  const typename pointer_query_columns< ::pio::Signal, A >::times_type_
+  pointer_query_columns< ::pio::Signal, A >::
   times (A::table_name, "\"times\"", 0);
 
   template <typename A>
-  const typename query_columns< ::pio::Signal, A >::type_type_
-  query_columns< ::pio::Signal, A >::
+  const typename pointer_query_columns< ::pio::Signal, A >::nodes_type_
+  pointer_query_columns< ::pio::Signal, A >::
+  nodes (A::table_name, "\"nodes\"", 0);
+
+  template <typename A>
+  const typename pointer_query_columns< ::pio::Signal, A >::type_type_
+  pointer_query_columns< ::pio::Signal, A >::
   type (A::table_name, "\"type\"", 0);
 
   template <typename A>
-  const typename query_columns< ::pio::Signal, A >::offset_type_
-  query_columns< ::pio::Signal, A >::
+  const typename pointer_query_columns< ::pio::Signal, A >::offset_type_
+  pointer_query_columns< ::pio::Signal, A >::
   offset (A::table_name, "\"offset\"", 0);
-
-  template <typename A>
-  struct pointer_query_columns< ::pio::Signal, A >:
-    query_columns< ::pio::Signal, A >
-  {
-  };
 
   template <>
   class access::object_traits< ::pio::Signal >
@@ -4954,6 +4965,11 @@ namespace odb
       //
       long long times_value;
       bool times_null;
+
+      // nodes
+      //
+      long long nodes_value;
+      bool nodes_null;
 
       // type
       //
@@ -5103,7 +5119,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 5UL;
+    static const std::size_t column_count = 6UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -16397,6 +16413,159 @@ namespace odb
   query_columns< ::pio::Sign, A >::
   sign (A::table_name, "\"sign\"", 0);
 
+  // Signal
+  //
+  class nodes_alias_tag;
+
+#ifndef ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
+#define ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
+  template <bool d>
+  struct alias_traits< ::pio::Node, nodes_alias_tag, d >
+  {
+    static const char table_name[];
+  };
+
+  template <bool d>
+  const char alias_traits< ::pio::Node, nodes_alias_tag, d >::
+  table_name[] = "\"nodes\"";
+#endif // ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
+
+  template <>
+  struct query_columns_base< ::pio::Signal >
+  {
+    // nodes
+    //
+    typedef
+    odb::alias_traits< ::pio::Node, nodes_alias_tag >
+    nodes_alias_;
+  };
+
+  template <typename A>
+  struct query_columns< ::pio::Signal, A >:
+    query_columns_base< ::pio::Signal >
+  {
+    // signal
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    signal_type_;
+
+    static const signal_type_ signal;
+
+    // group
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    group_type_;
+
+    static const group_type_ group;
+
+    // times
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    times_type_;
+
+    static const times_type_ times;
+
+    // nodes
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    nodes_column_type_;
+
+    typedef
+    odb::query_pointer<
+      odb::pointer_query_columns<
+        ::pio::Node,
+        nodes_alias_ > >
+    nodes_pointer_type_;
+
+    struct nodes_type_: nodes_pointer_type_, nodes_column_type_
+    {
+      nodes_type_ ()
+      {
+      }
+
+      nodes_type_ (const char* t, const char* c, const char* conv)
+        : nodes_column_type_ (t, c, conv)
+      {
+      }
+    };
+
+    static const nodes_type_ nodes;
+
+    // type
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
+    type_type_;
+
+    static const type_type_ type;
+
+    // offset
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    offset_type_;
+
+    static const offset_type_ offset;
+  };
+
+  template <typename A>
+  const typename query_columns< ::pio::Signal, A >::signal_type_
+  query_columns< ::pio::Signal, A >::
+  signal (A::table_name, "\"signal\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Signal, A >::group_type_
+  query_columns< ::pio::Signal, A >::
+  group (A::table_name, "\"group\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Signal, A >::times_type_
+  query_columns< ::pio::Signal, A >::
+  times (A::table_name, "\"times\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Signal, A >::nodes_type_
+  query_columns< ::pio::Signal, A >::
+  nodes (A::table_name, "\"nodes\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Signal, A >::type_type_
+  query_columns< ::pio::Signal, A >::
+  type (A::table_name, "\"type\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::Signal, A >::offset_type_
+  query_columns< ::pio::Signal, A >::
+  offset (A::table_name, "\"offset\"", 0);
+
   // Timing
   //
   class signal_alias_tag;
@@ -17902,21 +18071,6 @@ namespace odb
   const char alias_traits< ::pio::Veh_Type, veh_type_alias_tag, d >::
   table_name[] = "\"veh_type\"";
 #endif // ODB_ALIAS_TRAITS_VEH_TYPE_FOR_PIO_VEH_TYPE
-
-  class nodes_alias_tag;
-
-#ifndef ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
-#define ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
-  template <bool d>
-  struct alias_traits< ::pio::Node, nodes_alias_tag, d >
-  {
-    static const char table_name[];
-  };
-
-  template <bool d>
-  const char alias_traits< ::pio::Node, nodes_alias_tag, d >::
-  table_name[] = "\"nodes\"";
-#endif // ODB_ALIAS_TRAITS_NODES_FOR_PIO_NODE
 
   class node_alias_tag;
 

@@ -14360,9 +14360,13 @@ namespace odb
     //
     t[2UL] = false;
 
+    // nodes
+    //
+    t[3UL] = false;
+
     // type
     //
-    if (t[3UL])
+    if (t[4UL])
     {
       i.type_value.capacity (i.type_size);
       grew = true;
@@ -14370,7 +14374,7 @@ namespace odb
 
     // offset
     //
-    t[4UL] = false;
+    t[5UL] = false;
 
     return grew;
   }
@@ -14408,6 +14412,13 @@ namespace odb
     b[n].type = sqlite::bind::integer;
     b[n].buffer = &i.times_value;
     b[n].is_null = &i.times_null;
+    n++;
+
+    // nodes
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.nodes_value;
+    b[n].is_null = &i.nodes_null;
     n++;
 
     // type
@@ -14498,6 +14509,33 @@ namespace odb
       i.times_null = is_null;
     }
 
+    // nodes
+    //
+    {
+      ::std::tr1::shared_ptr< ::pio::Node > const& v =
+        o.nodes;
+
+      typedef object_traits< ::pio::Node > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Node > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.nodes_value,
+          is_null,
+          id);
+        i.nodes_null = is_null;
+      }
+      else
+        i.nodes_null = true;
+    }
+
     // type
     //
     {
@@ -14585,6 +14623,36 @@ namespace odb
         i.times_null);
     }
 
+    // nodes
+    //
+    {
+      ::std::tr1::shared_ptr< ::pio::Node >& v =
+        o.nodes;
+
+      typedef object_traits< ::pio::Node > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::pio::Node > > ptr_traits;
+
+      if (i.nodes_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.nodes_value,
+          i.nodes_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          db->load< obj_traits::object_type > (id));
+      }
+    }
+
     // type
     //
     {
@@ -14645,15 +14713,17 @@ namespace odb
   "\"signal\","
   "\"group\","
   "\"times\","
+  "\"nodes\","
   "\"type\","
   "\"offset\")"
-  " VALUES (?,?,?,?,?)";
+  " VALUES (?,?,?,?,?,?)";
 
   const char access::object_traits< ::pio::Signal >::find_statement[] =
   "SELECT "
   "\"Signal\".\"signal\","
   "\"Signal\".\"group\","
   "\"Signal\".\"times\","
+  "\"Signal\".\"nodes\","
   "\"Signal\".\"type\","
   "\"Signal\".\"offset\""
   " FROM \"Signal\""
@@ -14663,6 +14733,7 @@ namespace odb
   "UPDATE \"Signal\" SET "
   "\"group\"=?,"
   "\"times\"=?,"
+  "\"nodes\"=?,"
   "\"type\"=?,"
   "\"offset\"=?"
   " WHERE \"signal\"=?";
@@ -14676,9 +14747,11 @@ namespace odb
   "\"Signal\".\"signal\","
   "\"Signal\".\"group\","
   "\"Signal\".\"times\","
+  "\"Signal\".\"nodes\","
   "\"Signal\".\"type\","
   "\"Signal\".\"offset\""
   " FROM \"Signal\""
+  " LEFT JOIN \"Node\" AS \"nodes\" ON \"nodes\".\"node\"=\"Signal\".\"nodes\""
   " ";
 
   const char access::object_traits< ::pio::Signal >::erase_query_statement[] =
@@ -15122,8 +15195,13 @@ namespace odb
                       "  \"signal\" INTEGER NOT NULL PRIMARY KEY,\n"
                       "  \"group\" INTEGER NOT NULL,\n"
                       "  \"times\" INTEGER NOT NULL,\n"
+                      "  \"nodes\" INTEGER,\n"
                       "  \"type\" TEXT NOT NULL,\n"
-                      "  \"offset\" INTEGER NOT NULL)");
+                      "  \"offset\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"nodes_fk\"\n"
+                      "    FOREIGN KEY (\"nodes\")\n"
+                      "    REFERENCES \"Node\" (\"node\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED)");
           db.execute ("CREATE INDEX \"Signal_signal_i\"\n"
                       "  ON \"Signal\" (\"signal\")");
           db.execute ("CREATE TABLE \"Signal_nested_records\" (\n"

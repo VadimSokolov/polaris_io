@@ -762,8 +762,8 @@ public:
 	// Default Constructor
 	Signal () {}	
 	//Contructor
-	Signal ( int signal_, int group_, int times_, std::string type_, int offset_ )  
-	: signal (signal_), group (group_), times (times_), type (type_), offset (offset_)
+	Signal ( int signal_, int group_, int times_, shared_ptr<Node> nodes_, std::string type_, int offset_ )  
+	: signal (signal_), group (group_), times (times_), nodes (nodes_), type (type_), offset (offset_)
 	{
 	}
 	//Accessors
@@ -773,6 +773,9 @@ public:
 	void setGroup (const int& group_){group = group_;}
 	const int& getTimes () const {return times;}
 	void setTimes (const int& times_){times = times_;}
+	const shared_ptr<Node>& getNodes () const {return nodes;}
+	void setNodes (const shared_ptr<Node>& nodes_){nodes = nodes_;}
+	void setNodes (const int& nodes_, InputContainer& container){nodes = container.Nodes[nodes_];}
 	const std::string& getType () const {return type;}
 	void setType (const std::string& type_){type = type_;}
 	const int& getOffset () const {return offset;}
@@ -790,6 +793,7 @@ private:
 	int signal;
 	int group;
 	int times;
+	shared_ptr<Node> nodes;
 	std::string type;
 	int offset;
 	#pragma db index member(signal)

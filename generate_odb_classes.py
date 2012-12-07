@@ -35,6 +35,7 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 	key_type = "unsigned long"
 	key_field = "auto_id"
 	auto_primary_key_member = "\n\t#pragma db id auto\n\t%s %s;"%(key_type, key_field)
+	unique_fields = set()
 	
 	if transims_class_name in nested_records_init:
 		nested_fields = []
@@ -42,13 +43,20 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 		nested_field_accessors = []
 		nested_records[transims_class_name] = [nested_records_init[transims_class_name][0], nested_fields, nested_field_types, nested_field_accessors]
 	for i in range(len(fields)):
+		field =  fields[i]
+		if field in unique_fields:
+			continue
+		else:
+			unique_fields.add(field)
 		nested_flag = False
 		mapping_info = None
 		conversion_info = None
-		field =  fields[i]
+		
 		type = types[i]
 		accessor = accessors[i]
 		if type in type_map:
+			if type=="String":
+				a = 5
 			mapping_info = type_map[type]
 			type = mapping_info[0]
 		if (transims_class_name, field) in field_conversion:
@@ -56,7 +64,7 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 			type = conversion_info[0]
 		original_type = ""
 		if transims_class_name in nested_records_init and field in nested_records_init[transims_class_name][1]:
-			print "A nested field %s relation %s will be processed separately"%(field, transims_class_name)
+			# print "A nested field %s relation %s will be processed separately"%(field, transims_class_name)
 			nested_flag = True
 			
 		ref_type = ""
@@ -81,7 +89,7 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 		if original_type != "":			
 			converter = "container.%ss[file.%s()]"%(ref_type, accessor)
 		elif mapping_info is not None:
-			converter = "file.%s().%s()"%(accessor, mapping_info[2])
+			converter = "file.%s().%s"%(accessor, mapping_info[2])
 		elif conversion_info is not None:
 			converter = "%s(%sfile.%s())"%(conversion_info[1],conversion_info[2], accessor)
 		else: 
@@ -115,10 +123,13 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 		if original_type != "":			
 			odb_accessors += "\tvoid set%s (const %s& %s_, %s& container){%s = container.%ss[%s_];}\n"%(field.title(),original_type, field, container_type,field,ref_type,field)
 			#odb_accessors += "\tconst %s& get%s () const {return %s;}\n"%(type, field.title(), field)
-			adpater_method += "\n\tresult->set%s(file.%s (), container); "%(field.title(), accessor)
 			actual_ref_types.append(ref_type)
+			if mapping_info is not None:
+				adpater_method += "\n\tresult->set%s(file.%s ().%s, container); "%(field.title(), accessor, mapping_info[2])
+			else:
+				adpater_method += "\n\tresult->set%s(file.%s (), container); "%(field.title(), accessor)	
 		elif mapping_info is not None:
-			adpater_method += "\n\tresult->set%s(file.%s ().%s()); "%(field.title(), accessor, mapping_info[2])
+			adpater_method += "\n\tresult->set%s(file.%s ().%s); "%(field.title(), accessor, mapping_info[2])
 		elif conversion_info is not None:
 			adpater_method += "\n\tresult->set%s(%s(%sfile.%s())); "%( field.title(), conversion_info[1],conversion_info[2], accessor)
 		else: 
@@ -133,6 +144,7 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 	if transims_class_name in nested_records:
 		odb_accessors += "\n\n\t//Vector that contains the associated nested records\n"
 		odb_accessors += "\t std::vector<%s> nested_records;\n"%(nested_records[transims_class_name][0])
+	
 		
 
 	odb_code = """
@@ -179,7 +191,7 @@ if len(sys.argv) < 2:
 #	         	Initialization 					  #
 ###################################################	
 #this pattern is applied to *_File.hpp file to extract the fileds
-file_class_member_p = re.compile("(char|bool|int|string|double|float|short|Dtime)\s*(\w+).*Get_\w+\s*\((\w+)\)")
+file_class_member_p = re.compile("(char|bool|int|string|double|float|short|Dtime|String)\s*(\w+).*Get_\w+\s*\((\w+)\)")
 #this template is applied to File_Service.hpp file to exract the names of *_File objects
 p_tables = re.compile("#include\s*\"(\w+)_File\.hpp\"")	
 odb_namespace = "pio"
@@ -201,7 +213,7 @@ true_primary_keys = [("Veh_Type", "type")]
 # (type, field) -> foreign key to relation
 true_ref_fields_types = {("Trip","origin"):"Location", ("Trip","destination"):"Location",("Vehicle", "type"):"Veh_Type"}
 #transims type -> (polaris type, transims type, transms type getter)
-type_map = {"Dtime":("double", "Dtime", "Seconds")}
+type_map = {"Dtime":("double", "Dtime", "Seconds()"), "String":("int", "String", "Integer()")}
 # (type,field) -> (new type, conversion method, class to cast to)
 field_conversion = {("Connect","lanes"):("string", "Static_Service::Lane_Range_Code", "")}
 field_conversion[("Connect","to_lanes")] = ("string", "Static_Service::Lane_Range_Code","")
@@ -274,7 +286,7 @@ for i in range(len(types)):
 	if item not in actual_ref_types:
 		continue
 	input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(type_primary_key_types[item],item, item)
-print nested_records
+# print nested_records
 for transims_type in nested_records:
 	data = nested_records[transims_type]
 	nscn = "%s::%s"%(odb_namespace,data[0])

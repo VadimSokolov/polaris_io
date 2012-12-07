@@ -199,6 +199,7 @@ shared_ptr<pio::Signal> Adapter( Signal_File &file, pio::InputContainer& contain
 	result->setSignal(file.Signal ()); 
 	result->setGroup(file.Group ()); 
 	result->setTimes(file.Times ()); 
+	result->setNodes(file.Nodes ().Integer(), container); 
 	result->setType(Static_Service::Signal_Code((Signal_Type)file.Type())); 
 	result->setOffset(file.Offset ());
 	return result;
@@ -260,12 +261,12 @@ shared_ptr<pio::Stop> Adapter( Stop_File &file, pio::InputContainer& container)
 shared_ptr<pio::Fare> Adapter( Fare_File &file, pio::InputContainer& container) 
 {
 	shared_ptr<pio::Fare> result (new pio::Fare ());
-	result->setFrom_Zone(file.iFrom_Zone (), container); 
-	result->setTo_Zone(file.iTo_Zone (), container); 
-	result->setFrom_Mode(file.iFrom_Mode ()); 
-	result->setTo_Mode(file.iTo_Mode ()); 
-	result->setPeriod(file.iPeriod ()); 
-	result->setType(file.iClass ()); 
+	result->setFrom_Zone(file.From_Zone ().Integer(), container); 
+	result->setTo_Zone(file.To_Zone ().Integer(), container); 
+	result->setFrom_Mode(file.From_Mode ().Integer()); 
+	result->setTo_Mode(file.To_Mode ().Integer()); 
+	result->setPeriod(file.Period ().Integer()); 
+	result->setType(file.Class ().Integer()); 
 	result->setFare(file.Fare ());
 	return result;
 }
