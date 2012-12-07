@@ -212,16 +212,7 @@ shared_ptr<pio::Timing> Adapter( Timing_File &file, pio::InputContainer& contain
 	result->setType(file.Type ()); 
 	result->setCycle(file.Cycle ()); 
 	result->setOffset(file.Offset ()); 
-	result->setPhases(file.Phases ()); 
-	result->setPhase(file.Phase ()); 
-	result->setBarrier(file.Barrier ()); 
-	result->setRing(file.Ring ()); 
-	result->setPosition(file.Position ()); 
-	result->setMinimum(file.Min_Green ()); 
-	result->setMaximum(file.Max_Green ()); 
-	result->setExtend(file.Extension ()); 
-	result->setYellow(file.Yellow ()); 
-	result->setRed(file.All_Red ());
+	result->setPhases(file.Phases ());
 	return result;
 }
 //Converter for Phasing
@@ -232,12 +223,7 @@ shared_ptr<pio::Phasing> Adapter( Phasing_File &file, pio::InputContainer& conta
 	result->setPhasing(file.Phasing ()); 
 	result->setPhase(file.Phase ()); 
 	result->setDetectors(file.Detectors ()); 
-	result->setMovements(file.Movements ()); 
-	result->setMovement(Static_Service::Movement_Code((Movement_Type)file.Movement())); 
-	result->setLink(file.Link (), container); 
-	result->setDir(file.Dir ()); 
-	result->setTo_Link(file.To_Link (), container); 
-	result->setProtect(file.Protection ());
+	result->setMovements(file.Movements ());
 	return result;
 }
 //Converter for Detector
@@ -580,7 +566,21 @@ shared_ptr<pio::TripNoRef> AdapterNoRef( Trip_File &file, pio::InputContainer& c
 	result->setPartition(file.Partition ());
 	return result;
 }
-pio::shape_geometry AdapterNested(Shape_File &file)
+pio::timing_phase AdapterNested(Timing_File &file, pio::InputContainer& container)
+{
+	pio::timing_phase nested_record;
+	nested_record.phase = file.Phase ();
+	nested_record.barrier = file.Barrier ();
+	nested_record.ring = file.Ring ();
+	nested_record.position = file.Position ();
+	nested_record.minimum = file.Min_Green ();
+	nested_record.maximum = file.Max_Green ();
+	nested_record.extend = file.Extension ();
+	nested_record.yellow = file.Yellow ();
+	nested_record.red = file.All_Red ();
+	return nested_record;
+};
+pio::shape_geometry AdapterNested(Shape_File &file, pio::InputContainer& container)
 {
 	pio::shape_geometry nested_record;
 	nested_record.x = file.X ();
@@ -588,13 +588,22 @@ pio::shape_geometry AdapterNested(Shape_File &file)
 	nested_record.z = file.Z ();
 	return nested_record;
 };
-pio::signal_time AdapterNested(Signal_File &file)
+pio::signal_time AdapterNested(Signal_File &file, pio::InputContainer& container)
 {
 	pio::signal_time nested_record;
-	nested_record.start = file.Start().Seconds ();
-	nested_record.end = file.End().Seconds ();
+	nested_record.start = file.Start().Seconds();
+	nested_record.end = file.End().Seconds();
 	nested_record.timing = file.Timing ();
 	nested_record.phasing = file.Phasing ();
-	nested_record.notes = file.Notes ();
+	return nested_record;
+};
+pio::phase_movement AdapterNested(Phasing_File &file, pio::InputContainer& container)
+{
+	pio::phase_movement nested_record;
+	nested_record.movement = Static_Service::Movement_Code((Movement_Type)file.Movement());
+	nested_record.link = container.Links[file.Link()];
+	nested_record.dir = file.Dir ();
+	nested_record.to_link = container.Links[file.To_Link()];
+	nested_record.protect = Static_Service::Protection_Code((Protection_Type)file.Protection());
 	return nested_record;
 };

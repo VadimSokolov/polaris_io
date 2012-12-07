@@ -36,7 +36,13 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 	key_field = "auto_id"
 	auto_primary_key_member = "\n\t#pragma db id auto\n\t%s %s;"%(key_type, key_field)
 	
+	if transims_class_name in nested_records_init:
+		nested_fields = []
+		nested_field_types = []
+		nested_field_accessors = []
+		nested_records[transims_class_name] = [nested_records_init[transims_class_name][0], nested_fields, nested_field_types, nested_field_accessors]
 	for i in range(len(fields)):
+		nested_flag = False
 		mapping_info = None
 		conversion_info = None
 		field =  fields[i]
@@ -49,13 +55,10 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 			conversion_info = field_conversion[(transims_class_name, field)]
 			type = conversion_info[0]
 		original_type = ""
-		if transims_class_name in nested_records and field in nested_records[transims_class_name][1]:
-			print "A nested field %s was skipped for relation %s"%(field, transims_class_name)
-			continue
-		#skip the geometry
-		# if field in ["x", "y", "z"]:
-			# print "A geo field %s was skipped for relation %s"%(field, transims_class_name)
-			# continue
+		if transims_class_name in nested_records_init and field in nested_records_init[transims_class_name][1]:
+			print "A nested field %s relation %s will be processed separately"%(field, transims_class_name)
+			nested_flag = True
+			
 		ref_type = ""
 		#check if this field is a foreign key
 		for item in potential_ref_types:
@@ -67,11 +70,30 @@ def generate(cpp_path, transims_class_name, ref_flag=True, polaris_class_name=No
 		if not ref_flag:
 			ref_type = ""
 		
+		#define type
 		if ref_type!="" and field != transims_class_name.lower():
 			original_type = type
 			type = "shared_ptr<%s>"%ref_type
 		if type == "string":
-			type = "std::string"
+			type = "std::string"			
+		#define converter
+		converter = ""
+		if original_type != "":			
+			converter = "container.%ss[file.%s()]"%(ref_type, accessor)
+		elif mapping_info is not None:
+			converter = "file.%s().%s()"%(accessor, mapping_info[2])
+		elif conversion_info is not None:
+			converter = "%s(%sfile.%s())"%(conversion_info[1],conversion_info[2], accessor)
+		else: 
+			converter = "file.%s ()"%(accessor)
+			
+		if nested_flag:
+			nested_fields.append(field)
+			nested_field_types.append(type)
+			nested_field_accessors.append(converter)
+			continue
+		
+
 		if type == "string":
 			constructor1 += "const std::string&"
 		else:
@@ -189,11 +211,17 @@ field_conversion[("Signal","type")] = ("string", "Static_Service::Signal_Code","
 field_conversion[("Sign","sign")] = ("string", "Static_Service::Control_Code","(Control_Type)")
 field_conversion[("Phasing","movement")] = ("string", "Static_Service::Movement_Code","(Movement_Type)")
 field_conversion[("Pocket","type")] = ("string", "Static_Service::Pocket_Code","(Pocket_Type)")
+field_conversion[("Phasing","protect")] = ("string", "Static_Service::Protection_Code","(Protection_Type)")
 
 # type -> [nested_type, (field1, field2,...), (TypeOffield1, TypeOffield2,...), (field1Getter, field2Getter,...)]
 # example: shape -> (shape_geometry, (x,y,x))
-nested_records = {"Shape":("shape_geometry",("x","y","z"),("double", "double", "double"),("X","Y","Z"))}
-nested_records["Signal"] = ("signal_time",("start", "end", "timing", "phasing", "notes"),("double", "double", "int", "int", "std::string"),("Start().Seconds", "End().Seconds", "Timing", "Phasing", "Notes"))
+nested_records = {}
+nested_records_init = {}
+nested_records_init["Shape"]   = ["shape_geometry", ("x","y","z")]#,("double", "double", "double"),("file.X()","file.Y()","file.Z()"))}
+nested_records_init["Signal"]  = ["signal_time",    ("start", "end", "timing", "phasing", "notes")]#,("double", "double", "int", "int", "std::string"),("file.Start().Seconds()", "file.End().Seconds()", "file.Timing()", "file.Phasing()", "file.Notes()"))
+nested_records_init["Phasing"] = ["phase_movement", ("link", "dir", "to_link", "protect", "movement")]#,("shared_ptr<Link>", "int", "shared_ptr<Link>", "int", "std::string"),("container.Links[file.Link()]", "file.dir()", "container.Links[file.To_Link()]", "file.Protection()", "Static_Service::Movement_Code((Movement_Type)file.Movement())"))
+nested_records_init["Timing"] = ["timing_phase", ("phase", "barrier", "ring", "position", "minimum", "maximum","extend","yellow","red")]
+
 
 if len(sys.argv)!=2:
 	print "The path to the SysLib Include folder was not provided. Exiting... "
@@ -246,15 +274,15 @@ for i in range(len(types)):
 	if item not in actual_ref_types:
 		continue
 	input_container += "\tstd::map<%s,shared_ptr<%s>> %ss;\n"%(type_primary_key_types[item],item, item)
-
+print nested_records
 for transims_type in nested_records:
 	data = nested_records[transims_type]
 	nscn = "%s::%s"%(odb_namespace,data[0])
-	nested_adapter_code += "%s AdapterNested(%s_File &file)\n{\n\t%s nested_record;\n"%(nscn, transims_type, nscn)
+	nested_adapter_code += "%s AdapterNested(%s_File &file, pio::InputContainer& container)\n{\n\t%s nested_record;\n"%(nscn, transims_type, nscn)
 	nested_classes_code += "#pragma db value\nclass %s\n{\npublic:\n"%data[0]
 	for i in range(len(data[1])):
 		nested_classes_code += "\t%s %s;\n"%(data[2][i],data[1][i])
-		nested_adapter_code += "\tnested_record.%s = file.%s ();\n"%(data[1][i], data[3][i])
+		nested_adapter_code += "\tnested_record.%s = %s;\n"%(data[1][i], data[3][i])
 	nested_classes_code += "};\n"
 	nested_adapter_code += "\treturn nested_record;\n};\n"
 #write content to the files
@@ -276,8 +304,8 @@ odb_fh.write("""
 using std::tr1::shared_ptr;
 """)
 odb_fh.write("namespace %s\n{\n"%odb_namespace)	
-odb_fh.write(nested_classes_code)	
 odb_fh.write("//Forward declarations.\n//\n"+forward_declarations)
+odb_fh.write(nested_classes_code)	
 odb_fh.write("//Input Container.\n//\n"+input_container+"};\n")
 odb_fh.write(odb_code)
 odb_fh.write("\n}//end of namespace\n") #close namespace bracket

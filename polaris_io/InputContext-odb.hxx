@@ -41,6 +41,87 @@
 
 namespace odb
 {
+  // timing_phase
+  //
+  template <>
+  struct class_traits< ::pio::timing_phase >
+  {
+    static const class_kind kind = class_composite;
+  };
+
+  template <>
+  class access::composite_value_traits< ::pio::timing_phase >
+  {
+    public:
+    typedef ::pio::timing_phase value_type;
+
+    struct image_type
+    {
+      // phase
+      //
+      long long phase_value;
+      bool phase_null;
+
+      // barrier
+      //
+      long long barrier_value;
+      bool barrier_null;
+
+      // ring
+      //
+      long long ring_value;
+      bool ring_null;
+
+      // position
+      //
+      long long position_value;
+      bool position_null;
+
+      // minimum
+      //
+      long long minimum_value;
+      bool minimum_null;
+
+      // maximum
+      //
+      long long maximum_value;
+      bool maximum_null;
+
+      // extend
+      //
+      long long extend_value;
+      bool extend_null;
+
+      // yellow
+      //
+      long long yellow_value;
+      bool yellow_null;
+
+      // red
+      //
+      long long red_value;
+      bool red_null;
+    };
+
+    static bool
+    grow (image_type&, bool*);
+
+    static void
+    bind (sqlite::bind*, image_type&, sqlite::statement_kind);
+
+    static bool
+    init (image_type&, const value_type&, sqlite::statement_kind);
+
+    static void
+    init (value_type&, const image_type&, database*);
+
+    static bool
+    get_null (const image_type&);
+
+    static void
+    set_null (image_type&, sqlite::statement_kind);
+  };
+
   // shape_geometry
   //
   template <>
@@ -127,12 +208,69 @@ namespace odb
       //
       long long phasing_value;
       bool phasing_null;
+    };
 
-      // notes
+    static bool
+    grow (image_type&, bool*);
+
+    static void
+    bind (sqlite::bind*, image_type&, sqlite::statement_kind);
+
+    static bool
+    init (image_type&, const value_type&, sqlite::statement_kind);
+
+    static void
+    init (value_type&, const image_type&, database*);
+
+    static bool
+    get_null (const image_type&);
+
+    static void
+    set_null (image_type&, sqlite::statement_kind);
+  };
+
+  // phase_movement
+  //
+  template <>
+  struct class_traits< ::pio::phase_movement >
+  {
+    static const class_kind kind = class_composite;
+  };
+
+  template <>
+  class access::composite_value_traits< ::pio::phase_movement >
+  {
+    public:
+    typedef ::pio::phase_movement value_type;
+
+    struct image_type
+    {
+      // movement
       //
-      details::buffer notes_value;
-      std::size_t notes_size;
-      bool notes_null;
+      details::buffer movement_value;
+      std::size_t movement_size;
+      bool movement_null;
+
+      // link
+      //
+      long long link_value;
+      bool link_null;
+
+      // dir
+      //
+      long long dir_value;
+      bool dir_null;
+
+      // to_link
+      //
+      long long to_link_value;
+      bool to_link_null;
+
+      // protect
+      //
+      details::buffer protect_value;
+      std::size_t protect_size;
+      bool protect_null;
     };
 
     static bool
@@ -4837,7 +4975,7 @@ namespace odb
     {
       static const std::size_t id_column_count = 1UL;
       static const std::size_t cond_column_count = 1UL;
-      static const std::size_t data_column_count = 7UL;
+      static const std::size_t data_column_count = 6UL;
 
       static const char insert_one_statement[];
       static const char select_all_statement[];
@@ -5118,114 +5256,6 @@ namespace odb
     phases_type_;
 
     static const phases_type_ phases;
-
-    // phase
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    phase_type_;
-
-    static const phase_type_ phase;
-
-    // barrier
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    barrier_type_;
-
-    static const barrier_type_ barrier;
-
-    // ring
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    ring_type_;
-
-    static const ring_type_ ring;
-
-    // position
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    position_type_;
-
-    static const position_type_ position;
-
-    // minimum
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    minimum_type_;
-
-    static const minimum_type_ minimum;
-
-    // maximum
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    maximum_type_;
-
-    static const maximum_type_ maximum;
-
-    // extend
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    extend_type_;
-
-    static const extend_type_ extend;
-
-    // yellow
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    yellow_type_;
-
-    static const yellow_type_ yellow;
-
-    // red
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    red_type_;
-
-    static const red_type_ red;
   };
 
   template <typename A>
@@ -5262,51 +5292,6 @@ namespace odb
   const typename pointer_query_columns< ::pio::Timing, A >::phases_type_
   pointer_query_columns< ::pio::Timing, A >::
   phases (A::table_name, "\"phases\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::phase_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  phase (A::table_name, "\"phase\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::barrier_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  barrier (A::table_name, "\"barrier\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::ring_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  ring (A::table_name, "\"ring\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::position_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  position (A::table_name, "\"position\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::minimum_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  minimum (A::table_name, "\"minimum\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::maximum_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  maximum (A::table_name, "\"maximum\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::extend_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  extend (A::table_name, "\"extend\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::yellow_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  yellow (A::table_name, "\"yellow\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Timing, A >::red_type_
-  pointer_query_columns< ::pio::Timing, A >::
-  red (A::table_name, "\"red\"", 0);
 
   template <>
   class access::object_traits< ::pio::Timing >
@@ -5368,52 +5353,102 @@ namespace odb
       long long phases_value;
       bool phases_null;
 
-      // phase
-      //
-      long long phase_value;
-      bool phase_null;
-
-      // barrier
-      //
-      long long barrier_value;
-      bool barrier_null;
-
-      // ring
-      //
-      long long ring_value;
-      bool ring_null;
-
-      // position
-      //
-      long long position_value;
-      bool position_null;
-
-      // minimum
-      //
-      long long minimum_value;
-      bool minimum_null;
-
-      // maximum
-      //
-      long long maximum_value;
-      bool maximum_null;
-
-      // extend
-      //
-      long long extend_value;
-      bool extend_null;
-
-      // yellow
-      //
-      long long yellow_value;
-      bool yellow_null;
-
-      // red
-      //
-      long long red_value;
-      bool red_null;
-
       std::size_t version;
+    };
+
+    // nested_records
+    //
+    struct nested_records_traits
+    {
+      static const std::size_t id_column_count = 1UL;
+      static const std::size_t cond_column_count = 1UL;
+      static const std::size_t data_column_count = 11UL;
+
+      static const char insert_one_statement[];
+      static const char select_all_statement[];
+      static const char delete_all_statement[];
+
+      typedef ::std::vector< ::pio::timing_phase > container_type;
+      typedef
+      odb::access::container_traits<container_type>
+      container_traits_type;
+      typedef container_traits_type::index_type index_type;
+      typedef container_traits_type::value_type value_type;
+
+      typedef ordered_functions<index_type, value_type> functions_type;
+      typedef sqlite::container_statements< nested_records_traits > statements_type;
+
+      struct cond_image_type
+      {
+        // index
+        //
+        long long index_value;
+        bool index_null;
+
+        std::size_t version;
+      };
+
+      struct data_image_type
+      {
+        // index
+        //
+        long long index_value;
+        bool index_null;
+
+        // value
+        //
+        composite_value_traits< value_type >::image_type value_value;
+
+        std::size_t version;
+      };
+
+      static void
+      bind (sqlite::bind*,
+            const sqlite::bind* id,
+            std::size_t id_size,
+            cond_image_type&);
+
+      static void
+      bind (sqlite::bind*,
+            const sqlite::bind* id,
+            std::size_t id_size,
+            data_image_type&);
+
+      static void
+      grow (data_image_type&, bool*);
+
+      static void
+      init (data_image_type&, index_type, const value_type&);
+
+      static void
+      init (index_type&, value_type&, const data_image_type&, database*);
+
+      static void
+      insert_one (index_type, const value_type&, void*);
+
+      static bool
+      load_all (index_type&, value_type&, void*);
+
+      static void
+      delete_all (void*);
+
+      static void
+      persist (const container_type&,
+               const sqlite::binding& id,
+               statements_type&);
+
+      static void
+      load (container_type&,
+            const sqlite::binding& id,
+            statements_type&);
+
+      static void
+      update (const container_type&,
+              const sqlite::binding& id,
+              statements_type&);
+
+      static void
+      erase (const sqlite::binding& id, statements_type&);
     };
 
     static id_type
@@ -5455,7 +5490,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 16UL;
+    static const std::size_t column_count = 7UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -5596,66 +5631,6 @@ namespace odb
     movements_type_;
 
     static const movements_type_ movements;
-
-    // movement
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        ::std::string,
-        sqlite::id_text >::query_type,
-      sqlite::id_text >
-    movement_type_;
-
-    static const movement_type_ movement;
-
-    // link
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    link_type_;
-
-    static const link_type_ link;
-
-    // dir
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    dir_type_;
-
-    static const dir_type_ dir;
-
-    // to_link
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    to_link_type_;
-
-    static const to_link_type_ to_link;
-
-    // protect
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    protect_type_;
-
-    static const protect_type_ protect;
   };
 
   template <typename A>
@@ -5687,31 +5662,6 @@ namespace odb
   const typename pointer_query_columns< ::pio::Phasing, A >::movements_type_
   pointer_query_columns< ::pio::Phasing, A >::
   movements (A::table_name, "\"movements\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Phasing, A >::movement_type_
-  pointer_query_columns< ::pio::Phasing, A >::
-  movement (A::table_name, "\"movement\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Phasing, A >::link_type_
-  pointer_query_columns< ::pio::Phasing, A >::
-  link (A::table_name, "\"link\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Phasing, A >::dir_type_
-  pointer_query_columns< ::pio::Phasing, A >::
-  dir (A::table_name, "\"dir\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Phasing, A >::to_link_type_
-  pointer_query_columns< ::pio::Phasing, A >::
-  to_link (A::table_name, "\"to_link\"", 0);
-
-  template <typename A>
-  const typename pointer_query_columns< ::pio::Phasing, A >::protect_type_
-  pointer_query_columns< ::pio::Phasing, A >::
-  protect (A::table_name, "\"protect\"", 0);
 
   template <>
   class access::object_traits< ::pio::Phasing >
@@ -5769,33 +5719,102 @@ namespace odb
       long long movements_value;
       bool movements_null;
 
-      // movement
-      //
-      details::buffer movement_value;
-      std::size_t movement_size;
-      bool movement_null;
-
-      // link
-      //
-      long long link_value;
-      bool link_null;
-
-      // dir
-      //
-      long long dir_value;
-      bool dir_null;
-
-      // to_link
-      //
-      long long to_link_value;
-      bool to_link_null;
-
-      // protect
-      //
-      long long protect_value;
-      bool protect_null;
-
       std::size_t version;
+    };
+
+    // nested_records
+    //
+    struct nested_records_traits
+    {
+      static const std::size_t id_column_count = 1UL;
+      static const std::size_t cond_column_count = 1UL;
+      static const std::size_t data_column_count = 7UL;
+
+      static const char insert_one_statement[];
+      static const char select_all_statement[];
+      static const char delete_all_statement[];
+
+      typedef ::std::vector< ::pio::phase_movement > container_type;
+      typedef
+      odb::access::container_traits<container_type>
+      container_traits_type;
+      typedef container_traits_type::index_type index_type;
+      typedef container_traits_type::value_type value_type;
+
+      typedef ordered_functions<index_type, value_type> functions_type;
+      typedef sqlite::container_statements< nested_records_traits > statements_type;
+
+      struct cond_image_type
+      {
+        // index
+        //
+        long long index_value;
+        bool index_null;
+
+        std::size_t version;
+      };
+
+      struct data_image_type
+      {
+        // index
+        //
+        long long index_value;
+        bool index_null;
+
+        // value
+        //
+        composite_value_traits< value_type >::image_type value_value;
+
+        std::size_t version;
+      };
+
+      static void
+      bind (sqlite::bind*,
+            const sqlite::bind* id,
+            std::size_t id_size,
+            cond_image_type&);
+
+      static void
+      bind (sqlite::bind*,
+            const sqlite::bind* id,
+            std::size_t id_size,
+            data_image_type&);
+
+      static void
+      grow (data_image_type&, bool*);
+
+      static void
+      init (data_image_type&, index_type, const value_type&);
+
+      static void
+      init (index_type&, value_type&, const data_image_type&, database*);
+
+      static void
+      insert_one (index_type, const value_type&, void*);
+
+      static bool
+      load_all (index_type&, value_type&, void*);
+
+      static void
+      delete_all (void*);
+
+      static void
+      persist (const container_type&,
+               const sqlite::binding& id,
+               statements_type&);
+
+      static void
+      load (container_type&,
+            const sqlite::binding& id,
+            statements_type&);
+
+      static void
+      update (const container_type&,
+              const sqlite::binding& id,
+              statements_type&);
+
+      static void
+      erase (const sqlite::binding& id, statements_type&);
     };
 
     static id_type
@@ -5837,7 +5856,7 @@ namespace odb
 
     struct container_statement_cache_type;
 
-    static const std::size_t column_count = 11UL;
+    static const std::size_t column_count = 6UL;
     static const std::size_t id_column_count = 1UL;
     static const std::size_t inverse_column_count = 0UL;
     static const std::size_t readonly_column_count = 0UL;
@@ -16511,114 +16530,6 @@ namespace odb
     phases_type_;
 
     static const phases_type_ phases;
-
-    // phase
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    phase_type_;
-
-    static const phase_type_ phase;
-
-    // barrier
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    barrier_type_;
-
-    static const barrier_type_ barrier;
-
-    // ring
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    ring_type_;
-
-    static const ring_type_ ring;
-
-    // position
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    position_type_;
-
-    static const position_type_ position;
-
-    // minimum
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    minimum_type_;
-
-    static const minimum_type_ minimum;
-
-    // maximum
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    maximum_type_;
-
-    static const maximum_type_ maximum;
-
-    // extend
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    extend_type_;
-
-    static const extend_type_ extend;
-
-    // yellow
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    yellow_type_;
-
-    static const yellow_type_ yellow;
-
-    // red
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    red_type_;
-
-    static const red_type_ red;
   };
 
   template <typename A>
@@ -16656,51 +16567,6 @@ namespace odb
   query_columns< ::pio::Timing, A >::
   phases (A::table_name, "\"phases\"", 0);
 
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::phase_type_
-  query_columns< ::pio::Timing, A >::
-  phase (A::table_name, "\"phase\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::barrier_type_
-  query_columns< ::pio::Timing, A >::
-  barrier (A::table_name, "\"barrier\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::ring_type_
-  query_columns< ::pio::Timing, A >::
-  ring (A::table_name, "\"ring\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::position_type_
-  query_columns< ::pio::Timing, A >::
-  position (A::table_name, "\"position\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::minimum_type_
-  query_columns< ::pio::Timing, A >::
-  minimum (A::table_name, "\"minimum\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::maximum_type_
-  query_columns< ::pio::Timing, A >::
-  maximum (A::table_name, "\"maximum\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::extend_type_
-  query_columns< ::pio::Timing, A >::
-  extend (A::table_name, "\"extend\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::yellow_type_
-  query_columns< ::pio::Timing, A >::
-  yellow (A::table_name, "\"yellow\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Timing, A >::red_type_
-  query_columns< ::pio::Timing, A >::
-  red (A::table_name, "\"red\"", 0);
-
   // Phasing
   //
   template <>
@@ -16711,18 +16577,6 @@ namespace odb
     typedef
     odb::alias_traits< ::pio::Signal, signal_alias_tag >
     signal_alias_;
-
-    // link
-    //
-    typedef
-    odb::alias_traits< ::pio::Link, link_alias_tag >
-    link_alias_;
-
-    // to_link
-    //
-    typedef
-    odb::alias_traits< ::pio::Link, to_link_alias_tag >
-    to_link_alias_;
   };
 
   template <typename A>
@@ -16819,104 +16673,6 @@ namespace odb
     movements_type_;
 
     static const movements_type_ movements;
-
-    // movement
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        ::std::string,
-        sqlite::id_text >::query_type,
-      sqlite::id_text >
-    movement_type_;
-
-    static const movement_type_ movement;
-
-    // link
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    link_column_type_;
-
-    typedef
-    odb::query_pointer<
-      odb::pointer_query_columns<
-        ::pio::Link,
-        link_alias_ > >
-    link_pointer_type_;
-
-    struct link_type_: link_pointer_type_, link_column_type_
-    {
-      link_type_ ()
-      {
-      }
-
-      link_type_ (const char* t, const char* c, const char* conv)
-        : link_column_type_ (t, c, conv)
-      {
-      }
-    };
-
-    static const link_type_ link;
-
-    // dir
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    dir_type_;
-
-    static const dir_type_ dir;
-
-    // to_link
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    to_link_column_type_;
-
-    typedef
-    odb::query_pointer<
-      odb::pointer_query_columns<
-        ::pio::Link,
-        to_link_alias_ > >
-    to_link_pointer_type_;
-
-    struct to_link_type_: to_link_pointer_type_, to_link_column_type_
-    {
-      to_link_type_ ()
-      {
-      }
-
-      to_link_type_ (const char* t, const char* c, const char* conv)
-        : to_link_column_type_ (t, c, conv)
-      {
-      }
-    };
-
-    static const to_link_type_ to_link;
-
-    // protect
-    //
-    typedef
-    sqlite::query_column<
-      sqlite::value_traits<
-        int,
-        sqlite::id_integer >::query_type,
-      sqlite::id_integer >
-    protect_type_;
-
-    static const protect_type_ protect;
   };
 
   template <typename A>
@@ -16948,31 +16704,6 @@ namespace odb
   const typename query_columns< ::pio::Phasing, A >::movements_type_
   query_columns< ::pio::Phasing, A >::
   movements (A::table_name, "\"movements\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Phasing, A >::movement_type_
-  query_columns< ::pio::Phasing, A >::
-  movement (A::table_name, "\"movement\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Phasing, A >::link_type_
-  query_columns< ::pio::Phasing, A >::
-  link (A::table_name, "\"link\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Phasing, A >::dir_type_
-  query_columns< ::pio::Phasing, A >::
-  dir (A::table_name, "\"dir\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Phasing, A >::to_link_type_
-  query_columns< ::pio::Phasing, A >::
-  to_link (A::table_name, "\"to_link\"", 0);
-
-  template <typename A>
-  const typename query_columns< ::pio::Phasing, A >::protect_type_
-  query_columns< ::pio::Phasing, A >::
-  protect (A::table_name, "\"protect\"", 0);
 
   // Detector
   //

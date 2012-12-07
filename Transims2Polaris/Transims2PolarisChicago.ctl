@@ -22,5 +22,5 @@ TIMING_PLAN_FILE    	C:/Users/vsokolov/usr/transims/Run4_1/network/timing_plan
 PHASING_PLAN_FILE   	C:/Users/vsokolov/usr/transims/Run4_1/network/phasing_plan
 
 #######OUTPUT##############
-NEW_SQLITE_DATABASE     C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/testnetwork.sqlite
+NEW_SQLITE_DATABASE     C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/chicago.sqlite
 #NEW_SQLITE_DATABASE     C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/chicago_with_demand.sqlite

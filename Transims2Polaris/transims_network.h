@@ -22,6 +22,7 @@ public:
 
 		Control_Key transims2polaris_keys [] = { //--- code, key, level, status, type, default, range, help ----
 			{NEW_SQLITE_DATABASE, "NEW_SQLITE_DATABASE", LEVEL0, REQ_KEY, OUT_KEY, "", FILE_RANGE, NO_HELP},
+			{ADD_GEOMETRY, "ADD_GEOMETRY", LEVEL0, OPT_KEY, BOOL_KEY, "", BOOL_RANGE, NO_HELP},
 			END_CONTROL
 		};
 		Key_List(transims2polaris_keys);
@@ -75,6 +76,7 @@ public:
 		//Data_Service::Execute();
 	}
 	std::string path_to_database;
+	bool add_geo_columns;
 protected:
 	void Program_Control (void)
 	{
@@ -87,9 +89,14 @@ protected:
 			exit(0);
 		}
 		this->path_to_database = Project_Filename(key);
+		key = Get_Control_String(ADD_GEOMETRY);
+		if (key.empty())
+			this->add_geo_columns = false;
+		else
+			this->add_geo_columns = Get_Control_Flag(ADD_GEOMETRY);
 	}
 	enum Transims2Polaris_Keys {
-		NEW_SQLITE_DATABASE = 1
+		NEW_SQLITE_DATABASE = 1, ADD_GEOMETRY
 	};
 
 

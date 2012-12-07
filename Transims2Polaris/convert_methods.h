@@ -149,7 +149,7 @@ void ConvertNested(TransimsNetwork *net, InputContainer &container, System_File_
 			for (int i=1; i <= num; i++) 
 			{
 				file->Read (true);
-				nested_record = AdapterNested(*file);
+				nested_record = AdapterNested(*file, container);
 				record->nested_records.push_back(nested_record);
 			}
 			if (container_map!=NULL)

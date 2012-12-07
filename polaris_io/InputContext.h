@@ -16,24 +16,6 @@
 using std::tr1::shared_ptr;
 namespace pio
 {
-#pragma db value
-class shape_geometry
-{
-public:
-	double x;
-	double y;
-	double z;
-};
-#pragma db value
-class signal_time
-{
-public:
-	double start;
-	double end;
-	int timing;
-	int phasing;
-	std::string notes;
-};
 //Forward declarations.
 //
 class Node;
@@ -72,6 +54,47 @@ class Skim;
 class Event;
 class Traveler;
 class InputContainer;
+#pragma db value
+class timing_phase
+{
+public:
+	int phase;
+	int barrier;
+	int ring;
+	int position;
+	int minimum;
+	int maximum;
+	int extend;
+	int yellow;
+	int red;
+};
+#pragma db value
+class shape_geometry
+{
+public:
+	double x;
+	double y;
+	double z;
+};
+#pragma db value
+class signal_time
+{
+public:
+	double start;
+	double end;
+	int timing;
+	int phasing;
+};
+#pragma db value
+class phase_movement
+{
+public:
+	std::string movement;
+	shared_ptr<Link> link;
+	int dir;
+	shared_ptr<Link> to_link;
+	std::string protect;
+};
 //Input Container.
 //
 class InputContainer 
@@ -780,8 +803,8 @@ public:
 	// Default Constructor
 	Timing () {}	
 	//Contructor
-	Timing ( shared_ptr<Signal> signal_, int timing_, int type_, int cycle_, int offset_, int phases_, int phase_, int barrier_, int ring_, int position_, int minimum_, int maximum_, int extend_, int yellow_, int red_ )  
-	: signal (signal_), timing (timing_), type (type_), cycle (cycle_), offset (offset_), phases (phases_), phase (phase_), barrier (barrier_), ring (ring_), position (position_), minimum (minimum_), maximum (maximum_), extend (extend_), yellow (yellow_), red (red_)
+	Timing ( shared_ptr<Signal> signal_, int timing_, int type_, int cycle_, int offset_, int phases_ )  
+	: signal (signal_), timing (timing_), type (type_), cycle (cycle_), offset (offset_), phases (phases_)
 	{
 	}
 	//Accessors
@@ -798,26 +821,12 @@ public:
 	void setOffset (const int& offset_){offset = offset_;}
 	const int& getPhases () const {return phases;}
 	void setPhases (const int& phases_){phases = phases_;}
-	const int& getPhase () const {return phase;}
-	void setPhase (const int& phase_){phase = phase_;}
-	const int& getBarrier () const {return barrier;}
-	void setBarrier (const int& barrier_){barrier = barrier_;}
-	const int& getRing () const {return ring;}
-	void setRing (const int& ring_){ring = ring_;}
-	const int& getPosition () const {return position;}
-	void setPosition (const int& position_){position = position_;}
-	const int& getMinimum () const {return minimum;}
-	void setMinimum (const int& minimum_){minimum = minimum_;}
-	const int& getMaximum () const {return maximum;}
-	void setMaximum (const int& maximum_){maximum = maximum_;}
-	const int& getExtend () const {return extend;}
-	void setExtend (const int& extend_){extend = extend_;}
-	const int& getYellow () const {return yellow;}
-	void setYellow (const int& yellow_){yellow = yellow_;}
-	const int& getRed () const {return red;}
-	void setRed (const int& red_){red = red_;}
 	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
+
+
+	//Vector that contains the associated nested records
+	 std::vector<timing_phase> nested_records;
 
 //Data Fields
 private:
@@ -830,15 +839,6 @@ private:
 	int cycle;
 	int offset;
 	int phases;
-	int phase;
-	int barrier;
-	int ring;
-	int position;
-	int minimum;
-	int maximum;
-	int extend;
-	int yellow;
-	int red;
 
 };
 
@@ -849,8 +849,8 @@ public:
 	// Default Constructor
 	Phasing () {}	
 	//Contructor
-	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, std::string detectors_, int movements_, std::string movement_, shared_ptr<Link> link_, int dir_, shared_ptr<Link> to_link_, int protect_ )  
-	: signal (signal_), phasing (phasing_), phase (phase_), detectors (detectors_), movements (movements_), movement (movement_), link (link_), dir (dir_), to_link (to_link_), protect (protect_)
+	Phasing ( shared_ptr<Signal> signal_, int phasing_, int phase_, std::string detectors_, int movements_ )  
+	: signal (signal_), phasing (phasing_), phase (phase_), detectors (detectors_), movements (movements_)
 	{
 	}
 	//Accessors
@@ -865,20 +865,12 @@ public:
 	void setDetectors (const std::string& detectors_){detectors = detectors_;}
 	const int& getMovements () const {return movements;}
 	void setMovements (const int& movements_){movements = movements_;}
-	const std::string& getMovement () const {return movement;}
-	void setMovement (const std::string& movement_){movement = movement_;}
-	const shared_ptr<Link>& getLink () const {return link;}
-	void setLink (const shared_ptr<Link>& link_){link = link_;}
-	void setLink (const int& link_, InputContainer& container){link = container.Links[link_];}
-	const int& getDir () const {return dir;}
-	void setDir (const int& dir_){dir = dir_;}
-	const shared_ptr<Link>& getTo_Link () const {return to_link;}
-	void setTo_Link (const shared_ptr<Link>& to_link_){to_link = to_link_;}
-	void setTo_Link (const int& to_link_, InputContainer& container){to_link = container.Links[to_link_];}
-	const int& getProtect () const {return protect;}
-	void setProtect (const int& protect_){protect = protect_;}
 	const unsigned long& getPrimaryKey () const {return auto_id;}
 	const unsigned long& getAuto_id () const {return auto_id;}
+
+
+	//Vector that contains the associated nested records
+	 std::vector<phase_movement> nested_records;
 
 //Data Fields
 private:
@@ -890,11 +882,6 @@ private:
 	int phase;
 	std::string detectors;
 	int movements;
-	std::string movement;
-	shared_ptr<Link> link;
-	int dir;
-	shared_ptr<Link> to_link;
-	int protect;
 
 };
 

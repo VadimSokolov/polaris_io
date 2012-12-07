@@ -84,14 +84,16 @@ int main(int argc, char* argv[])
 	Convert<Pocket_File,Pocket, int>(net,container, POCKET, "POCKET");
 	Convert<Shape_File,Shape, int>(net,container, SHAPE, "SHAPE");
 	Convert<Sign_File,Sign, int>(net,container, SIGN, "SIGN");
-	Convert<Timing_File,Timing, int>(net,container, TIMING_PLAN, "TIMING_PLAN");
-	Convert<Phasing_File,Phasing, int>(net,container, PHASING_PLAN, "PHASING_PLAN");
+	ConvertNested<Timing_File,Timing, int, timing_phase>(net,container, TIMING_PLAN, "TIMING_PLAN");
+	//Convert<Timing_File,Timing, int>(net,container, TIMING_PLAN, "TIMING_PLAN");
+	ConvertNested<Phasing_File,Phasing, int, phase_movement>(net,container, PHASING_PLAN, "PHASING_PLAN");
+	//Convert<Phasing_File,Phasing, int>(net,container, PHASING_PLAN, "PHASING_PLAN");
 	Convert<Connect_File,Connect, int>(net,container, CONNECTION, "CONNECTION");
 	Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE");
 	Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP");
 	ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef");
-
-	AddSpatialiteGeometry(net);
+	if (net->add_geo_columns)
+		AddSpatialiteGeometry(net);
 
 	cout << "Press any key...\n";
 	getchar();
