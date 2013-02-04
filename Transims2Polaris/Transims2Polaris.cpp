@@ -7,6 +7,8 @@
 
 #include "transims_network.h"
 #include "Geometry.h"
+#include "Db_File.hpp"
+#include <time.h>
 using namespace std;
 
 void test_create(const string& name)
@@ -67,7 +69,11 @@ int main(int argc, char* argv[])
 		net->Init();
 	else
 		net->Init(argc, argv);
-	create_sqlite_database (net->path_to_database);
+	auto_ptr<database> db = create_sqlite_database (net->path_to_database);
+	Db_File control_file;
+	char* control_record;
+	string control_content;
+	
 	/************************************************/
 	/*****************Conversion*********************/
 	/************************************************/	
@@ -90,11 +96,34 @@ int main(int argc, char* argv[])
 	//Convert<Phasing_File,Phasing, int>(net,container, PHASING_PLAN, "PHASING_PLAN");
 	Convert<Connect_File,Connect, int>(net,container, CONNECTION, "CONNECTION");
 	Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE");
-	Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP");
+	if (net->generate_trip_with_ref)
+		Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP");
 	ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef");
 	if (net->add_geo_columns)
 		AddSpatialiteGeometry(net);
-
+	bool cf_flag = control_file.Open(net->Control_File());
+	control_content = "";
+	if (cf_flag)
+	{
+		while (control_file.Read ()) 
+		{
+			control_record = (char *) control_file.Record_String ();
+			control_content += control_record;
+			control_content += "\n";
+		}
+		transaction t (db->begin());
+		shared_ptr<pio::MetaData> meta_data (new pio::MetaData("ControlFile", control_content));
+		db->persist(meta_data);
+		t.commit();
+	}
+	time_t rawtime;
+	struct tm * timeinfo;
+	time ( &rawtime );
+	timeinfo = localtime ( &rawtime );
+	shared_ptr<pio::MetaData> meta_data (new pio::MetaData("TimeStemp", asctime (timeinfo)));
+	transaction t (db->begin());
+	db->persist(meta_data);
+	t.commit();
 	cout << "Press any key...\n";
 	getchar();
 

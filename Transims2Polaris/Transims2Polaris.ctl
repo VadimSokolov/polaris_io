@@ -9,9 +9,9 @@ POCKET_FILE		         C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/netwo
 SHAPE_FILE		         C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/Shape.txt
 
 ##############DEMAND##############
-TRIP_FILE		         C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/trip.txt
-VEHICLE_TYPE_FILE   	 C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/Vehicle_Type.txt
-VEHICLE_FILE		     C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/vehicle.txt
+#TRIP_FILE		         C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/trip.txt
+#VEHICLE_TYPE_FILE   	 C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/Vehicle_Type.txt
+#VEHICLE_FILE		     C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/demand/vehicle.txt
 
 
 
@@ -21,5 +21,9 @@ SIGNAL_FILE		         C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/netwo
 TIMING_PLAN_FILE    	 C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/timing_plan.txt
 PHASING_PLAN_FILE   	 C:/Users/vsokolov/usr/polaris/TransimsData/TestNet50/network/phasing_plan.txt
 
+##############MISC##############
+MESSAGE This is a test message for the database
+
 ##############OUTPUT##############
 NEW_SQLITE_DATABASE     C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/TestNet50.sqlite
+

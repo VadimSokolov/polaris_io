@@ -82,6 +82,7 @@ void ConvertNoRef(TransimsNetwork *net, InputContainer &container, System_File_T
 	cout << "Converting " << odb_type_name << "\n";
 	shared_ptr<ODBType> record;
 	FileType *file = (FileType *) net->System_File_Handle (file_type);
+	file->Rewind();
 	try
 	{
 		auto_ptr<database> db (open_sqlite_database (net->path_to_database));

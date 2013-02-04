@@ -2,6 +2,7 @@
 
 #include "Data_Service.hpp"
 
+
 class TransimsNetwork : public Data_Service
 {
 public:
@@ -23,6 +24,8 @@ public:
 		Control_Key transims2polaris_keys [] = { //--- code, key, level, status, type, default, range, help ----
 			{NEW_SQLITE_DATABASE, "NEW_SQLITE_DATABASE", LEVEL0, REQ_KEY, OUT_KEY, "", FILE_RANGE, NO_HELP},
 			{ADD_GEOMETRY, "ADD_GEOMETRY", LEVEL0, OPT_KEY, BOOL_KEY, "", BOOL_RANGE, NO_HELP},
+			{GENERATE_TRIP_WITH_REF, "GENERATE_TRIP_WITH_REF", LEVEL0, OPT_KEY, BOOL_KEY, "", BOOL_RANGE, NO_HELP},
+			{MESSAGE, "MESSAGE", LEVEL0, OPT_KEY, TEXT_KEY, "", FORMAT_RANGE, NO_HELP},
 			END_CONTROL
 		};
 		Key_List(transims2polaris_keys);
@@ -76,7 +79,7 @@ public:
 		//Data_Service::Execute();
 	}
 	std::string path_to_database;
-	bool add_geo_columns;
+	bool add_geo_columns, generate_trip_with_ref;
 protected:
 	void Program_Control (void)
 	{
@@ -94,9 +97,14 @@ protected:
 			this->add_geo_columns = false;
 		else
 			this->add_geo_columns = Get_Control_Flag(ADD_GEOMETRY);
+		key = Get_Control_String(GENERATE_TRIP_WITH_REF);
+		if (key.empty())
+			this->generate_trip_with_ref = false;
+		else
+			this->generate_trip_with_ref = Get_Control_Flag(GENERATE_TRIP_WITH_REF);
 	}
 	enum Transims2Polaris_Keys {
-		NEW_SQLITE_DATABASE = 1, ADD_GEOMETRY
+		NEW_SQLITE_DATABASE = 1, ADD_GEOMETRY, GENERATE_TRIP_WITH_REF, MESSAGE
 	};
 
 

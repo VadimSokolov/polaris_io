@@ -292,6 +292,197 @@ namespace odb
     set_null (image_type&, sqlite::statement_kind);
   };
 
+  // MetaData
+  //
+  template <>
+  struct class_traits< ::pio::MetaData >
+  {
+    static const class_kind kind = class_object;
+  };
+
+  template <typename A>
+  struct query_columns< ::pio::MetaData, A >
+  {
+    // key
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
+    key_type_;
+
+    static const key_type_ key;
+
+    // value
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        ::std::string,
+        sqlite::id_text >::query_type,
+      sqlite::id_text >
+    value_type_;
+
+    static const value_type_ value;
+  };
+
+  template <typename A>
+  const typename query_columns< ::pio::MetaData, A >::key_type_
+  query_columns< ::pio::MetaData, A >::
+  key (A::table_name, "\"key\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::pio::MetaData, A >::value_type_
+  query_columns< ::pio::MetaData, A >::
+  value (A::table_name, "\"value\"", 0);
+
+  template <typename A>
+  struct pointer_query_columns< ::pio::MetaData, A >:
+    query_columns< ::pio::MetaData, A >
+  {
+  };
+
+  template <>
+  class access::object_traits< ::pio::MetaData >
+  {
+    public:
+    typedef ::pio::MetaData object_type;
+    typedef ::std::tr1::shared_ptr< ::pio::MetaData > pointer_type;
+    typedef odb::pointer_traits<pointer_type> pointer_traits;
+
+    static const bool polymorphic = false;
+
+    typedef ::std::string id_type;
+    static const bool auto_id = false;
+
+    struct id_image_type
+    {
+      details::buffer id_value;
+      std::size_t id_size;
+      bool id_null;
+
+      std::size_t version;
+    };
+
+    static const bool abstract = false;
+
+    struct image_type
+    {
+      // key
+      //
+      details::buffer key_value;
+      std::size_t key_size;
+      bool key_null;
+
+      // value
+      //
+      details::buffer value_value;
+      std::size_t value_size;
+      bool value_null;
+
+      std::size_t version;
+    };
+
+    static id_type
+    id (const object_type&);
+
+    static id_type
+    id (const image_type&);
+
+    static bool
+    grow (image_type&, bool*);
+
+    static void
+    bind (sqlite::bind*,
+          image_type&,
+          sqlite::statement_kind);
+
+    static void
+    bind (sqlite::bind*, id_image_type&);
+
+    static bool
+    init (image_type&, const object_type&, sqlite::statement_kind);
+
+    static void
+    init (object_type&, const image_type&, database*);
+
+    static void
+    init (id_image_type&, const id_type&);
+
+    typedef
+    odb::pointer_cache_traits<pointer_type>
+    pointer_cache_traits;
+    typedef
+    odb::reference_cache_traits<object_type>
+    reference_cache_traits;
+
+    typedef sqlite::object_statements<object_type> statements_type;
+
+    typedef sqlite::query query_base_type;
+
+    struct container_statement_cache_type;
+
+    static const std::size_t column_count = 2UL;
+    static const std::size_t id_column_count = 1UL;
+    static const std::size_t inverse_column_count = 0UL;
+    static const std::size_t readonly_column_count = 0UL;
+    static const std::size_t managed_optimistic_column_count = 0UL;
+
+    static const char persist_statement[];
+    static const char find_statement[];
+    static const char update_statement[];
+    static const char erase_statement[];
+    static const char query_statement[];
+    static const char erase_query_statement[];
+
+    static const char table_name[];
+
+    static void
+    callback (database&, object_type&, callback_event);
+
+    static void
+    callback (database&, const object_type&, callback_event);
+
+    static void
+    persist (database&, const object_type&);
+
+    static pointer_type
+    find (database&, const id_type&);
+
+    static bool
+    find (database&, const id_type&, object_type&);
+
+    static bool
+    reload (database&, object_type&);
+
+    static void
+    update (database&, const object_type&);
+
+    static void
+    erase (database&, const id_type&);
+
+    static void
+    erase (database&, const object_type&);
+
+    static result<object_type>
+    query (database&, const query_base_type&);
+
+    static unsigned long long
+    erase_query (database&, const query_base_type&);
+
+    static bool
+    create_schema (database&, unsigned short pass, bool drop);
+
+    public:
+    static bool
+    find_ (statements_type&, const id_type*);
+
+    static void
+    load_ (statements_type&, object_type&);
+  };
+
   // Node
   //
   template <>

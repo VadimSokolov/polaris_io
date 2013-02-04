@@ -109,12 +109,21 @@ int TestReadTrips(string path_to_database)
 	cout << "OK\n";
 	return 0;
 }
-
+void test_location()
+{
+	auto_ptr<database> db (open_sqlite_database ("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\chicago_with_demand.sqlite"));
+	typedef odb::query<pio::Location> query;
+	typedef odb::result<pio::Location> result;
+	transaction t (db->begin ());
+	result r(db->query<pio::Location> (query::location==82434, true));
+	shared_ptr<pio::Link> l =  r.begin()->getLink();
+}
 int main (int argc, char *argv [])
 {
 	//TestReadTrips<Trip>("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\TestNet50.sqlite");
-	TestReadTrips<TripNoRef>("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\chicago_with_demand.sqlite");
+	//TestReadTrips<TripNoRef>("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\chicago_with_demand.sqlite");
 	//TestReadTripsSQL("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\chicago_with_demand.sqlite");
+	test_location();
 	cout << "Press any key...\n";
 	getchar();
 	return 0;

@@ -109,7 +109,20 @@ public:
 	std::map<int,shared_ptr<Stop>> Stops;
 	std::map<int,shared_ptr<Veh_Type>> Veh_Types;
 };
-
+#pragma db object
+class MetaData
+{
+public:
+	MetaData() {}
+	MetaData(std::string key_, std::string value_)
+		: key(key_), value(value_)
+	{
+	}
+public:
+	#pragma db id
+	std::string key;
+	std::string value;
+};
 #pragma db object //table("NODE")
 class Node
 {
