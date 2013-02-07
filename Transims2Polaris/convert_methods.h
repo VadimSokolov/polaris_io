@@ -2,7 +2,9 @@
 #include "adopter_methods.h"
 #include "database.h" // create_database
 #include <memory>   // std::auto_ptr
-#include "InputContext-odb.hxx"
+#include "Result-odb.hxx"
+#include "Supply-odb.hxx"
+#include "Demand-odb.hxx"
 #include "transims_network.h"
 #include <time.h>
 #include <string>
@@ -10,7 +12,7 @@
 #include <map>
 using odb::database;
 using odb::transaction;
-using namespace pio;
+using namespace polaris::io;
 using namespace std;
 using namespace odb::core;
 
@@ -190,9 +192,9 @@ void AddSpatialiteGeometry(TransimsNetwork *net)
     char *err_msg = NULL;
 	int link_id;
 	double x,y;
-	map<int, vector<pio::shape_geometry>> shapes;
-	map<int, vector<pio::shape_geometry>>::iterator it;
-	vector<pio::shape_geometry>::iterator pt_it;
+	map<int, vector<shape_geometry>> shapes;
+	map<int, vector<shape_geometry>>::iterator it;
+	vector<shape_geometry>::iterator pt_it;
 	typedef odb::query<Shape> query;
 	typedef odb::result<Shape> result;
 	auto_ptr<database> db (open_sqlite_database (net->path_to_database));
@@ -200,11 +202,11 @@ void AddSpatialiteGeometry(TransimsNetwork *net)
 	result r(db->query<Shape> (query::true_expr));
 	for (result::iterator i (r.begin()); i!=r.end(); ++i)
 	{
-		pio::shape_geometry p;
-		vector<pio::shape_geometry> points;
-		shared_ptr<pio::Link> l = i->getLink();
-		shared_ptr<pio::Node> anode = l->getNode_A();
-		shared_ptr<pio::Node> bnode = l->getNode_B();
+		shape_geometry p;
+		vector<shape_geometry> points;
+		shared_ptr<Link> l = i->getLink();
+		shared_ptr<Node> anode = l->getNode_A();
+		shared_ptr<Node> bnode = l->getNode_B();
 		p.x = anode->getX(); p.y = anode->getY(); p.z = anode->getZ();
 		points.push_back(p);
 		points.insert(points.end(), i->nested_records.begin(), i->nested_records.end());

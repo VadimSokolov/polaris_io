@@ -1,19 +1,19 @@
-// Transims2Polaris.cpp : Defines the entry point for the console application.
-//
-
 #include "convert_methods.h"
-#include "InputContext.h"
-//#include <sqlite3.h>
+#include "Result.h"
+#include "Supply.h"
+#include "Demand.h"
+
 
 #include "transims_network.h"
 #include "Geometry.h"
 #include "Db_File.hpp"
 #include <time.h>
+using namespace polaris::io;
 using namespace std;
 
 void test_create(const string& name)
 {
-	pio::InputContainer container;
+	InputContainer container;
 	shared_ptr<Node> n1 (new Node(1,1,1,0,0,0));
 	shared_ptr<Node> n2 (new Node(2,2,1,0,0,0));
 	shared_ptr<Node> n3 (new Node(3,1,1,0,0,0));
@@ -43,12 +43,12 @@ void test_create(const string& name)
 }
 void test_read(const string& name)
 {
-	typedef odb::query<pio::Link> query;
-	typedef odb::result<pio::Link> result;
+	typedef odb::query<Link> query;
+	typedef odb::result<Link> result;
 	auto_ptr<database> db (open_sqlite_database (name));
 	cout << "Database "<< ((odb::sqlite::database*)&(*db))->name() <<" was opened\n";
 	transaction t (db->begin ());
-	result r (db->query<pio::Link> ( (query::node_a <120)));
+	result r (db->query<Link> ( (query::node_a <120)));
     for (result::iterator i (r.begin ()); i != r.end (); ++i)
     {
 		cout << i->getLink() << " " << i->getNode_A()->getNode() << " " << i->getNode_B()->getNode() << endl;
@@ -60,11 +60,12 @@ void test_read(const string& name)
 
 int main(int argc, char* argv[])
 {
+
 	//test_create("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite");
 	//test_read("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite");
 
 	TransimsNetwork* net = new TransimsNetwork();
-	pio::InputContainer container;
+	InputContainer container;
 	if (argc==1)
 		net->Init();
 	else
@@ -74,6 +75,14 @@ int main(int argc, char* argv[])
 	char* control_record;
 	string control_content;
 	
+	//shared_ptr<Link_Delay> ld;
+	//ld->setDir(1);
+	//ld->setLink(1);
+	//transaction t1 (db->begin());
+	//db->persist(ld);
+	//t1.commit();
+
+
 	/************************************************/
 	/*****************Conversion*********************/
 	/************************************************/	
@@ -98,7 +107,6 @@ int main(int argc, char* argv[])
 	Convert<Vehicle_File,Vehicle, int>(net,container, VEHICLE, "VEHICLE");
 	if (net->generate_trip_with_ref)
 		Convert<Trip_File,Trip, int>(net,container, TRIP, "TRIP");
-	ConvertNoRef<Trip_File,TripNoRef, int>(net,container, TRIP, "TRIPNoRef");
 	if (net->add_geo_columns)
 		AddSpatialiteGeometry(net);
 	bool cf_flag = control_file.Open(net->Control_File());
@@ -112,7 +120,7 @@ int main(int argc, char* argv[])
 			control_content += "\n";
 		}
 		transaction t (db->begin());
-		shared_ptr<pio::MetaData> meta_data (new pio::MetaData("ControlFile", control_content));
+		shared_ptr<MetaData> meta_data (new MetaData("ControlFile", control_content));
 		db->persist(meta_data);
 		t.commit();
 	}
@@ -120,7 +128,7 @@ int main(int argc, char* argv[])
 	struct tm * timeinfo;
 	time ( &rawtime );
 	timeinfo = localtime ( &rawtime );
-	shared_ptr<pio::MetaData> meta_data (new pio::MetaData("TimeStemp", asctime (timeinfo)));
+	shared_ptr<MetaData> meta_data (new MetaData("TimeStemp", asctime (timeinfo)));
 	transaction t (db->begin());
 	db->persist(meta_data);
 	t.commit();

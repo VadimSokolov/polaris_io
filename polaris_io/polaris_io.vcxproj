@@ -80,13 +80,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="database.h" />
-    <ClInclude Include="InputContext-odb.hxx" />
+    <ClInclude Include="Geometry.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="InputContext-odb.cxx" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="InputContext-odb.ixx" />
+    <None Include="db-inventory.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

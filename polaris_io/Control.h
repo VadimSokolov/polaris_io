@@ -1,4 +1,3 @@
-
 #ifndef InputContext
 #define InputContext
 #pragma warning(disable:4068)
@@ -14,7 +13,9 @@
 //
 #include <odb/tr1/memory.hxx>
 using std::tr1::shared_ptr;
-namespace pio
+namespace io
+{
+namespace supply
 {
 //Forward declarations.
 //
@@ -2047,5 +2048,6 @@ private:
 
 };
 
-}//end of namespace
+}//end of io namespace
+}//end of supply namespace
 #endif // InputContext

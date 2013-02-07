@@ -1,11 +1,14 @@
 
 #pragma once
-#include "InputContext.h"
+#include "Result.h"
+#include "Supply.h"
+#include "Demand.h"
 #include "File_Service.hpp"
+using namespace polaris::io;
 //Converter for Node
-shared_ptr<pio::Node> Adapter( Node_File &file, pio::InputContainer& container) 
+shared_ptr<Node> Adapter( Node_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Node> result (new pio::Node ());
+	shared_ptr<Node> result (new Node ());
 	result->setNode(file.Node ()); 
 	result->setX(file.X ()); 
 	result->setY(file.Y ()); 
@@ -15,9 +18,9 @@ shared_ptr<pio::Node> Adapter( Node_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Zone
-shared_ptr<pio::Zone> Adapter( Zone_File &file, pio::InputContainer& container) 
+shared_ptr<Zone> Adapter( Zone_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Zone> result (new pio::Zone ());
+	shared_ptr<Zone> result (new Zone ());
 	result->setZone(file.Zone ()); 
 	result->setX(file.X ()); 
 	result->setY(file.Y ()); 
@@ -30,17 +33,17 @@ shared_ptr<pio::Zone> Adapter( Zone_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Shape
-shared_ptr<pio::Shape> Adapter( Shape_File &file, pio::InputContainer& container) 
+shared_ptr<Shape> Adapter( Shape_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Shape> result (new pio::Shape ());
+	shared_ptr<Shape> result (new Shape ());
 	result->setLink(file.Link (), container); 
 	result->setPoints(file.Points ());
 	return result;
 }
 //Converter for Link
-shared_ptr<pio::Link> Adapter( Link_File &file, pio::InputContainer& container) 
+shared_ptr<Link> Adapter( Link_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Link> result (new pio::Link ());
+	shared_ptr<Link> result (new Link ());
 	result->setLink(file.Link ()); 
 	result->setName(file.Name ()); 
 	result->setNode_A(file.Node_A (), container); 
@@ -70,9 +73,9 @@ shared_ptr<pio::Link> Adapter( Link_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Pocket
-shared_ptr<pio::Pocket> Adapter( Pocket_File &file, pio::InputContainer& container) 
+shared_ptr<Pocket> Adapter( Pocket_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Pocket> result (new pio::Pocket ());
+	shared_ptr<Pocket> result (new Pocket ());
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
 	result->setType(Static_Service::Pocket_Code((Pocket_Type)file.Type())); 
@@ -82,9 +85,9 @@ shared_ptr<pio::Pocket> Adapter( Pocket_File &file, pio::InputContainer& contain
 	return result;
 }
 //Converter for Lane_Use
-shared_ptr<pio::Lane_Use> Adapter( Lane_Use_File &file, pio::InputContainer& container) 
+shared_ptr<Lane_Use> Adapter( Lane_Use_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Lane_Use> result (new pio::Lane_Use ());
+	shared_ptr<Lane_Use> result (new Lane_Use ());
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
 	result->setLanes(file.Lanes ()); 
@@ -105,9 +108,9 @@ shared_ptr<pio::Lane_Use> Adapter( Lane_Use_File &file, pio::InputContainer& con
 	return result;
 }
 //Converter for Connect
-shared_ptr<pio::Connect> Adapter( Connect_File &file, pio::InputContainer& container) 
+shared_ptr<Connect> Adapter( Connect_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Connect> result (new pio::Connect ());
+	shared_ptr<Connect> result (new Connect ());
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
 	result->setTo_Link(file.To_Link (), container); 
@@ -122,9 +125,9 @@ shared_ptr<pio::Connect> Adapter( Connect_File &file, pio::InputContainer& conta
 	return result;
 }
 //Converter for Turn_Pen
-shared_ptr<pio::Turn_Pen> Adapter( Turn_Pen_File &file, pio::InputContainer& container) 
+shared_ptr<Turn_Pen> Adapter( Turn_Pen_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Turn_Pen> result (new pio::Turn_Pen ());
+	shared_ptr<Turn_Pen> result (new Turn_Pen ());
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
 	result->setTo_Link(file.To_Link (), container); 
@@ -139,9 +142,9 @@ shared_ptr<pio::Turn_Pen> Adapter( Turn_Pen_File &file, pio::InputContainer& con
 	return result;
 }
 //Converter for Parking
-shared_ptr<pio::Parking> Adapter( Parking_File &file, pio::InputContainer& container) 
+shared_ptr<Parking> Adapter( Parking_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Parking> result (new pio::Parking ());
+	shared_ptr<Parking> result (new Parking ());
 	result->setParking(file.Parking ()); 
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
@@ -158,9 +161,9 @@ shared_ptr<pio::Parking> Adapter( Parking_File &file, pio::InputContainer& conta
 	return result;
 }
 //Converter for Location
-shared_ptr<pio::Location> Adapter( Location_File &file, pio::InputContainer& container) 
+shared_ptr<Location> Adapter( Location_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Location> result (new pio::Location ());
+	shared_ptr<Location> result (new Location ());
 	result->setLocation(file.Location ()); 
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
@@ -170,9 +173,9 @@ shared_ptr<pio::Location> Adapter( Location_File &file, pio::InputContainer& con
 	return result;
 }
 //Converter for Access
-shared_ptr<pio::Access> Adapter( Access_File &file, pio::InputContainer& container) 
+shared_ptr<Access> Adapter( Access_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Access> result (new pio::Access ());
+	shared_ptr<Access> result (new Access ());
 	result->setLink(file.Link (), container); 
 	result->setFrom_Id(file.From_ID ()); 
 	result->setFrom_Type(file.From_Type ()); 
@@ -184,18 +187,18 @@ shared_ptr<pio::Access> Adapter( Access_File &file, pio::InputContainer& contain
 	return result;
 }
 //Converter for Sign
-shared_ptr<pio::Sign> Adapter( Sign_File &file, pio::InputContainer& container) 
+shared_ptr<Sign> Adapter( Sign_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Sign> result (new pio::Sign ());
+	shared_ptr<Sign> result (new Sign ());
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
 	result->setSign(Static_Service::Control_Code((Control_Type)file.Sign()));
 	return result;
 }
 //Converter for Signal
-shared_ptr<pio::Signal> Adapter( Signal_File &file, pio::InputContainer& container) 
+shared_ptr<Signal> Adapter( Signal_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Signal> result (new pio::Signal ());
+	shared_ptr<Signal> result (new Signal ());
 	result->setSignal(file.Signal ()); 
 	result->setGroup(file.Group ()); 
 	result->setTimes(file.Times ()); 
@@ -205,9 +208,9 @@ shared_ptr<pio::Signal> Adapter( Signal_File &file, pio::InputContainer& contain
 	return result;
 }
 //Converter for Timing
-shared_ptr<pio::Timing> Adapter( Timing_File &file, pio::InputContainer& container) 
+shared_ptr<Timing> Adapter( Timing_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Timing> result (new pio::Timing ());
+	shared_ptr<Timing> result (new Timing ());
 	result->setSignal(file.Signal (), container); 
 	result->setTiming(file.Timing ()); 
 	result->setType(file.Type ()); 
@@ -217,9 +220,9 @@ shared_ptr<pio::Timing> Adapter( Timing_File &file, pio::InputContainer& contain
 	return result;
 }
 //Converter for Phasing
-shared_ptr<pio::Phasing> Adapter( Phasing_File &file, pio::InputContainer& container) 
+shared_ptr<Phasing> Adapter( Phasing_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Phasing> result (new pio::Phasing ());
+	shared_ptr<Phasing> result (new Phasing ());
 	result->setSignal(file.Signal (), container); 
 	result->setPhasing(file.Phasing ()); 
 	result->setPhase(file.Phase ()); 
@@ -228,9 +231,9 @@ shared_ptr<pio::Phasing> Adapter( Phasing_File &file, pio::InputContainer& conta
 	return result;
 }
 //Converter for Detector
-shared_ptr<pio::Detector> Adapter( Detector_File &file, pio::InputContainer& container) 
+shared_ptr<Detector> Adapter( Detector_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Detector> result (new pio::Detector ());
+	shared_ptr<Detector> result (new Detector ());
 	result->setDetector(file.Detector ()); 
 	result->setLink(file.Link (), container); 
 	result->setDir(file.Dir ()); 
@@ -244,9 +247,9 @@ shared_ptr<pio::Detector> Adapter( Detector_File &file, pio::InputContainer& con
 	return result;
 }
 //Converter for Stop
-shared_ptr<pio::Stop> Adapter( Stop_File &file, pio::InputContainer& container) 
+shared_ptr<Stop> Adapter( Stop_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Stop> result (new pio::Stop ());
+	shared_ptr<Stop> result (new Stop ());
 	result->setStop(file.Stop ()); 
 	result->setName(file.Name ()); 
 	result->setLink(file.Link (), container); 
@@ -258,9 +261,9 @@ shared_ptr<pio::Stop> Adapter( Stop_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Fare
-shared_ptr<pio::Fare> Adapter( Fare_File &file, pio::InputContainer& container) 
+shared_ptr<Fare> Adapter( Fare_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Fare> result (new pio::Fare ());
+	shared_ptr<Fare> result (new Fare ());
 	result->setFrom_Zone(file.From_Zone ().Integer(), container); 
 	result->setTo_Zone(file.To_Zone ().Integer(), container); 
 	result->setFrom_Mode(file.From_Mode ().Integer()); 
@@ -271,9 +274,9 @@ shared_ptr<pio::Fare> Adapter( Fare_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Line
-shared_ptr<pio::Line> Adapter( Line_File &file, pio::InputContainer& container) 
+shared_ptr<Line> Adapter( Line_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Line> result (new pio::Line ());
+	shared_ptr<Line> result (new Line ());
 	result->setRoute(file.Route ()); 
 	result->setStops(file.Stops (), container); 
 	result->setMode(file.Mode ()); 
@@ -285,18 +288,18 @@ shared_ptr<pio::Line> Adapter( Line_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Schedule
-shared_ptr<pio::Schedule> Adapter( Schedule_File &file, pio::InputContainer& container) 
+shared_ptr<Schedule> Adapter( Schedule_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Schedule> result (new pio::Schedule ());
+	shared_ptr<Schedule> result (new Schedule ());
 	result->setRoute(file.Route ()); 
 	result->setStops(file.Stops (), container); 
 	result->setStop(file.Stop (), container);
 	return result;
 }
 //Converter for Driver
-shared_ptr<pio::Driver> Adapter( Driver_File &file, pio::InputContainer& container) 
+shared_ptr<Driver> Adapter( Driver_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Driver> result (new pio::Driver ());
+	shared_ptr<Driver> result (new Driver ());
 	result->setRoute(file.Route ()); 
 	result->setLinks(file.Links (), container); 
 	result->setType(file.Type ()); 
@@ -306,9 +309,9 @@ shared_ptr<pio::Driver> Adapter( Driver_File &file, pio::InputContainer& contain
 	return result;
 }
 //Converter for Route_Nodes
-shared_ptr<pio::Route_Nodes> Adapter( Route_Nodes_File &file, pio::InputContainer& container) 
+shared_ptr<Route_Nodes> Adapter( Route_Nodes_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Route_Nodes> result (new pio::Route_Nodes ());
+	shared_ptr<Route_Nodes> result (new Route_Nodes ());
 	result->setRoute(file.Route ()); 
 	result->setMode(file.Mode ()); 
 	result->setVeh_Type(file.Veh_Type (), container); 
@@ -322,9 +325,9 @@ shared_ptr<pio::Route_Nodes> Adapter( Route_Nodes_File &file, pio::InputContaine
 	return result;
 }
 //Converter for Selection
-shared_ptr<pio::Selection> Adapter( Selection_File &file, pio::InputContainer& container) 
+shared_ptr<Selection> Adapter( Selection_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Selection> result (new pio::Selection ());
+	shared_ptr<Selection> result (new Selection ());
 	result->setHhold(file.Household ()); 
 	result->setPerson(file.Person ()); 
 	result->setTour(file.Tour ()); 
@@ -334,11 +337,11 @@ shared_ptr<pio::Selection> Adapter( Selection_File &file, pio::InputContainer& c
 	return result;
 }
 //Converter for Household
-shared_ptr<pio::Household> Adapter( Household_File &file, pio::InputContainer& container) 
+shared_ptr<Household> Adapter( Household_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Household> result (new pio::Household ());
+	shared_ptr<Household> result (new Household ());
 	result->setHhold(file.Household ()); 
-	result->setLocation(file.Location (), container); 
+	result->setLocation(file.Location ()); 
 	result->setPersons(file.Persons ()); 
 	result->setWorkers(file.Workers ()); 
 	result->setVehicles(file.Vehicles ()); 
@@ -353,25 +356,25 @@ shared_ptr<pio::Household> Adapter( Household_File &file, pio::InputContainer& c
 	return result;
 }
 //Converter for Link_Delay
-shared_ptr<pio::Link_Delay> Adapter( Link_Delay_File &file, pio::InputContainer& container) 
+shared_ptr<Link_Delay> Adapter( Link_Delay_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Link_Delay> result (new pio::Link_Delay ());
-	result->setLink(file.Link (), container); 
+	shared_ptr<Link_Delay> result (new Link_Delay ());
+	result->setLink(file.Link ()); 
 	result->setDir(file.Dir ()); 
 	result->setType(file.Type ()); 
 	result->setStart(file.Start ().Seconds()); 
 	result->setEnd(file.End ().Seconds()); 
 	result->setFlow(file.Flow ()); 
 	result->setTime(file.Time ().Seconds()); 
-	result->setOut_Link(file.Out_Link (), container); 
+	result->setOut_Link(file.Out_Link ()); 
 	result->setOut_Flow(file.Out_Flow ()); 
 	result->setOut_Time(file.Out_Time ().Seconds());
 	return result;
 }
 //Converter for Performance
-shared_ptr<pio::Performance> Adapter( Performance_File &file, pio::InputContainer& container) 
+shared_ptr<Performance> Adapter( Performance_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Performance> result (new pio::Performance ());
+	shared_ptr<Performance> result (new Performance ());
 	result->setSpeed(file.Speed ()); 
 	result->setDelay(file.Delay ().Seconds()); 
 	result->setDensity(file.Density ()); 
@@ -383,9 +386,9 @@ shared_ptr<pio::Performance> Adapter( Performance_File &file, pio::InputContaine
 	return result;
 }
 //Converter for Ridership
-shared_ptr<pio::Ridership> Adapter( Ridership_File &file, pio::InputContainer& container) 
+shared_ptr<Ridership> Adapter( Ridership_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Ridership> result (new pio::Ridership ());
+	shared_ptr<Ridership> result (new Ridership ());
 	result->setMode(file.Mode ()); 
 	result->setRoute(file.Route ()); 
 	result->setRun(file.Run ()); 
@@ -399,9 +402,9 @@ shared_ptr<pio::Ridership> Adapter( Ridership_File &file, pio::InputContainer& c
 	return result;
 }
 //Converter for Veh_Type
-shared_ptr<pio::Veh_Type> Adapter( Veh_Type_File &file, pio::InputContainer& container) 
+shared_ptr<Veh_Type> Adapter( Veh_Type_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Veh_Type> result (new pio::Veh_Type ());
+	shared_ptr<Veh_Type> result (new Veh_Type ());
 	result->setType(file.Type ()); 
 	result->setLength(file.Length ()); 
 	result->setMax_Speed(file.Max_Speed ()); 
@@ -419,21 +422,21 @@ shared_ptr<pio::Veh_Type> Adapter( Veh_Type_File &file, pio::InputContainer& con
 	return result;
 }
 //Converter for Vehicle
-shared_ptr<pio::Vehicle> Adapter( Vehicle_File &file, pio::InputContainer& container) 
+shared_ptr<Vehicle> Adapter( Vehicle_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Vehicle> result (new pio::Vehicle ());
+	shared_ptr<Vehicle> result (new Vehicle ());
 	result->setHhold(file.Household ()); 
 	result->setVehicle(file.Vehicle ()); 
-	result->setParking(file.Parking (), container); 
-	result->setType(file.Type (), container); 
+	result->setParking(file.Parking ()); 
+	result->setType(file.Type ()); 
 	result->setSubtype(file.SubType ()); 
 	result->setPartition(file.Partition ());
 	return result;
 }
 //Converter for Trip
-shared_ptr<pio::Trip> Adapter( Trip_File &file, pio::InputContainer& container) 
+shared_ptr<Trip> Adapter( Trip_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Trip> result (new pio::Trip ());
+	shared_ptr<Trip> result (new Trip ());
 	result->setHhold(file.Household ()); 
 	result->setPerson(file.Person ()); 
 	result->setTour(file.Tour ()); 
@@ -441,8 +444,8 @@ shared_ptr<pio::Trip> Adapter( Trip_File &file, pio::InputContainer& container)
 	result->setStart(file.Start ().Seconds()); 
 	result->setEnd(file.End ().Seconds()); 
 	result->setDuration(file.Duration ().Seconds()); 
-	result->setOrigin(file.Origin (), container); 
-	result->setDestination(file.Destination (), container); 
+	result->setOrigin(file.Origin ()); 
+	result->setDestination(file.Destination ()); 
 	result->setPurpose(file.Purpose ()); 
 	result->setMode(file.Mode ()); 
 	result->setConstraint(file.Constraint ()); 
@@ -454,12 +457,12 @@ shared_ptr<pio::Trip> Adapter( Trip_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Problem
-shared_ptr<pio::Problem> Adapter( Problem_File &file, pio::InputContainer& container) 
+shared_ptr<Problem> Adapter( Problem_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Problem> result (new pio::Problem ());
+	shared_ptr<Problem> result (new Problem ());
 	result->setProblem(file.Problem ()); 
 	result->setTime(file.Time ().Seconds()); 
-	result->setLink(file.Link (), container); 
+	result->setLink(file.Link ()); 
 	result->setDir(file.Dir ()); 
 	result->setLane(file.Lane ()); 
 	result->setOffset(file.Offset ()); 
@@ -468,9 +471,9 @@ shared_ptr<pio::Problem> Adapter( Problem_File &file, pio::InputContainer& conta
 	return result;
 }
 //Converter for Plan
-shared_ptr<pio::Plan> Adapter( Plan_File &file, pio::InputContainer& container) 
+shared_ptr<Plan> Adapter( Plan_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Plan> result (new pio::Plan ());
+	shared_ptr<Plan> result (new Plan ());
 	result->setDepart(file.Depart ().Seconds()); 
 	result->setArrive(file.Arrive ().Seconds()); 
 	result->setActivity(file.Activity ().Seconds()); 
@@ -492,9 +495,9 @@ shared_ptr<pio::Plan> Adapter( Plan_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Skim
-shared_ptr<pio::Skim> Adapter( Skim_File &file, pio::InputContainer& container) 
+shared_ptr<Skim> Adapter( Skim_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Skim> result (new pio::Skim ());
+	shared_ptr<Skim> result (new Skim ());
 	result->setTime(file.Time ().Seconds()); 
 	result->setWalk(file.Walk ().Seconds()); 
 	result->setDrive(file.Drive ().Seconds()); 
@@ -507,9 +510,9 @@ shared_ptr<pio::Skim> Adapter( Skim_File &file, pio::InputContainer& container)
 	return result;
 }
 //Converter for Event
-shared_ptr<pio::Event> Adapter( Event_File &file, pio::InputContainer& container) 
+shared_ptr<Event> Adapter( Event_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Event> result (new pio::Event ());
+	shared_ptr<Event> result (new Event ());
 	result->setHhold(file.Household ()); 
 	result->setPerson(file.Person ()); 
 	result->setTour(file.Tour ()); 
@@ -518,7 +521,7 @@ shared_ptr<pio::Event> Adapter( Event_File &file, pio::InputContainer& container
 	result->setType(file.Event ()); 
 	result->setSchedule(file.Schedule ().Seconds()); 
 	result->setActual(file.Actual ().Seconds()); 
-	result->setLink(file.Link (), container); 
+	result->setLink(file.Link ()); 
 	result->setDir(file.Dir ()); 
 	result->setLane(file.Lane ()); 
 	result->setOffset(file.Offset ()); 
@@ -526,9 +529,9 @@ shared_ptr<pio::Event> Adapter( Event_File &file, pio::InputContainer& container
 	return result;
 }
 //Converter for Traveler
-shared_ptr<pio::Traveler> Adapter( Traveler_File &file, pio::InputContainer& container) 
+shared_ptr<Traveler> Adapter( Traveler_File &file, InputContainer& container) 
 {
-	shared_ptr<pio::Traveler> result (new pio::Traveler ());
+	shared_ptr<Traveler> result (new Traveler ());
 	result->setHhold(file.Household ()); 
 	result->setPerson(file.Person ()); 
 	result->setTour(file.Tour ()); 
@@ -537,39 +540,17 @@ shared_ptr<pio::Traveler> Adapter( Traveler_File &file, pio::InputContainer& con
 	result->setTime(file.Time ().Seconds()); 
 	result->setDistance(file.Distance ()); 
 	result->setSpeed(file.Speed ()); 
-	result->setLink(file.Link (), container); 
+	result->setLink(file.Link ()); 
 	result->setDir(file.Dir ()); 
 	result->setLane(file.Lane ()); 
 	result->setOffset(file.Offset ()); 
 	result->setRoute(file.Route ());
 	return result;
 }
-//Converter for Trip
-shared_ptr<pio::TripNoRef> AdapterNoRef( Trip_File &file, pio::InputContainer& container) 
+
+timing_phase AdapterNested(Timing_File &file, InputContainer& container)
 {
-	shared_ptr<pio::TripNoRef> result (new pio::TripNoRef ());
-	result->setHhold(file.Household ()); 
-	result->setPerson(file.Person ()); 
-	result->setTour(file.Tour ()); 
-	result->setTrip(file.Trip ()); 
-	result->setStart(file.Start ().Seconds()); 
-	result->setEnd(file.End ().Seconds()); 
-	result->setDuration(file.Duration ().Seconds()); 
-	result->setOrigin(file.Origin ()); 
-	result->setDestination(file.Destination ()); 
-	result->setPurpose(file.Purpose ()); 
-	result->setMode(file.Mode ()); 
-	result->setConstraint(file.Constraint ()); 
-	result->setPriority(file.Priority ()); 
-	result->setVehicle(file.Vehicle ()); 
-	result->setPassengers(file.Passengers ()); 
-	result->setType(file.Type ()); 
-	result->setPartition(file.Partition ());
-	return result;
-}
-pio::timing_phase AdapterNested(Timing_File &file, pio::InputContainer& container)
-{
-	pio::timing_phase nested_record;
+	timing_phase nested_record;
 	nested_record.phase = file.Phase ();
 	nested_record.barrier = file.Barrier ();
 	nested_record.ring = file.Ring ();
@@ -581,26 +562,26 @@ pio::timing_phase AdapterNested(Timing_File &file, pio::InputContainer& containe
 	nested_record.red = file.All_Red ();
 	return nested_record;
 };
-pio::shape_geometry AdapterNested(Shape_File &file, pio::InputContainer& container)
+shape_geometry AdapterNested(Shape_File &file, InputContainer& container)
 {
-	pio::shape_geometry nested_record;
+	shape_geometry nested_record;
 	nested_record.x = file.X ();
 	nested_record.y = file.Y ();
 	nested_record.z = file.Z ();
 	return nested_record;
 };
-pio::signal_time AdapterNested(Signal_File &file, pio::InputContainer& container)
+signal_time AdapterNested(Signal_File &file, InputContainer& container)
 {
-	pio::signal_time nested_record;
+	signal_time nested_record;
 	nested_record.start = file.Start().Seconds();
 	nested_record.end = file.End().Seconds();
 	nested_record.timing = file.Timing ();
 	nested_record.phasing = file.Phasing ();
 	return nested_record;
 };
-pio::phase_movement AdapterNested(Phasing_File &file, pio::InputContainer& container)
+phase_movement AdapterNested(Phasing_File &file, InputContainer& container)
 {
-	pio::phase_movement nested_record;
+	phase_movement nested_record;
 	nested_record.movement = Static_Service::Movement_Code((Movement_Type)file.Movement());
 	nested_record.link = container.Links[file.Link()];
 	nested_record.dir = file.Dir ();
