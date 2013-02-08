@@ -87,6 +87,7 @@
     <ClInclude Include="adopter_methods.h" />
     <ClInclude Include="convert_methods.h" />
     <ClInclude Include="Geometry.h" />
+    <ClInclude Include="PopulateAdditional.h" />
     <ClInclude Include="transims_network.h" />
   </ItemGroup>
   <ItemGroup>

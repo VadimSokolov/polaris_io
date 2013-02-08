@@ -1205,5 +1205,93 @@ namespace odb
   load_ (statements_type&, object_type&)
   {
   }
+
+  // Area_Type
+  //
+
+  inline
+  access::object_traits< ::polaris::io::Area_Type >::id_type
+  access::object_traits< ::polaris::io::Area_Type >::
+  id (const object_type& o)
+  {
+    return o.area_type;
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Area_Type >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Area_Type >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Area_Type >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Area_Type >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Link_Type
+  //
+
+  inline
+  access::object_traits< ::polaris::io::Link_Type >::id_type
+  access::object_traits< ::polaris::io::Link_Type >::
+  id (const object_type& o)
+  {
+    return o.link_type;
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Link_Type >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Link_Type >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Link_Type >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Link_Type >::
+  load_ (statements_type&, object_type&)
+  {
+  }
 }
 

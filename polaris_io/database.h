@@ -13,7 +13,7 @@
 #endif
 
 #include <string>
-#include <memory>   // std::auto_ptr
+#include <memory>   // auto_ptr
 #include <cstdlib>  // std::exit
 #include <iostream>
 
@@ -63,7 +63,8 @@ namespace io
 }
 }
 using namespace polaris::io;
-inline std::auto_ptr<odb::database> open_sqlite_database(const std::string& name)
+
+inline auto_ptr<odb::database> open_sqlite_database(const std::string& name)
 {
 	auto_ptr<database> db (new odb::sqlite::database (make_name(name, db_inventory[0]), SQLITE_OPEN_READWRITE));
 	connection_ptr c (db->connection ());
@@ -92,7 +93,7 @@ inline auto_ptr<database> create_sqlite_database(const string& name, string& sch
 		transaction t (c->begin ());
 		try
 		{
-		schema_catalog::create_schema (*db, schema);
+			schema_catalog::create_schema (*db, schema);
 		}
 		catch (odb::unknown_schema e)
 		{
@@ -133,56 +134,56 @@ inline auto_ptr<database> create_sqlite_database(const string& name)
 	}
 	return db;
 }
-
-
-inline auto_ptr<database> create_database (int& argc, char* argv[])
-{
-  if (argc > 1 && argv[1] == string ("--help"))
-  {
-    cout << "Usage: " << argv[0] << " [options]" << endl
-         << "Options:" << endl;
-
-#if defined(DATABASE_MYSQL)
-    odb::mysql::database::print_usage (cout);
-#elif defined(DATABASE_SQLITE)
-    odb::sqlite::database::print_usage (cout);
-#elif defined(DATABASE_PGSQL)
-    odb::pgsql::database::print_usage (cout);
-#elif defined(DATABASE_ORACLE)
-    odb::oracle::database::print_usage (cout);
-#elif defined(DATABASE_MSSQL)
-    odb::mssql::database::print_usage (cout);
-#endif
-
-    exit (0);
-  }
-
-#if defined(DATABASE_MYSQL)
-  auto_ptr<database> db (new odb::mysql::database (argc, argv));
-#elif defined(DATABASE_SQLITE)
-  auto_ptr<database> db (
-    new odb::sqlite::database (
-      argc, argv, false, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE));
-	// Create the database schema. Due to bugs in SQLite foreign key
-	// support for DDL statements, we need to temporarily disable
-	// foreign keys.
-	{
-		connection_ptr c (db->connection ());
-		c->execute ("PRAGMA foreign_keys=OFF");
-		transaction t (c->begin ());
-		schema_catalog::create_schema (*db);
-		t.commit ();
-		c->execute ("PRAGMA foreign_keys=ON");
-	}
-#elif defined(DATABASE_PGSQL)
-  auto_ptr<database> db (new odb::pgsql::database (argc, argv));
-#elif defined(DATABASE_ORACLE)
-  auto_ptr<database> db (new odb::oracle::database (argc, argv));
-#elif defined(DATABASE_MSSQL)
-  auto_ptr<database> db (new odb::mssql::database (argc, argv));
-#endif
-
-  return db;
-}
+//
+//
+//inline auto_ptr<database> create_database (int& argc, char* argv[])
+//{
+//  if (argc > 1 && argv[1] == string ("--help"))
+//  {
+//    cout << "Usage: " << argv[0] << " [options]" << endl
+//         << "Options:" << endl;
+//
+//#if defined(DATABASE_MYSQL)
+//    odb::mysql::database::print_usage (cout);
+//#elif defined(DATABASE_SQLITE)
+//    odb::sqlite::database::print_usage (cout);
+//#elif defined(DATABASE_PGSQL)
+//    odb::pgsql::database::print_usage (cout);
+//#elif defined(DATABASE_ORACLE)
+//    odb::oracle::database::print_usage (cout);
+//#elif defined(DATABASE_MSSQL)
+//    odb::mssql::database::print_usage (cout);
+//#endif
+//
+//    exit (0);
+//  }
+//
+//#if defined(DATABASE_MYSQL)
+//  auto_ptr<database> db (new odb::mysql::database (argc, argv));
+//#elif defined(DATABASE_SQLITE)
+//  auto_ptr<database> db (
+//    new odb::sqlite::database (
+//      argc, argv, false, SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE));
+//	// Create the database schema. Due to bugs in SQLite foreign key
+//	// support for DDL statements, we need to temporarily disable
+//	// foreign keys.
+//	{
+//		connection_ptr c (db->connection ());
+//		c->execute ("PRAGMA foreign_keys=OFF");
+//		transaction t (c->begin ());
+//		schema_catalog::create_schema (*db);
+//		t.commit ();
+//		c->execute ("PRAGMA foreign_keys=ON");
+//	}
+//#elif defined(DATABASE_PGSQL)
+//  auto_ptr<database> db (new odb::pgsql::database (argc, argv));
+//#elif defined(DATABASE_ORACLE)
+//  auto_ptr<database> db (new odb::oracle::database (argc, argv));
+//#elif defined(DATABASE_MSSQL)
+//  auto_ptr<database> db (new odb::mssql::database (argc, argv));
+//#endif
+//
+//  return db;
+//}
 
 #endif // DATABASE_HXX

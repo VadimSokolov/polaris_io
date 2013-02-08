@@ -3,6 +3,7 @@
 #include "Supply.h"
 #include "Demand.h"
 
+#include "PopulateAdditional.h"
 
 #include "transims_network.h"
 #include "Geometry.h"
@@ -70,7 +71,8 @@ int main(int argc, char* argv[])
 		net->Init();
 	else
 		net->Init(argc, argv);
-	auto_ptr<database> db = create_sqlite_database (net->path_to_database);
+	//auto_ptr<database> db = create_sqlite_database  (net->path_to_database);
+	shared_ptr<database> db = create_sqlite_database  (net->path_to_database);
 	Db_File control_file;
 	char* control_record;
 	string control_content;
@@ -86,6 +88,8 @@ int main(int argc, char* argv[])
 	/************************************************/
 	/*****************Conversion*********************/
 	/************************************************/	
+	PopulateLinkType(net->path_to_database);
+	PopulateAreaType(net->path_to_database);
 	Convert<Node_File,Node, int>(net,container, NODE, "NODE", &container.Nodes);
 	Convert<Link_File,Link, int>(net,container, LINK, "LINK", &container.Links);
 	ConvertNested<Shape_File,Shape, int, shape_geometry>(net,container, SHAPE, "SHAPE");
