@@ -9,6 +9,7 @@
 *.sqlite-journal
 *.prn
 .prn
+sql_trace.txt
 # Build results
 
 [Dd]ebug*/

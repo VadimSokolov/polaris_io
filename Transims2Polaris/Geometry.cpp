@@ -24,6 +24,7 @@ int AddGeometryTables(sqlite3* db_handle, int srid)
 		return 0;
     }
     fprintf(stderr, "\n\n**** SpatiaLite loaded as an extension ***\n\n");
+
 	strcpy (sql, "SELECT DiscardGeometryColumn('Link', 'GEO')");
 	if (ret != SQLITE_OK)
 	{
@@ -35,6 +36,25 @@ int AddGeometryTables(sqlite3* db_handle, int srid)
 	sprintf (buff, "'GEO', %d, ", srid);
     strcat (sql, buff);
     strcat (sql, "'LINESTRING', 'XY')");
+	ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
+	if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "Error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+		goto stop;
+	}
+
+	strcpy (sql, "SELECT DiscardGeometryColumn('Zone', 'GEO')");
+	if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "Error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+		goto stop;
+	}
+	strcpy (sql, "SELECT AddGeometryColumn('Zone', ");
+	sprintf (buff, "'GEO', %d, ", srid);
+    strcat (sql, buff);
+    strcat (sql, "'POINT', 'XY')");
 	ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
 	if (ret != SQLITE_OK)
 	{

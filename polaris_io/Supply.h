@@ -458,7 +458,7 @@ private:
 
 };
 
-#pragma db object //table("CONNECT")
+#pragma db object table("Connection")
 class Connect
 {
 public:
@@ -494,14 +494,14 @@ public:
 	void setIn_High (const int& in_high_){in_high = in_high_;}
 	const int& getOut_High () const {return out_high;}
 	void setOut_High (const int& out_high_){out_high = out_high_;}
-	const unsigned long& getPrimaryKey () const {return auto_id;}
-	const unsigned long& getAuto_id () const {return auto_id;}
+	const unsigned long& getPrimaryKey () const {return conn;}
+	const unsigned long& getAuto_id () const {return conn;}
 
 //Data Fields
 private:
 	friend class odb::access;
 	#pragma db id auto
-	unsigned long auto_id;
+	unsigned long conn;
 	shared_ptr<Link> link;
 	int dir;
 	shared_ptr<Link> to_link;

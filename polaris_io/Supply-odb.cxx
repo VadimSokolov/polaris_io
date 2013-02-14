@@ -8631,8 +8631,8 @@ namespace odb
           long unsigned int,
           sqlite::id_integer >::set_value (
         id,
-        i.auto_id_value,
-        i.auto_id_null);
+        i.conn_value,
+        i.conn_null);
     }
 
     return id;
@@ -8646,7 +8646,7 @@ namespace odb
 
     bool grew (false);
 
-    // auto_id
+    // conn
     //
     t[0UL] = false;
 
@@ -8720,13 +8720,13 @@ namespace odb
 
     std::size_t n (0);
 
-    // auto_id
+    // conn
     //
     if (sk != statement_update)
     {
       b[n].type = sqlite::bind::integer;
-      b[n].buffer = &i.auto_id_value;
-      b[n].is_null = &i.auto_id_null;
+      b[n].buffer = &i.conn_value;
+      b[n].is_null = &i.conn_null;
       n++;
     }
 
@@ -8840,21 +8840,21 @@ namespace odb
 
     bool grew (false);
 
-    // auto_id
+    // conn
     //
     if (sk == statement_insert)
     {
       long unsigned int const& v =
-        o.auto_id;
+        o.conn;
 
       bool is_null (false);
       sqlite::value_traits<
           long unsigned int,
           sqlite::id_integer >::set_image (
-        i.auto_id_value,
+        i.conn_value,
         is_null,
         v);
-      i.auto_id_null = is_null;
+      i.conn_null = is_null;
     }
 
     // link
@@ -9074,18 +9074,18 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (i);
     ODB_POTENTIALLY_UNUSED (db);
 
-    // auto_id
+    // conn
     //
     {
       long unsigned int& v =
-        o.auto_id;
+        o.conn;
 
       sqlite::value_traits<
           long unsigned int,
           sqlite::id_integer >::set_value (
         v,
-        i.auto_id_value,
-        i.auto_id_null);
+        i.conn_value,
+        i.conn_null);
     }
 
     // link
@@ -9301,8 +9301,8 @@ namespace odb
   };
 
   const char access::object_traits< ::polaris::io::Connect >::persist_statement[] =
-  "INSERT INTO \"Connect\" ("
-  "\"auto_id\","
+  "INSERT INTO \"Connection\" ("
+  "\"conn\","
   "\"link\","
   "\"dir\","
   "\"to_link\","
@@ -9318,23 +9318,23 @@ namespace odb
 
   const char access::object_traits< ::polaris::io::Connect >::find_statement[] =
   "SELECT "
-  "\"Connect\".\"auto_id\","
-  "\"Connect\".\"link\","
-  "\"Connect\".\"dir\","
-  "\"Connect\".\"to_link\","
-  "\"Connect\".\"lanes\","
-  "\"Connect\".\"to_lanes\","
-  "\"Connect\".\"type\","
-  "\"Connect\".\"penalty\","
-  "\"Connect\".\"speed\","
-  "\"Connect\".\"capacity\","
-  "\"Connect\".\"in_high\","
-  "\"Connect\".\"out_high\""
-  " FROM \"Connect\""
-  " WHERE \"Connect\".\"auto_id\"=?";
+  "\"Connection\".\"conn\","
+  "\"Connection\".\"link\","
+  "\"Connection\".\"dir\","
+  "\"Connection\".\"to_link\","
+  "\"Connection\".\"lanes\","
+  "\"Connection\".\"to_lanes\","
+  "\"Connection\".\"type\","
+  "\"Connection\".\"penalty\","
+  "\"Connection\".\"speed\","
+  "\"Connection\".\"capacity\","
+  "\"Connection\".\"in_high\","
+  "\"Connection\".\"out_high\""
+  " FROM \"Connection\""
+  " WHERE \"Connection\".\"conn\"=?";
 
   const char access::object_traits< ::polaris::io::Connect >::update_statement[] =
-  "UPDATE \"Connect\" SET "
+  "UPDATE \"Connection\" SET "
   "\"link\"=?,"
   "\"dir\"=?,"
   "\"to_link\"=?,"
@@ -9346,37 +9346,37 @@ namespace odb
   "\"capacity\"=?,"
   "\"in_high\"=?,"
   "\"out_high\"=?"
-  " WHERE \"auto_id\"=?";
+  " WHERE \"conn\"=?";
 
   const char access::object_traits< ::polaris::io::Connect >::erase_statement[] =
-  "DELETE FROM \"Connect\""
-  " WHERE \"auto_id\"=?";
+  "DELETE FROM \"Connection\""
+  " WHERE \"conn\"=?";
 
   const char access::object_traits< ::polaris::io::Connect >::query_statement[] =
   "SELECT "
-  "\"Connect\".\"auto_id\","
-  "\"Connect\".\"link\","
-  "\"Connect\".\"dir\","
-  "\"Connect\".\"to_link\","
-  "\"Connect\".\"lanes\","
-  "\"Connect\".\"to_lanes\","
-  "\"Connect\".\"type\","
-  "\"Connect\".\"penalty\","
-  "\"Connect\".\"speed\","
-  "\"Connect\".\"capacity\","
-  "\"Connect\".\"in_high\","
-  "\"Connect\".\"out_high\""
-  " FROM \"Connect\""
-  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Connect\".\"link\""
-  " LEFT JOIN \"Link\" AS \"to_link\" ON \"to_link\".\"link\"=\"Connect\".\"to_link\""
+  "\"Connection\".\"conn\","
+  "\"Connection\".\"link\","
+  "\"Connection\".\"dir\","
+  "\"Connection\".\"to_link\","
+  "\"Connection\".\"lanes\","
+  "\"Connection\".\"to_lanes\","
+  "\"Connection\".\"type\","
+  "\"Connection\".\"penalty\","
+  "\"Connection\".\"speed\","
+  "\"Connection\".\"capacity\","
+  "\"Connection\".\"in_high\","
+  "\"Connection\".\"out_high\""
+  " FROM \"Connection\""
+  " LEFT JOIN \"Link\" AS \"link\" ON \"link\".\"link\"=\"Connection\".\"link\""
+  " LEFT JOIN \"Link\" AS \"to_link\" ON \"to_link\".\"link\"=\"Connection\".\"to_link\""
   " ";
 
   const char access::object_traits< ::polaris::io::Connect >::erase_query_statement[] =
-  "DELETE FROM \"Connect\""
+  "DELETE FROM \"Connection\""
   " ";
 
   const char access::object_traits< ::polaris::io::Connect >::table_name[] =
-  "\"Connect\"";
+  "\"Connection\"";
 
   void access::object_traits< ::polaris::io::Connect >::
   persist (database& db, object_type& obj)
@@ -9400,7 +9400,7 @@ namespace odb
     if (init (im, obj, statement_insert))
       im.version++;
 
-    im.auto_id_null = true;
+    im.conn_null = true;
 
     if (im.version != sts.insert_image_version () ||
         imb.version == 0)
@@ -9414,7 +9414,7 @@ namespace odb
     if (!st.execute ())
       throw object_already_persistent ();
 
-    obj.auto_id = static_cast< id_type > (st.id ());
+    obj.conn = static_cast< id_type > (st.id ());
 
     callback (db,
               static_cast<const object_type&> (obj),
@@ -9436,7 +9436,7 @@ namespace odb
       conn.statement_cache ().find_object<object_type> ());
 
     id_image_type& i (sts.id_image ());
-    init (i, obj.auto_id);
+    init (i, obj.conn);
 
     image_type& im (sts.image ());
     if (init (im, obj, statement_update))
@@ -9605,7 +9605,7 @@ namespace odb
     statements_type::auto_lock l (sts);
 
     const id_type& id  (
-      obj.auto_id);
+      obj.conn);
 
     if (!find_ (sts, &id))
       return false;
@@ -9741,7 +9741,7 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("DROP TABLE IF EXISTS \"Connect\"");
+          db.execute ("DROP TABLE IF EXISTS \"Connection\"");
           return false;
         }
       }
@@ -9752,8 +9752,8 @@ namespace odb
       {
         case 1:
         {
-          db.execute ("CREATE TABLE \"Connect\" (\n"
-                      "  \"auto_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
+          db.execute ("CREATE TABLE \"Connection\" (\n"
+                      "  \"conn\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\n"
                       "  \"link\" INTEGER,\n"
                       "  \"dir\" INTEGER NOT NULL,\n"
                       "  \"to_link\" INTEGER,\n"

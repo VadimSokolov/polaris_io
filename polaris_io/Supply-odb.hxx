@@ -2950,7 +2950,7 @@ namespace odb
   template <typename A>
   struct pointer_query_columns< ::polaris::io::Connect, A >
   {
-    // auto_id
+    // conn
     //
     typedef
     sqlite::query_column<
@@ -2958,9 +2958,9 @@ namespace odb
         long unsigned int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
-    auto_id_type_;
+    conn_type_;
 
-    static const auto_id_type_ auto_id;
+    static const conn_type_ conn;
 
     // link
     //
@@ -3096,9 +3096,9 @@ namespace odb
   };
 
   template <typename A>
-  const typename pointer_query_columns< ::polaris::io::Connect, A >::auto_id_type_
+  const typename pointer_query_columns< ::polaris::io::Connect, A >::conn_type_
   pointer_query_columns< ::polaris::io::Connect, A >::
-  auto_id (A::table_name, "\"auto_id\"", 0);
+  conn (A::table_name, "\"conn\"", 0);
 
   template <typename A>
   const typename pointer_query_columns< ::polaris::io::Connect, A >::link_type_
@@ -3180,10 +3180,10 @@ namespace odb
 
     struct image_type
     {
-      // auto_id
+      // conn
       //
-      long long auto_id_value;
-      bool auto_id_null;
+      long long conn_value;
+      bool conn_null;
 
       // link
       //
@@ -10795,7 +10795,7 @@ namespace odb
   struct query_columns< ::polaris::io::Connect, A >:
     query_columns_base< ::polaris::io::Connect >
   {
-    // auto_id
+    // conn
     //
     typedef
     sqlite::query_column<
@@ -10803,9 +10803,9 @@ namespace odb
         long unsigned int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
-    auto_id_type_;
+    conn_type_;
 
-    static const auto_id_type_ auto_id;
+    static const conn_type_ conn;
 
     // link
     //
@@ -10979,9 +10979,9 @@ namespace odb
   };
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Connect, A >::auto_id_type_
+  const typename query_columns< ::polaris::io::Connect, A >::conn_type_
   query_columns< ::polaris::io::Connect, A >::
-  auto_id (A::table_name, "\"auto_id\"", 0);
+  conn (A::table_name, "\"conn\"", 0);
 
   template <typename A>
   const typename query_columns< ::polaris::io::Connect, A >::link_type_

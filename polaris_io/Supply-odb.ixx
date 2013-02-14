@@ -440,7 +440,7 @@ namespace odb
   access::object_traits< ::polaris::io::Connect >::
   id (const object_type& o)
   {
-    return o.auto_id;
+    return o.conn;
   }
 
   inline
