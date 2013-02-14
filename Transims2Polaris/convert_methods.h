@@ -218,9 +218,9 @@ void AddSpatialiteGeometry(TransimsNetwork *net)
 	if (shapes.size() == 0)
 		return;
 	cout << "Adding shapes as geometry column" << "\n";
-	ret = sqlite3_open_v2(net->path_to_database.c_str(), &db_handle, SQLITE_OPEN_READWRITE , NULL);
+	ret = sqlite3_open_v2(make_name(net->path_to_database,"Supply").c_str(), &db_handle, SQLITE_OPEN_READWRITE , NULL);
 	//add geometry column to links table
-	ret = AddGeometryTables(db_handle);
+	ret = AddGeometryTables(db_handle, net->srid);
 	#ifdef _DEBUG
 		sqlite3_trace(db_handle,trace_callback, fh);
 	#endif

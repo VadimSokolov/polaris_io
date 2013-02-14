@@ -25,6 +25,7 @@ public:
 			{NEW_SQLITE_DATABASE, "NEW_SQLITE_DATABASE", LEVEL0, REQ_KEY, OUT_KEY, "", FILE_RANGE, NO_HELP},
 			{ADD_GEOMETRY, "ADD_GEOMETRY", LEVEL0, OPT_KEY, BOOL_KEY, "", BOOL_RANGE, NO_HELP},
 			{GENERATE_TRIP_WITH_REF, "GENERATE_TRIP_WITH_REF", LEVEL0, OPT_KEY, BOOL_KEY, "", BOOL_RANGE, NO_HELP},
+			{SRID, "SRID", LEVEL0, REQ_KEY, INT_KEY, "32616", "4000..40000", NO_HELP},
 			{MESSAGE, "MESSAGE", LEVEL0, OPT_KEY, TEXT_KEY, "", FORMAT_RANGE, NO_HELP},
 			END_CONTROL
 		};
@@ -80,6 +81,7 @@ public:
 	}
 	std::string path_to_database;
 	bool add_geo_columns, generate_trip_with_ref;
+	int srid;
 protected:
 	void Program_Control (void)
 	{
@@ -102,9 +104,14 @@ protected:
 			this->generate_trip_with_ref = false;
 		else
 			this->generate_trip_with_ref = Get_Control_Flag(GENERATE_TRIP_WITH_REF);
+		key = Get_Control_String(SRID);
+		if (key.empty())
+			this->srid = 32616;
+		else
+			this->srid = Get_Control_Integer(SRID);
 	}
 	enum Transims2Polaris_Keys {
-		NEW_SQLITE_DATABASE = 1, ADD_GEOMETRY, GENERATE_TRIP_WITH_REF, MESSAGE
+		NEW_SQLITE_DATABASE = 1, SRID, ADD_GEOMETRY, GENERATE_TRIP_WITH_REF, MESSAGE
 	};
 
 
