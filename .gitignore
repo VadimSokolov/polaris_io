@@ -10,6 +10,7 @@
 *.prn
 .prn
 sql_trace.txt
+sql_profile.txt
 # Build results
 
 [Dd]ebug*/

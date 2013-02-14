@@ -101,6 +101,8 @@ public:
 	std::map<int,shared_ptr<Signal>> Signals;
 	std::map<int,shared_ptr<Stop>> Stops;
 	std::map<int,shared_ptr<Veh_Type>> Veh_Types;
+	std::map<int,shared_ptr<Area_Type>> Area_Types;
+	std::map<std::string,shared_ptr<Link_Type>> Link_Types;
 };
 #pragma db object
 class MetaData
@@ -163,7 +165,7 @@ public:
 	// Default Constructor
 	Zone () {}	
 	//Contructor
-	Zone ( int zone_, double x_, double y_, double z_, int area_, double min_x_, double min_y_, double max_x_, double max_y_ )  
+	Zone (int zone_, double x_, double y_, double z_,  shared_ptr<Area_Type> area_, double min_x_, double min_y_, double max_x_, double max_y_ )  
 	: zone (zone_), x (x_), y (y_), z (z_), area (area_), min_x (min_x_), min_y (min_y_), max_x (max_x_), max_y (max_y_)
 	{
 	}
@@ -176,8 +178,9 @@ public:
 	void setY (const double& y_){y = y_;}
 	const double& getZ () const {return z;}
 	void setZ (const double& z_){z = z_;}
-	const int& getArea () const {return area;}
-	void setArea (const int& area_){area = area_;}
+	const shared_ptr<Area_Type>& getArea () const {return area;}
+	void setArea (const shared_ptr<Area_Type>& area_){area = area_;}
+	void setArea (const int& area_, InputContainer& container){area = container.Area_Types[area_];}
 	const double& getMin_X () const {return min_x;}
 	void setMin_X (const double& min_x_){min_x = min_x_;}
 	const double& getMin_Y () const {return min_y;}
@@ -196,7 +199,7 @@ private:
 	double x;
 	double y;
 	double z;
-	int area;
+	shared_ptr<Area_Type> area;
 	double min_x;
 	double min_y;
 	double max_x;
@@ -246,7 +249,7 @@ public:
 	// Default Constructor
 	Link () {}	
 	//Contructor
-	Link ( int link_, std::string name_, shared_ptr<Node> node_a_, shared_ptr<Node> node_b_, double length_, double setback_a_, double setback_b_, int bearing_a_, int bearing_b_, std::string type_, int divided_, int area_type_, int use_, double grade_, int lanes_ab_, double speed_ab_, double fspd_ab_, int cap_ab_, int lanes_ba_, double speed_ba_, double fspd_ba_, int cap_ba_, int left_ab_, int right_ab_, int left_ba_, int right_ba_ )  
+	Link ( int link_, std::string name_, shared_ptr<Node> node_a_, shared_ptr<Node> node_b_, double length_, double setback_a_, double setback_b_, int bearing_a_, int bearing_b_, shared_ptr<Link_Type> type_, int divided_, shared_ptr<Area_Type> area_type_, int use_, double grade_, int lanes_ab_, double speed_ab_, double fspd_ab_, int cap_ab_, int lanes_ba_, double speed_ba_, double fspd_ba_, int cap_ba_, int left_ab_, int right_ab_, int left_ba_, int right_ba_ )  
 	: link (link_), name (name_), node_a (node_a_), node_b (node_b_), length (length_), setback_a (setback_a_), setback_b (setback_b_), bearing_a (bearing_a_), bearing_b (bearing_b_), type (type_), divided (divided_), area_type (area_type_), use (use_), grade (grade_), lanes_ab (lanes_ab_), speed_ab (speed_ab_), fspd_ab (fspd_ab_), cap_ab (cap_ab_), lanes_ba (lanes_ba_), speed_ba (speed_ba_), fspd_ba (fspd_ba_), cap_ba (cap_ba_), left_ab (left_ab_), right_ab (right_ab_), left_ba (left_ba_), right_ba (right_ba_)
 	{
 	}
@@ -271,12 +274,14 @@ public:
 	void setBearing_A (const int& bearing_a_){bearing_a = bearing_a_;}
 	const int& getBearing_B () const {return bearing_b;}
 	void setBearing_B (const int& bearing_b_){bearing_b = bearing_b_;}
-	const std::string& getType () const {return type;}
-	void setType (const std::string& type_){type = type_;}
+	const shared_ptr<Link_Type>& getType () const {return type;}
+	void setType (const shared_ptr<Link_Type>& type_){type = type_;}
+	void setType (const std::string& type_, InputContainer& container){type = container.Link_Types[type_];}
 	const int& getDivided () const {return divided;}
 	void setDivided (const int& divided_){divided = divided_;}
-	const int& getArea_Type () const {return area_type;}
-	void setArea_Type (const int& area_type_){area_type = area_type_;}
+	const shared_ptr<Area_Type>& getArea_Type () const {return area_type;}
+	void setArea_Type (const shared_ptr<Area_Type>& area_type_){area_type = area_type_;}
+	void setArea_Type (const int& area_type_,  InputContainer& container){area_type = container.Area_Types[area_type_];}
 	const int& getUse () const {return use;}
 	void setUse (const int& use_){use = use_;}
 	const double& getGrade () const {return grade;}
@@ -320,9 +325,9 @@ private:
 	double setback_b;
 	int bearing_a;
 	int bearing_b;
-	std::string type;
+	shared_ptr<Link_Type> type;
 	int divided;
-	int area_type;
+	shared_ptr<Area_Type> area_type;
 	int use;
 	double grade;
 	int lanes_ab;
@@ -338,7 +343,6 @@ private:
 	int left_ba;
 	int right_ba;
 	#pragma db index member(link)
-
 };
 
 #pragma db object //table("POCKET")
@@ -1358,6 +1362,7 @@ public:
 	void setName (const std::string& name_) {name = name_;}
 	const std::string& getNotes () const {return notes;}
 	void setNotes (const std::string& notes_) {notes = notes_;}
+	int getPrimaryKey() const {return area_type;}
 //Data Fields
 private:
 	friend class odb::access;
@@ -1388,6 +1393,7 @@ public:
 	void setAlternative_Labels (const std::string& alternative_labels_) {alternative_labels = alternative_labels_;}
 	const std::string& getNotes () const {return notes;}
 	void setNotes (const std::string& notes_) {notes = notes_;}
+	const std::string& getPrimaryKey() const {return link_type;}
 //Data Fields
 private:
 	friend class odb::access;

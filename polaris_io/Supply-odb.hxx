@@ -768,7 +768,7 @@ namespace odb
   };
 
   template <typename A>
-  struct query_columns< ::polaris::io::Zone, A >
+  struct pointer_query_columns< ::polaris::io::Zone, A >
   {
     // zone
     //
@@ -880,55 +880,49 @@ namespace odb
   };
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::zone_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::zone_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   zone (A::table_name, "\"zone\"", 0);
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::x_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::x_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   x (A::table_name, "\"x\"", 0);
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::y_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::y_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   y (A::table_name, "\"y\"", 0);
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::z_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::z_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   z (A::table_name, "\"z\"", 0);
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::area_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::area_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   area (A::table_name, "\"area\"", 0);
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::min_x_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::min_x_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   min_x (A::table_name, "\"min_x\"", 0);
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::min_y_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::min_y_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   min_y (A::table_name, "\"min_y\"", 0);
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::max_x_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::max_x_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   max_x (A::table_name, "\"max_x\"", 0);
 
   template <typename A>
-  const typename query_columns< ::polaris::io::Zone, A >::max_y_type_
-  query_columns< ::polaris::io::Zone, A >::
+  const typename pointer_query_columns< ::polaris::io::Zone, A >::max_y_type_
+  pointer_query_columns< ::polaris::io::Zone, A >::
   max_y (A::table_name, "\"max_y\"", 0);
-
-  template <typename A>
-  struct pointer_query_columns< ::polaris::io::Zone, A >:
-    query_columns< ::polaris::io::Zone, A >
-  {
-  };
 
   template <>
   class access::object_traits< ::polaris::io::Zone >
@@ -9626,6 +9620,210 @@ namespace odb
     load_ (statements_type&, object_type&);
   };
 
+  // Zone
+  //
+  class area_alias_tag;
+
+#ifndef ODB_ALIAS_TRAITS_AREA_FOR_POLARIS_IO_AREA_TYPE
+#define ODB_ALIAS_TRAITS_AREA_FOR_POLARIS_IO_AREA_TYPE
+  template <bool d>
+  struct alias_traits< ::polaris::io::Area_Type, area_alias_tag, d >
+  {
+    static const char table_name[];
+  };
+
+  template <bool d>
+  const char alias_traits< ::polaris::io::Area_Type, area_alias_tag, d >::
+  table_name[] = "\"area\"";
+#endif // ODB_ALIAS_TRAITS_AREA_FOR_POLARIS_IO_AREA_TYPE
+
+  template <>
+  struct query_columns_base< ::polaris::io::Zone >
+  {
+    // area
+    //
+    typedef
+    odb::alias_traits< ::polaris::io::Area_Type, area_alias_tag >
+    area_alias_;
+  };
+
+  template <typename A>
+  struct query_columns< ::polaris::io::Zone, A >:
+    query_columns_base< ::polaris::io::Zone >
+  {
+    // zone
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    zone_type_;
+
+    static const zone_type_ zone;
+
+    // x
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    x_type_;
+
+    static const x_type_ x;
+
+    // y
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    y_type_;
+
+    static const y_type_ y;
+
+    // z
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    z_type_;
+
+    static const z_type_ z;
+
+    // area
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        int,
+        sqlite::id_integer >::query_type,
+      sqlite::id_integer >
+    area_column_type_;
+
+    typedef
+    odb::query_pointer<
+      odb::pointer_query_columns<
+        ::polaris::io::Area_Type,
+        area_alias_ > >
+    area_pointer_type_;
+
+    struct area_type_: area_pointer_type_, area_column_type_
+    {
+      area_type_ ()
+      {
+      }
+
+      area_type_ (const char* t, const char* c, const char* conv)
+        : area_column_type_ (t, c, conv)
+      {
+      }
+    };
+
+    static const area_type_ area;
+
+    // min_x
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    min_x_type_;
+
+    static const min_x_type_ min_x;
+
+    // min_y
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    min_y_type_;
+
+    static const min_y_type_ min_y;
+
+    // max_x
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    max_x_type_;
+
+    static const max_x_type_ max_x;
+
+    // max_y
+    //
+    typedef
+    sqlite::query_column<
+      sqlite::value_traits<
+        double,
+        sqlite::id_real >::query_type,
+      sqlite::id_real >
+    max_y_type_;
+
+    static const max_y_type_ max_y;
+  };
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::zone_type_
+  query_columns< ::polaris::io::Zone, A >::
+  zone (A::table_name, "\"zone\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::x_type_
+  query_columns< ::polaris::io::Zone, A >::
+  x (A::table_name, "\"x\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::y_type_
+  query_columns< ::polaris::io::Zone, A >::
+  y (A::table_name, "\"y\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::z_type_
+  query_columns< ::polaris::io::Zone, A >::
+  z (A::table_name, "\"z\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::area_type_
+  query_columns< ::polaris::io::Zone, A >::
+  area (A::table_name, "\"area\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::min_x_type_
+  query_columns< ::polaris::io::Zone, A >::
+  min_x (A::table_name, "\"min_x\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::min_y_type_
+  query_columns< ::polaris::io::Zone, A >::
+  min_y (A::table_name, "\"min_y\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::max_x_type_
+  query_columns< ::polaris::io::Zone, A >::
+  max_x (A::table_name, "\"max_x\"", 0);
+
+  template <typename A>
+  const typename query_columns< ::polaris::io::Zone, A >::max_y_type_
+  query_columns< ::polaris::io::Zone, A >::
+  max_y (A::table_name, "\"max_y\"", 0);
+
   // Shape
   //
   class link_alias_tag;
@@ -9760,6 +9958,36 @@ namespace odb
   table_name[] = "\"node_b\"";
 #endif // ODB_ALIAS_TRAITS_NODE_B_FOR_POLARIS_IO_NODE
 
+  class type_alias_tag;
+
+#ifndef ODB_ALIAS_TRAITS_TYPE_FOR_POLARIS_IO_LINK_TYPE
+#define ODB_ALIAS_TRAITS_TYPE_FOR_POLARIS_IO_LINK_TYPE
+  template <bool d>
+  struct alias_traits< ::polaris::io::Link_Type, type_alias_tag, d >
+  {
+    static const char table_name[];
+  };
+
+  template <bool d>
+  const char alias_traits< ::polaris::io::Link_Type, type_alias_tag, d >::
+  table_name[] = "\"type\"";
+#endif // ODB_ALIAS_TRAITS_TYPE_FOR_POLARIS_IO_LINK_TYPE
+
+  class area_type_alias_tag;
+
+#ifndef ODB_ALIAS_TRAITS_AREA_TYPE_FOR_POLARIS_IO_AREA_TYPE
+#define ODB_ALIAS_TRAITS_AREA_TYPE_FOR_POLARIS_IO_AREA_TYPE
+  template <bool d>
+  struct alias_traits< ::polaris::io::Area_Type, area_type_alias_tag, d >
+  {
+    static const char table_name[];
+  };
+
+  template <bool d>
+  const char alias_traits< ::polaris::io::Area_Type, area_type_alias_tag, d >::
+  table_name[] = "\"area_type\"";
+#endif // ODB_ALIAS_TRAITS_AREA_TYPE_FOR_POLARIS_IO_AREA_TYPE
+
   template <>
   struct query_columns_base< ::polaris::io::Link >
   {
@@ -9774,6 +10002,18 @@ namespace odb
     typedef
     odb::alias_traits< ::polaris::io::Node, node_b_alias_tag >
     node_b_alias_;
+
+    // type
+    //
+    typedef
+    odb::alias_traits< ::polaris::io::Link_Type, type_alias_tag >
+    type_alias_;
+
+    // area_type
+    //
+    typedef
+    odb::alias_traits< ::polaris::io::Area_Type, area_type_alias_tag >
+    area_type_alias_;
   };
 
   template <typename A>
@@ -9934,7 +10174,26 @@ namespace odb
         ::std::string,
         sqlite::id_text >::query_type,
       sqlite::id_text >
-    type_type_;
+    type_column_type_;
+
+    typedef
+    odb::query_pointer<
+      odb::pointer_query_columns<
+        ::polaris::io::Link_Type,
+        type_alias_ > >
+    type_pointer_type_;
+
+    struct type_type_: type_pointer_type_, type_column_type_
+    {
+      type_type_ ()
+      {
+      }
+
+      type_type_ (const char* t, const char* c, const char* conv)
+        : type_column_type_ (t, c, conv)
+      {
+      }
+    };
 
     static const type_type_ type;
 
@@ -9958,7 +10217,26 @@ namespace odb
         int,
         sqlite::id_integer >::query_type,
       sqlite::id_integer >
-    area_type_type_;
+    area_type_column_type_;
+
+    typedef
+    odb::query_pointer<
+      odb::pointer_query_columns<
+        ::polaris::io::Area_Type,
+        area_type_alias_ > >
+    area_type_pointer_type_;
+
+    struct area_type_type_: area_type_pointer_type_, area_type_column_type_
+    {
+      area_type_type_ ()
+      {
+      }
+
+      area_type_type_ (const char* t, const char* c, const char* conv)
+        : area_type_column_type_ (t, c, conv)
+      {
+      }
+    };
 
     static const area_type_type_ area_type;
 

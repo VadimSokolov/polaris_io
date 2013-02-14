@@ -26,5 +26,5 @@ MESSAGE This is a test message for the database
 
 ##############OUTPUT##############
 NEW_SQLITE_DATABASE     C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/TestNet50
-ADD_GEOMETRY				TRUE
-SRID					32618
+ADD_GEOMETRY			TRUE
+SRID					26918

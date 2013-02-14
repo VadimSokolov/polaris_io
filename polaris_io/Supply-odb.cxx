@@ -2818,17 +2818,28 @@ namespace odb
     // area
     //
     {
-      int const& v =
+      ::std::tr1::shared_ptr< ::polaris::io::Area_Type > const& v =
         o.area;
 
-      bool is_null (false);
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
-        i.area_value,
-        is_null,
-        v);
-      i.area_null = is_null;
+      typedef object_traits< ::polaris::io::Area_Type > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Area_Type > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.area_value,
+          is_null,
+          id);
+        i.area_null = is_null;
+      }
+      else
+        i.area_null = true;
     }
 
     // min_x
@@ -2964,15 +2975,31 @@ namespace odb
     // area
     //
     {
-      int& v =
+      ::std::tr1::shared_ptr< ::polaris::io::Area_Type >& v =
         o.area;
 
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
-        v,
-        i.area_value,
-        i.area_null);
+      typedef object_traits< ::polaris::io::Area_Type > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Area_Type > > ptr_traits;
+
+      if (i.area_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.area_value,
+          i.area_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          db->load< obj_traits::object_type > (id));
+      }
     }
 
     // min_x
@@ -3109,6 +3136,7 @@ namespace odb
   "\"Zone\".\"max_x\","
   "\"Zone\".\"max_y\""
   " FROM \"Zone\""
+  " LEFT JOIN \"Area_Type\" AS \"area\" ON \"area\".\"area_type\"=\"Zone\".\"area\""
   " ";
 
   const char access::object_traits< ::polaris::io::Zone >::erase_query_statement[] =
@@ -3479,11 +3507,15 @@ namespace odb
                       "  \"x\" REAL,\n"
                       "  \"y\" REAL,\n"
                       "  \"z\" REAL,\n"
-                      "  \"area\" INTEGER NOT NULL,\n"
+                      "  \"area\" INTEGER,\n"
                       "  \"min_x\" REAL,\n"
                       "  \"min_y\" REAL,\n"
                       "  \"max_x\" REAL,\n"
-                      "  \"max_y\" REAL)");
+                      "  \"max_y\" REAL,\n"
+                      "  CONSTRAINT \"area_fk\"\n"
+                      "    FOREIGN KEY (\"area\")\n"
+                      "    REFERENCES \"Area_Type\" (\"area_type\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED)");
           db.execute ("CREATE INDEX \"Zone_zone_i\"\n"
                       "  ON \"Zone\" (\"zone\")");
           return false;
@@ -5108,20 +5140,31 @@ namespace odb
     // type
     //
     {
-      ::std::string const& v =
+      ::std::tr1::shared_ptr< ::polaris::io::Link_Type > const& v =
         o.type;
 
-      bool is_null (false);
-      std::size_t cap (i.type_value.capacity ());
-      sqlite::value_traits<
-          ::std::string,
-          sqlite::id_text >::set_image (
-        i.type_value,
-        i.type_size,
-        is_null,
-        v);
-      i.type_null = is_null;
-      grew = grew || (cap != i.type_value.capacity ());
+      typedef object_traits< ::polaris::io::Link_Type > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Link_Type > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        std::size_t cap (i.type_value.capacity ());
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_text >::set_image (
+          i.type_value,
+          i.type_size,
+          is_null,
+          id);
+        i.type_null = is_null;
+        grew = grew || (cap != i.type_value.capacity ());
+      }
+      else
+        i.type_null = true;
     }
 
     // divided
@@ -5143,17 +5186,28 @@ namespace odb
     // area_type
     //
     {
-      int const& v =
+      ::std::tr1::shared_ptr< ::polaris::io::Area_Type > const& v =
         o.area_type;
 
-      bool is_null (false);
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_image (
-        i.area_type_value,
-        is_null,
-        v);
-      i.area_type_null = is_null;
+      typedef object_traits< ::polaris::io::Area_Type > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Area_Type > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.area_type_value,
+          is_null,
+          id);
+        i.area_type_null = is_null;
+      }
+      else
+        i.area_type_null = true;
     }
 
     // use
@@ -5552,16 +5606,32 @@ namespace odb
     // type
     //
     {
-      ::std::string& v =
+      ::std::tr1::shared_ptr< ::polaris::io::Link_Type >& v =
         o.type;
 
-      sqlite::value_traits<
-          ::std::string,
-          sqlite::id_text >::set_value (
-        v,
-        i.type_value,
-        i.type_size,
-        i.type_null);
+      typedef object_traits< ::polaris::io::Link_Type > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Link_Type > > ptr_traits;
+
+      if (i.type_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_text >::set_value (
+          id,
+          i.type_value,
+          i.type_size,
+          i.type_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          db->load< obj_traits::object_type > (id));
+      }
     }
 
     // divided
@@ -5581,15 +5651,31 @@ namespace odb
     // area_type
     //
     {
-      int& v =
+      ::std::tr1::shared_ptr< ::polaris::io::Area_Type >& v =
         o.area_type;
 
-      sqlite::value_traits<
-          int,
-          sqlite::id_integer >::set_value (
-        v,
-        i.area_type_value,
-        i.area_type_null);
+      typedef object_traits< ::polaris::io::Area_Type > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Area_Type > > ptr_traits;
+
+      if (i.area_type_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.area_type_value,
+          i.area_type_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          db->load< obj_traits::object_type > (id));
+      }
     }
 
     // use
@@ -5936,6 +6022,8 @@ namespace odb
   " FROM \"Link\""
   " LEFT JOIN \"Node\" AS \"node_a\" ON \"node_a\".\"node\"=\"Link\".\"node_a\""
   " LEFT JOIN \"Node\" AS \"node_b\" ON \"node_b\".\"node\"=\"Link\".\"node_b\""
+  " LEFT JOIN \"Link_Type\" AS \"type\" ON \"type\".\"link_type\"=\"Link\".\"type\""
+  " LEFT JOIN \"Area_Type\" AS \"area_type\" ON \"area_type\".\"area_type\"=\"Link\".\"area_type\""
   " ";
 
   const char access::object_traits< ::polaris::io::Link >::erase_query_statement[] =
@@ -6325,9 +6413,9 @@ namespace odb
                       "  \"setback_b\" REAL,\n"
                       "  \"bearing_a\" INTEGER NOT NULL,\n"
                       "  \"bearing_b\" INTEGER NOT NULL,\n"
-                      "  \"type\" TEXT NOT NULL,\n"
+                      "  \"type\" TEXT,\n"
                       "  \"divided\" INTEGER NOT NULL,\n"
-                      "  \"area_type\" INTEGER NOT NULL,\n"
+                      "  \"area_type\" INTEGER,\n"
                       "  \"use\" INTEGER NOT NULL,\n"
                       "  \"grade\" REAL,\n"
                       "  \"lanes_ab\" INTEGER NOT NULL,\n"
@@ -6349,6 +6437,14 @@ namespace odb
                       "  CONSTRAINT \"node_b_fk\"\n"
                       "    FOREIGN KEY (\"node_b\")\n"
                       "    REFERENCES \"Node\" (\"node\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED,\n"
+                      "  CONSTRAINT \"type_fk\"\n"
+                      "    FOREIGN KEY (\"type\")\n"
+                      "    REFERENCES \"Link_Type\" (\"link_type\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED,\n"
+                      "  CONSTRAINT \"area_type_fk\"\n"
+                      "    FOREIGN KEY (\"area_type\")\n"
+                      "    REFERENCES \"Area_Type\" (\"area_type\")\n"
                       "    DEFERRABLE INITIALLY DEFERRED)");
           db.execute ("CREATE INDEX \"Link_link_i\"\n"
                       "  ON \"Link\" (\"link\")");

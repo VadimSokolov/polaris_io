@@ -1,6 +1,7 @@
 #include "convert_methods.h"
 #include "Result.h"
 #include "Supply.h"
+#include "System.h"
 #include "Demand.h"
 
 #include "PopulateAdditional.h"
@@ -88,8 +89,9 @@ int main(int argc, char* argv[])
 	/************************************************/
 	/*****************Conversion*********************/
 	/************************************************/	
-	PopulateLinkType(net->path_to_database);
-	PopulateAreaType(net->path_to_database);
+	PopulateLinkType(net->path_to_database, &container.Link_Types);
+	PopulateAreaType(net->path_to_database, &container.Area_Types);
+	PopulateDimensionQuantity(net->path_to_database);
 	Convert<Node_File,Node, int>(net,container, NODE, "NODE", &container.Nodes);
 	Convert<Link_File,Link, int>(net,container, LINK, "LINK", &container.Links);
 	ConvertNested<Shape_File,Shape, int, shape_geometry>(net,container, SHAPE, "SHAPE");

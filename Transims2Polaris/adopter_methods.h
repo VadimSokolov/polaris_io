@@ -3,6 +3,7 @@
 #include "Result.h"
 #include "Supply.h"
 #include "Demand.h"
+#include "System.h"
 #include "File_Service.hpp"
 using namespace polaris::io;
 //Converter for Node
@@ -25,7 +26,7 @@ shared_ptr<Zone> Adapter( Zone_File &file, InputContainer& container)
 	result->setX(file.X ()); 
 	result->setY(file.Y ()); 
 	result->setZ(file.Z ()); 
-	result->setArea(file.Area_Type ()); 
+	result->setArea(file.Area_Type (), container ); 
 	result->setMin_X(file.Min_X ()); 
 	result->setMin_Y(file.Min_Y ()); 
 	result->setMax_X(file.Max_X ()); 
@@ -53,9 +54,9 @@ shared_ptr<Link> Adapter( Link_File &file, InputContainer& container)
 	result->setSetback_B(file.Setback_B ()); 
 	result->setBearing_A(file.Bearing_A ()); 
 	result->setBearing_B(file.Bearing_B ()); 
-	result->setType(Static_Service::Facility_Code((Facility_Type)file.Type())); 
+	result->setType(Static_Service::Facility_Code((Facility_Type)file.Type()), container); 
 	result->setDivided(file.Divided ()); 
-	result->setArea_Type(file.Area_Type ()); 
+	result->setArea_Type(file.Area_Type (),container); 
 	result->setUse(file.Use ()); 
 	result->setGrade(file.Grade ()); 
 	result->setLanes_Ab(file.Lanes_AB ()); 

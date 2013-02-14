@@ -4,6 +4,7 @@
 #include <memory>   // std::auto_ptr
 #include "Result-odb.hxx"
 #include "Supply-odb.hxx"
+#include "System-odb.hxx"
 #include "Demand-odb.hxx"
 #include "transims_network.h"
 #include <time.h>
@@ -182,6 +183,7 @@ void AddIndeces(TransimsNetwork *net)
 	auto_ptr<database> db (open_sqlite_database (net->path_to_database));
 	connection_ptr c (db->connection ());
 	c->execute("CREATE UNIQUE INDEX IF NOT EXISTS IDX_CONNECTION ON CONNECTION (LINK, T0_LINK, DIR);");
+	c->execute("CREATE UNIQUE INDEX IF NOT EXISTS IDX_SIGN ON SIGN (LINK, DIR);");
 }
 
 void AddSpatialiteGeometry(TransimsNetwork *net)
@@ -197,17 +199,21 @@ void AddSpatialiteGeometry(TransimsNetwork *net)
     int ret;
 	size_t pos;
     char *err_msg = NULL;
-	int link_id, zone_id;
+	int link_id, zone_id, node_id;
 	double x,y;
-	// link_id --> shape points
+	// link_id --> shape points 
 	map<int, vector<shape_geometry>> shapes; map<int, vector<shape_geometry>>::iterator it;	
 	// zone_id --> ceneter coordinates
 	map<int, shape_geometry> zone_locations; map<int, shape_geometry>::iterator zone_it;
+	// node_id -> node coordinates
+	map<int, shape_geometry> node_locations; map<int, shape_geometry>::iterator node_it;
 	vector<shape_geometry>::iterator pt_it;
 	typedef odb::query<Shape> query;
 	typedef odb::result<Shape> result;
 	typedef odb::query<Zone> query_zone;
 	typedef odb::result<Zone> result_zone;
+	typedef odb::query<Node> query_node;
+	typedef odb::result<Node> result_node;
 
 	auto_ptr<database> db (open_sqlite_database (net->path_to_database));
 	transaction t(db->begin());
@@ -238,8 +244,20 @@ void AddSpatialiteGeometry(TransimsNetwork *net)
 		p.z = i->getZ();
 		zone_locations[zone_id] = p;
 	}
+
+	//get all the records
+	result_node rn(db->query<Node> (query_node::true_expr));
+	for (result_node::iterator i (rn.begin()); i!=rn.end(); ++i)
+	{
+		shape_geometry p;
+		node_id = i->getNode();
+		p.x = i->getX();
+		p.y = i->getY();
+		p.z = i->getZ();
+		node_locations[node_id] = p;
+	}
 	t.commit();
-	if (zone_locations.size() == 0 && shapes.size() == 0)
+	if (zone_locations.size() == 0 && shapes.size() == 0 && node_locations.size() == 0)
 		return;
 
 	ret = sqlite3_open_v2(make_name(net->path_to_database,"Supply").c_str(), &db_handle, SQLITE_OPEN_READWRITE , NULL);
@@ -260,6 +278,38 @@ void AddSpatialiteGeometry(TransimsNetwork *net)
 			zone_id = zone_it->first;
 			shape_geometry pos = zone_it->second;
 			sprintf (buff, "UPDATE Zone SET GEO=GeomFromText('POINT (%1.6f %1.6f)', %d) WHERE zone=%d",pos.x, pos.y, net->srid, zone_id);
+			strcpy (sql, buff);
+			ret = sqlite3_exec(db_handle, sql, NULL, NULL, &err_msg);
+			if (ret != SQLITE_OK)
+			{
+				fprintf (stderr, "Error: %s\n", err_msg);
+				sqlite3_free (err_msg);
+				goto stop;
+			}
+		}
+		ret = sqlite3_exec (db_handle, "COMMIT", NULL, NULL, &err_msg);
+		if (ret != SQLITE_OK)
+		{
+			fprintf (stderr, "Error: %s\n", err_msg);
+			sqlite3_free (err_msg);
+		}
+	}
+
+	if (zone_locations.size() != 0)
+	{		
+		cout << "Adding node coordinates as geometry column" << "\n";
+		ret = sqlite3_exec (db_handle, "BEGIN", NULL, NULL, &err_msg);
+		if (ret != SQLITE_OK)
+		{
+			fprintf (stderr, "Error: %s\n", err_msg);
+			sqlite3_free (err_msg);
+			goto stop;
+		}
+		for (node_it = node_locations.begin(); node_it!=node_locations.end(); node_it++)
+		{
+			node_id = node_it->first;
+			shape_geometry pos = node_it->second;
+			sprintf (buff, "UPDATE Node SET GEO=GeomFromText('POINT (%1.6f %1.6f)', %d) WHERE node=%d",pos.x, pos.y, net->srid, node_id);
 			strcpy (sql, buff);
 			ret = sqlite3_exec(db_handle, sql, NULL, NULL, &err_msg);
 			if (ret != SQLITE_OK)
