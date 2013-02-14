@@ -1,8 +1,9 @@
 #include "Geometry.h"
 
-int AddGeometryTables(sqlite3* db_handle)
+int AddGeometryTables(sqlite3* db_handle, int srid)
 {
 	char sql[2048];
+	char buff[1024];
 	char *err_msg = NULL;
 	int ret;
 	sqlite3_enable_load_extension (db_handle, 1);
@@ -31,7 +32,9 @@ int AddGeometryTables(sqlite3* db_handle)
 		goto stop;
 	}
 	strcpy (sql, "SELECT AddGeometryColumn('Link', ");
-    strcat (sql, "'GEO', 26916, 'LINESTRING', 'XY')");
+	sprintf (buff, "'GEO', %d, ", srid);
+    strcat (sql, buff);
+    strcat (sql, "'LINESTRING', 'XY')");
 	ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
 	if (ret != SQLITE_OK)
 	{
