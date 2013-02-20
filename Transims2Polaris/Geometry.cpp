@@ -1,4 +1,5 @@
 #include "Geometry.h"
+#include <database.h>
 
 
 int AddGeometryCoumn(sqlite3* db_handle, int srid, std::string table, std::string type, std::string dim)
@@ -29,29 +30,8 @@ int AddGeometryCoumn(sqlite3* db_handle, int srid, std::string table, std::strin
 
 int AddGeometryTables(sqlite3* db_handle, int srid)
 {
-	char sql[2048];
-	char buff[1024];
-	char *err_msg = NULL;
 	int ret;
-	sqlite3_enable_load_extension (db_handle, 1);
-	strcpy (sql, "SELECT load_extension('C:\\Users\\vsokolov\\usr\\io_sdk\\x86\\bin\\libspatialite-4.dll')");
-	ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
-	if (ret != SQLITE_OK)
-	{
-		fprintf (stderr, "load_extension() error: %s\n", err_msg);
-		sqlite3_free (err_msg);
-		return 0;
-	}
-    strcpy (sql, "SELECT InitSpatialMetadata()");
-    ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
-    if (ret != SQLITE_OK)
-    {
-		fprintf (stderr, "InitSpatialMetadata() error: %s\n", err_msg);
-		sqlite3_free (err_msg);
-		return 0;
-    }
-    fprintf(stderr, "\n\n**** SpatiaLite loaded as an extension ***\n\n");
-
+	ret = attach_spatialite(db_handle);
 	ret = AddGeometryCoumn(db_handle, srid, "LINK", "LINESTRING", "XY");
 	if (ret != SQLITE_OK) goto stop;
 	ret = AddGeometryCoumn(db_handle, srid, "Zone", "POINT", "XY");

@@ -47,10 +47,11 @@ void test_read(const string& name)
 {
 	typedef odb::query<Link> query;
 	typedef odb::result<Link> result;
+	vector<char>::iterator it;
 	auto_ptr<database> db (open_sqlite_database (name));
 	cout << "Database "<< ((odb::sqlite::database*)&(*db))->name() <<" was opened\n";
 	transaction t (db->begin ());
-	result r (db->query<Link> ( (query::node_a <120)));
+	result r (db->query<Link> ( (query::node_a >120)));
     for (result::iterator i (r.begin ()); i != r.end (); ++i)
     {
 		cout << i->getLink() << " " << i->getNode_A()->getNode() << " " << i->getNode_B()->getNode() << endl;
@@ -64,7 +65,8 @@ int main(int argc, char* argv[])
 {
 
 	//test_create("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite");
-	//test_read("C:\\Users\\vsokolov\\usr\\polaris_io\\Transims2Polaris\\test.sqlite");
+	//test_read("C:/Users/vsokolov/usr/polaris_io/Transims2Polaris/TestNet50");
+	//return 0;
 
 	TransimsNetwork* net = new TransimsNetwork();
 	InputContainer container;

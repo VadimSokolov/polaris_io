@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "driver", "driver\driver.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Transims2Polaris", "Transims2Polaris\Transims2Polaris.vcxproj", "{503AC797-81E4-4B74-BD82-47F166010EF2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "polaris_io_test", "polaris_io_test\polaris_io_test.vcxproj", "{BEE77A65-1250-4308-A977-57D4D070239C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +27,10 @@ Global
 		{503AC797-81E4-4B74-BD82-47F166010EF2}.Debug|Win32.Build.0 = Debug|Win32
 		{503AC797-81E4-4B74-BD82-47F166010EF2}.Release|Win32.ActiveCfg = Release|Win32
 		{503AC797-81E4-4B74-BD82-47F166010EF2}.Release|Win32.Build.0 = Release|Win32
+		{BEE77A65-1250-4308-A977-57D4D070239C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BEE77A65-1250-4308-A977-57D4D070239C}.Debug|Win32.Build.0 = Debug|Win32
+		{BEE77A65-1250-4308-A977-57D4D070239C}.Release|Win32.ActiveCfg = Release|Win32
+		{BEE77A65-1250-4308-A977-57D4D070239C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

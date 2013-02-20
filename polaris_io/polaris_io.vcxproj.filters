@@ -24,6 +24,9 @@
     <ClCompile Include="Demand-odb.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="System-odb.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Result-odb.hxx">
@@ -41,7 +44,10 @@
     <ClInclude Include="Geometry.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="System.h">
+    <ClInclude Include="System-odb.hxx">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WKBReader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,6 +59,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Demand.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="System.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -68,6 +77,9 @@
     </None>
     <None Include="db-inventory.txt">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="System-odb.ixx">
+      <Filter>Header Files</Filter>
     </None>
   </ItemGroup>
 </Project>

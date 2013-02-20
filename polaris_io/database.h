@@ -8,10 +8,6 @@
 #ifndef DATABASE
 #define DATABASE
 
-#ifndef DATABASE_SQLITE
-#define DATABASE_SQLITE
-#endif
-
 #include <string>
 #include <memory>   // auto_ptr
 #include <cstdlib>  // std::exit
@@ -24,6 +20,7 @@
 #include <odb/schema-catalog.hxx>
 #include <odb/sqlite/database.hxx>
 #include <odb/sqlite//exceptions.hxx> 
+#include <sqlite3.h>
 
 #include <iostream>
 #include <fstream>
@@ -36,11 +33,19 @@ namespace polaris
 {
 namespace io
 {
-	
-	std::vector<string> get_schemas()
-	{
-		string schema;
+	// This method returns a vector that contains named schemas available in the IO library. Note, this list is duplicated in db-inventory.txt file. 
+	// create-io-odb-step.py script uses  db-inventory.txt file to generate the project file wiht the required pre-build steps (obd compiler). So, make sure that the list here and in the file are in SYNC!
+	// I know not the best design, but will be changed to something better in the future
+	static std::vector<string> get_schemas()
+	{		
 		std::vector<string> result;
+		result.push_back("Supply");
+		result.push_back("Result");
+		result.push_back("Demand");
+		result.push_back("System");
+#ifdef _DEBUG
+		string schema;
+		result.clear();
 		std::ifstream inventory_file ("C:/Users/vsokolov/usr/polaris_io/polaris_io/db-inventory.txt");
 		while (inventory_file.good())
 		{
@@ -48,21 +53,91 @@ namespace io
 			result.push_back(schema);
 		}
 		inventory_file.close();
+#endif
 		assert(result.size() > 0);
 		return result;
 	}
-	std::vector<string> db_inventory = get_schemas();
-	string make_name(string db_name, string schema_name)
+	static std::vector<string> db_inventory = get_schemas();
+	static string make_name(string db_name, string schema_name)
 	{
 		return db_name+"-"+schema_name+".sqlite";
 	}
-	string make_attach_string(string db_name, string schema_name)
+	static string make_attach_string(string db_name, string schema_name)
 	{
 		return "ATTACH \'" + make_name(db_name, schema_name) + "\' as " + schema_name;
 	}
 }
 }
 using namespace polaris::io;
+
+inline sqlite3* open_raw_sqlite_database(const std::string& name)
+{
+	int ret;
+	char sql[1024];
+	char *err_msg = NULL;
+	sqlite3* db_handle;
+	ret = sqlite3_open_v2(make_name(name,"Supply").c_str(), &db_handle, SQLITE_OPEN_READWRITE , NULL);
+	if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "Error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+		return NULL;
+	}
+	for (vector<string>::iterator it = db_inventory.begin()+1; it != db_inventory.end(); ++it)
+	{
+		ret = sqlite3_exec (db_handle, make_attach_string(name, *it).c_str(), NULL, NULL, &err_msg);
+		if (ret != SQLITE_OK)
+		{
+			fprintf (stderr, "Error: %s\n", err_msg);
+			sqlite3_free (err_msg);
+			return NULL;
+		}
+	}
+	return db_handle;
+}
+
+inline int attach_spatialite(sqlite3* db_handle) 
+{
+	char sql[2048];
+	char buff[1024];
+	char *err_msg = NULL;
+	int ret;
+	sqlite3_enable_load_extension (db_handle, 1);
+	strcpy (sql, "SELECT load_extension('libspatialite-4.dll')");
+#ifdef _DEBUG
+	strcpy (sql, "SELECT load_extension('C:\\Users\\vsokolov\\usr\\io_sdk\\x86\\bin\\libspatialite-4.dll')");
+#endif
+	ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
+	if (ret != SQLITE_OK)
+	{
+		fprintf (stderr, "load_extension() error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+		return ret;
+	}
+    strcpy (sql, "SELECT InitSpatialMetadata()");
+    ret = sqlite3_exec (db_handle, sql, NULL, NULL, &err_msg);
+    if (ret != SQLITE_OK)
+    {
+		fprintf (stderr, "InitSpatialMetadata() error: %s\n", err_msg);
+		sqlite3_free (err_msg);
+		return ret;
+    }
+    fprintf(stderr, "\n\n**** SpatiaLite loaded as an extension ***\n\n");
+
+	return ret;
+}
+
+inline sqlite3* open_spatialite_database(const std::string& name )
+{
+	int ret;
+	char *err_msg = NULL;
+	sqlite3* db_handle;
+	db_handle = open_raw_sqlite_database(name);
+	assert(db_handle != NULL);
+	ret = attach_spatialite(db_handle);
+	assert(ret == SQLITE_OK);
+	return db_handle;
+}
 
 inline auto_ptr<odb::database> open_sqlite_database(const std::string& name)
 {
