@@ -93,16 +93,16 @@ public:
 class InputContainer 
 {
 public:
-	std::map<int,shared_ptr<Node>> Nodes;
-	std::map<int,shared_ptr<Zone>> Zones;
-	std::map<int,shared_ptr<Link>> Links;
-	std::map<int,shared_ptr<Parking>> Parkings;
-	std::map<int,shared_ptr<Location>> Locations;
-	std::map<int,shared_ptr<Signal>> Signals;
-	std::map<int,shared_ptr<Stop>> Stops;
-	std::map<int,shared_ptr<Veh_Type>> Veh_Types;
-	std::map<int,shared_ptr<Area_Type>> Area_Types;
-	std::map<std::string,shared_ptr<Link_Type>> Link_Types;
+	std::map<int,shared_ptr<Node> > Nodes;
+	std::map<int,shared_ptr<Zone> > Zones;
+	std::map<int,shared_ptr<Link> > Links;
+	std::map<int,shared_ptr<Parking> > Parkings;
+	std::map<int,shared_ptr<Location> > Locations;
+	std::map<int,shared_ptr<Signal> > Signals;
+	std::map<int,shared_ptr<Stop> > Stops;
+	std::map<int,shared_ptr<Veh_Type> > Veh_Types;
+	std::map<int,shared_ptr<Area_Type> > Area_Types;
+	std::map<std::string,shared_ptr<Link_Type> > Link_Types;
 };
 #pragma db object
 class MetaData

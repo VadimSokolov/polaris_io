@@ -3,12 +3,12 @@ CPP_COMPILER = g++
 C_COMPILER = gcc
 
 # Include paths...
-Debug_Include_Path=
-Release_Include_Path=
+Debug_Include_Path=-I ~/odb/include/
+Release_Include_Path=-I ~/odb/include/
 
 # Library paths...
-Debug_Library_Path=
-Release_Library_Path=
+Debug_Library_Path=~/odb/lib
+Release_Library_Path=~/odb/lib
 
 # Additional libraries...
 Debug_Libraries=
