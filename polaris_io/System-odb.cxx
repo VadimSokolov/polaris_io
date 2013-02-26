@@ -10,7 +10,6 @@
 #include <cstring>  // std::memcpy
 
 #include <odb/schema-catalog-impl.hxx>
-#include <odb/details/shared-ptr.hxx>
 
 #include <odb/sqlite/traits.hxx>
 #include <odb/sqlite/database.hxx>
@@ -28,7 +27,7 @@ namespace odb
   // table_field
   //
 
-  bool access::composite_value_traits< ::polaris::io::table_field >::
+  bool access::composite_value_traits< ::polaris::io::table_field, id_sqlite >::
   grow (image_type& i, bool* t)
   {
     ODB_POTENTIALLY_UNUSED (i);
@@ -55,7 +54,7 @@ namespace odb
     return grew;
   }
 
-  void access::composite_value_traits< ::polaris::io::table_field >::
+  void access::composite_value_traits< ::polaris::io::table_field, id_sqlite >::
   bind (sqlite::bind* b, image_type& i, sqlite::statement_kind sk)
   {
     ODB_POTENTIALLY_UNUSED (b);
@@ -90,7 +89,7 @@ namespace odb
     n++;
   }
 
-  bool access::composite_value_traits< ::polaris::io::table_field >::
+  bool access::composite_value_traits< ::polaris::io::table_field, id_sqlite >::
   init (image_type& i, const value_type& o, sqlite::statement_kind sk)
   {
     ODB_POTENTIALLY_UNUSED (i);
@@ -142,7 +141,7 @@ namespace odb
     return grew;
   }
 
-  void access::composite_value_traits< ::polaris::io::table_field >::
+  void access::composite_value_traits< ::polaris::io::table_field, id_sqlite >::
   init (value_type& o, const image_type&  i, database* db)
   {
     ODB_POTENTIALLY_UNUSED (o);
@@ -183,8 +182,13 @@ namespace odb
   // Quantity
   //
 
-  access::object_traits< ::polaris::io::Quantity >::id_type
-  access::object_traits< ::polaris::io::Quantity >::
+  const char alias_traits<  ::polaris::io::Dimension,
+    id_sqlite,
+    access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::quantity_tag>::
+  table_name[] = "\"quantity\"";
+
+  access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   id (const image_type& i)
   {
     sqlite::database* db (0);
@@ -192,7 +196,7 @@ namespace odb
 
     id_type id;
     {
-      composite_value_traits< ::polaris::io::table_field >::init (
+      composite_value_traits< ::polaris::io::table_field, id_sqlite >::init (
         id,
         i.tf_value,
         db);
@@ -201,7 +205,7 @@ namespace odb
     return id;
   }
 
-  bool access::object_traits< ::polaris::io::Quantity >::
+  bool access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   grow (image_type& i, bool* t)
   {
     ODB_POTENTIALLY_UNUSED (i);
@@ -211,7 +215,7 @@ namespace odb
 
     // tf
     //
-    if (composite_value_traits< ::polaris::io::table_field >::grow (
+    if (composite_value_traits< ::polaris::io::table_field, id_sqlite >::grow (
           i.tf_value, t + 0UL))
     {
       grew = true;
@@ -228,7 +232,7 @@ namespace odb
     return grew;
   }
 
-  void access::object_traits< ::polaris::io::Quantity >::
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   bind (sqlite::bind* b,
         image_type& i,
         sqlite::statement_kind sk)
@@ -243,7 +247,8 @@ namespace odb
     //
     if (sk != statement_update)
     {
-      composite_value_traits< ::polaris::io::table_field >::bind (b + n, i.tf_value, sk);
+      composite_value_traits< ::polaris::io::table_field, id_sqlite >::bind (
+        b + n, i.tf_value, sk);
       n += 2UL;
     }
 
@@ -259,15 +264,16 @@ namespace odb
     n++;
   }
 
-  void access::object_traits< ::polaris::io::Quantity >::
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   bind (sqlite::bind* b, id_image_type& i)
   {
     std::size_t n (0);
     sqlite::statement_kind sk (sqlite::statement_select);
-    composite_value_traits< ::polaris::io::table_field >::bind (b + n, i.id_value, sk);
+    composite_value_traits< ::polaris::io::table_field, id_sqlite >::bind (
+      b + n, i.id_value, sk);
   }
 
-  bool access::object_traits< ::polaris::io::Quantity >::
+  bool access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   init (image_type& i, const object_type& o, sqlite::statement_kind sk)
   {
     ODB_POTENTIALLY_UNUSED (i);
@@ -285,7 +291,7 @@ namespace odb
       ::polaris::io::table_field const& v =
         o.tf;
 
-      if (composite_value_traits< ::polaris::io::table_field >::init (
+      if (composite_value_traits< ::polaris::io::table_field, id_sqlite >::init (
             i.tf_value,
             v,
             sk))
@@ -325,7 +331,7 @@ namespace odb
     return grew;
   }
 
-  void access::object_traits< ::polaris::io::Quantity >::
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   init (object_type& o, const image_type& i, database* db)
   {
     ODB_POTENTIALLY_UNUSED (o);
@@ -338,7 +344,7 @@ namespace odb
       ::polaris::io::table_field& v =
         o.tf;
 
-      composite_value_traits< ::polaris::io::table_field >::init (
+      composite_value_traits< ::polaris::io::table_field, id_sqlite >::init (
         v,
         i.tf_value,
         db);
@@ -371,18 +377,19 @@ namespace odb
         // cannot be initialized from an object pointer.
         //
         v = ptr_traits::pointer_type (
-          db->load< obj_traits::object_type > (id));
+          static_cast<sqlite::database*> (db)->load<
+            obj_traits::object_type > (id));
       }
     }
   }
 
-  void access::object_traits< ::polaris::io::Quantity >::
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   init (id_image_type& i, const id_type& id)
   {
     bool grew (false);
     sqlite::statement_kind sk (sqlite::statement_select);
     {
-      if (composite_value_traits< ::polaris::io::table_field >::init (
+      if (composite_value_traits< ::polaris::io::table_field, id_sqlite >::init (
             i.id_value,
             id,
             sk))
@@ -393,21 +400,23 @@ namespace odb
       i.version++;
   }
 
-  struct access::object_traits< ::polaris::io::Quantity >::container_statement_cache_type
+  struct access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::container_statement_cache_type
   {
-    container_statement_cache_type (sqlite::connection&)
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
     {
     }
   };
 
-  const char access::object_traits< ::polaris::io::Quantity >::persist_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::persist_statement[] =
   "INSERT INTO \"Quantity\" ("
   "\"tf_table\","
   "\"tf_field\","
   "\"quantity\")"
   " VALUES (?,?,?)";
 
-  const char access::object_traits< ::polaris::io::Quantity >::find_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::find_statement[] =
   "SELECT "
   "\"Quantity\".\"tf_table\","
   "\"Quantity\".\"tf_field\","
@@ -416,18 +425,18 @@ namespace odb
   " WHERE \"Quantity\".\"tf_table\"=?"
   " AND \"Quantity\".\"tf_field\"=?";
 
-  const char access::object_traits< ::polaris::io::Quantity >::update_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::update_statement[] =
   "UPDATE \"Quantity\" SET "
   "\"quantity\"=?"
   " WHERE \"tf_table\"=?"
   " AND \"tf_field\"=?";
 
-  const char access::object_traits< ::polaris::io::Quantity >::erase_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::erase_statement[] =
   "DELETE FROM \"Quantity\""
   " WHERE \"tf_table\"=?"
   " AND \"tf_field\"=?";
 
-  const char access::object_traits< ::polaris::io::Quantity >::query_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::query_statement[] =
   "SELECT "
   "\"Quantity\".\"tf_table\","
   "\"Quantity\".\"tf_field\","
@@ -436,14 +445,14 @@ namespace odb
   " LEFT JOIN \"Dimension\" AS \"quantity\" ON \"quantity\".\"quantity\"=\"Quantity\".\"quantity\""
   " ";
 
-  const char access::object_traits< ::polaris::io::Quantity >::erase_query_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::erase_query_statement[] =
   "DELETE FROM \"Quantity\""
   " ";
 
-  const char access::object_traits< ::polaris::io::Quantity >::table_name[] =
+  const char access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::table_name[] =
   "\"Quantity\"";
 
-  void access::object_traits< ::polaris::io::Quantity >::
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   persist (database& db, const object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -482,7 +491,7 @@ namespace odb
               callback_event::post_persist);
   }
 
-  void access::object_traits< ::polaris::io::Quantity >::
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   update (database& db, const object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -536,9 +545,10 @@ namespace odb
       throw object_not_persistent ();
 
     callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
   }
 
-  void access::object_traits< ::polaris::io::Quantity >::
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   erase (database& db, const id_type& id)
   {
     using namespace sqlite;
@@ -567,8 +577,8 @@ namespace odb
     pointer_cache_traits::erase (db, id);
   }
 
-  access::object_traits< ::polaris::io::Quantity >::pointer_type
-  access::object_traits< ::polaris::io::Quantity >::
+  access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   find (database& db, const id_type& id)
   {
     using namespace sqlite;
@@ -613,6 +623,7 @@ namespace odb
       sts.load_delayed ();
       l.unlock ();
       callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
     }
     else
       sts.delay_load (id, obj, ig.position ());
@@ -622,7 +633,7 @@ namespace odb
     return p;
   }
 
-  bool access::object_traits< ::polaris::io::Quantity >::
+  bool access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   find (database& db, const id_type& id, object_type& obj)
   {
     using namespace sqlite;
@@ -640,8 +651,9 @@ namespace odb
     select_statement& st (sts.find_statement ());
     ODB_POTENTIALLY_UNUSED (st);
 
-    reference_cache_traits::insert_guard ig (
+    reference_cache_traits::position_type pos (
       reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
 
     callback (db, obj, callback_event::pre_load);
     init (obj, sts.image (), &db);
@@ -649,11 +661,12 @@ namespace odb
     sts.load_delayed ();
     l.unlock ();
     callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
     ig.release ();
     return true;
   }
 
-  bool access::object_traits< ::polaris::io::Quantity >::
+  bool access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   reload (database& db, object_type& obj)
   {
     using namespace sqlite;
@@ -683,7 +696,7 @@ namespace odb
     return true;
   }
 
-  bool access::object_traits< ::polaris::io::Quantity >::
+  bool access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   find_ (statements_type& sts, const id_type* id)
   {
     using namespace sqlite;
@@ -732,8 +745,8 @@ namespace odb
     return r != select_statement::no_data;
   }
 
-  result< access::object_traits< ::polaris::io::Quantity >::object_type >
-  access::object_traits< ::polaris::io::Quantity >::
+  result< access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   query (database&, const query_base_type& q)
   {
     using namespace sqlite;
@@ -757,9 +770,10 @@ namespace odb
       imb.version++;
     }
 
+    q.init_parameters ();
     shared_ptr<select_statement> st (
       new (shared) select_statement (
-        sts.connection (),
+        conn,
         query_statement + q.clause (),
         q.parameters_binding (),
         imb));
@@ -773,7 +787,7 @@ namespace odb
     return result<object_type> (r);
   }
 
-  unsigned long long access::object_traits< ::polaris::io::Quantity >::
+  unsigned long long access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   erase_query (database&, const query_base_type& q)
   {
     using namespace sqlite;
@@ -781,6 +795,7 @@ namespace odb
     sqlite::connection& conn (
       sqlite::transaction::current ().connection ());
 
+    q.init_parameters ();
     delete_statement st (
       conn,
       erase_query_statement + q.clause (),
@@ -789,7 +804,7 @@ namespace odb
     return st.execute ();
   }
 
-  bool access::object_traits< ::polaris::io::Quantity >::
+  bool access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
   create_schema (database& db, unsigned short pass, bool drop)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -834,14 +849,15 @@ namespace odb
 
   static const schema_catalog_entry
   schema_catalog_entry_polaris_io_Quantity_ (
+    id_sqlite,
     "System",
-    &access::object_traits< ::polaris::io::Quantity >::create_schema);
+    &access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::create_schema);
 
   // Dimension
   //
 
-  access::object_traits< ::polaris::io::Dimension >::id_type
-  access::object_traits< ::polaris::io::Dimension >::
+  access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   id (const image_type& i)
   {
     sqlite::database* db (0);
@@ -861,7 +877,7 @@ namespace odb
     return id;
   }
 
-  bool access::object_traits< ::polaris::io::Dimension >::
+  bool access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   grow (image_type& i, bool* t)
   {
     ODB_POTENTIALLY_UNUSED (i);
@@ -900,7 +916,7 @@ namespace odb
     return grew;
   }
 
-  void access::object_traits< ::polaris::io::Dimension >::
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   bind (sqlite::bind* b,
         image_type& i,
         sqlite::statement_kind sk)
@@ -961,7 +977,7 @@ namespace odb
     n++;
   }
 
-  void access::object_traits< ::polaris::io::Dimension >::
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   bind (sqlite::bind* b, id_image_type& i)
   {
     std::size_t n (0);
@@ -974,7 +990,7 @@ namespace odb
     b[n].is_null = &i.id_null;
   }
 
-  bool access::object_traits< ::polaris::io::Dimension >::
+  bool access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   init (image_type& i, const object_type& o, sqlite::statement_kind sk)
   {
     ODB_POTENTIALLY_UNUSED (i);
@@ -1088,7 +1104,7 @@ namespace odb
     return grew;
   }
 
-  void access::object_traits< ::polaris::io::Dimension >::
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   init (object_type& o, const image_type& i, database* db)
   {
     ODB_POTENTIALLY_UNUSED (o);
@@ -1181,7 +1197,7 @@ namespace odb
     }
   }
 
-  void access::object_traits< ::polaris::io::Dimension >::
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   init (id_image_type& i, const id_type& id)
   {
     bool grew (false);
@@ -1203,14 +1219,16 @@ namespace odb
       i.version++;
   }
 
-  struct access::object_traits< ::polaris::io::Dimension >::container_statement_cache_type
+  struct access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::container_statement_cache_type
   {
-    container_statement_cache_type (sqlite::connection&)
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
     {
     }
   };
 
-  const char access::object_traits< ::polaris::io::Dimension >::persist_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::persist_statement[] =
   "INSERT INTO \"Dimension\" ("
   "\"quantity\","
   "\"mass\","
@@ -1220,7 +1238,7 @@ namespace odb
   "\"usd\")"
   " VALUES (?,?,?,?,?,?)";
 
-  const char access::object_traits< ::polaris::io::Dimension >::find_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::find_statement[] =
   "SELECT "
   "\"Dimension\".\"quantity\","
   "\"Dimension\".\"mass\","
@@ -1231,7 +1249,7 @@ namespace odb
   " FROM \"Dimension\""
   " WHERE \"Dimension\".\"quantity\"=?";
 
-  const char access::object_traits< ::polaris::io::Dimension >::update_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::update_statement[] =
   "UPDATE \"Dimension\" SET "
   "\"mass\"=?,"
   "\"length\"=?,"
@@ -1240,11 +1258,11 @@ namespace odb
   "\"usd\"=?"
   " WHERE \"quantity\"=?";
 
-  const char access::object_traits< ::polaris::io::Dimension >::erase_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::erase_statement[] =
   "DELETE FROM \"Dimension\""
   " WHERE \"quantity\"=?";
 
-  const char access::object_traits< ::polaris::io::Dimension >::query_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::query_statement[] =
   "SELECT "
   "\"Dimension\".\"quantity\","
   "\"Dimension\".\"mass\","
@@ -1255,14 +1273,14 @@ namespace odb
   " FROM \"Dimension\""
   " ";
 
-  const char access::object_traits< ::polaris::io::Dimension >::erase_query_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::erase_query_statement[] =
   "DELETE FROM \"Dimension\""
   " ";
 
-  const char access::object_traits< ::polaris::io::Dimension >::table_name[] =
+  const char access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::table_name[] =
   "\"Dimension\"";
 
-  void access::object_traits< ::polaris::io::Dimension >::
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   persist (database& db, const object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -1301,7 +1319,7 @@ namespace odb
               callback_event::post_persist);
   }
 
-  void access::object_traits< ::polaris::io::Dimension >::
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   update (database& db, const object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -1355,9 +1373,10 @@ namespace odb
       throw object_not_persistent ();
 
     callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
   }
 
-  void access::object_traits< ::polaris::io::Dimension >::
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   erase (database& db, const id_type& id)
   {
     using namespace sqlite;
@@ -1386,8 +1405,8 @@ namespace odb
     pointer_cache_traits::erase (db, id);
   }
 
-  access::object_traits< ::polaris::io::Dimension >::pointer_type
-  access::object_traits< ::polaris::io::Dimension >::
+  access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   find (database& db, const id_type& id)
   {
     using namespace sqlite;
@@ -1432,6 +1451,7 @@ namespace odb
       sts.load_delayed ();
       l.unlock ();
       callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
     }
     else
       sts.delay_load (id, obj, ig.position ());
@@ -1441,7 +1461,7 @@ namespace odb
     return p;
   }
 
-  bool access::object_traits< ::polaris::io::Dimension >::
+  bool access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   find (database& db, const id_type& id, object_type& obj)
   {
     using namespace sqlite;
@@ -1459,8 +1479,9 @@ namespace odb
     select_statement& st (sts.find_statement ());
     ODB_POTENTIALLY_UNUSED (st);
 
-    reference_cache_traits::insert_guard ig (
+    reference_cache_traits::position_type pos (
       reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
 
     callback (db, obj, callback_event::pre_load);
     init (obj, sts.image (), &db);
@@ -1468,11 +1489,12 @@ namespace odb
     sts.load_delayed ();
     l.unlock ();
     callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
     ig.release ();
     return true;
   }
 
-  bool access::object_traits< ::polaris::io::Dimension >::
+  bool access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   reload (database& db, object_type& obj)
   {
     using namespace sqlite;
@@ -1502,7 +1524,7 @@ namespace odb
     return true;
   }
 
-  bool access::object_traits< ::polaris::io::Dimension >::
+  bool access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   find_ (statements_type& sts, const id_type* id)
   {
     using namespace sqlite;
@@ -1551,8 +1573,8 @@ namespace odb
     return r != select_statement::no_data;
   }
 
-  result< access::object_traits< ::polaris::io::Dimension >::object_type >
-  access::object_traits< ::polaris::io::Dimension >::
+  result< access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   query (database&, const query_base_type& q)
   {
     using namespace sqlite;
@@ -1576,9 +1598,10 @@ namespace odb
       imb.version++;
     }
 
+    q.init_parameters ();
     shared_ptr<select_statement> st (
       new (shared) select_statement (
-        sts.connection (),
+        conn,
         query_statement + q.clause (),
         q.parameters_binding (),
         imb));
@@ -1592,7 +1615,7 @@ namespace odb
     return result<object_type> (r);
   }
 
-  unsigned long long access::object_traits< ::polaris::io::Dimension >::
+  unsigned long long access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   erase_query (database&, const query_base_type& q)
   {
     using namespace sqlite;
@@ -1600,6 +1623,7 @@ namespace odb
     sqlite::connection& conn (
       sqlite::transaction::current ().connection ());
 
+    q.init_parameters ();
     delete_statement st (
       conn,
       erase_query_statement + q.clause (),
@@ -1608,7 +1632,7 @@ namespace odb
     return st.execute ();
   }
 
-  bool access::object_traits< ::polaris::io::Dimension >::
+  bool access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
   create_schema (database& db, unsigned short pass, bool drop)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -1649,14 +1673,15 @@ namespace odb
 
   static const schema_catalog_entry
   schema_catalog_entry_polaris_io_Dimension_ (
+    id_sqlite,
     "System",
-    &access::object_traits< ::polaris::io::Dimension >::create_schema);
+    &access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::create_schema);
 
   // Meta
   //
 
-  access::object_traits< ::polaris::io::Meta >::id_type
-  access::object_traits< ::polaris::io::Meta >::
+  access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   id (const image_type& i)
   {
     sqlite::database* db (0);
@@ -1675,7 +1700,7 @@ namespace odb
     return id;
   }
 
-  bool access::object_traits< ::polaris::io::Meta >::
+  bool access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   grow (image_type& i, bool* t)
   {
     ODB_POTENTIALLY_UNUSED (i);
@@ -1706,7 +1731,7 @@ namespace odb
     return grew;
   }
 
-  void access::object_traits< ::polaris::io::Meta >::
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   bind (sqlite::bind* b,
         image_type& i,
         sqlite::statement_kind sk)
@@ -1750,7 +1775,7 @@ namespace odb
     n++;
   }
 
-  void access::object_traits< ::polaris::io::Meta >::
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   bind (sqlite::bind* b, id_image_type& i)
   {
     std::size_t n (0);
@@ -1759,7 +1784,7 @@ namespace odb
     b[n].is_null = &i.id_null;
   }
 
-  bool access::object_traits< ::polaris::io::Meta >::
+  bool access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   init (image_type& i, const object_type& o, sqlite::statement_kind sk)
   {
     ODB_POTENTIALLY_UNUSED (i);
@@ -1828,7 +1853,7 @@ namespace odb
     return grew;
   }
 
-  void access::object_traits< ::polaris::io::Meta >::
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   init (object_type& o, const image_type& i, database* db)
   {
     ODB_POTENTIALLY_UNUSED (o);
@@ -1880,7 +1905,7 @@ namespace odb
     }
   }
 
-  void access::object_traits< ::polaris::io::Meta >::
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   init (id_image_type& i, const id_type& id)
   {
     {
@@ -1895,21 +1920,23 @@ namespace odb
     }
   }
 
-  struct access::object_traits< ::polaris::io::Meta >::container_statement_cache_type
+  struct access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::container_statement_cache_type
   {
-    container_statement_cache_type (sqlite::connection&)
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
     {
     }
   };
 
-  const char access::object_traits< ::polaris::io::Meta >::persist_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::persist_statement[] =
   "INSERT INTO \"Meta\" ("
   "\"id\","
   "\"key\","
   "\"value\")"
   " VALUES (?,?,?)";
 
-  const char access::object_traits< ::polaris::io::Meta >::find_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::find_statement[] =
   "SELECT "
   "\"Meta\".\"id\","
   "\"Meta\".\"key\","
@@ -1917,17 +1944,17 @@ namespace odb
   " FROM \"Meta\""
   " WHERE \"Meta\".\"id\"=?";
 
-  const char access::object_traits< ::polaris::io::Meta >::update_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::update_statement[] =
   "UPDATE \"Meta\" SET "
   "\"key\"=?,"
   "\"value\"=?"
   " WHERE \"id\"=?";
 
-  const char access::object_traits< ::polaris::io::Meta >::erase_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::erase_statement[] =
   "DELETE FROM \"Meta\""
   " WHERE \"id\"=?";
 
-  const char access::object_traits< ::polaris::io::Meta >::query_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::query_statement[] =
   "SELECT "
   "\"Meta\".\"id\","
   "\"Meta\".\"key\","
@@ -1935,14 +1962,14 @@ namespace odb
   " FROM \"Meta\""
   " ";
 
-  const char access::object_traits< ::polaris::io::Meta >::erase_query_statement[] =
+  const char access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::erase_query_statement[] =
   "DELETE FROM \"Meta\""
   " ";
 
-  const char access::object_traits< ::polaris::io::Meta >::table_name[] =
+  const char access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::table_name[] =
   "\"Meta\"";
 
-  void access::object_traits< ::polaris::io::Meta >::
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   persist (database& db, const object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -1981,7 +2008,7 @@ namespace odb
               callback_event::post_persist);
   }
 
-  void access::object_traits< ::polaris::io::Meta >::
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   update (database& db, const object_type& obj)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -2035,9 +2062,10 @@ namespace odb
       throw object_not_persistent ();
 
     callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
   }
 
-  void access::object_traits< ::polaris::io::Meta >::
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   erase (database& db, const id_type& id)
   {
     using namespace sqlite;
@@ -2066,8 +2094,8 @@ namespace odb
     pointer_cache_traits::erase (db, id);
   }
 
-  access::object_traits< ::polaris::io::Meta >::pointer_type
-  access::object_traits< ::polaris::io::Meta >::
+  access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   find (database& db, const id_type& id)
   {
     using namespace sqlite;
@@ -2112,6 +2140,7 @@ namespace odb
       sts.load_delayed ();
       l.unlock ();
       callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
     }
     else
       sts.delay_load (id, obj, ig.position ());
@@ -2121,7 +2150,7 @@ namespace odb
     return p;
   }
 
-  bool access::object_traits< ::polaris::io::Meta >::
+  bool access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   find (database& db, const id_type& id, object_type& obj)
   {
     using namespace sqlite;
@@ -2139,8 +2168,9 @@ namespace odb
     select_statement& st (sts.find_statement ());
     ODB_POTENTIALLY_UNUSED (st);
 
-    reference_cache_traits::insert_guard ig (
+    reference_cache_traits::position_type pos (
       reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
 
     callback (db, obj, callback_event::pre_load);
     init (obj, sts.image (), &db);
@@ -2148,11 +2178,12 @@ namespace odb
     sts.load_delayed ();
     l.unlock ();
     callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
     ig.release ();
     return true;
   }
 
-  bool access::object_traits< ::polaris::io::Meta >::
+  bool access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   reload (database& db, object_type& obj)
   {
     using namespace sqlite;
@@ -2182,7 +2213,7 @@ namespace odb
     return true;
   }
 
-  bool access::object_traits< ::polaris::io::Meta >::
+  bool access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   find_ (statements_type& sts, const id_type* id)
   {
     using namespace sqlite;
@@ -2231,8 +2262,8 @@ namespace odb
     return r != select_statement::no_data;
   }
 
-  result< access::object_traits< ::polaris::io::Meta >::object_type >
-  access::object_traits< ::polaris::io::Meta >::
+  result< access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   query (database&, const query_base_type& q)
   {
     using namespace sqlite;
@@ -2256,9 +2287,10 @@ namespace odb
       imb.version++;
     }
 
+    q.init_parameters ();
     shared_ptr<select_statement> st (
       new (shared) select_statement (
-        sts.connection (),
+        conn,
         query_statement + q.clause (),
         q.parameters_binding (),
         imb));
@@ -2272,7 +2304,7 @@ namespace odb
     return result<object_type> (r);
   }
 
-  unsigned long long access::object_traits< ::polaris::io::Meta >::
+  unsigned long long access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   erase_query (database&, const query_base_type& q)
   {
     using namespace sqlite;
@@ -2280,6 +2312,7 @@ namespace odb
     sqlite::connection& conn (
       sqlite::transaction::current ().connection ());
 
+    q.init_parameters ();
     delete_statement st (
       conn,
       erase_query_statement + q.clause (),
@@ -2288,7 +2321,7 @@ namespace odb
     return st.execute ();
   }
 
-  bool access::object_traits< ::polaris::io::Meta >::
+  bool access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   create_schema (database& db, unsigned short pass, bool drop)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -2326,8 +2359,9 @@ namespace odb
 
   static const schema_catalog_entry
   schema_catalog_entry_polaris_io_Meta_ (
+    id_sqlite,
     "System",
-    &access::object_traits< ::polaris::io::Meta >::create_schema);
+    &access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::create_schema);
 }
 
 #include <odb/post.hxx>

@@ -4,31 +4,6 @@
 
 namespace odb
 {
-  // table_field
-  //
-
-  inline
-  bool access::composite_value_traits< ::polaris::io::table_field >::
-  get_null (const image_type& i)
-  {
-    bool r (true);
-    r = r && i.table_null;
-    r = r && i.field_null;
-    return r;
-  }
-
-  inline
-  void access::composite_value_traits< ::polaris::io::table_field >::
-  set_null (image_type& i, sqlite::statement_kind sk)
-  {
-    ODB_POTENTIALLY_UNUSED (sk);
-
-    using namespace sqlite;
-
-    i.table_null = true;
-    i.field_null = true;
-  }
-
   // Quantity
   //
 
@@ -38,15 +13,6 @@ namespace odb
   id (const object_type& o)
   {
     return o.tf;
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Quantity >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
   }
 
   inline
@@ -65,12 +31,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Quantity >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Dimension
@@ -86,15 +46,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Dimension >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Dimension >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -109,12 +60,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Dimension >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Meta
@@ -130,15 +75,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Meta >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Meta >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -154,9 +90,85 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
   }
+}
+
+namespace odb
+{
+  // table_field
+  //
 
   inline
-  void access::object_traits< ::polaris::io::Meta >::
+  bool access::composite_value_traits< ::polaris::io::table_field, id_sqlite >::
+  get_null (const image_type& i)
+  {
+    bool r (true);
+    r = r && i.table_null;
+    r = r && i.field_null;
+    return r;
+  }
+
+  inline
+  void access::composite_value_traits< ::polaris::io::table_field, id_sqlite >::
+  set_null (image_type& i, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    i.table_null = true;
+    i.field_null = true;
+  }
+
+  // Quantity
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Quantity, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Dimension
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Dimension, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Meta
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Meta, id_sqlite >::
   load_ (statements_type&, object_type&)
   {
   }

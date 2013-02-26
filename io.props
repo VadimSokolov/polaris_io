@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ExecutablePath>C:\Users\vsokolov\usr\io_sdk\x86\bin;$(ExecutablePath)</ExecutablePath>
-	<LibraryPath>C:\Users\vsokolov\usr\io_sdk\x86\lib;$(LibraryPath)</LibraryPath>	
-	<IncludePath>C:\Users\vsokolov\usr\io_sdk\include;$(IncludePath)</IncludePath>	
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <ExecutablePath>..\odb\libodb-2.2.2\bin64;$(ExecutablePath)</ExecutablePath>
+	<LibraryPath>..\odb\libodb-sqlite-2.2.0\etc\sqlite\lib;..\odb\libodb-2.2.2\lib64;$(LibraryPath)</LibraryPath>		
+  </PropertyGroup> 
+    <PropertyGroup Condition="'$(Platform)'=='Win32'">
+    <ExecutablePath>..\odb\libodb-2.2.2\bin;$(ExecutablePath)</ExecutablePath>
+	<LibraryPath>..\odb\libodb-sqlite-2.2.0\etc\sqlite\lib64;..\odb\libodb-2.2.2\lib;$(LibraryPath)</LibraryPath>		
   </PropertyGroup>  
+  <PropertyGroup>
+	<IncludePath>..\odb\libodb-sqlite-2.2.0\etc\sqlite;..\odb\libodb-2.2.2;..\odb\libodb-sqlite-2.2.0;$(IncludePath)</IncludePath>    
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" >  
     <Link>
-      <AdditionalDependencies>odb-d.lib;odb-sqlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sqlite3-d.libodb-d.lib;odb-sqlite-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>   
   </ItemDefinitionGroup>  
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" >  
     <Link>
-      <AdditionalDependencies>odb.lib;odb-sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sqlite3.lib;odb.lib;odb-sqlite.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>  
   </ItemDefinitionGroup>
 </Project>

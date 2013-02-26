@@ -97,6 +97,7 @@ int main(int argc, char* argv[])
 	Convert<Node_File,Node, int>(net,container, NODE, "NODE", &container.Nodes);
 	Convert<Link_File,Link, int>(net,container, LINK, "LINK", &container.Links);
 	ConvertNested<Shape_File,Shape, int, shape_geometry>(net,container, SHAPE, "SHAPE");
+	Convert<Zone_File,Zone, int>(net,container, ZONE, "ZONE", &container.Zones);
 
 	ConvertNested<Signal_File,Signal, int, signal_time>(net,container, SIGNAL, "SIGNAL", &container.Signals);
 	Convert<Location_File,Location, int>(net,container, LOCATION, "LOCATION", &container.Locations);

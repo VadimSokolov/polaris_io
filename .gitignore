@@ -11,6 +11,8 @@
 .prn
 sql_trace.txt
 sql_profile.txt
+odb/*
+
 # Build results
 
 [Dd]ebug*/

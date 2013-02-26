@@ -17,15 +17,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Selection >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Selection >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -40,12 +31,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Selection >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Household
@@ -61,15 +46,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Household >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Household >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -84,12 +60,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Household >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Vehicle
@@ -105,15 +75,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Vehicle >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Vehicle >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -128,12 +89,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Vehicle >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Trip
@@ -149,15 +104,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Trip >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Trip >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -172,12 +118,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Trip >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Plan
@@ -193,15 +133,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Plan >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Plan >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -216,12 +147,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Plan >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Traveler
@@ -237,15 +162,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Traveler >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Traveler >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -261,9 +177,114 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
   }
+}
+
+namespace odb
+{
+  // Selection
+  //
 
   inline
-  void access::object_traits< ::polaris::io::Traveler >::
+  void access::object_traits_impl< ::polaris::io::Selection, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Selection, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Household
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Household, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Household, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Vehicle
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Vehicle, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Vehicle, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Trip
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Trip, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Trip, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Plan
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Plan, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Plan, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Traveler
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Traveler, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Traveler, id_sqlite >::
   load_ (statements_type&, object_type&)
   {
   }

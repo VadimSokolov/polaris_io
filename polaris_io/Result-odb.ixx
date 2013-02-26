@@ -17,15 +17,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Link_Delay >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Link_Delay >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -40,12 +31,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Link_Delay >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Performance
@@ -61,15 +46,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Performance >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Performance >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -84,12 +60,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Performance >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Problem
@@ -105,15 +75,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Problem >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Problem >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -128,12 +89,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Problem >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Skim
@@ -149,15 +104,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Skim >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Skim >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -172,12 +118,6 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (db);
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Skim >::
-  load_ (statements_type&, object_type&)
-  {
   }
 
   // Event
@@ -193,15 +133,6 @@ namespace odb
 
   inline
   void access::object_traits< ::polaris::io::Event >::
-  erase (database& db, const object_type& obj)
-  {
-    callback (db, obj, callback_event::pre_erase);
-    erase (db, id (obj));
-    callback (db, obj, callback_event::post_erase);
-  }
-
-  inline
-  void access::object_traits< ::polaris::io::Event >::
   callback (database& db, object_type& x, callback_event e)
   {
     ODB_POTENTIALLY_UNUSED (db);
@@ -217,9 +148,96 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
   }
+}
+
+namespace odb
+{
+  // Link_Delay
+  //
 
   inline
-  void access::object_traits< ::polaris::io::Event >::
+  void access::object_traits_impl< ::polaris::io::Link_Delay, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Link_Delay, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Performance
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Performance, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Performance, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Problem
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Problem, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Problem, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Skim
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Skim, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Skim, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Event
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Event, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Event, id_sqlite >::
   load_ (statements_type&, object_type&)
   {
   }

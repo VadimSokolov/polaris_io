@@ -3,22 +3,22 @@
   <ItemGroup>
     <CustomBuild Include="Supply.h">
       <Message>Running odb compiler on Supply.h</Message>
-      <Command>odb.exe --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --schema-name Supply Supply.h</Command>
+      <Command>..\odb\odb-2.2.0-i686-windows\bin\odb --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --schema-name Supply Supply.h</Command>
       <Outputs>Supply-odb.hxx;Supply-odb.ixx;Supply-odb.cxx;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="Result.h">
       <Message>Running odb compiler on Result.h</Message>
-      <Command>odb.exe --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --schema-name Result Result.h</Command>
+      <Command>..\odb\odb-2.2.0-i686-windows\bin\odb --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --schema-name Result Result.h</Command>
       <Outputs>Result-odb.hxx;Result-odb.ixx;Result-odb.cxx;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="Demand.h">
       <Message>Running odb compiler on Demand.h</Message>
-      <Command>odb.exe --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --schema-name Demand Demand.h</Command>
+      <Command>..\odb\odb-2.2.0-i686-windows\bin\odb --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --schema-name Demand Demand.h</Command>
       <Outputs>Demand-odb.hxx;Demand-odb.ixx;Demand-odb.cxx;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="System.h">
       <Message>Running odb compiler on System.h</Message>
-      <Command>odb.exe --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --schema-name System System.h</Command>
+      <Command>..\odb\odb-2.2.0-i686-windows\bin\odb --std c++11 --database sqlite --generate-query --generate-schema --generate-session --default-pointer std::tr1::shared_ptr --schema-name System System.h</Command>
       <Outputs>System-odb.hxx;System-odb.ixx;System-odb.cxx;%(Outputs)</Outputs>
     </CustomBuild>
   </ItemGroup>
