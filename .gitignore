@@ -12,6 +12,8 @@
 sql_trace.txt
 sql_profile.txt
 odb/*
+*.zip
+*.7z
 
 # Build results
 
