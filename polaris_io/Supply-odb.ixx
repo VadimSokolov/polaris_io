@@ -786,6 +786,180 @@ namespace odb
     ODB_POTENTIALLY_UNUSED (x);
     ODB_POTENTIALLY_UNUSED (e);
   }
+
+  // Component
+  //
+
+  inline
+  access::object_traits< ::polaris::io::Component >::id_type
+  access::object_traits< ::polaris::io::Component >::
+  id (const object_type& o)
+  {
+    return o.id;
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Component >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Component >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  // Component_Property_Keys
+  //
+
+  inline
+  access::object_traits< ::polaris::io::Component_Property_Keys >::id_type
+  access::object_traits< ::polaris::io::Component_Property_Keys >::
+  id (const object_type& o)
+  {
+    return o.id;
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Component_Property_Keys >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Component_Property_Keys >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  // Instance
+  //
+
+  inline
+  access::object_traits< ::polaris::io::Instance >::id_type
+  access::object_traits< ::polaris::io::Instance >::
+  id (const object_type& o)
+  {
+    return o.id;
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Instance >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Instance >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  // Instance_Property_Values
+  //
+
+  inline
+  access::object_traits< ::polaris::io::Instance_Property_Values >::id_type
+  access::object_traits< ::polaris::io::Instance_Property_Values >::
+  id (const object_type& o)
+  {
+    return o.id;
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Instance_Property_Values >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Instance_Property_Values >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  // Action
+  //
+
+  inline
+  access::object_traits< ::polaris::io::Action >::id_type
+  access::object_traits< ::polaris::io::Action >::
+  id (const object_type& o)
+  {
+    return o.id;
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Action >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Action >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  // Action_Keys
+  //
+
+  inline
+  access::object_traits< ::polaris::io::Action_Keys >::id_type
+  access::object_traits< ::polaris::io::Action_Keys >::
+  id (const object_type& o)
+  {
+    return o.id;
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Action_Keys >::
+  callback (database& db, object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
+
+  inline
+  void access::object_traits< ::polaris::io::Action_Keys >::
+  callback (database& db, const object_type& x, callback_event e)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (x);
+    ODB_POTENTIALLY_UNUSED (e);
+  }
 }
 
 namespace odb
@@ -1374,6 +1548,114 @@ namespace odb
 
   inline
   void access::object_traits_impl< ::polaris::io::Link_Type, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Component
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Component_Property_Keys
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Instance
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Instance_Property_Values
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Action
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  load_ (statements_type&, object_type&)
+  {
+  }
+
+  // Action_Keys
+  //
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  erase (database& db, const object_type& obj)
+  {
+    callback (db, obj, callback_event::pre_erase);
+    erase (db, id (obj));
+    callback (db, obj, callback_event::post_erase);
+  }
+
+  inline
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
   load_ (statements_type&, object_type&)
   {
   }

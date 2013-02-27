@@ -137,7 +137,7 @@ int main(int argc, char* argv[])
 	struct tm * timeinfo;
 	time ( &rawtime );
 	timeinfo = localtime ( &rawtime );
-	shared_ptr<MetaData> meta_data (new MetaData("TimeStemp", asctime (timeinfo)));
+	shared_ptr<MetaData> meta_data (new MetaData("TimeStemp", asctime(timeinfo)));
 	transaction t (db->begin());
 	db->persist(meta_data);
 	t.commit();

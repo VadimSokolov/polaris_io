@@ -144,7 +144,7 @@ public:
 app = argparse.ArgumentParser(description='Convert an xml file into a c++ code that is compatible with ODB')
 app.add_argument("-s", "--sample", action="store_true", help="Generates a sample xml file")      
 app.add_argument("-f", "--folder", default=".", help="Folder where xml files are located. Current folder by default")
-app.add_argument("-o", "--output", default=".", help="Output directorys")
+app.add_argument("-o", "--output", default=".", help="Output directory")
 app.add_argument("-n", "--namespace", default = "pio", help="Namespace for the classes")
 app.add_argument("-i", "--input", nargs='*', help="Specific Fales to be parsed. If not specified, all of the xml files in the folder are processed")
 

@@ -29020,6 +29020,4968 @@ namespace odb
     id_sqlite,
     "Supply",
     &access::object_traits_impl< ::polaris::io::Link_Type, id_sqlite >::create_schema);
+
+  // Component
+  //
+
+  access::object_traits_impl< ::polaris::io::Component, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  id (const image_type& i)
+  {
+    sqlite::database* db (0);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    id_type id;
+    {
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        id,
+        i.id_value,
+        i.id_null);
+    }
+
+    return id;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  grow (image_type& i, bool* t)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (t);
+
+    bool grew (false);
+
+    // id
+    //
+    t[0UL] = false;
+
+    // name
+    //
+    if (t[1UL])
+    {
+      i.name_value.capacity (i.name_size);
+      grew = true;
+    }
+
+    // icon
+    //
+    if (t[2UL])
+    {
+      i.icon_value.capacity (i.icon_size);
+      grew = true;
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  bind (sqlite::bind* b,
+        image_type& i,
+        sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    std::size_t n (0);
+
+    // id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.id_value;
+      b[n].is_null = &i.id_null;
+      n++;
+    }
+
+    // name
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.name_value.data ();
+    b[n].size = &i.name_size;
+    b[n].capacity = i.name_value.capacity ();
+    b[n].is_null = &i.name_null;
+    n++;
+
+    // icon
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.icon_value.data ();
+    b[n].size = &i.icon_size;
+    b[n].capacity = i.icon_value.capacity ();
+    b[n].is_null = &i.icon_null;
+    n++;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  bind (sqlite::bind* b, id_image_type& i)
+  {
+    std::size_t n (0);
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.id_value;
+    b[n].is_null = &i.id_null;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  init (image_type& i, const object_type& o, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    bool grew (false);
+
+    // id
+    //
+    if (sk == statement_insert)
+    {
+      int const& v =
+        o.id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        v);
+      i.id_null = is_null;
+    }
+
+    // name
+    //
+    {
+      ::std::string const& v =
+        o.name;
+
+      bool is_null (false);
+      std::size_t cap (i.name_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.name_value,
+        i.name_size,
+        is_null,
+        v);
+      i.name_null = is_null;
+      grew = grew || (cap != i.name_value.capacity ());
+    }
+
+    // icon
+    //
+    {
+      ::std::string const& v =
+        o.icon;
+
+      bool is_null (false);
+      std::size_t cap (i.icon_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.icon_value,
+        i.icon_size,
+        is_null,
+        v);
+      i.icon_null = is_null;
+      grew = grew || (cap != i.icon_value.capacity ());
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  init (object_type& o, const image_type& i, database* db)
+  {
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    // id
+    //
+    {
+      int& v =
+        o.id;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.id_value,
+        i.id_null);
+    }
+
+    // name
+    //
+    {
+      ::std::string& v =
+        o.name;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.name_value,
+        i.name_size,
+        i.name_null);
+    }
+
+    // icon
+    //
+    {
+      ::std::string& v =
+        o.icon;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.icon_value,
+        i.icon_size,
+        i.icon_null);
+    }
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  init (id_image_type& i, const id_type& id)
+  {
+    {
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        id);
+      i.id_null = is_null;
+    }
+  }
+
+  struct access::object_traits_impl< ::polaris::io::Component, id_sqlite >::container_statement_cache_type
+  {
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
+    {
+    }
+  };
+
+  const char access::object_traits_impl< ::polaris::io::Component, id_sqlite >::persist_statement[] =
+  "INSERT INTO \"Component\" ("
+  "\"id\","
+  "\"name\","
+  "\"icon\")"
+  " VALUES (?,?,?)";
+
+  const char access::object_traits_impl< ::polaris::io::Component, id_sqlite >::find_statement[] =
+  "SELECT "
+  "\"Component\".\"id\","
+  "\"Component\".\"name\","
+  "\"Component\".\"icon\""
+  " FROM \"Component\""
+  " WHERE \"Component\".\"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Component, id_sqlite >::update_statement[] =
+  "UPDATE \"Component\" SET "
+  "\"name\"=?,"
+  "\"icon\"=?"
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Component, id_sqlite >::erase_statement[] =
+  "DELETE FROM \"Component\""
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Component, id_sqlite >::query_statement[] =
+  "SELECT "
+  "\"Component\".\"id\","
+  "\"Component\".\"name\","
+  "\"Component\".\"icon\""
+  " FROM \"Component\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Component, id_sqlite >::erase_query_statement[] =
+  "DELETE FROM \"Component\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Component, id_sqlite >::table_name[] =
+  "\"Component\"";
+
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  persist (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    callback (db,
+              obj,
+              callback_event::pre_persist);
+
+    image_type& im (sts.image ());
+    binding& imb (sts.insert_image_binding ());
+
+    if (init (im, obj, statement_insert))
+      im.version++;
+
+    if (im.version != sts.insert_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_insert);
+      sts.insert_image_version (im.version);
+      imb.version++;
+    }
+
+    insert_statement& st (sts.persist_statement ());
+    if (!st.execute ())
+      throw object_already_persistent ();
+
+    callback (db,
+              obj,
+              callback_event::post_persist);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  update (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    callback (db, obj, callback_event::pre_update);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, obj.id);
+
+    image_type& im (sts.image ());
+    if (init (im, obj, statement_update))
+      im.version++;
+
+    bool u (false);
+    binding& imb (sts.update_image_binding ());
+    if (im.version != sts.update_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_update);
+      sts.update_image_version (im.version);
+      imb.version++;
+      u = true;
+    }
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.update_id_image_version () ||
+        idb.version == 0)
+    {
+      if (i.version != sts.id_image_version () ||
+          idb.version == 0)
+      {
+        bind (idb.bind, i);
+        sts.id_image_version (i.version);
+        idb.version++;
+      }
+
+      sts.update_id_image_version (i.version);
+
+      if (!u)
+        imb.version++;
+    }
+
+    if (sts.update_statement ().execute () == 0)
+      throw object_not_persistent ();
+
+    callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  erase (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    ODB_POTENTIALLY_UNUSED (db);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    if (sts.erase_statement ().execute () != 1)
+      throw object_not_persistent ();
+
+    pointer_cache_traits::erase (db, id);
+  }
+
+  access::object_traits_impl< ::polaris::io::Component, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  find (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    {
+      pointer_type p (pointer_cache_traits::find (db, id));
+
+      if (!pointer_traits::null_ptr (p))
+        return p;
+    }
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (l.locked ())
+    {
+      if (!find_ (sts, &id))
+        return pointer_type ();
+    }
+
+    pointer_type p (
+      access::object_factory<object_type, pointer_type>::create ());
+    pointer_traits::guard pg (p);
+
+    pointer_cache_traits::insert_guard ig (
+      pointer_cache_traits::insert (db, id, p));
+
+    object_type& obj (pointer_traits::get_ref (p));
+
+    if (l.locked ())
+    {
+      select_statement& st (sts.find_statement ());
+      ODB_POTENTIALLY_UNUSED (st);
+
+      callback (db, obj, callback_event::pre_load);
+      init (obj, sts.image (), &db);
+      load_ (sts, obj);
+      sts.load_delayed ();
+      l.unlock ();
+      callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
+    }
+    else
+      sts.delay_load (id, obj, ig.position ());
+
+    ig.release ();
+    pg.release ();
+    return p;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  find (database& db, const id_type& id, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    reference_cache_traits::position_type pos (
+      reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
+    ig.release ();
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  reload (database& db, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    const id_type& id  (
+      obj.id);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  find_ (statements_type& sts, const id_type* id)
+  {
+    using namespace sqlite;
+
+    id_image_type& i (sts.id_image ());
+    init (i, *id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    select_statement& st (sts.find_statement ());
+    st.execute ();
+    auto_result ar (st);
+    select_statement::result r (st.fetch ());
+
+    if (r == select_statement::truncated)
+    {
+      if (grow (im, sts.select_image_truncated ()))
+        im.version++;
+
+      if (im.version != sts.select_image_version ())
+      {
+        bind (imb.bind, im, statement_select);
+        sts.select_image_version (im.version);
+        imb.version++;
+        st.refetch ();
+      }
+    }
+
+    return r != select_statement::no_data;
+  }
+
+  result< access::object_traits_impl< ::polaris::io::Component, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+    using odb::details::shared;
+    using odb::details::shared_ptr;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    q.init_parameters ();
+    shared_ptr<select_statement> st (
+      new (shared) select_statement (
+        conn,
+        query_statement + q.clause (),
+        q.parameters_binding (),
+        imb));
+
+    st->execute ();
+
+    shared_ptr< odb::object_result_impl<object_type> > r (
+      new (shared) sqlite::object_result_impl<object_type> (
+        q, st, sts));
+
+    return result<object_type> (r);
+  }
+
+  unsigned long long access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  erase_query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    q.init_parameters ();
+    delete_statement st (
+      conn,
+      erase_query_statement + q.clause (),
+      q.parameters_binding ());
+
+    return st.execute ();
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component, id_sqlite >::
+  create_schema (database& db, unsigned short pass, bool drop)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (pass);
+    ODB_POTENTIALLY_UNUSED (drop);
+
+    if (drop)
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("DROP TABLE IF EXISTS \"Component\"");
+          return false;
+        }
+      }
+    }
+    else
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("CREATE TABLE \"Component\" (\n"
+                      "  \"id\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"name\" TEXT NOT NULL,\n"
+                      "  \"icon\" TEXT NOT NULL)");
+          return false;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  static const schema_catalog_entry
+  schema_catalog_entry_polaris_io_Component_ (
+    id_sqlite,
+    "Supply",
+    &access::object_traits_impl< ::polaris::io::Component, id_sqlite >::create_schema);
+
+  // Component_Property_Keys
+  //
+
+  const char alias_traits<  ::polaris::io::Component,
+    id_sqlite,
+    access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::component_id_tag>::
+  table_name[] = "\"component_id\"";
+
+  access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  id (const image_type& i)
+  {
+    sqlite::database* db (0);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    id_type id;
+    {
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        id,
+        i.id_value,
+        i.id_null);
+    }
+
+    return id;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  grow (image_type& i, bool* t)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (t);
+
+    bool grew (false);
+
+    // id
+    //
+    t[0UL] = false;
+
+    // component_id
+    //
+    t[1UL] = false;
+
+    // key
+    //
+    if (t[2UL])
+    {
+      i.key_value.capacity (i.key_size);
+      grew = true;
+    }
+
+    // value
+    //
+    if (t[3UL])
+    {
+      i.value_value.capacity (i.value_size);
+      grew = true;
+    }
+
+    // value_type
+    //
+    if (t[4UL])
+    {
+      i.value_type_value.capacity (i.value_type_size);
+      grew = true;
+    }
+
+    // value_constraint
+    //
+    if (t[5UL])
+    {
+      i.value_constraint_value.capacity (i.value_constraint_size);
+      grew = true;
+    }
+
+    // is_state
+    //
+    t[6UL] = false;
+
+    // required
+    //
+    t[7UL] = false;
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  bind (sqlite::bind* b,
+        image_type& i,
+        sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    std::size_t n (0);
+
+    // id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.id_value;
+      b[n].is_null = &i.id_null;
+      n++;
+    }
+
+    // component_id
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.component_id_value;
+    b[n].is_null = &i.component_id_null;
+    n++;
+
+    // key
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.key_value.data ();
+    b[n].size = &i.key_size;
+    b[n].capacity = i.key_value.capacity ();
+    b[n].is_null = &i.key_null;
+    n++;
+
+    // value
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.value_value.data ();
+    b[n].size = &i.value_size;
+    b[n].capacity = i.value_value.capacity ();
+    b[n].is_null = &i.value_null;
+    n++;
+
+    // value_type
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.value_type_value.data ();
+    b[n].size = &i.value_type_size;
+    b[n].capacity = i.value_type_value.capacity ();
+    b[n].is_null = &i.value_type_null;
+    n++;
+
+    // value_constraint
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.value_constraint_value.data ();
+    b[n].size = &i.value_constraint_size;
+    b[n].capacity = i.value_constraint_value.capacity ();
+    b[n].is_null = &i.value_constraint_null;
+    n++;
+
+    // is_state
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.is_state_value;
+    b[n].is_null = &i.is_state_null;
+    n++;
+
+    // required
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.required_value;
+    b[n].is_null = &i.required_null;
+    n++;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  bind (sqlite::bind* b, id_image_type& i)
+  {
+    std::size_t n (0);
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.id_value;
+    b[n].is_null = &i.id_null;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  init (image_type& i, const object_type& o, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    bool grew (false);
+
+    // id
+    //
+    if (sk == statement_insert)
+    {
+      int const& v =
+        o.id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        v);
+      i.id_null = is_null;
+    }
+
+    // component_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Component > const& v =
+        o.component_id;
+
+      typedef object_traits< ::polaris::io::Component > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Component > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.component_id_value,
+          is_null,
+          id);
+        i.component_id_null = is_null;
+      }
+      else
+        i.component_id_null = true;
+    }
+
+    // key
+    //
+    {
+      ::std::string const& v =
+        o.key;
+
+      bool is_null (false);
+      std::size_t cap (i.key_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.key_value,
+        i.key_size,
+        is_null,
+        v);
+      i.key_null = is_null;
+      grew = grew || (cap != i.key_value.capacity ());
+    }
+
+    // value
+    //
+    {
+      ::std::string const& v =
+        o.value;
+
+      bool is_null (false);
+      std::size_t cap (i.value_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.value_value,
+        i.value_size,
+        is_null,
+        v);
+      i.value_null = is_null;
+      grew = grew || (cap != i.value_value.capacity ());
+    }
+
+    // value_type
+    //
+    {
+      ::std::string const& v =
+        o.value_type;
+
+      bool is_null (false);
+      std::size_t cap (i.value_type_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.value_type_value,
+        i.value_type_size,
+        is_null,
+        v);
+      i.value_type_null = is_null;
+      grew = grew || (cap != i.value_type_value.capacity ());
+    }
+
+    // value_constraint
+    //
+    {
+      ::std::string const& v =
+        o.value_constraint;
+
+      bool is_null (false);
+      std::size_t cap (i.value_constraint_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.value_constraint_value,
+        i.value_constraint_size,
+        is_null,
+        v);
+      i.value_constraint_null = is_null;
+      grew = grew || (cap != i.value_constraint_value.capacity ());
+    }
+
+    // is_state
+    //
+    {
+      bool const& v =
+        o.is_state;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          bool,
+          sqlite::id_integer >::set_image (
+        i.is_state_value,
+        is_null,
+        v);
+      i.is_state_null = is_null;
+    }
+
+    // required
+    //
+    {
+      bool const& v =
+        o.required;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          bool,
+          sqlite::id_integer >::set_image (
+        i.required_value,
+        is_null,
+        v);
+      i.required_null = is_null;
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  init (object_type& o, const image_type& i, database* db)
+  {
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    // id
+    //
+    {
+      int& v =
+        o.id;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.id_value,
+        i.id_null);
+    }
+
+    // component_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Component >& v =
+        o.component_id;
+
+      typedef object_traits< ::polaris::io::Component > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Component > > ptr_traits;
+
+      if (i.component_id_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.component_id_value,
+          i.component_id_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          static_cast<sqlite::database*> (db)->load<
+            obj_traits::object_type > (id));
+      }
+    }
+
+    // key
+    //
+    {
+      ::std::string& v =
+        o.key;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.key_value,
+        i.key_size,
+        i.key_null);
+    }
+
+    // value
+    //
+    {
+      ::std::string& v =
+        o.value;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.value_value,
+        i.value_size,
+        i.value_null);
+    }
+
+    // value_type
+    //
+    {
+      ::std::string& v =
+        o.value_type;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.value_type_value,
+        i.value_type_size,
+        i.value_type_null);
+    }
+
+    // value_constraint
+    //
+    {
+      ::std::string& v =
+        o.value_constraint;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.value_constraint_value,
+        i.value_constraint_size,
+        i.value_constraint_null);
+    }
+
+    // is_state
+    //
+    {
+      bool& v =
+        o.is_state;
+
+      sqlite::value_traits<
+          bool,
+          sqlite::id_integer >::set_value (
+        v,
+        i.is_state_value,
+        i.is_state_null);
+    }
+
+    // required
+    //
+    {
+      bool& v =
+        o.required;
+
+      sqlite::value_traits<
+          bool,
+          sqlite::id_integer >::set_value (
+        v,
+        i.required_value,
+        i.required_null);
+    }
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  init (id_image_type& i, const id_type& id)
+  {
+    {
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        id);
+      i.id_null = is_null;
+    }
+  }
+
+  struct access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::container_statement_cache_type
+  {
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
+    {
+    }
+  };
+
+  const char access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::persist_statement[] =
+  "INSERT INTO \"Component_Property_Keys\" ("
+  "\"id\","
+  "\"component_id\","
+  "\"key\","
+  "\"value\","
+  "\"value_type\","
+  "\"value_constraint\","
+  "\"is_state\","
+  "\"required\")"
+  " VALUES (?,?,?,?,?,?,?,?)";
+
+  const char access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::find_statement[] =
+  "SELECT "
+  "\"Component_Property_Keys\".\"id\","
+  "\"Component_Property_Keys\".\"component_id\","
+  "\"Component_Property_Keys\".\"key\","
+  "\"Component_Property_Keys\".\"value\","
+  "\"Component_Property_Keys\".\"value_type\","
+  "\"Component_Property_Keys\".\"value_constraint\","
+  "\"Component_Property_Keys\".\"is_state\","
+  "\"Component_Property_Keys\".\"required\""
+  " FROM \"Component_Property_Keys\""
+  " WHERE \"Component_Property_Keys\".\"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::update_statement[] =
+  "UPDATE \"Component_Property_Keys\" SET "
+  "\"component_id\"=?,"
+  "\"key\"=?,"
+  "\"value\"=?,"
+  "\"value_type\"=?,"
+  "\"value_constraint\"=?,"
+  "\"is_state\"=?,"
+  "\"required\"=?"
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::erase_statement[] =
+  "DELETE FROM \"Component_Property_Keys\""
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::query_statement[] =
+  "SELECT "
+  "\"Component_Property_Keys\".\"id\","
+  "\"Component_Property_Keys\".\"component_id\","
+  "\"Component_Property_Keys\".\"key\","
+  "\"Component_Property_Keys\".\"value\","
+  "\"Component_Property_Keys\".\"value_type\","
+  "\"Component_Property_Keys\".\"value_constraint\","
+  "\"Component_Property_Keys\".\"is_state\","
+  "\"Component_Property_Keys\".\"required\""
+  " FROM \"Component_Property_Keys\""
+  " LEFT JOIN \"Component\" AS \"component_id\" ON \"component_id\".\"id\"=\"Component_Property_Keys\".\"component_id\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::erase_query_statement[] =
+  "DELETE FROM \"Component_Property_Keys\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::table_name[] =
+  "\"Component_Property_Keys\"";
+
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  persist (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    callback (db,
+              obj,
+              callback_event::pre_persist);
+
+    image_type& im (sts.image ());
+    binding& imb (sts.insert_image_binding ());
+
+    if (init (im, obj, statement_insert))
+      im.version++;
+
+    if (im.version != sts.insert_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_insert);
+      sts.insert_image_version (im.version);
+      imb.version++;
+    }
+
+    insert_statement& st (sts.persist_statement ());
+    if (!st.execute ())
+      throw object_already_persistent ();
+
+    callback (db,
+              obj,
+              callback_event::post_persist);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  update (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    callback (db, obj, callback_event::pre_update);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, obj.id);
+
+    image_type& im (sts.image ());
+    if (init (im, obj, statement_update))
+      im.version++;
+
+    bool u (false);
+    binding& imb (sts.update_image_binding ());
+    if (im.version != sts.update_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_update);
+      sts.update_image_version (im.version);
+      imb.version++;
+      u = true;
+    }
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.update_id_image_version () ||
+        idb.version == 0)
+    {
+      if (i.version != sts.id_image_version () ||
+          idb.version == 0)
+      {
+        bind (idb.bind, i);
+        sts.id_image_version (i.version);
+        idb.version++;
+      }
+
+      sts.update_id_image_version (i.version);
+
+      if (!u)
+        imb.version++;
+    }
+
+    if (sts.update_statement ().execute () == 0)
+      throw object_not_persistent ();
+
+    callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  erase (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    ODB_POTENTIALLY_UNUSED (db);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    if (sts.erase_statement ().execute () != 1)
+      throw object_not_persistent ();
+
+    pointer_cache_traits::erase (db, id);
+  }
+
+  access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  find (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    {
+      pointer_type p (pointer_cache_traits::find (db, id));
+
+      if (!pointer_traits::null_ptr (p))
+        return p;
+    }
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (l.locked ())
+    {
+      if (!find_ (sts, &id))
+        return pointer_type ();
+    }
+
+    pointer_type p (
+      access::object_factory<object_type, pointer_type>::create ());
+    pointer_traits::guard pg (p);
+
+    pointer_cache_traits::insert_guard ig (
+      pointer_cache_traits::insert (db, id, p));
+
+    object_type& obj (pointer_traits::get_ref (p));
+
+    if (l.locked ())
+    {
+      select_statement& st (sts.find_statement ());
+      ODB_POTENTIALLY_UNUSED (st);
+
+      callback (db, obj, callback_event::pre_load);
+      init (obj, sts.image (), &db);
+      load_ (sts, obj);
+      sts.load_delayed ();
+      l.unlock ();
+      callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
+    }
+    else
+      sts.delay_load (id, obj, ig.position ());
+
+    ig.release ();
+    pg.release ();
+    return p;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  find (database& db, const id_type& id, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    reference_cache_traits::position_type pos (
+      reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
+    ig.release ();
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  reload (database& db, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    const id_type& id  (
+      obj.id);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  find_ (statements_type& sts, const id_type* id)
+  {
+    using namespace sqlite;
+
+    id_image_type& i (sts.id_image ());
+    init (i, *id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    select_statement& st (sts.find_statement ());
+    st.execute ();
+    auto_result ar (st);
+    select_statement::result r (st.fetch ());
+
+    if (r == select_statement::truncated)
+    {
+      if (grow (im, sts.select_image_truncated ()))
+        im.version++;
+
+      if (im.version != sts.select_image_version ())
+      {
+        bind (imb.bind, im, statement_select);
+        sts.select_image_version (im.version);
+        imb.version++;
+        st.refetch ();
+      }
+    }
+
+    return r != select_statement::no_data;
+  }
+
+  result< access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+    using odb::details::shared;
+    using odb::details::shared_ptr;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    q.init_parameters ();
+    shared_ptr<select_statement> st (
+      new (shared) select_statement (
+        conn,
+        query_statement + q.clause (),
+        q.parameters_binding (),
+        imb));
+
+    st->execute ();
+
+    shared_ptr< odb::object_result_impl<object_type> > r (
+      new (shared) sqlite::object_result_impl<object_type> (
+        q, st, sts));
+
+    return result<object_type> (r);
+  }
+
+  unsigned long long access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  erase_query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    q.init_parameters ();
+    delete_statement st (
+      conn,
+      erase_query_statement + q.clause (),
+      q.parameters_binding ());
+
+    return st.execute ();
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::
+  create_schema (database& db, unsigned short pass, bool drop)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (pass);
+    ODB_POTENTIALLY_UNUSED (drop);
+
+    if (drop)
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("DROP TABLE IF EXISTS \"Component_Property_Keys\"");
+          return false;
+        }
+      }
+    }
+    else
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("CREATE TABLE \"Component_Property_Keys\" (\n"
+                      "  \"id\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"component_id\" INTEGER,\n"
+                      "  \"key\" TEXT NOT NULL,\n"
+                      "  \"value\" TEXT NOT NULL,\n"
+                      "  \"value_type\" TEXT NOT NULL,\n"
+                      "  \"value_constraint\" TEXT NOT NULL,\n"
+                      "  \"is_state\" INTEGER NOT NULL,\n"
+                      "  \"required\" INTEGER NOT NULL,\n"
+                      "  CONSTRAINT \"component_id_fk\"\n"
+                      "    FOREIGN KEY (\"component_id\")\n"
+                      "    REFERENCES \"Component\" (\"id\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED)");
+          return false;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  static const schema_catalog_entry
+  schema_catalog_entry_polaris_io_Component_Property_Keys_ (
+    id_sqlite,
+    "Supply",
+    &access::object_traits_impl< ::polaris::io::Component_Property_Keys, id_sqlite >::create_schema);
+
+  // Instance
+  //
+
+  const char alias_traits<  ::polaris::io::Component,
+    id_sqlite,
+    access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::component_id_tag>::
+  table_name[] = "\"component_id\"";
+
+  access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  id (const image_type& i)
+  {
+    sqlite::database* db (0);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    id_type id;
+    {
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        id,
+        i.id_value,
+        i.id_null);
+    }
+
+    return id;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  grow (image_type& i, bool* t)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (t);
+
+    bool grew (false);
+
+    // id
+    //
+    t[0UL] = false;
+
+    // component_id
+    //
+    t[1UL] = false;
+
+    // location_link
+    //
+    t[2UL] = false;
+
+    // location_offset
+    //
+    t[3UL] = false;
+
+    // location_x
+    //
+    t[4UL] = false;
+
+    // location_y
+    //
+    t[5UL] = false;
+
+    // owner
+    //
+    if (t[6UL])
+    {
+      i.owner_value.capacity (i.owner_size);
+      grew = true;
+    }
+
+    // operational_status
+    //
+    t[7UL] = false;
+
+    // schedule
+    //
+    if (t[8UL])
+    {
+      i.schedule_value.capacity (i.schedule_size);
+      grew = true;
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  bind (sqlite::bind* b,
+        image_type& i,
+        sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    std::size_t n (0);
+
+    // id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.id_value;
+      b[n].is_null = &i.id_null;
+      n++;
+    }
+
+    // component_id
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.component_id_value;
+    b[n].is_null = &i.component_id_null;
+    n++;
+
+    // location_link
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.location_link_value;
+    b[n].is_null = &i.location_link_null;
+    n++;
+
+    // location_offset
+    //
+    b[n].type = sqlite::bind::real;
+    b[n].buffer = &i.location_offset_value;
+    b[n].is_null = &i.location_offset_null;
+    n++;
+
+    // location_x
+    //
+    b[n].type = sqlite::bind::real;
+    b[n].buffer = &i.location_x_value;
+    b[n].is_null = &i.location_x_null;
+    n++;
+
+    // location_y
+    //
+    b[n].type = sqlite::bind::real;
+    b[n].buffer = &i.location_y_value;
+    b[n].is_null = &i.location_y_null;
+    n++;
+
+    // owner
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.owner_value.data ();
+    b[n].size = &i.owner_size;
+    b[n].capacity = i.owner_value.capacity ();
+    b[n].is_null = &i.owner_null;
+    n++;
+
+    // operational_status
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.operational_status_value;
+    b[n].is_null = &i.operational_status_null;
+    n++;
+
+    // schedule
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.schedule_value.data ();
+    b[n].size = &i.schedule_size;
+    b[n].capacity = i.schedule_value.capacity ();
+    b[n].is_null = &i.schedule_null;
+    n++;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  bind (sqlite::bind* b, id_image_type& i)
+  {
+    std::size_t n (0);
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.id_value;
+    b[n].is_null = &i.id_null;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  init (image_type& i, const object_type& o, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    bool grew (false);
+
+    // id
+    //
+    if (sk == statement_insert)
+    {
+      int const& v =
+        o.id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        v);
+      i.id_null = is_null;
+    }
+
+    // component_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Component > const& v =
+        o.component_id;
+
+      typedef object_traits< ::polaris::io::Component > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Component > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.component_id_value,
+          is_null,
+          id);
+        i.component_id_null = is_null;
+      }
+      else
+        i.component_id_null = true;
+    }
+
+    // location_link
+    //
+    {
+      int const& v =
+        o.location_link;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.location_link_value,
+        is_null,
+        v);
+      i.location_link_null = is_null;
+    }
+
+    // location_offset
+    //
+    {
+      float const& v =
+        o.location_offset;
+
+      bool is_null (true);
+      sqlite::value_traits<
+          float,
+          sqlite::id_real >::set_image (
+        i.location_offset_value,
+        is_null,
+        v);
+      i.location_offset_null = is_null;
+    }
+
+    // location_x
+    //
+    {
+      float const& v =
+        o.location_x;
+
+      bool is_null (true);
+      sqlite::value_traits<
+          float,
+          sqlite::id_real >::set_image (
+        i.location_x_value,
+        is_null,
+        v);
+      i.location_x_null = is_null;
+    }
+
+    // location_y
+    //
+    {
+      float const& v =
+        o.location_y;
+
+      bool is_null (true);
+      sqlite::value_traits<
+          float,
+          sqlite::id_real >::set_image (
+        i.location_y_value,
+        is_null,
+        v);
+      i.location_y_null = is_null;
+    }
+
+    // owner
+    //
+    {
+      ::std::string const& v =
+        o.owner;
+
+      bool is_null (false);
+      std::size_t cap (i.owner_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.owner_value,
+        i.owner_size,
+        is_null,
+        v);
+      i.owner_null = is_null;
+      grew = grew || (cap != i.owner_value.capacity ());
+    }
+
+    // operational_status
+    //
+    {
+      int const& v =
+        o.operational_status;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.operational_status_value,
+        is_null,
+        v);
+      i.operational_status_null = is_null;
+    }
+
+    // schedule
+    //
+    {
+      ::std::string const& v =
+        o.schedule;
+
+      bool is_null (false);
+      std::size_t cap (i.schedule_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.schedule_value,
+        i.schedule_size,
+        is_null,
+        v);
+      i.schedule_null = is_null;
+      grew = grew || (cap != i.schedule_value.capacity ());
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  init (object_type& o, const image_type& i, database* db)
+  {
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    // id
+    //
+    {
+      int& v =
+        o.id;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.id_value,
+        i.id_null);
+    }
+
+    // component_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Component >& v =
+        o.component_id;
+
+      typedef object_traits< ::polaris::io::Component > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Component > > ptr_traits;
+
+      if (i.component_id_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.component_id_value,
+          i.component_id_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          static_cast<sqlite::database*> (db)->load<
+            obj_traits::object_type > (id));
+      }
+    }
+
+    // location_link
+    //
+    {
+      int& v =
+        o.location_link;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.location_link_value,
+        i.location_link_null);
+    }
+
+    // location_offset
+    //
+    {
+      float& v =
+        o.location_offset;
+
+      sqlite::value_traits<
+          float,
+          sqlite::id_real >::set_value (
+        v,
+        i.location_offset_value,
+        i.location_offset_null);
+    }
+
+    // location_x
+    //
+    {
+      float& v =
+        o.location_x;
+
+      sqlite::value_traits<
+          float,
+          sqlite::id_real >::set_value (
+        v,
+        i.location_x_value,
+        i.location_x_null);
+    }
+
+    // location_y
+    //
+    {
+      float& v =
+        o.location_y;
+
+      sqlite::value_traits<
+          float,
+          sqlite::id_real >::set_value (
+        v,
+        i.location_y_value,
+        i.location_y_null);
+    }
+
+    // owner
+    //
+    {
+      ::std::string& v =
+        o.owner;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.owner_value,
+        i.owner_size,
+        i.owner_null);
+    }
+
+    // operational_status
+    //
+    {
+      int& v =
+        o.operational_status;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.operational_status_value,
+        i.operational_status_null);
+    }
+
+    // schedule
+    //
+    {
+      ::std::string& v =
+        o.schedule;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.schedule_value,
+        i.schedule_size,
+        i.schedule_null);
+    }
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  init (id_image_type& i, const id_type& id)
+  {
+    {
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        id);
+      i.id_null = is_null;
+    }
+  }
+
+  struct access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::container_statement_cache_type
+  {
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
+    {
+    }
+  };
+
+  const char access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::persist_statement[] =
+  "INSERT INTO \"Instance\" ("
+  "\"id\","
+  "\"component_id\","
+  "\"location_link\","
+  "\"location_offset\","
+  "\"location_x\","
+  "\"location_y\","
+  "\"owner\","
+  "\"operational_status\","
+  "\"schedule\")"
+  " VALUES (?,?,?,?,?,?,?,?,?)";
+
+  const char access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::find_statement[] =
+  "SELECT "
+  "\"Instance\".\"id\","
+  "\"Instance\".\"component_id\","
+  "\"Instance\".\"location_link\","
+  "\"Instance\".\"location_offset\","
+  "\"Instance\".\"location_x\","
+  "\"Instance\".\"location_y\","
+  "\"Instance\".\"owner\","
+  "\"Instance\".\"operational_status\","
+  "\"Instance\".\"schedule\""
+  " FROM \"Instance\""
+  " WHERE \"Instance\".\"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::update_statement[] =
+  "UPDATE \"Instance\" SET "
+  "\"component_id\"=?,"
+  "\"location_link\"=?,"
+  "\"location_offset\"=?,"
+  "\"location_x\"=?,"
+  "\"location_y\"=?,"
+  "\"owner\"=?,"
+  "\"operational_status\"=?,"
+  "\"schedule\"=?"
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::erase_statement[] =
+  "DELETE FROM \"Instance\""
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::query_statement[] =
+  "SELECT "
+  "\"Instance\".\"id\","
+  "\"Instance\".\"component_id\","
+  "\"Instance\".\"location_link\","
+  "\"Instance\".\"location_offset\","
+  "\"Instance\".\"location_x\","
+  "\"Instance\".\"location_y\","
+  "\"Instance\".\"owner\","
+  "\"Instance\".\"operational_status\","
+  "\"Instance\".\"schedule\""
+  " FROM \"Instance\""
+  " LEFT JOIN \"Component\" AS \"component_id\" ON \"component_id\".\"id\"=\"Instance\".\"component_id\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::erase_query_statement[] =
+  "DELETE FROM \"Instance\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::table_name[] =
+  "\"Instance\"";
+
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  persist (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    callback (db,
+              obj,
+              callback_event::pre_persist);
+
+    image_type& im (sts.image ());
+    binding& imb (sts.insert_image_binding ());
+
+    if (init (im, obj, statement_insert))
+      im.version++;
+
+    if (im.version != sts.insert_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_insert);
+      sts.insert_image_version (im.version);
+      imb.version++;
+    }
+
+    insert_statement& st (sts.persist_statement ());
+    if (!st.execute ())
+      throw object_already_persistent ();
+
+    callback (db,
+              obj,
+              callback_event::post_persist);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  update (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    callback (db, obj, callback_event::pre_update);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, obj.id);
+
+    image_type& im (sts.image ());
+    if (init (im, obj, statement_update))
+      im.version++;
+
+    bool u (false);
+    binding& imb (sts.update_image_binding ());
+    if (im.version != sts.update_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_update);
+      sts.update_image_version (im.version);
+      imb.version++;
+      u = true;
+    }
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.update_id_image_version () ||
+        idb.version == 0)
+    {
+      if (i.version != sts.id_image_version () ||
+          idb.version == 0)
+      {
+        bind (idb.bind, i);
+        sts.id_image_version (i.version);
+        idb.version++;
+      }
+
+      sts.update_id_image_version (i.version);
+
+      if (!u)
+        imb.version++;
+    }
+
+    if (sts.update_statement ().execute () == 0)
+      throw object_not_persistent ();
+
+    callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  erase (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    ODB_POTENTIALLY_UNUSED (db);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    if (sts.erase_statement ().execute () != 1)
+      throw object_not_persistent ();
+
+    pointer_cache_traits::erase (db, id);
+  }
+
+  access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  find (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    {
+      pointer_type p (pointer_cache_traits::find (db, id));
+
+      if (!pointer_traits::null_ptr (p))
+        return p;
+    }
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (l.locked ())
+    {
+      if (!find_ (sts, &id))
+        return pointer_type ();
+    }
+
+    pointer_type p (
+      access::object_factory<object_type, pointer_type>::create ());
+    pointer_traits::guard pg (p);
+
+    pointer_cache_traits::insert_guard ig (
+      pointer_cache_traits::insert (db, id, p));
+
+    object_type& obj (pointer_traits::get_ref (p));
+
+    if (l.locked ())
+    {
+      select_statement& st (sts.find_statement ());
+      ODB_POTENTIALLY_UNUSED (st);
+
+      callback (db, obj, callback_event::pre_load);
+      init (obj, sts.image (), &db);
+      load_ (sts, obj);
+      sts.load_delayed ();
+      l.unlock ();
+      callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
+    }
+    else
+      sts.delay_load (id, obj, ig.position ());
+
+    ig.release ();
+    pg.release ();
+    return p;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  find (database& db, const id_type& id, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    reference_cache_traits::position_type pos (
+      reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
+    ig.release ();
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  reload (database& db, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    const id_type& id  (
+      obj.id);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  find_ (statements_type& sts, const id_type* id)
+  {
+    using namespace sqlite;
+
+    id_image_type& i (sts.id_image ());
+    init (i, *id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    select_statement& st (sts.find_statement ());
+    st.execute ();
+    auto_result ar (st);
+    select_statement::result r (st.fetch ());
+
+    if (r == select_statement::truncated)
+    {
+      if (grow (im, sts.select_image_truncated ()))
+        im.version++;
+
+      if (im.version != sts.select_image_version ())
+      {
+        bind (imb.bind, im, statement_select);
+        sts.select_image_version (im.version);
+        imb.version++;
+        st.refetch ();
+      }
+    }
+
+    return r != select_statement::no_data;
+  }
+
+  result< access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+    using odb::details::shared;
+    using odb::details::shared_ptr;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    q.init_parameters ();
+    shared_ptr<select_statement> st (
+      new (shared) select_statement (
+        conn,
+        query_statement + q.clause (),
+        q.parameters_binding (),
+        imb));
+
+    st->execute ();
+
+    shared_ptr< odb::object_result_impl<object_type> > r (
+      new (shared) sqlite::object_result_impl<object_type> (
+        q, st, sts));
+
+    return result<object_type> (r);
+  }
+
+  unsigned long long access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  erase_query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    q.init_parameters ();
+    delete_statement st (
+      conn,
+      erase_query_statement + q.clause (),
+      q.parameters_binding ());
+
+    return st.execute ();
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::
+  create_schema (database& db, unsigned short pass, bool drop)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (pass);
+    ODB_POTENTIALLY_UNUSED (drop);
+
+    if (drop)
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("DROP TABLE IF EXISTS \"Instance\"");
+          return false;
+        }
+      }
+    }
+    else
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("CREATE TABLE \"Instance\" (\n"
+                      "  \"id\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"component_id\" INTEGER,\n"
+                      "  \"location_link\" INTEGER NOT NULL,\n"
+                      "  \"location_offset\" REAL,\n"
+                      "  \"location_x\" REAL,\n"
+                      "  \"location_y\" REAL,\n"
+                      "  \"owner\" TEXT NOT NULL,\n"
+                      "  \"operational_status\" INTEGER NOT NULL,\n"
+                      "  \"schedule\" TEXT NOT NULL,\n"
+                      "  CONSTRAINT \"component_id_fk\"\n"
+                      "    FOREIGN KEY (\"component_id\")\n"
+                      "    REFERENCES \"Component\" (\"id\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED)");
+          return false;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  static const schema_catalog_entry
+  schema_catalog_entry_polaris_io_Instance_ (
+    id_sqlite,
+    "Supply",
+    &access::object_traits_impl< ::polaris::io::Instance, id_sqlite >::create_schema);
+
+  // Instance_Property_Values
+  //
+
+  const char alias_traits<  ::polaris::io::Instance,
+    id_sqlite,
+    access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::instatce_id_tag>::
+  table_name[] = "\"instatce_id\"";
+
+  access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  id (const image_type& i)
+  {
+    sqlite::database* db (0);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    id_type id;
+    {
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        id,
+        i.id_value,
+        i.id_null);
+    }
+
+    return id;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  grow (image_type& i, bool* t)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (t);
+
+    bool grew (false);
+
+    // id
+    //
+    t[0UL] = false;
+
+    // instatce_id
+    //
+    t[1UL] = false;
+
+    // key
+    //
+    t[2UL] = false;
+
+    // value
+    //
+    if (t[3UL])
+    {
+      i.value_value.capacity (i.value_size);
+      grew = true;
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  bind (sqlite::bind* b,
+        image_type& i,
+        sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    std::size_t n (0);
+
+    // id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.id_value;
+      b[n].is_null = &i.id_null;
+      n++;
+    }
+
+    // instatce_id
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.instatce_id_value;
+    b[n].is_null = &i.instatce_id_null;
+    n++;
+
+    // key
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.key_value;
+    b[n].is_null = &i.key_null;
+    n++;
+
+    // value
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.value_value.data ();
+    b[n].size = &i.value_size;
+    b[n].capacity = i.value_value.capacity ();
+    b[n].is_null = &i.value_null;
+    n++;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  bind (sqlite::bind* b, id_image_type& i)
+  {
+    std::size_t n (0);
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.id_value;
+    b[n].is_null = &i.id_null;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  init (image_type& i, const object_type& o, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    bool grew (false);
+
+    // id
+    //
+    if (sk == statement_insert)
+    {
+      int const& v =
+        o.id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        v);
+      i.id_null = is_null;
+    }
+
+    // instatce_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Instance > const& v =
+        o.instatce_id;
+
+      typedef object_traits< ::polaris::io::Instance > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Instance > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.instatce_id_value,
+          is_null,
+          id);
+        i.instatce_id_null = is_null;
+      }
+      else
+        i.instatce_id_null = true;
+    }
+
+    // key
+    //
+    {
+      int const& v =
+        o.key;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.key_value,
+        is_null,
+        v);
+      i.key_null = is_null;
+    }
+
+    // value
+    //
+    {
+      ::std::string const& v =
+        o.value;
+
+      bool is_null (false);
+      std::size_t cap (i.value_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.value_value,
+        i.value_size,
+        is_null,
+        v);
+      i.value_null = is_null;
+      grew = grew || (cap != i.value_value.capacity ());
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  init (object_type& o, const image_type& i, database* db)
+  {
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    // id
+    //
+    {
+      int& v =
+        o.id;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.id_value,
+        i.id_null);
+    }
+
+    // instatce_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Instance >& v =
+        o.instatce_id;
+
+      typedef object_traits< ::polaris::io::Instance > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Instance > > ptr_traits;
+
+      if (i.instatce_id_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.instatce_id_value,
+          i.instatce_id_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          static_cast<sqlite::database*> (db)->load<
+            obj_traits::object_type > (id));
+      }
+    }
+
+    // key
+    //
+    {
+      int& v =
+        o.key;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.key_value,
+        i.key_null);
+    }
+
+    // value
+    //
+    {
+      ::std::string& v =
+        o.value;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.value_value,
+        i.value_size,
+        i.value_null);
+    }
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  init (id_image_type& i, const id_type& id)
+  {
+    {
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        id);
+      i.id_null = is_null;
+    }
+  }
+
+  struct access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::container_statement_cache_type
+  {
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
+    {
+    }
+  };
+
+  const char access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::persist_statement[] =
+  "INSERT INTO \"Instance_Property_Values\" ("
+  "\"id\","
+  "\"instatce_id\","
+  "\"key\","
+  "\"value\")"
+  " VALUES (?,?,?,?)";
+
+  const char access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::find_statement[] =
+  "SELECT "
+  "\"Instance_Property_Values\".\"id\","
+  "\"Instance_Property_Values\".\"instatce_id\","
+  "\"Instance_Property_Values\".\"key\","
+  "\"Instance_Property_Values\".\"value\""
+  " FROM \"Instance_Property_Values\""
+  " WHERE \"Instance_Property_Values\".\"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::update_statement[] =
+  "UPDATE \"Instance_Property_Values\" SET "
+  "\"instatce_id\"=?,"
+  "\"key\"=?,"
+  "\"value\"=?"
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::erase_statement[] =
+  "DELETE FROM \"Instance_Property_Values\""
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::query_statement[] =
+  "SELECT "
+  "\"Instance_Property_Values\".\"id\","
+  "\"Instance_Property_Values\".\"instatce_id\","
+  "\"Instance_Property_Values\".\"key\","
+  "\"Instance_Property_Values\".\"value\""
+  " FROM \"Instance_Property_Values\""
+  " LEFT JOIN \"Instance\" AS \"instatce_id\" ON \"instatce_id\".\"id\"=\"Instance_Property_Values\".\"instatce_id\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::erase_query_statement[] =
+  "DELETE FROM \"Instance_Property_Values\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::table_name[] =
+  "\"Instance_Property_Values\"";
+
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  persist (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    callback (db,
+              obj,
+              callback_event::pre_persist);
+
+    image_type& im (sts.image ());
+    binding& imb (sts.insert_image_binding ());
+
+    if (init (im, obj, statement_insert))
+      im.version++;
+
+    if (im.version != sts.insert_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_insert);
+      sts.insert_image_version (im.version);
+      imb.version++;
+    }
+
+    insert_statement& st (sts.persist_statement ());
+    if (!st.execute ())
+      throw object_already_persistent ();
+
+    callback (db,
+              obj,
+              callback_event::post_persist);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  update (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    callback (db, obj, callback_event::pre_update);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, obj.id);
+
+    image_type& im (sts.image ());
+    if (init (im, obj, statement_update))
+      im.version++;
+
+    bool u (false);
+    binding& imb (sts.update_image_binding ());
+    if (im.version != sts.update_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_update);
+      sts.update_image_version (im.version);
+      imb.version++;
+      u = true;
+    }
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.update_id_image_version () ||
+        idb.version == 0)
+    {
+      if (i.version != sts.id_image_version () ||
+          idb.version == 0)
+      {
+        bind (idb.bind, i);
+        sts.id_image_version (i.version);
+        idb.version++;
+      }
+
+      sts.update_id_image_version (i.version);
+
+      if (!u)
+        imb.version++;
+    }
+
+    if (sts.update_statement ().execute () == 0)
+      throw object_not_persistent ();
+
+    callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  erase (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    ODB_POTENTIALLY_UNUSED (db);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    if (sts.erase_statement ().execute () != 1)
+      throw object_not_persistent ();
+
+    pointer_cache_traits::erase (db, id);
+  }
+
+  access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  find (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    {
+      pointer_type p (pointer_cache_traits::find (db, id));
+
+      if (!pointer_traits::null_ptr (p))
+        return p;
+    }
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (l.locked ())
+    {
+      if (!find_ (sts, &id))
+        return pointer_type ();
+    }
+
+    pointer_type p (
+      access::object_factory<object_type, pointer_type>::create ());
+    pointer_traits::guard pg (p);
+
+    pointer_cache_traits::insert_guard ig (
+      pointer_cache_traits::insert (db, id, p));
+
+    object_type& obj (pointer_traits::get_ref (p));
+
+    if (l.locked ())
+    {
+      select_statement& st (sts.find_statement ());
+      ODB_POTENTIALLY_UNUSED (st);
+
+      callback (db, obj, callback_event::pre_load);
+      init (obj, sts.image (), &db);
+      load_ (sts, obj);
+      sts.load_delayed ();
+      l.unlock ();
+      callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
+    }
+    else
+      sts.delay_load (id, obj, ig.position ());
+
+    ig.release ();
+    pg.release ();
+    return p;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  find (database& db, const id_type& id, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    reference_cache_traits::position_type pos (
+      reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
+    ig.release ();
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  reload (database& db, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    const id_type& id  (
+      obj.id);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  find_ (statements_type& sts, const id_type* id)
+  {
+    using namespace sqlite;
+
+    id_image_type& i (sts.id_image ());
+    init (i, *id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    select_statement& st (sts.find_statement ());
+    st.execute ();
+    auto_result ar (st);
+    select_statement::result r (st.fetch ());
+
+    if (r == select_statement::truncated)
+    {
+      if (grow (im, sts.select_image_truncated ()))
+        im.version++;
+
+      if (im.version != sts.select_image_version ())
+      {
+        bind (imb.bind, im, statement_select);
+        sts.select_image_version (im.version);
+        imb.version++;
+        st.refetch ();
+      }
+    }
+
+    return r != select_statement::no_data;
+  }
+
+  result< access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+    using odb::details::shared;
+    using odb::details::shared_ptr;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    q.init_parameters ();
+    shared_ptr<select_statement> st (
+      new (shared) select_statement (
+        conn,
+        query_statement + q.clause (),
+        q.parameters_binding (),
+        imb));
+
+    st->execute ();
+
+    shared_ptr< odb::object_result_impl<object_type> > r (
+      new (shared) sqlite::object_result_impl<object_type> (
+        q, st, sts));
+
+    return result<object_type> (r);
+  }
+
+  unsigned long long access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  erase_query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    q.init_parameters ();
+    delete_statement st (
+      conn,
+      erase_query_statement + q.clause (),
+      q.parameters_binding ());
+
+    return st.execute ();
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::
+  create_schema (database& db, unsigned short pass, bool drop)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (pass);
+    ODB_POTENTIALLY_UNUSED (drop);
+
+    if (drop)
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("DROP TABLE IF EXISTS \"Instance_Property_Values\"");
+          return false;
+        }
+      }
+    }
+    else
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("CREATE TABLE \"Instance_Property_Values\" (\n"
+                      "  \"id\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"instatce_id\" INTEGER,\n"
+                      "  \"key\" INTEGER NOT NULL,\n"
+                      "  \"value\" TEXT NOT NULL,\n"
+                      "  CONSTRAINT \"instatce_id_fk\"\n"
+                      "    FOREIGN KEY (\"instatce_id\")\n"
+                      "    REFERENCES \"Instance\" (\"id\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED)");
+          return false;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  static const schema_catalog_entry
+  schema_catalog_entry_polaris_io_Instance_Property_Values_ (
+    id_sqlite,
+    "Supply",
+    &access::object_traits_impl< ::polaris::io::Instance_Property_Values, id_sqlite >::create_schema);
+
+  // Action
+  //
+
+  const char alias_traits<  ::polaris::io::Component,
+    id_sqlite,
+    access::object_traits_impl< ::polaris::io::Action, id_sqlite >::component_id_tag>::
+  table_name[] = "\"component_id\"";
+
+  access::object_traits_impl< ::polaris::io::Action, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  id (const image_type& i)
+  {
+    sqlite::database* db (0);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    id_type id;
+    {
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        id,
+        i.id_value,
+        i.id_null);
+    }
+
+    return id;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  grow (image_type& i, bool* t)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (t);
+
+    bool grew (false);
+
+    // id
+    //
+    t[0UL] = false;
+
+    // component_id
+    //
+    t[1UL] = false;
+
+    // name
+    //
+    if (t[2UL])
+    {
+      i.name_value.capacity (i.name_size);
+      grew = true;
+    }
+
+    // Note
+    //
+    if (t[3UL])
+    {
+      i.Note_value.capacity (i.Note_size);
+      grew = true;
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  bind (sqlite::bind* b,
+        image_type& i,
+        sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    std::size_t n (0);
+
+    // id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.id_value;
+      b[n].is_null = &i.id_null;
+      n++;
+    }
+
+    // component_id
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.component_id_value;
+    b[n].is_null = &i.component_id_null;
+    n++;
+
+    // name
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.name_value.data ();
+    b[n].size = &i.name_size;
+    b[n].capacity = i.name_value.capacity ();
+    b[n].is_null = &i.name_null;
+    n++;
+
+    // Note
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.Note_value.data ();
+    b[n].size = &i.Note_size;
+    b[n].capacity = i.Note_value.capacity ();
+    b[n].is_null = &i.Note_null;
+    n++;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  bind (sqlite::bind* b, id_image_type& i)
+  {
+    std::size_t n (0);
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.id_value;
+    b[n].is_null = &i.id_null;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  init (image_type& i, const object_type& o, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    bool grew (false);
+
+    // id
+    //
+    if (sk == statement_insert)
+    {
+      int const& v =
+        o.id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        v);
+      i.id_null = is_null;
+    }
+
+    // component_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Component > const& v =
+        o.component_id;
+
+      typedef object_traits< ::polaris::io::Component > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Component > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.component_id_value,
+          is_null,
+          id);
+        i.component_id_null = is_null;
+      }
+      else
+        i.component_id_null = true;
+    }
+
+    // name
+    //
+    {
+      ::std::string const& v =
+        o.name;
+
+      bool is_null (false);
+      std::size_t cap (i.name_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.name_value,
+        i.name_size,
+        is_null,
+        v);
+      i.name_null = is_null;
+      grew = grew || (cap != i.name_value.capacity ());
+    }
+
+    // Note
+    //
+    {
+      ::std::string const& v =
+        o.Note;
+
+      bool is_null (false);
+      std::size_t cap (i.Note_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.Note_value,
+        i.Note_size,
+        is_null,
+        v);
+      i.Note_null = is_null;
+      grew = grew || (cap != i.Note_value.capacity ());
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  init (object_type& o, const image_type& i, database* db)
+  {
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    // id
+    //
+    {
+      int& v =
+        o.id;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.id_value,
+        i.id_null);
+    }
+
+    // component_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Component >& v =
+        o.component_id;
+
+      typedef object_traits< ::polaris::io::Component > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Component > > ptr_traits;
+
+      if (i.component_id_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.component_id_value,
+          i.component_id_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          static_cast<sqlite::database*> (db)->load<
+            obj_traits::object_type > (id));
+      }
+    }
+
+    // name
+    //
+    {
+      ::std::string& v =
+        o.name;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.name_value,
+        i.name_size,
+        i.name_null);
+    }
+
+    // Note
+    //
+    {
+      ::std::string& v =
+        o.Note;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.Note_value,
+        i.Note_size,
+        i.Note_null);
+    }
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  init (id_image_type& i, const id_type& id)
+  {
+    {
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        id);
+      i.id_null = is_null;
+    }
+  }
+
+  struct access::object_traits_impl< ::polaris::io::Action, id_sqlite >::container_statement_cache_type
+  {
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
+    {
+    }
+  };
+
+  const char access::object_traits_impl< ::polaris::io::Action, id_sqlite >::persist_statement[] =
+  "INSERT INTO \"Action\" ("
+  "\"id\","
+  "\"component_id\","
+  "\"name\","
+  "\"Note\")"
+  " VALUES (?,?,?,?)";
+
+  const char access::object_traits_impl< ::polaris::io::Action, id_sqlite >::find_statement[] =
+  "SELECT "
+  "\"Action\".\"id\","
+  "\"Action\".\"component_id\","
+  "\"Action\".\"name\","
+  "\"Action\".\"Note\""
+  " FROM \"Action\""
+  " WHERE \"Action\".\"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Action, id_sqlite >::update_statement[] =
+  "UPDATE \"Action\" SET "
+  "\"component_id\"=?,"
+  "\"name\"=?,"
+  "\"Note\"=?"
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Action, id_sqlite >::erase_statement[] =
+  "DELETE FROM \"Action\""
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Action, id_sqlite >::query_statement[] =
+  "SELECT "
+  "\"Action\".\"id\","
+  "\"Action\".\"component_id\","
+  "\"Action\".\"name\","
+  "\"Action\".\"Note\""
+  " FROM \"Action\""
+  " LEFT JOIN \"Component\" AS \"component_id\" ON \"component_id\".\"id\"=\"Action\".\"component_id\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Action, id_sqlite >::erase_query_statement[] =
+  "DELETE FROM \"Action\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Action, id_sqlite >::table_name[] =
+  "\"Action\"";
+
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  persist (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    callback (db,
+              obj,
+              callback_event::pre_persist);
+
+    image_type& im (sts.image ());
+    binding& imb (sts.insert_image_binding ());
+
+    if (init (im, obj, statement_insert))
+      im.version++;
+
+    if (im.version != sts.insert_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_insert);
+      sts.insert_image_version (im.version);
+      imb.version++;
+    }
+
+    insert_statement& st (sts.persist_statement ());
+    if (!st.execute ())
+      throw object_already_persistent ();
+
+    callback (db,
+              obj,
+              callback_event::post_persist);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  update (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    callback (db, obj, callback_event::pre_update);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, obj.id);
+
+    image_type& im (sts.image ());
+    if (init (im, obj, statement_update))
+      im.version++;
+
+    bool u (false);
+    binding& imb (sts.update_image_binding ());
+    if (im.version != sts.update_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_update);
+      sts.update_image_version (im.version);
+      imb.version++;
+      u = true;
+    }
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.update_id_image_version () ||
+        idb.version == 0)
+    {
+      if (i.version != sts.id_image_version () ||
+          idb.version == 0)
+      {
+        bind (idb.bind, i);
+        sts.id_image_version (i.version);
+        idb.version++;
+      }
+
+      sts.update_id_image_version (i.version);
+
+      if (!u)
+        imb.version++;
+    }
+
+    if (sts.update_statement ().execute () == 0)
+      throw object_not_persistent ();
+
+    callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  erase (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    ODB_POTENTIALLY_UNUSED (db);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    if (sts.erase_statement ().execute () != 1)
+      throw object_not_persistent ();
+
+    pointer_cache_traits::erase (db, id);
+  }
+
+  access::object_traits_impl< ::polaris::io::Action, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  find (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    {
+      pointer_type p (pointer_cache_traits::find (db, id));
+
+      if (!pointer_traits::null_ptr (p))
+        return p;
+    }
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (l.locked ())
+    {
+      if (!find_ (sts, &id))
+        return pointer_type ();
+    }
+
+    pointer_type p (
+      access::object_factory<object_type, pointer_type>::create ());
+    pointer_traits::guard pg (p);
+
+    pointer_cache_traits::insert_guard ig (
+      pointer_cache_traits::insert (db, id, p));
+
+    object_type& obj (pointer_traits::get_ref (p));
+
+    if (l.locked ())
+    {
+      select_statement& st (sts.find_statement ());
+      ODB_POTENTIALLY_UNUSED (st);
+
+      callback (db, obj, callback_event::pre_load);
+      init (obj, sts.image (), &db);
+      load_ (sts, obj);
+      sts.load_delayed ();
+      l.unlock ();
+      callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
+    }
+    else
+      sts.delay_load (id, obj, ig.position ());
+
+    ig.release ();
+    pg.release ();
+    return p;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  find (database& db, const id_type& id, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    reference_cache_traits::position_type pos (
+      reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
+    ig.release ();
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  reload (database& db, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    const id_type& id  (
+      obj.id);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  find_ (statements_type& sts, const id_type* id)
+  {
+    using namespace sqlite;
+
+    id_image_type& i (sts.id_image ());
+    init (i, *id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    select_statement& st (sts.find_statement ());
+    st.execute ();
+    auto_result ar (st);
+    select_statement::result r (st.fetch ());
+
+    if (r == select_statement::truncated)
+    {
+      if (grow (im, sts.select_image_truncated ()))
+        im.version++;
+
+      if (im.version != sts.select_image_version ())
+      {
+        bind (imb.bind, im, statement_select);
+        sts.select_image_version (im.version);
+        imb.version++;
+        st.refetch ();
+      }
+    }
+
+    return r != select_statement::no_data;
+  }
+
+  result< access::object_traits_impl< ::polaris::io::Action, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+    using odb::details::shared;
+    using odb::details::shared_ptr;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    q.init_parameters ();
+    shared_ptr<select_statement> st (
+      new (shared) select_statement (
+        conn,
+        query_statement + q.clause (),
+        q.parameters_binding (),
+        imb));
+
+    st->execute ();
+
+    shared_ptr< odb::object_result_impl<object_type> > r (
+      new (shared) sqlite::object_result_impl<object_type> (
+        q, st, sts));
+
+    return result<object_type> (r);
+  }
+
+  unsigned long long access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  erase_query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    q.init_parameters ();
+    delete_statement st (
+      conn,
+      erase_query_statement + q.clause (),
+      q.parameters_binding ());
+
+    return st.execute ();
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action, id_sqlite >::
+  create_schema (database& db, unsigned short pass, bool drop)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (pass);
+    ODB_POTENTIALLY_UNUSED (drop);
+
+    if (drop)
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("DROP TABLE IF EXISTS \"Action\"");
+          return false;
+        }
+      }
+    }
+    else
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("CREATE TABLE \"Action\" (\n"
+                      "  \"id\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"component_id\" INTEGER,\n"
+                      "  \"name\" TEXT NOT NULL,\n"
+                      "  \"Note\" TEXT NOT NULL,\n"
+                      "  CONSTRAINT \"component_id_fk\"\n"
+                      "    FOREIGN KEY (\"component_id\")\n"
+                      "    REFERENCES \"Component\" (\"id\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED)");
+          return false;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  static const schema_catalog_entry
+  schema_catalog_entry_polaris_io_Action_ (
+    id_sqlite,
+    "Supply",
+    &access::object_traits_impl< ::polaris::io::Action, id_sqlite >::create_schema);
+
+  // Action_Keys
+  //
+
+  const char alias_traits<  ::polaris::io::Action,
+    id_sqlite,
+    access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::action_id_tag>::
+  table_name[] = "\"action_id\"";
+
+  access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::id_type
+  access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  id (const image_type& i)
+  {
+    sqlite::database* db (0);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    id_type id;
+    {
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        id,
+        i.id_value,
+        i.id_null);
+    }
+
+    return id;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  grow (image_type& i, bool* t)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (t);
+
+    bool grew (false);
+
+    // id
+    //
+    t[0UL] = false;
+
+    // action_id
+    //
+    t[1UL] = false;
+
+    // key
+    //
+    if (t[2UL])
+    {
+      i.key_value.capacity (i.key_size);
+      grew = true;
+    }
+
+    // Note
+    //
+    if (t[3UL])
+    {
+      i.Note_value.capacity (i.Note_size);
+      grew = true;
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  bind (sqlite::bind* b,
+        image_type& i,
+        sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    std::size_t n (0);
+
+    // id
+    //
+    if (sk != statement_update)
+    {
+      b[n].type = sqlite::bind::integer;
+      b[n].buffer = &i.id_value;
+      b[n].is_null = &i.id_null;
+      n++;
+    }
+
+    // action_id
+    //
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.action_id_value;
+    b[n].is_null = &i.action_id_null;
+    n++;
+
+    // key
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.key_value.data ();
+    b[n].size = &i.key_size;
+    b[n].capacity = i.key_value.capacity ();
+    b[n].is_null = &i.key_null;
+    n++;
+
+    // Note
+    //
+    b[n].type = sqlite::image_traits<
+      ::std::string,
+      sqlite::id_text>::bind_value;
+    b[n].buffer = i.Note_value.data ();
+    b[n].size = &i.Note_size;
+    b[n].capacity = i.Note_value.capacity ();
+    b[n].is_null = &i.Note_null;
+    n++;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  bind (sqlite::bind* b, id_image_type& i)
+  {
+    std::size_t n (0);
+    b[n].type = sqlite::bind::integer;
+    b[n].buffer = &i.id_value;
+    b[n].is_null = &i.id_null;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  init (image_type& i, const object_type& o, sqlite::statement_kind sk)
+  {
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (sk);
+
+    using namespace sqlite;
+
+    bool grew (false);
+
+    // id
+    //
+    if (sk == statement_insert)
+    {
+      int const& v =
+        o.id;
+
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        v);
+      i.id_null = is_null;
+    }
+
+    // action_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Action > const& v =
+        o.action_id;
+
+      typedef object_traits< ::polaris::io::Action > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Action > > ptr_traits;
+
+      bool is_null (ptr_traits::null_ptr (v));
+      if (!is_null)
+      {
+        const obj_traits::id_type& id (
+          obj_traits::id (ptr_traits::get_ref (v)));
+
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_image (
+          i.action_id_value,
+          is_null,
+          id);
+        i.action_id_null = is_null;
+      }
+      else
+        i.action_id_null = true;
+    }
+
+    // key
+    //
+    {
+      ::std::string const& v =
+        o.key;
+
+      bool is_null (false);
+      std::size_t cap (i.key_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.key_value,
+        i.key_size,
+        is_null,
+        v);
+      i.key_null = is_null;
+      grew = grew || (cap != i.key_value.capacity ());
+    }
+
+    // Note
+    //
+    {
+      ::std::string const& v =
+        o.Note;
+
+      bool is_null (false);
+      std::size_t cap (i.Note_value.capacity ());
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_image (
+        i.Note_value,
+        i.Note_size,
+        is_null,
+        v);
+      i.Note_null = is_null;
+      grew = grew || (cap != i.Note_value.capacity ());
+    }
+
+    return grew;
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  init (object_type& o, const image_type& i, database* db)
+  {
+    ODB_POTENTIALLY_UNUSED (o);
+    ODB_POTENTIALLY_UNUSED (i);
+    ODB_POTENTIALLY_UNUSED (db);
+
+    // id
+    //
+    {
+      int& v =
+        o.id;
+
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_value (
+        v,
+        i.id_value,
+        i.id_null);
+    }
+
+    // action_id
+    //
+    {
+      ::std::tr1::shared_ptr< ::polaris::io::Action >& v =
+        o.action_id;
+
+      typedef object_traits< ::polaris::io::Action > obj_traits;
+      typedef odb::pointer_traits< ::std::tr1::shared_ptr< ::polaris::io::Action > > ptr_traits;
+
+      if (i.action_id_null)
+        v = ptr_traits::pointer_type ();
+      else
+      {
+        obj_traits::id_type id;
+        sqlite::value_traits<
+            obj_traits::id_type,
+            sqlite::id_integer >::set_value (
+          id,
+          i.action_id_value,
+          i.action_id_null);
+
+        // If a compiler error points to the line below, then
+        // it most likely means that a pointer used in a member
+        // cannot be initialized from an object pointer.
+        //
+        v = ptr_traits::pointer_type (
+          static_cast<sqlite::database*> (db)->load<
+            obj_traits::object_type > (id));
+      }
+    }
+
+    // key
+    //
+    {
+      ::std::string& v =
+        o.key;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.key_value,
+        i.key_size,
+        i.key_null);
+    }
+
+    // Note
+    //
+    {
+      ::std::string& v =
+        o.Note;
+
+      sqlite::value_traits<
+          ::std::string,
+          sqlite::id_text >::set_value (
+        v,
+        i.Note_value,
+        i.Note_size,
+        i.Note_null);
+    }
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  init (id_image_type& i, const id_type& id)
+  {
+    {
+      bool is_null (false);
+      sqlite::value_traits<
+          int,
+          sqlite::id_integer >::set_image (
+        i.id_value,
+        is_null,
+        id);
+      i.id_null = is_null;
+    }
+  }
+
+  struct access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::container_statement_cache_type
+  {
+    container_statement_cache_type (
+      sqlite::connection&,
+      sqlite::binding&)
+    {
+    }
+  };
+
+  const char access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::persist_statement[] =
+  "INSERT INTO \"Action_Keys\" ("
+  "\"id\","
+  "\"action_id\","
+  "\"key\","
+  "\"Note\")"
+  " VALUES (?,?,?,?)";
+
+  const char access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::find_statement[] =
+  "SELECT "
+  "\"Action_Keys\".\"id\","
+  "\"Action_Keys\".\"action_id\","
+  "\"Action_Keys\".\"key\","
+  "\"Action_Keys\".\"Note\""
+  " FROM \"Action_Keys\""
+  " WHERE \"Action_Keys\".\"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::update_statement[] =
+  "UPDATE \"Action_Keys\" SET "
+  "\"action_id\"=?,"
+  "\"key\"=?,"
+  "\"Note\"=?"
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::erase_statement[] =
+  "DELETE FROM \"Action_Keys\""
+  " WHERE \"id\"=?";
+
+  const char access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::query_statement[] =
+  "SELECT "
+  "\"Action_Keys\".\"id\","
+  "\"Action_Keys\".\"action_id\","
+  "\"Action_Keys\".\"key\","
+  "\"Action_Keys\".\"Note\""
+  " FROM \"Action_Keys\""
+  " LEFT JOIN \"Action\" AS \"action_id\" ON \"action_id\".\"id\"=\"Action_Keys\".\"action_id\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::erase_query_statement[] =
+  "DELETE FROM \"Action_Keys\""
+  " ";
+
+  const char access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::table_name[] =
+  "\"Action_Keys\"";
+
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  persist (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    callback (db,
+              obj,
+              callback_event::pre_persist);
+
+    image_type& im (sts.image ());
+    binding& imb (sts.insert_image_binding ());
+
+    if (init (im, obj, statement_insert))
+      im.version++;
+
+    if (im.version != sts.insert_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_insert);
+      sts.insert_image_version (im.version);
+      imb.version++;
+    }
+
+    insert_statement& st (sts.persist_statement ());
+    if (!st.execute ())
+      throw object_already_persistent ();
+
+    callback (db,
+              obj,
+              callback_event::post_persist);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  update (database& db, const object_type& obj)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+
+    using namespace sqlite;
+
+    callback (db, obj, callback_event::pre_update);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, obj.id);
+
+    image_type& im (sts.image ());
+    if (init (im, obj, statement_update))
+      im.version++;
+
+    bool u (false);
+    binding& imb (sts.update_image_binding ());
+    if (im.version != sts.update_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_update);
+      sts.update_image_version (im.version);
+      imb.version++;
+      u = true;
+    }
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.update_id_image_version () ||
+        idb.version == 0)
+    {
+      if (i.version != sts.id_image_version () ||
+          idb.version == 0)
+      {
+        bind (idb.bind, i);
+        sts.id_image_version (i.version);
+        idb.version++;
+      }
+
+      sts.update_id_image_version (i.version);
+
+      if (!u)
+        imb.version++;
+    }
+
+    if (sts.update_statement ().execute () == 0)
+      throw object_not_persistent ();
+
+    callback (db, obj, callback_event::post_update);
+    pointer_cache_traits::update (db, obj);
+  }
+
+  void access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  erase (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    ODB_POTENTIALLY_UNUSED (db);
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    id_image_type& i (sts.id_image ());
+    init (i, id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    if (sts.erase_statement ().execute () != 1)
+      throw object_not_persistent ();
+
+    pointer_cache_traits::erase (db, id);
+  }
+
+  access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::pointer_type
+  access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  find (database& db, const id_type& id)
+  {
+    using namespace sqlite;
+
+    {
+      pointer_type p (pointer_cache_traits::find (db, id));
+
+      if (!pointer_traits::null_ptr (p))
+        return p;
+    }
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (l.locked ())
+    {
+      if (!find_ (sts, &id))
+        return pointer_type ();
+    }
+
+    pointer_type p (
+      access::object_factory<object_type, pointer_type>::create ());
+    pointer_traits::guard pg (p);
+
+    pointer_cache_traits::insert_guard ig (
+      pointer_cache_traits::insert (db, id, p));
+
+    object_type& obj (pointer_traits::get_ref (p));
+
+    if (l.locked ())
+    {
+      select_statement& st (sts.find_statement ());
+      ODB_POTENTIALLY_UNUSED (st);
+
+      callback (db, obj, callback_event::pre_load);
+      init (obj, sts.image (), &db);
+      load_ (sts, obj);
+      sts.load_delayed ();
+      l.unlock ();
+      callback (db, obj, callback_event::post_load);
+      pointer_cache_traits::load (ig.position ());
+    }
+    else
+      sts.delay_load (id, obj, ig.position ());
+
+    ig.release ();
+    pg.release ();
+    return p;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  find (database& db, const id_type& id, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    reference_cache_traits::position_type pos (
+      reference_cache_traits::insert (db, id, obj));
+    reference_cache_traits::insert_guard ig (pos);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    reference_cache_traits::load (pos);
+    ig.release ();
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  reload (database& db, object_type& obj)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    statements_type::auto_lock l (sts);
+
+    const id_type& id  (
+      obj.id);
+
+    if (!find_ (sts, &id))
+      return false;
+
+    select_statement& st (sts.find_statement ());
+    ODB_POTENTIALLY_UNUSED (st);
+
+    callback (db, obj, callback_event::pre_load);
+    init (obj, sts.image (), &db);
+    load_ (sts, obj);
+    sts.load_delayed ();
+    l.unlock ();
+    callback (db, obj, callback_event::post_load);
+    return true;
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  find_ (statements_type& sts, const id_type* id)
+  {
+    using namespace sqlite;
+
+    id_image_type& i (sts.id_image ());
+    init (i, *id);
+
+    binding& idb (sts.id_image_binding ());
+    if (i.version != sts.id_image_version () || idb.version == 0)
+    {
+      bind (idb.bind, i);
+      sts.id_image_version (i.version);
+      idb.version++;
+    }
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    select_statement& st (sts.find_statement ());
+    st.execute ();
+    auto_result ar (st);
+    select_statement::result r (st.fetch ());
+
+    if (r == select_statement::truncated)
+    {
+      if (grow (im, sts.select_image_truncated ()))
+        im.version++;
+
+      if (im.version != sts.select_image_version ())
+      {
+        bind (imb.bind, im, statement_select);
+        sts.select_image_version (im.version);
+        imb.version++;
+        st.refetch ();
+      }
+    }
+
+    return r != select_statement::no_data;
+  }
+
+  result< access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::object_type >
+  access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+    using odb::details::shared;
+    using odb::details::shared_ptr;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    statements_type& sts (
+      conn.statement_cache ().find_object<object_type> ());
+
+    image_type& im (sts.image ());
+    binding& imb (sts.select_image_binding ());
+
+    if (im.version != sts.select_image_version () ||
+        imb.version == 0)
+    {
+      bind (imb.bind, im, statement_select);
+      sts.select_image_version (im.version);
+      imb.version++;
+    }
+
+    q.init_parameters ();
+    shared_ptr<select_statement> st (
+      new (shared) select_statement (
+        conn,
+        query_statement + q.clause (),
+        q.parameters_binding (),
+        imb));
+
+    st->execute ();
+
+    shared_ptr< odb::object_result_impl<object_type> > r (
+      new (shared) sqlite::object_result_impl<object_type> (
+        q, st, sts));
+
+    return result<object_type> (r);
+  }
+
+  unsigned long long access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  erase_query (database&, const query_base_type& q)
+  {
+    using namespace sqlite;
+
+    sqlite::connection& conn (
+      sqlite::transaction::current ().connection ());
+
+    q.init_parameters ();
+    delete_statement st (
+      conn,
+      erase_query_statement + q.clause (),
+      q.parameters_binding ());
+
+    return st.execute ();
+  }
+
+  bool access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::
+  create_schema (database& db, unsigned short pass, bool drop)
+  {
+    ODB_POTENTIALLY_UNUSED (db);
+    ODB_POTENTIALLY_UNUSED (pass);
+    ODB_POTENTIALLY_UNUSED (drop);
+
+    if (drop)
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("DROP TABLE IF EXISTS \"Action_Keys\"");
+          return false;
+        }
+      }
+    }
+    else
+    {
+      switch (pass)
+      {
+        case 1:
+        {
+          db.execute ("CREATE TABLE \"Action_Keys\" (\n"
+                      "  \"id\" INTEGER NOT NULL PRIMARY KEY,\n"
+                      "  \"action_id\" INTEGER,\n"
+                      "  \"key\" TEXT NOT NULL,\n"
+                      "  \"Note\" TEXT NOT NULL,\n"
+                      "  CONSTRAINT \"action_id_fk\"\n"
+                      "    FOREIGN KEY (\"action_id\")\n"
+                      "    REFERENCES \"Action\" (\"id\")\n"
+                      "    DEFERRABLE INITIALLY DEFERRED)");
+          return false;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  static const schema_catalog_entry
+  schema_catalog_entry_polaris_io_Action_Keys_ (
+    id_sqlite,
+    "Supply",
+    &access::object_traits_impl< ::polaris::io::Action_Keys, id_sqlite >::create_schema);
 }
 
 #include <odb/post.hxx>

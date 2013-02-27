@@ -10,7 +10,7 @@
 #include <odb/tr1/memory.hxx>
 using std::tr1::shared_ptr;
 
-namespace pio {
+namespace polaris {
 //Forward declarations.
 //
 class Meta;
